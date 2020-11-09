@@ -2,8 +2,8 @@
 
 ## 開発環境
 
-・Visual Studio 2019
-・ＤＸライブラリ Windows版 VisualStudio( C++ )用(Ver3.19b)
+- Visual Studio 2019 
+- ＤＸライブラリ Windows版 VisualStudio( C++ )用(Ver3.19b)
 
 ## ブランチ使用ルール
 
