@@ -5,8 +5,6 @@
 ・Visual Studio 2019
 ・ＤＸライブラリ Windows版 VisualStudio( C++ )用(Ver3.19b)
 
-1. 
-
 ## ブランチ使用ルール
 
 #### 使用手順
