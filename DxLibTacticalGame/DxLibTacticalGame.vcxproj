@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{f607abe4-7477-4579-b8e2-7b940efc8c01}</ProjectGuid>
+    <ProjectGuid>{33a16a0e-f861-41b2-9830-c7ca547381ad}</ProjectGuid>
     <RootNamespace>DxLibTacticalGame</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
