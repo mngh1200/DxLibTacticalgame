@@ -25,15 +25,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		// エスケープキーが押されたら終了
 		while (DxLib::ProcessMessage() == 0
-			&& DxLib::ClearDrawScreen() == 0
-			&& DxLib::CheckHitKey(KEY_INPUT_ESCAPE) == 0)
+			&& DxLib::ClearDrawScreen() == 0)
 		{
 			// DxLib::DrawGraph (game.getFrame(), 0, img, TRUE);
 
-			game.control();
-			DxLib::ScreenFlip();
+			// メインの処理
+			if (game.process() == -1) {
+				break;
+			}
 
-			
+			// 裏画面を表に持ってくる
+			DxLib::ScreenFlip();
 		}
 
 		DxLib::DxLib_End();				// ＤＸライブラリ使用の終了処理

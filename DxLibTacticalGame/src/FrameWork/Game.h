@@ -1,6 +1,7 @@
 #pragma once
 #include <climits>
 #include "DxLib.h"
+#include "Controller.h"
 
 namespace
 {
@@ -20,7 +21,7 @@ namespace FrameWork
 		Game& operator=(Game&&) = delete;
 
 		static Game& getInstance();
-		void control();
+		int process();
 		int getFrame() const;
 		void increaseFrame();
 
@@ -29,8 +30,13 @@ namespace FrameWork
 		~Game() {};
 		void controlFps();
 
+		//! フレームカウント
 		int frame_;
-		int waitTime_;  // for adjusting fps
+
+		//! 処理時間
+		int waitTime_;
+
+		//! 前回時刻
 		int prevTime_;
 	};
 }

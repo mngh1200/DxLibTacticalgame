@@ -14,6 +14,34 @@ namespace FrameWork
 
 	/**
 	 * @fn
+	 * フレーム管理用にループで呼ばれる処理
+	 * @return 終了時0を返す
+	 */
+	int Game::process()
+	{
+		// コントロール管理
+		Controller& controller = Controller::getInstance();
+		if (controller.getAllKeyPressed() != 0)
+		{
+			return -1;
+		}
+
+		controller.adjustKeyState();
+
+
+		if (controller.isKeyPressedNow(KEY_INPUT_ESCAPE)) {
+			return -1;
+		}
+
+		// FPS管理
+		controlFps();
+		increaseFrame();
+
+		return 0;
+	}
+
+	/**
+	 * @fn
 	 * FPS管理用
 	 */
 	void Game::controlFps()
@@ -52,15 +80,5 @@ namespace FrameWork
 	int Game::getFrame() const
 	{
 		return frame_;
-	}
-
-	/**
-	 * @fn
-	 * フレーム管理用にループで呼ばれる処理
-	 */
-	void Game::control()
-	{
-		controlFps();  // keep 60 fps
-		increaseFrame();
 	}
 }
