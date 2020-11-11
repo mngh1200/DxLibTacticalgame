@@ -4,6 +4,7 @@
 
 namespace
 {
+	//! キー入力の種類数
 	const int	KEY_LEN = 256;
 }
 
@@ -20,6 +21,12 @@ namespace FrameWork
 
 		static Controller& getInstance();
 
+		int getAllEvents();
+
+	private:
+		Controller() {};
+		~Controller() {};
+
 		/**
 		 * @enum KeyState
 		 * キーの入力状態
@@ -32,15 +39,8 @@ namespace FrameWork
 
 		bool isKeyPressed(int input) const;
 		bool isKeyPressedNow(int input) const;
-
-		int getAllKeyPressed();
-		void adjustKeyState();
-
-	private:
-		Controller() {};
-		~Controller() {};
-
 		char getKey(int input) const;
+
 
 		//! 各キーの入力状態
 		char key_[KEY_LEN];

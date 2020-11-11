@@ -21,17 +21,11 @@ namespace FrameWork
 	{
 		// ƒRƒ“ƒgƒ[ƒ‹ŠÇ—
 		Controller& controller = Controller::getInstance();
-		if (controller.getAllKeyPressed() != 0)
+		if (controller.getAllEvents() != 0)
 		{
 			return -1;
 		}
 
-		controller.adjustKeyState();
-
-
-		if (controller.isKeyPressedNow(KEY_INPUT_ESCAPE)) {
-			return -1;
-		}
 
 		// FPSŠÇ—
 		controlFps();

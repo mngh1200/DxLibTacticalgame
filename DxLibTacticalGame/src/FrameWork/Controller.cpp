@@ -14,6 +14,29 @@ namespace FrameWork
 
 	/**
 	 * @fn
+	 * 全てのキーの状態を取得
+	 */
+	int Controller::getAllEvents()
+	{
+		// 全てのキーの状態取得
+		if (DxLib::GetHitKeyStateAll(key_) != 0) {
+			return -1;
+		}
+
+		// キーの状態調整
+		for (int i = 0; i < KEY_LEN; i++)
+		{
+			if (prevKey_[i] == NOT_PRESSED && key_[i] == PRESSED)
+			{
+				key_[i] = PRESSED_NOW;  // if change state, set pressed state
+			}
+			prevKey_[i] = key_[i];
+		}
+		return 0;
+	}
+
+	/**
+	 * @fn
 	 * 対象キーが押下中か判定
 	 * @return true:押下中
 	 */
@@ -30,32 +53,6 @@ namespace FrameWork
 	bool Controller::isKeyPressedNow(int input) const
 	{
 		return getKey(input) == KeyState::PRESSED_NOW;
-	}
-
-	/**
-	 * @fn
-	 * 全てのキーの状態を取得
-	 */
-	int Controller::getAllKeyPressed()
-	{
-		return DxLib::GetHitKeyStateAll(key_);
-	}
-
-	/**
-	 * @fn
-	 * キーの押下状態を調整（押下した瞬間のキーの値を変更）
-	 */
-	void Controller::adjustKeyState()
-	{
-		for (int i = 0; i < KEY_LEN; i++)
-		{
-			// compare previous state with current state
-			if (prevKey_[i] == NOT_PRESSED && key_[i] == PRESSED)
-			{
-				key_[i] = PRESSED_NOW;  // if change state, set pressed state
-			}
-			prevKey_[i] = key_[i];
-		}
 	}
 
 	/**
