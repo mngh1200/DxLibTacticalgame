@@ -2,6 +2,9 @@
 #include <climits>
 #include "DxLib.h"
 #include "Controller.h"
+#include "Object/Object.h"
+
+using namespace Entity;
 
 namespace
 {

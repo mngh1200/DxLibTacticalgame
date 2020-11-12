@@ -1,4 +1,6 @@
 #include "Game.h"
+#include "Object/Object.h"
+#include "Object/Rect.h"
 
 namespace FrameWork
 {
@@ -19,6 +21,7 @@ namespace FrameWork
 	 */
 	int Game::process()
 	{
+
 		// ƒRƒ“ƒgƒ[ƒ‹ŠÇ—
 		Controller& controller = Controller::getInstance();
 		if (controller.getAllEvents() != 0)

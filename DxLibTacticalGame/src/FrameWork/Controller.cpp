@@ -32,6 +32,7 @@ namespace FrameWork
 			}
 			prevKey_[i] = key_[i];
 		}
+
 		return 0;
 	}
 

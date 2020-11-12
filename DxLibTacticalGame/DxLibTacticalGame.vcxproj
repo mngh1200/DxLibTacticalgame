@@ -145,13 +145,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Object\Object.cpp" />
     <ClCompile Include="src\FrameWork\Controller.cpp" />
     <ClCompile Include="src\FrameWork\Game.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Object\Rect.cpp" />
+    <ClCompile Include="src\Object\Shape.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Object\Object.h" />
     <ClInclude Include="src\FrameWork\Controller.h" />
     <ClInclude Include="src\FrameWork\Game.h" />
+    <ClInclude Include="src\Object\Rect.h" />
+    <ClInclude Include="src\Object\Shape.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
