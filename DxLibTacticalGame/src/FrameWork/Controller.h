@@ -1,6 +1,7 @@
 #pragma once
 #include <climits>
 #include "DxLib.h"
+#include "Game.h"
 
 namespace
 {
@@ -18,6 +19,7 @@ namespace FrameWork
 		 * マウスイベント
 		 */
 		enum {
+			MOUSE_NONE_EVENT,
 			MOUSE_LEFT_DOWN,
 			MOUSE_RIGHT_DOWN,
 			MOUSE_WHEEL_DOWN,

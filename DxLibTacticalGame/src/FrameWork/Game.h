@@ -1,10 +1,12 @@
 #pragma once
 #include <climits>
+#include <list>
 #include "DxLib.h"
 #include "Controller.h"
-#include "Object/Object.h"
+#include "Entity/Object.h"
+#include "Entity/Shape.h"
 
-using namespace Entity;
+using namespace std;
 
 namespace
 {
@@ -27,6 +29,9 @@ namespace FrameWork
 		int process();
 		int getFrame() const;
 		void increaseFrame();
+		
+		//! テスト用
+		Entity::Object obj;
 
 	private:
 		Game() : frame_(0), prevTime_(0) {};
@@ -41,5 +46,8 @@ namespace FrameWork
 
 		//! 前回時刻
 		int prevTime_;
+
+		//! テスト用
+		bool isInit = true;
 	};
 }

@@ -1,6 +1,4 @@
 #include "Game.h"
-#include "Object/Object.h"
-#include "Object/Rect.h"
 
 namespace FrameWork
 {
@@ -21,6 +19,12 @@ namespace FrameWork
 	 */
 	int Game::process()
 	{
+		if (isInit) {
+			Entity::Shape shape(0, 0, 100, 100);
+			obj = Entity::Object(&shape);
+			// objectList.push_back(Object(sh));
+			// objectList.push_back(1);
+		}
 
 		// ƒRƒ“ƒgƒ[ƒ‹ŠÇ—
 		Controller& controller = Controller::getInstance();

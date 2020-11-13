@@ -19,11 +19,11 @@
     <Filter Include="ヘッダー ファイル\FrameWork">
       <UniqueIdentifier>{d22f4360-000c-41f0-a685-8afdf5e66212}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Object">
-      <UniqueIdentifier>{c249e067-f84a-418b-beca-c60bef823bf6}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Entity">
+      <UniqueIdentifier>{bdcce9fc-3a5d-440a-bf02-5ff19d8621ca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Object">
-      <UniqueIdentifier>{d12667d6-7287-4161-b110-609415ca92bc}</UniqueIdentifier>
+    <Filter Include="ヘッダー ファイル\Entity">
+      <UniqueIdentifier>{441bcf55-bb6a-4e55-b3d6-331239bf0eaa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -36,14 +36,11 @@
     <ClCompile Include="src\FrameWork\Controller.cpp">
       <Filter>ソース ファイル\FrameWork</Filter>
     </ClCompile>
-    <ClCompile Include="src\Object\Object.cpp">
-      <Filter>ソース ファイル\Object</Filter>
+    <ClCompile Include="src\Entity\Object.cpp">
+      <Filter>ソース ファイル\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="src\Object\Rect.cpp">
-      <Filter>ソース ファイル\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Object\Shape.cpp">
-      <Filter>ソース ファイル\Object</Filter>
+    <ClCompile Include="src\Entity\Shape.cpp">
+      <Filter>ソース ファイル\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -53,14 +50,11 @@
     <ClInclude Include="src\FrameWork\Controller.h">
       <Filter>ヘッダー ファイル\FrameWork</Filter>
     </ClInclude>
-    <ClInclude Include="src\Object\Object.h">
-      <Filter>ヘッダー ファイル\Object</Filter>
+    <ClInclude Include="src\Entity\Object.h">
+      <Filter>ヘッダー ファイル\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="src\Object\Shape.h">
-      <Filter>ヘッダー ファイル\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Object\Rect.h">
-      <Filter>ヘッダー ファイル\Object</Filter>
+    <ClInclude Include="src\Entity\Shape.h">
+      <Filter>ヘッダー ファイル\Entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

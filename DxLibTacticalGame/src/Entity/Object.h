@@ -1,20 +1,20 @@
 #pragma once
 #include <climits>
-#include "DxLib.h"
-#include "FrameWork/Controller.h"
 #include "Shape.h"
+#include "DxLib.h"
 
 namespace Entity
 {
 	class Object
 	{
 	public:
-		Object() : isMouseDown_(false), isMouseOver_(false) {};
+		Object() : isMouseDown_(false), isMouseOver_(false), objectType_(Object::ObjectType::OBJECT) {};
 		Object(Shape* shape);
 		~Object();
 
-		bool isHit(int x, int y, int mouseStatus);
-	private:
+		bool checkMouseEvent(int x, int y, int button, int eventType, bool isOtherHit);
+
+	protected:
 		/**
 		 * @fn
 		 * マウスが左ボタンで押下された瞬間の処理
@@ -66,5 +66,18 @@ namespace Entity
 
 		//! マウスにホバーされているか
 		bool isMouseOver_;
+
+		/**
+		 * @enum ObjectType
+		 * オブジェクトの種類
+		 */
+		enum ObjectType {
+			OBJECT,
+			BACKGROUND,
+			UNIT,
+			MASS
+		};
+
+		ObjectType objectType_;
 	};
 }

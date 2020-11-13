@@ -1,5 +1,6 @@
 #include "Controller.h"
 
+
 namespace FrameWork
 {
 	/**
@@ -32,6 +33,28 @@ namespace FrameWork
 			}
 			prevKey_[i] = key_[i];
 		}
+
+		// マウスイベント取得
+		int x, y, button, eventType;
+		
+		if (DxLib::GetMouseInputLog2(&button, &x, &y, &eventType, true) == -1)
+		{
+			// マウスイベントログがなかった場合、マウスの位置だけ取得
+			eventType = -1;
+			button = -1;
+			if (DxLib::GetMousePoint(&x, &y) == -1)
+			{
+				return -1;
+			}
+		}
+
+		Game& game = Game::getInstance();
+		
+		// テスト処理（ホバーされたときに消す）
+		if (game.obj.checkMouseEvent(x, y, button, eventType, false)) {
+			return -1;
+		}
+
 
 		return 0;
 	}
