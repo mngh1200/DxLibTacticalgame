@@ -2,8 +2,17 @@
 
 ## 開発環境
 
+
+#### 準備するもの
+
 - Visual Studio 2019 
 - ＤＸライブラリ Windows版 VisualStudio( C++ )用(Ver3.19b)
+
+#### 構築手順
+
+1. ＤＸライブラリを解凍
+2. C:\Libraryを作成
+3. DxLib_VCというフォルダをC:\Libraryに設置
 
 ## ブランチ使用ルール
 
