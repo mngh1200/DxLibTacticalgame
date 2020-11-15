@@ -5,12 +5,14 @@ namespace Entity
 	/**
 	 * @fn
 	 * 当たり判定（主にマウスイベンWト用に使用）
+	 * @param (mouseX) マウスのx座標
+	 * @param (mouseY) マウスのy座標
 	 */
-	bool Shape::isHit(int x, int y) const
+	bool Shape::isHit(int mouseX, int mouseY) const
 	{
-		if (type_ == RECT) 
+		if (type == RECT) 
 		{
-			return x_ <= x && x <= (x_ + w_) && y_ <= y && y <= y_ + h_;
+			return x <= mouseX && mouseX <= (x + w) && y <= mouseY && mouseY <= y + h;
 		}
 		return false;
 	}
@@ -18,54 +20,58 @@ namespace Entity
 	/**
 	 * @fn
 	 * 位置セット
+	 * @param (x) x座標
+	 * @param (y) y座標
 	 */
 	void Shape::set(int x, int y)
 	{
-		x_ = x;
-		y_ = y;
+		this->x = x;
+		this->y = y;
 	}
 
 	/**
 	 * @fn
 	 * 位置とサイズセット
+	 * @param (x) x座標
+	 * @param (y) y座標
+	 * @param (w) 幅
+	 * @param (h) 高さ
 	 */
 	void Shape::set(int x, int y, int w, int h)
 	{
-		x_ = x;
-		y_ = y;
-		w_ = w;
-		h_ = h;
+		this->x = x;
+		this->y = y;
+		this->w = w;
+		this->h = h;
 	}
 
 	/**
 	 * @fn
 	 * 位置とサイズと形状セット
+	 * @param (x) x座標
+	 * @param (y) y座標
+	 * @param (w) 幅
+	 * @param (h) 高さ
+	 * @param (type) 形状
 	 */
 	void Shape::set(int x, int y, int w, int h, int type)
 	{
-		x_ = x;
-		y_ = y;
-		w_ = w;
-		h_ = h;
-		type_ = type;
+		this->x = x;
+		this->y = y;
+		this->w = w;
+		this->h = h;
+		this->type = type;
 	}
 
 	/**
 	 * @fn
 	 * サイズセット
+	 * @param (w) 幅
+	 * @param (h) 高さ
 	 */
 	void Shape::setSize(int w, int h)
 	{
-		w_ = w;
-		h_ = h;
-	}
-
-	/**
-	 * @fn
-	 * 形状セット
-	 */
-	void Shape::setType(int type)
-	{
-		type_ = type;
+		this->w = w;
+		this->h = h;
 	}
 }
