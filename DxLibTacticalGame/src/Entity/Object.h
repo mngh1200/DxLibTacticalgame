@@ -10,7 +10,7 @@ namespace Entity
 	public:
 		Object() : isMouseDown_(false), isMouseOver_(false), objectType_(Object::ObjectType::OBJECT) {};
 		Object(Shape* shape);
-		~Object();
+		~Object() {};
 
 		bool checkMouseEvent(int x, int y, int button, int eventType, bool isOtherHit);
 

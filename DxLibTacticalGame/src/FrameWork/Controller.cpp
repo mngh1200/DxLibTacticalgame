@@ -16,6 +16,7 @@ namespace FrameWork
 	/**
 	 * @fn
 	 * 全てのキーの状態を取得
+	 * @return デフォルト: 0 , ゲーム終了判定: -1
 	 */
 	int Controller::getAllEvents()
 	{
@@ -82,6 +83,7 @@ namespace FrameWork
 	/**
 	 * @fn
 	 * 対象キーの状態取得
+	 * @return 対象キーの状態
 	 */
 	char Controller::getKey(int input) const
 	{

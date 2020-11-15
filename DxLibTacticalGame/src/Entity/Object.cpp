@@ -1,6 +1,11 @@
 #include "Object.h"
 
 namespace Entity {
+	/**
+	 * @fn
+	 * オブジェクトの実態を
+	 * @param (shape) オブジェクトの実体要素
+	 */
 	Object::Object(Shape* shape)
 	{
 		shape_ = shape;
@@ -80,13 +85,4 @@ namespace Entity {
 		}
 		return isHit;
 	}
-
-	/**
-	 * @fn
-	 * デストラクタ
-	 */
-		Object::~Object()
-		{
-			// delete shape_;
-		}
 }
