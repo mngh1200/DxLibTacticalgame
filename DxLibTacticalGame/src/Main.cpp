@@ -4,8 +4,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {
 	{
+		// Windowタイトル
 		DxLib::SetWindowTextA("DxLibTacticalGame");
 
+		// Windowモード設定
 		if (DxLib::ChangeWindowMode(true) != DX_CHANGESCREEN_OK
 			|| DxLib::DxLib_Init() == -1
 			|| DxLib::SetWindowSizeExtendRate(1.0) == -1
@@ -14,16 +16,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			return -1;
 		}
 
+		// 裏画面設定
 		if (DxLib::SetDrawScreen(DX_SCREEN_BACK) == -1)
 		{
 			return -1;
 		}
 
+		// Gameインスタンス設定
 		FrameWork::Game& game = FrameWork::Game::getInstance();
 
 		// int img = DxLib::LoadGraph("resource/test1.bmp");
 
-		// エスケープキーが押されたら終了
 		while (DxLib::ProcessMessage() == 0
 			&& DxLib::ClearDrawScreen() == 0)
 		{
