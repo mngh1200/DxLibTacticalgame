@@ -8,11 +8,11 @@ namespace Entity
 	 * @param (mouseX) マウスのx座標
 	 * @param (mouseY) マウスのy座標
 	 */
-	bool Shape::isHit(int mouseX, int mouseY) const
+	bool Shape::isHit(int x, int y) const
 	{
 		if (type == RECT) 
 		{
-			return x <= mouseX && mouseX <= (x + w) && y <= mouseY && mouseY <= y + h;
+			return this->x <= x && x <= (this->x + this->w) && this->y <= y && y <= (this->y + this->h);
 		}
 		return false;
 	}
