@@ -12,6 +12,8 @@ namespace Entity {
 		isMouseDown_ = false;
 		isMouseOver_ = false;
 		objectType_ = OBJECT;
+		isTrans_ = false;
+		imagePath_ = -1;
 	}
 	/**
 	 * @fn
@@ -84,5 +86,14 @@ namespace Entity {
 			}
 		}
 		return isHit;
+	}
+
+	/**
+	 * @fn
+	 * •`‰æˆ—
+	 */
+	void Object::render() 
+	{
+		DxLib::DrawGraph(shape_->x, shape_->y, imagePath_, isTrans_);
 	}
 }

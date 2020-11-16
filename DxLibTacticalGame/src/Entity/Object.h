@@ -8,11 +8,15 @@ namespace Entity
 	class Object
 	{
 	public:
-		Object() : isMouseDown_(false), isMouseOver_(false), objectType_(Object::ObjectType::OBJECT) {};
+		Object() : 
+			isMouseDown_(false), isMouseOver_(false), objectType_(Object::ObjectType::OBJECT),
+			isTrans_(false), imagePath_(-1) {};
 		Object(Shape* shape);
-		~Object() {};
+		virtual ~Object() = 0;
 
 		bool checkMouseEvent(int x, int y, int button, int eventType, bool isOtherHit);
+
+		void render();
 
 	protected:
 		/**
@@ -58,6 +62,8 @@ namespace Entity
 		 */
 		void onMouseWheelUp() {};
 
+		void renderExtend();
+
 		//! オブジェクトの形状(位置やサイズ)
 		Shape* shape_;
 
@@ -78,6 +84,13 @@ namespace Entity
 			MASS
 		};
 
+		//! Objectの種類
 		ObjectType objectType_;
+
+		//! 画像を透過させるか
+		bool isTrans_;
+
+		//! DxLibで読み込んだ画像のパス
+		int imagePath_;
 	};
 }
