@@ -25,7 +25,7 @@ namespace Entity {
 	 * @param (isOtherHit) マウスのy座標
 	 * @return マウスが接触しているときにtrue
 	 */
-	bool Object::checkMouseEvent(int x, int y, int button, int eventType, bool isOtherHit)
+	bool Object::checkMouseEvent(int x, int y, int button, int* eventType, bool isOtherHit)
 	{
 		bool isHit = false;
 
@@ -46,6 +46,14 @@ namespace Entity {
 					else
 					{
 						onMouseLeftUp(); // 左離し時
+
+						if (isMouseDown_)
+						{
+							onMouseClick();
+							// eventTypeをクリックに書き換える
+							*eventType = MOUSE_INPUT_LOG_CLICK;
+						}
+							
 						isMouseDown_ = false;
 					}
 				}
@@ -92,8 +100,17 @@ namespace Entity {
 	 * @fn
 	 * 描画処理
 	 */
-	void Object::render() 
+	void Object::render() const
 	{
 		DxLib::DrawGraph(shape_->x, shape_->y, imagePath_, isTrans_);
+	}
+
+	/**
+	 * @fn
+	 * shape_のサイズに合わせた描画処理
+	 */
+	void Object::renderExtend() const
+	{
+		DxLib::DrawExtendGraph(shape_->x, shape_->y, shape_->getX2(), shape_->getY2(), imagePath_, isTrans_);
 	}
 }

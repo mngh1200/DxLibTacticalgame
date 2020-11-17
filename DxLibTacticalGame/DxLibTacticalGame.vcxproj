@@ -158,6 +158,7 @@
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Define.h" />
     <ClInclude Include="src\Entity\Object.h" />
     <ClInclude Include="src\Entity\Shape.h" />
     <ClInclude Include="src\FrameWork\Controller.h" />

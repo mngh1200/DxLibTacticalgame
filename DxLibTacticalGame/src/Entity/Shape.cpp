@@ -12,9 +12,29 @@ namespace Entity
 	{
 		if (type == RECT) 
 		{
-			return this->x <= x && x <= (this->x + this->w) && this->y <= y && y <= (this->y + this->h);
+			return this->x <= x && x <= this->getX2() && this->y <= y && y <= this->getY2();
 		}
 		return false;
+	}
+
+	/**
+	 * @fn
+	 * 右側のX座標取得
+	 * @return 右側のX座標
+	 */
+	int Shape::getX2() const
+	{
+		return x + w;
+	}
+
+	/**
+	 * @fn
+	 * 下側のY座標取得
+	 * @return 下側のY座標
+	 */
+	int Shape::getY2() const
+	{
+		return y + h;
 	}
 
 	/**

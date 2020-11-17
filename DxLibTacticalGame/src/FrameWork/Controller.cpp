@@ -52,7 +52,8 @@ namespace FrameWork
 		Game& game = Game::getInstance();
 		
 		// テスト処理（ホバーされたときに消す）
-		if (game.obj.checkMouseEvent(x, y, button, eventType, false)) {
+		if (game.obj.checkMouseEvent(x, y, button, &eventType, false)) 
+		{
 			return -1;
 		}
 

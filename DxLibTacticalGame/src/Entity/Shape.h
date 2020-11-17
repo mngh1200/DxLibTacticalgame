@@ -12,6 +12,9 @@ namespace Entity
 
 		bool isHit(int x, int y) const;
 
+		int getX2() const;
+		int getY2() const;
+
 		void set(int x, int y);
 		void set(int x, int y, int w, int h);
 		void set(int x, int y, int w, int h, int type);

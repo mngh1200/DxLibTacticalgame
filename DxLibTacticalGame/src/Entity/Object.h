@@ -2,6 +2,7 @@
 #include <climits>
 #include "Shape.h"
 #include "DxLib.h"
+#include "Define.h"
 
 namespace Entity
 {
@@ -12,11 +13,11 @@ namespace Entity
 			isMouseDown_(false), isMouseOver_(false), objectType_(Object::ObjectType::OBJECT),
 			isTrans_(false), imagePath_(-1) {};
 		Object(Shape* shape);
-		virtual ~Object() = 0;
+		virtual ~Object() {};
 
-		bool checkMouseEvent(int x, int y, int button, int eventType, bool isOtherHit);
+		bool checkMouseEvent(int x, int y, int button, int* eventType, bool isOtherHit);
 
-		void render();
+		void render() const;
 
 	protected:
 		/**
@@ -29,6 +30,11 @@ namespace Entity
 		 * マウスの左ボタンが押し上げられた瞬間の処理
 		 */
 		void onMouseLeftUp() {};
+		/**
+		 * @fn
+		 * クリックされた瞬間の処理
+		 */
+		void onMouseClick() {};
 		/**
 		 * @fn
 		 * マウスにホバーされた瞬間の処理
@@ -62,7 +68,7 @@ namespace Entity
 		 */
 		void onMouseWheelUp() {};
 
-		void renderExtend();
+		void renderExtend() const;
 
 		//! オブジェクトの形状(位置やサイズ)
 		Shape* shape_;
