@@ -25,6 +25,12 @@
     <Filter Include="ヘッダー ファイル\Entity">
       <UniqueIdentifier>{441bcf55-bb6a-4e55-b3d6-331239bf0eaa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Entity\UI">
+      <UniqueIdentifier>{ff371e08-eef1-458c-8b88-2d5af6737340}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entity\UI">
+      <UniqueIdentifier>{e62a4c02-6b02-4035-8f2e-32371d7eda23}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -42,6 +48,12 @@
     <ClCompile Include="src\Entity\Shape.cpp">
       <Filter>ソース ファイル\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entity\UI\Back.cpp">
+      <Filter>ソース ファイル\Entity\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\UI\Button.cpp">
+      <Filter>ソース ファイル\Entity\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -58,6 +70,12 @@
     </ClInclude>
     <ClInclude Include="src\Define.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\UI\Back.h">
+      <Filter>ヘッダー ファイル\Entity\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\UI\Button.h">
+      <Filter>ヘッダー ファイル\Entity\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

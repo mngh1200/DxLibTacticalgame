@@ -1,9 +1,15 @@
 #pragma once
 #include <climits>
+#include <iostream>
+#include <vector>
 #include <list>
+#include <memory>
+#include "Define.h"
 #include "DxLib.h"
 #include "Controller.h"
 #include "Entity/Object.h"
+#include "Entity/UI/Back.h"
+#include "Entity/UI/Button.h"
 #include "Entity/Shape.h"
 
 using namespace std;
@@ -30,8 +36,8 @@ namespace FrameWork
 		int getFrame() const;
 		void increaseFrame();
 		
-		//! テスト用
-		Entity::Object obj;
+		//! 各レイヤーのオブジェクト管理用変数 vector(各レイヤー)、list(各レイヤーで管理しているObject)
+		vector<list<shared_ptr<Entity::Object>>> layerObjList;
 
 	private:
 		Game() : frame_(0), prevTime_(0) {};

@@ -50,11 +50,26 @@ namespace FrameWork
 		}
 
 		Game& game = Game::getInstance();
+
+		//! 接触オブジェクトを見つけたか
+		bool isFoundHitObj = false;
 		
-		// テスト処理（ホバーされたときに消す）
-		if (game.obj.checkMouseEvent(x, y, button, &eventType, false)) 
+		// マウスイベント
+		for (auto&& layer : game.layerObjList)
 		{
-			return -1;
+			for (auto&& obj : layer)
+			{
+				if (obj->checkMouseEvent(x, y, button, &eventType, isFoundHitObj)) {
+					// マウス接触
+					isFoundHitObj = true;
+
+					// テスト（ボタン押下時終了）
+					if (obj->objectType == Entity::Object::ObjectType::BUTTON && eventType == MOUSE_INPUT_LOG_UP)
+					{
+						return -1;
+					}
+				}
+			}
 		}
 
 

@@ -19,11 +19,27 @@ namespace FrameWork
 	 */
 	int Game::process()
 	{
+		// テスト用コード
 		if (isInit) {
+			// 初期処理
 			Entity::Shape shape(0, 0, 100, 100);
-			obj = Entity::Object(&shape);
-			// objectList.push_back(Object(sh));
-			// objectList.push_back(1);
+			// Entity::Object(&shape);
+
+			layerObjList.clear();
+
+			// レイヤー追加
+			for (int i = 0; i < InitLayer::LEN; i++)
+			{
+				layerObjList.push_back(list<shared_ptr<Entity::Object>>());
+			}
+
+			// 背景追加
+			layerObjList.at(InitLayer::BACK).push_back(make_shared<Entity::Back>());
+
+			// ボタン追加
+			layerObjList.at(InitLayer::BUTTON).push_back(make_shared<Entity::Button>(Entity::Shape(WIN_W/2 - 50, WIN_H / 2 - 15, 100, 30)));
+
+			isInit = false;
 		}
 
 		// コントロール管理
@@ -31,6 +47,16 @@ namespace FrameWork
 		if (controller.getAllEvents() != 0)
 		{
 			return -1;
+		}
+
+		// 描画処理
+		for (auto layerItr = rbegin(layerObjList); layerItr != rend(layerObjList); ++layerItr) {
+			auto objItr = layerItr->rbegin();
+			while (objItr != layerItr->rend())
+			{
+				(*objItr)->render();
+				objItr++;
+			}
 		}
 
 

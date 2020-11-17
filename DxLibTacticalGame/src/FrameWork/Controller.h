@@ -1,7 +1,11 @@
 #pragma once
 #include <climits>
+#include <vector>
+#include <list>
 #include "DxLib.h"
 #include "Game.h"
+#include "Entity/Object.h"
+
 
 namespace
 {

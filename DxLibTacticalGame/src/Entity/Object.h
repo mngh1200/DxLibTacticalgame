@@ -10,14 +10,29 @@ namespace Entity
 	{
 	public:
 		Object() : 
-			isMouseDown_(false), isMouseOver_(false), objectType_(Object::ObjectType::OBJECT),
+			isMouseDown_(false), isMouseOver_(false), objectType(Object::ObjectType::OBJECT),
 			isTrans_(false), imagePath_(-1) {};
-		Object(Shape* shape);
+		Object(Shape shape);
 		virtual ~Object() {};
 
 		bool checkMouseEvent(int x, int y, int button, int* eventType, bool isOtherHit);
 
-		void render() const;
+		virtual void render() const;
+
+		/**
+		 * @enum ObjectType
+		 * オブジェクトの種類
+		 */
+		enum ObjectType {
+			OBJECT,
+			BACKGROUND,
+			BUTTON,
+			UNIT,
+			MASS
+		};
+
+		//! Objectの種類
+		ObjectType objectType;
 
 	protected:
 		/**
@@ -71,27 +86,13 @@ namespace Entity
 		void renderExtend() const;
 
 		//! オブジェクトの形状(位置やサイズ)
-		Shape* shape_;
+		Shape shape_;
 
 		//! マウスに左ボタンで押下されているか（とりあえず左ボタンだけ）
 		bool isMouseDown_;
 
 		//! マウスにホバーされているか
 		bool isMouseOver_;
-
-		/**
-		 * @enum ObjectType
-		 * オブジェクトの種類
-		 */
-		enum ObjectType {
-			OBJECT,
-			BACKGROUND,
-			UNIT,
-			MASS
-		};
-
-		//! Objectの種類
-		ObjectType objectType_;
 
 		//! 画像を透過させるか
 		bool isTrans_;

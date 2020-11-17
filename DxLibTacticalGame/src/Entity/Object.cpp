@@ -6,12 +6,12 @@ namespace Entity {
 	 * オブジェクトの実態を
 	 * @param (shape) オブジェクトの実体要素
 	 */
-	Object::Object(Shape* shape)
+	Object::Object(Shape shape)
 	{
 		shape_ = shape;
 		isMouseDown_ = false;
 		isMouseOver_ = false;
-		objectType_ = OBJECT;
+		objectType = OBJECT;
 		isTrans_ = false;
 		imagePath_ = -1;
 	}
@@ -29,9 +29,9 @@ namespace Entity {
 	{
 		bool isHit = false;
 
-		if (shape_ != nullptr)
+		if (&shape_ != nullptr)
 		{
-			isHit = !isOtherHit && (shape_->isHit(x, y));
+			isHit = !isOtherHit && (shape_.isHit(x, y));
 
 			// マウスポインタが接触」
 			if (isHit)
@@ -50,7 +50,7 @@ namespace Entity {
 						if (isMouseDown_)
 						{
 							onMouseClick();
-							// eventTypeをクリックに書き換える
+							// eventTypeをクリックに書き換える TODO:不具合
 							*eventType = MOUSE_INPUT_LOG_CLICK;
 						}
 							
@@ -102,7 +102,7 @@ namespace Entity {
 	 */
 	void Object::render() const
 	{
-		DxLib::DrawGraph(shape_->x, shape_->y, imagePath_, isTrans_);
+		DxLib::DrawGraph(shape_.x, shape_.y, imagePath_, isTrans_);
 	}
 
 	/**
@@ -111,6 +111,6 @@ namespace Entity {
 	 */
 	void Object::renderExtend() const
 	{
-		DxLib::DrawExtendGraph(shape_->x, shape_->y, shape_->getX2(), shape_->getY2(), imagePath_, isTrans_);
+		DxLib::DrawExtendGraph(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), imagePath_, isTrans_);
 	}
 }
