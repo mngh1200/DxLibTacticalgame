@@ -31,6 +31,12 @@
     <Filter Include="ヘッダー ファイル\Entity\UI">
       <UniqueIdentifier>{e62a4c02-6b02-4035-8f2e-32371d7eda23}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Entity\View">
+      <UniqueIdentifier>{fcf9cc9a-f440-407a-81b0-ec7f17893b25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entity\View">
+      <UniqueIdentifier>{414e1c60-f313-4e25-b45e-9697613a94ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -54,6 +60,9 @@
     <ClCompile Include="src\Entity\UI\Button.cpp">
       <Filter>ソース ファイル\Entity\UI</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entity\View\Text.cpp">
+      <Filter>ソース ファイル\Entity\View</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -76,6 +85,12 @@
     </ClInclude>
     <ClInclude Include="src\Entity\UI\Button.h">
       <Filter>ヘッダー ファイル\Entity\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\View\ViewObject.h">
+      <Filter>ヘッダー ファイル\Entity\View</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\View\Text.h">
+      <Filter>ヘッダー ファイル\Entity\View</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
