@@ -65,7 +65,7 @@ namespace FrameWork
 					isFoundHitObj = true;
 
 					// テスト（ボタン押下時終了）
-					if (obj->objectType == Entity::Object::ObjectType::BUTTON && eventType == MOUSE_INPUT_LOG_UP)
+					if (obj->objectType == Entity::Object::ObjectType::BUTTON && eventType == MOUSE_INPUT_LOG_CLICK)
 					{
 						return -1;
 					}

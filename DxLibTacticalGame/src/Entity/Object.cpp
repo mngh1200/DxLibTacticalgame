@@ -38,7 +38,7 @@ namespace Entity {
 			{
 				if (button == MOUSE_INPUT_LEFT)
 				{
-					if (eventType == MOUSE_INPUT_LOG_DOWN)
+					if (*eventType == MOUSE_INPUT_LOG_DOWN)
 					{
 						onMouseLeftDown(); // 左押下時
 						isMouseDown_ = true;
@@ -46,12 +46,15 @@ namespace Entity {
 					else
 					{
 						onMouseLeftUp(); // 左離し時
-
+						
 						if (isMouseDown_)
 						{
+
 							onMouseClick();
 							// eventTypeをクリックに書き換える TODO:不具合
 							*eventType = MOUSE_INPUT_LOG_CLICK;
+
+
 						}
 							
 						isMouseDown_ = false;
@@ -59,7 +62,7 @@ namespace Entity {
 				}
 				else if (button == MOUSE_INPUT_RIGHT)
 				{
-					if (eventType == MOUSE_INPUT_LOG_DOWN)
+					if (*eventType == MOUSE_INPUT_LOG_DOWN)
 					{
 						onMouseRightDown(); // 右押下時
 					}
@@ -70,7 +73,7 @@ namespace Entity {
 				}
 				else if (button == MOUSE_INPUT_MIDDLE)
 				{
-					if (eventType == MOUSE_INPUT_LOG_DOWN)
+					if (*eventType == MOUSE_INPUT_LOG_DOWN)
 					{
 						onMouseWheelDown(); // ホイール押下時
 					}
