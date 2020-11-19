@@ -25,19 +25,14 @@ namespace FrameWork
 			Entity::Shape shape(0, 0, 100, 100);
 			// Entity::Object(&shape);
 
-			layerObjList.clear();
-
-			// レイヤー追加
-			for (int i = 0; i < InitLayer::LEN; i++)
-			{
-				layerObjList.push_back(map<int,shared_ptr<Entity::Object>>());
-			}
+			// レイヤーセット
+			objectsControl.setLayer(InitLayer::LEN);
 
 			// 背景追加
-			layerObjList.at(InitLayer::BACK)[0] = make_shared<Entity::Back>();
+			objectsControl.addObject(InitLayer::BACK, 0, make_shared<Entity::Back>());
 
 			// ボタン追加
-			layerObjList.at(InitLayer::BUTTON)[0] = make_shared<Entity::Button>(Entity::Shape(WIN_W/2 - 50, WIN_H / 2 - 15, 100, 30));
+			objectsControl.addObject(InitLayer::BUTTON, 0, make_shared<Entity::Button>(Entity::Shape(WIN_W / 2 - 50, WIN_H / 2 - 15, 100, 30)));
 
 			isInit = false;
 		}
@@ -49,15 +44,8 @@ namespace FrameWork
 			return -1;
 		}
 
-		// 描画処理(逆ループ)
-		for (auto layerItr = rbegin(layerObjList); layerItr != rend(layerObjList); ++layerItr)
-		{
-			for (auto objMapItr = layerItr->rbegin(); objMapItr != layerItr->rend(); objMapItr++)
-			{
-				shared_ptr<Entity::Object> obj = (*objMapItr).second;
-				obj->render();
-			}
-		}
+		// 描画処理
+		objectsControl.render();
 
 
 		// FPS管理

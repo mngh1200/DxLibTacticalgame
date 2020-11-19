@@ -63,6 +63,9 @@
     <ClCompile Include="src\Entity\View\Text.cpp">
       <Filter>ソース ファイル\Entity\View</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entity\ObjectsControl.cpp">
+      <Filter>ソース ファイル\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -91,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="src\Entity\View\Text.h">
       <Filter>ヘッダー ファイル\Entity\View</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\ObjectsControl.h">
+      <Filter>ヘッダー ファイル\Entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -35,46 +35,10 @@ namespace FrameWork
 			prevKey_[i] = key_[i];
 		}
 
-		// マウスイベント取得
-		int x, y, button, eventType;
-		
-		if (DxLib::GetMouseInputLog2(&button, &x, &y, &eventType, true) == -1)
-		{
-			// マウスイベントログがなかった場合、マウスの位置だけ取得
-			eventType = -1;
-			button = -1;
-			if (DxLib::GetMousePoint(&x, &y) == -1)
-			{
-				return -1;
-			}
-		}
 
-		Game& game = Game::getInstance();
-
-		//! 接触オブジェクトを見つけたか
-		bool isFoundHitObj = false;
-		
 		// マウスイベント
-		for (auto&& layer : game.layerObjList)
-		{
-			for (auto&& objMap : layer)
-			{
-				shared_ptr<Entity::Object> obj = objMap.second;
-				if (obj->checkMouseEvent(x, y, button, &eventType, isFoundHitObj)) {
-					// マウス接触
-					isFoundHitObj = true;
-
-					// テスト（ボタン押下時終了）
-					if (obj->objectType == Entity::Object::ObjectType::BUTTON && eventType == MOUSE_INPUT_LOG_CLICK)
-					{
-						return -1;
-					}
-				}
-			}
-		}
-
-
-		return 0;
+		Game& game = Game::getInstance();
+		return game.objectsControl.checkMouseEvent();
 	}
 
 	/**
