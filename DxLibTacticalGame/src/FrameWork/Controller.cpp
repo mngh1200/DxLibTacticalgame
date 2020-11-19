@@ -57,8 +57,9 @@ namespace FrameWork
 		// マウスイベント
 		for (auto&& layer : game.layerObjList)
 		{
-			for (auto&& obj : layer)
+			for (auto&& objMap : layer)
 			{
+				shared_ptr<Entity::Object> obj = objMap.second;
 				if (obj->checkMouseEvent(x, y, button, &eventType, isFoundHitObj)) {
 					// マウス接触
 					isFoundHitObj = true;

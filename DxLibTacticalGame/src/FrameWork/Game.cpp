@@ -30,14 +30,14 @@ namespace FrameWork
 			// ÉåÉCÉÑÅ[í«â¡
 			for (int i = 0; i < InitLayer::LEN; i++)
 			{
-				layerObjList.push_back(list<shared_ptr<Entity::Object>>());
+				layerObjList.push_back(map<int,shared_ptr<Entity::Object>>());
 			}
 
 			// îwåií«â¡
-			layerObjList.at(InitLayer::BACK).push_back(make_shared<Entity::Back>());
+			layerObjList.at(InitLayer::BACK)[0] = make_shared<Entity::Back>();
 
 			// É{É^Éìí«â¡
-			layerObjList.at(InitLayer::BUTTON).push_back(make_shared<Entity::Button>(Entity::Shape(WIN_W/2 - 50, WIN_H / 2 - 15, 100, 30)));
+			layerObjList.at(InitLayer::BUTTON)[0] = make_shared<Entity::Button>(Entity::Shape(WIN_W/2 - 50, WIN_H / 2 - 15, 100, 30));
 
 			isInit = false;
 		}
@@ -49,13 +49,13 @@ namespace FrameWork
 			return -1;
 		}
 
-		// ï`âÊèàóù
-		for (auto layerItr = rbegin(layerObjList); layerItr != rend(layerObjList); ++layerItr) {
-			auto objItr = layerItr->rbegin();
-			while (objItr != layerItr->rend())
+		// ï`âÊèàóù(ãtÉãÅ[Év)
+		for (auto layerItr = rbegin(layerObjList); layerItr != rend(layerObjList); ++layerItr)
+		{
+			for (auto objMapItr = layerItr->rbegin(); objMapItr != layerItr->rend(); objMapItr++)
 			{
-				(*objItr)->render();
-				objItr++;
+				shared_ptr<Entity::Object> obj = (*objMapItr).second;
+				obj->render();
 			}
 		}
 

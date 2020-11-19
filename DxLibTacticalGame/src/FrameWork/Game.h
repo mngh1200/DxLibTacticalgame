@@ -2,7 +2,7 @@
 #include <climits>
 #include <iostream>
 #include <vector>
-#include <list>
+#include <map>
 #include <memory>
 #include "Define.h"
 #include "DxLib.h"
@@ -37,7 +37,7 @@ namespace FrameWork
 		void increaseFrame();
 		
 		//! 各レイヤーのオブジェクト管理用変数 vector(各レイヤー)、list(各レイヤーで管理しているObject)
-		vector<list<shared_ptr<Entity::Object>>> layerObjList;
+		vector<map<int, shared_ptr<Entity::Object>>> layerObjList;
 
 	private:
 		Game() : frame_(0), prevTime_(0) {};
