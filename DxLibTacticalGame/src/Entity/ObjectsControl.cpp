@@ -26,9 +26,17 @@ namespace Entity {
 	 */
 	weak_ptr<Object> ObjectsControl::getObjectWp(int layerId, int objectId) const
 	{
-		// TODO: 例外処理
-		map<int, shared_ptr<Object>> tmpMap = layerObjList_.at(layerId);
-		weak_ptr<Object> wp = tmpMap[objectId];
+		weak_ptr<Object> wp;
+
+		try
+		{
+			map<int, shared_ptr<Object>> tmpMap = layerObjList_.at(layerId);
+			wp = tmpMap[objectId];
+		}
+		catch (out_of_range&)
+		{
+			DxLib::AppLogAdd("Error:ObjectsControl::getObjectWp: out_of_range\n");
+		}
 
 		return wp;
 	}
@@ -42,12 +50,12 @@ namespace Entity {
 	 */
 	void ObjectsControl::addObject(int layerId, int objectId, shared_ptr<Object> objSp)
 	{
-		// TODO: 例外処理
-		auto mapItr = layerObjList_.begin() + layerId;
-		if ((*mapItr)[objectId] == nullptr)
+		if (0 <= layerId && layerId < layerObjList_.size() ) // 存在するレイヤーであるかチェック
 		{
-			(*mapItr)[objectId] = objSp;
+			auto mapItr = layerObjList_.begin() + layerId;
+			(*mapItr).emplace(objectId, objSp); // 新規追加のみ
 		}
+
 	}
 
 	/**
@@ -58,12 +66,12 @@ namespace Entity {
 	 */
 	void ObjectsControl::removeObject(int layerId, int objectId)
 	{
-		// TODO: 例外処理
-		auto mapItr = layerObjList_.begin() + layerId;
-		if ((*mapItr)[objectId] == nullptr)
+		if (0 <= layerId && layerId < layerObjList_.size()) // 存在するレイヤーであるかチェック
 		{
+			auto mapItr = layerObjList_.begin() + layerId;
 			(*mapItr).erase(objectId);
 		}
+
 	}
 
 	/**

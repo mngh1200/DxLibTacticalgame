@@ -3,6 +3,7 @@
 #include <memory>
 #include <vector>
 #include <map>
+#include <stdexcept>
 #include "Object.h"
 #include "DxLib.h"
 #include "Define.h"
