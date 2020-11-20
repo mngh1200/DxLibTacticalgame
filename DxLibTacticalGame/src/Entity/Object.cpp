@@ -3,18 +3,18 @@
 namespace Entity {
 	/**
 	 * @fn
-	 * オブジェクトの実態を
-	 * @param (shape) オブジェクトの実体要素
+	 * 初期化処理
+	 * @param (layerId) 所属レイヤー
+	 * @param (objectId) 所属オブジェクト
+	 * @param (shape) 位置、サイズ
 	 */
-	Object::Object(Shape shape)
+	void Object::init(int layerId, int objectId, Shape shape)
 	{
+		layerId_ = layerId;
+		objectId_ = objectId;
 		shape_ = shape;
-		isMouseDown_ = false;
-		isMouseOver_ = false;
-		objectType = OBJECT;
-		isTrans_ = false;
-		imagePath_ = -1;
 	}
+
 	/**
 	 * @fn
 	 * マウスイベント

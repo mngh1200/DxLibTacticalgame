@@ -22,7 +22,7 @@ namespace Entity
 		
 		void setLayer(int size);
 		weak_ptr<Object> getObjectWp(int layerId, int objectId) const;
-		void addObject(int layerId, int objectId, shared_ptr<Object> objSp);
+		void addObject(int layerId, int objectId, shared_ptr<Object> objSp, Shape shape = Shape());
 		void removeObject(int layerId, int objectId);
 
 		int checkMouseEvent();

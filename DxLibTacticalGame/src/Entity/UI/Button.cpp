@@ -9,18 +9,6 @@ namespace Entity {
 
 	/**
 	 * @fn
-	 * コンストラクタ
-	 */
-	Button::Button(Shape shape)
-	{
-		shape_ = shape;
-		objectType = ObjectType::BUTTON;
-		isTrans_ = false;
-		imagePath_ = -1;
-	}
-
-	/**
-	 * @fn
 	 * 描画処理
 	 */
 	void Button::render() const

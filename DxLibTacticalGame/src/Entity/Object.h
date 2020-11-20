@@ -11,10 +11,11 @@ namespace Entity
 	{
 	public:
 		Object() : 
-			isMouseDown_(false), isMouseOver_(false), objectType(Object::ObjectType::OBJECT),
-			isTrans_(false), imagePath_(-1) {};
-		Object(Shape shape);
+			isMouseDown_(false), isMouseOver_(false), objectType(OBJECT),
+			isTrans_(false), imagePath_(-1), layerId_(-1), objectId_(-1) {};
 		virtual ~Object() {};
+
+		virtual void init(int layerId, int objectId, Shape shape);
 
 		bool checkMouseEvent(int x, int y, int button, int* eventType, bool isOtherHit);
 
@@ -100,5 +101,11 @@ namespace Entity
 
 		//! DxLibで読み込んだ画像のパス
 		int imagePath_;
+
+		//! 所属レイヤーID
+		int layerId_;
+
+		//! オブジェクトID
+		int objectId_;
 	};
 }

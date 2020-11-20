@@ -32,7 +32,7 @@ namespace FrameWork
 			objectsControl.addObject(InitLayer::BACK, 0, make_shared<Entity::Back>());
 
 			// ƒ{ƒ^ƒ“’Ç‰Á
-			objectsControl.addObject(InitLayer::BUTTON, 0, make_shared<Entity::Button>(Entity::Shape(WIN_W / 2 - 50, WIN_H / 2 - 15, 100, 30)));
+			objectsControl.addObject(InitLayer::BUTTON, 0, make_shared<Entity::Button>(), Entity::Shape(WIN_W / 2 - 50, WIN_H / 2 - 15, 100, 30));
 
 			isInit = false;
 		}

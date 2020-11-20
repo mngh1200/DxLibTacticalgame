@@ -11,7 +11,6 @@ namespace Entity
 	{
 	public:
 		Button();
-		Button(Shape shape);
 		~Button() {};
 
 		void render() const override;

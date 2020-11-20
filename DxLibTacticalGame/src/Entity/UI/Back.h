@@ -11,12 +11,9 @@ namespace Entity
 	{
 	public:
 		Back();
-		Back(Shape shape);
 		~Back() {};
 
+		void init(int layerId, int objectId, Shape shape) override;
 		void render() const override;
-	private:
-		ObjectType objectType_;
-
 	};
 }

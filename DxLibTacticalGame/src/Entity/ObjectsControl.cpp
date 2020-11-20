@@ -48,10 +48,11 @@ namespace Entity {
 	 * @param (objectId) オブジェクトのID
 	 * @param (objSp)    追加オブジェクト
 	 */
-	void ObjectsControl::addObject(int layerId, int objectId, shared_ptr<Object> objSp)
+	void ObjectsControl::addObject(int layerId, int objectId, shared_ptr<Object> objSp, Shape shape)
 	{
 		if (0 <= layerId && layerId < layerObjList_.size() ) // 存在するレイヤーであるかチェック
 		{
+			objSp->init(layerId, objectId, shape);
 			auto mapItr = layerObjList_.begin() + layerId;
 			(*mapItr).emplace(objectId, objSp); // 新規追加のみ
 		}

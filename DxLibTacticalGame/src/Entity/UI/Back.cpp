@@ -7,24 +7,17 @@ namespace Entity {
 	 */
 	Back::Back()
 	{
-		shape_ = Shape(0, 0, WIN_W, WIN_H);
 		objectType = BACKGROUND;
-		isTrans_ = false;
-		imagePath_ = -1;
 	}
 
 	/**
 	 * @fn
-	 * コンストラクタ
+	 * 初期化処理（サイズは固定）
 	 */
-	Back::Back(Shape shape)
+	void Back::init(int layerId, int objectId, Shape shape)
 	{
-		shape_ = Shape(0, 0, WIN_W, WIN_H);
-		objectType = BACKGROUND;
-		isTrans_ = false;
-		imagePath_ = -1;
+		Object::init(layerId, objectId, Shape(0, 0, WIN_W, WIN_H));
 	}
-
 
 	/**
 	 * @fn
