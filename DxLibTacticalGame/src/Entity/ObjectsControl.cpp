@@ -98,8 +98,10 @@ namespace Entity {
 			}
 		}
 
-		//! 接触オブジェクトを見つけたか
+		// 接触オブジェクトを見つけたか
 		bool isFoundHitObj = false;
+
+		// 接触オブジェクトの情報
 		weak_ptr<Object> hitObjWp;
 
 		// マウスイベント
@@ -119,9 +121,17 @@ namespace Entity {
 		// テスト用コード
 		shared_ptr<Object> hitObjSp = hitObjWp.lock();
 
-		if (hitObjSp && hitObjSp->objectType == Entity::Object::ObjectType::BUTTON && eventType == MOUSE_INPUT_LOG_CLICK)
+		if (hitObjSp && hitObjSp->getLayerId() == InitLayer::BUTTON && eventType == MOUSE_INPUT_LOG_CLICK)
 		{
-			return -1;
+			int objId = hitObjSp->getObjectId();
+			if (objId == 0)
+			{
+				return -1;
+			}
+			else if (objId == 1)
+			{
+				hitObjSp->destroy();
+			}
 		}
 
 		return 0;
@@ -130,18 +140,26 @@ namespace Entity {
 
 	/**
 	 * @fn
-	 * 全オブジェクト描画
-	 * @param (layaerId) 対象レイヤーのID
-	 * @param (objectId) 対象オブジェクトのID
+	 * 全オブジェクト描画および削除予約されているオブジェクトの削除
 	 */
-	void ObjectsControl::render()
+	void ObjectsControl::renderAndDelete()
 	{
 		for (auto layerItr = rbegin(layerObjList_); layerItr != rend(layerObjList_); ++layerItr)
 		{
-			for (auto objMapItr = layerItr->rbegin(); objMapItr != layerItr->rend(); objMapItr++)
+			auto& targetLayer = (*layerItr);
+			for (auto objMapItr = layerItr->rbegin(); objMapItr != layerItr->rend(); )
 			{
 				shared_ptr<Object> obj = (*objMapItr).second;
-				obj->render();
+
+				if (obj->isDelete()) // 削除
+				{
+					targetLayer.erase((*objMapItr).first);
+				}
+				else // 描画
+				{
+					obj->render();
+					objMapItr++;
+				}
 			}
 		}
 	}

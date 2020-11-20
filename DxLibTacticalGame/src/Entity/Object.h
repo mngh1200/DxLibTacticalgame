@@ -10,17 +10,6 @@ namespace Entity
 	class Object
 	{
 	public:
-		Object() : 
-			isMouseDown_(false), isMouseOver_(false), objectType(OBJECT),
-			isTrans_(false), imagePath_(-1), layerId_(-1), objectId_(-1) {};
-		virtual ~Object() {};
-
-		virtual void init(int layerId, int objectId, Shape shape);
-
-		bool checkMouseEvent(int x, int y, int button, int* eventType, bool isOtherHit);
-
-		virtual void render() const;
-
 		/**
 		 * @enum ObjectType
 		 * オブジェクトの種類
@@ -32,6 +21,26 @@ namespace Entity
 			UNIT,
 			MASS
 		};
+
+		Object() : 
+			isMouseDown_(false), isMouseOver_(false), objectType(ObjectType::OBJECT),
+			isTrans_(false), imagePath_(-1), layerId_(-1), objectId_(-1),
+			isReserveDelete_(false) {};
+		virtual ~Object() {};
+
+		virtual void init(int layerId, int objectId, Shape shape);
+
+		bool checkMouseEvent(int x, int y, int button, int* eventType, bool isOtherHit);
+
+		virtual void render() const;
+
+		void destroy();
+
+		bool isDelete() const;
+
+		int getLayerId() const;
+
+		int getObjectId() const;
 
 		//! Objectの種類
 		ObjectType objectType;
@@ -102,10 +111,15 @@ namespace Entity
 		//! DxLibで読み込んだ画像のパス
 		int imagePath_;
 
+	private:
+
 		//! 所属レイヤーID
 		int layerId_;
 
 		//! オブジェクトID
 		int objectId_;
+
+		//! 削除予約
+		bool isReserveDelete_;
 	};
 }

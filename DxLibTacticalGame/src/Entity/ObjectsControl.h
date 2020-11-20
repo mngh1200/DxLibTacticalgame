@@ -26,7 +26,7 @@ namespace Entity
 		void removeObject(int layerId, int objectId);
 
 		int checkMouseEvent();
-		void render();
+		void renderAndDelete();
 
 	private:
 		//! 全オブジェクトを格納

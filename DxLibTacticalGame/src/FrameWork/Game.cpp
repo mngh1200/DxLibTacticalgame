@@ -34,6 +34,8 @@ namespace FrameWork
 			// ボタン追加
 			objectsControl.addObject(InitLayer::BUTTON, 0, make_shared<Entity::Button>(), Entity::Shape(WIN_W / 2 - 50, WIN_H / 2 - 15, 100, 30));
 
+			objectsControl.addObject(InitLayer::BUTTON, 1, make_shared<Entity::Button>(), Entity::Shape(WIN_W / 2 - 50, WIN_H / 2 - 15 + 50, 100, 30));
+
 			isInit = false;
 		}
 
@@ -44,8 +46,8 @@ namespace FrameWork
 			return -1;
 		}
 
-		// 描画処理
-		objectsControl.render();
+		// 描画およびオブジェクト削除処理
+		objectsControl.renderAndDelete();
 
 
 		// FPS管理

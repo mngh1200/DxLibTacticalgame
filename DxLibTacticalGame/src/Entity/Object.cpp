@@ -110,6 +110,45 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * オブジェクト削除(予約)
+	 */
+	void Object::destroy()
+	{
+		isReserveDelete_ = true;
+	}
+
+	/**
+	 * @fn
+	 * オブジェクトが削除予約されているか判定
+	 * @return 削除する場合true
+	 */
+	bool Object::isDelete() const
+	{
+		return isReserveDelete_;
+	}
+
+	/**
+	 * @fn
+	 * 所属レイヤーIDを取得
+	 * @return 所属レイヤーID
+	 */
+	int Object::getLayerId() const
+	{
+		return layerId_;
+	}
+
+	/**
+	 * @fn
+	 * オブジェクトIDを取得
+	 * @return オブジェクトID
+	 */
+	int Object::getObjectId() const
+	{
+		return objectId_;
+	}
+
+	/**
+	 * @fn
 	 * shape_のサイズに合わせた描画処理
 	 */
 	void Object::renderExtend() const
