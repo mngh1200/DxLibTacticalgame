@@ -25,12 +25,23 @@ namespace Entity
 
 		ViewObject() :
 			objectType(ObjectType::OBJECT),	isTrans_(false), imagePath_(-1), layerId_(-1), objectId_(-1),
-			isReserveDelete_(false), animationId(-1) {};
+			isReserveDelete_(false), animationId_(-1) {};
 		virtual ~ViewObject() {};
 
 		virtual void init(int layerId, int objectId, Shape shape);
 
 		virtual void render() const;
+
+		/**
+		 * @fn
+		 * １フレーム分のアニメーション実行
+		 * @return trueのとき、アニメーション終了
+		 */
+		virtual bool animationUpdate() { return false; };
+
+		bool setAnimationId(int animationId);
+
+		bool isAnimation();
 
 		void destroy();
 
@@ -44,26 +55,20 @@ namespace Entity
 		ObjectType objectType;
 
 	protected:
-		/**
-		 * @fn
-		 * １フレーム分のアニメーション実行
-		 * @return trueのとき、アニメーション終了
-		 */
-		virtual bool animationUpdate() { return false; };
 
 		void renderExtend() const;
 
 		//! オブジェクトの形状(位置やサイズ)
 		Shape shape_;
 
-		//! 実施中のアニメーションID（-1のときは未実施）
-		int animationId;
-
 		//! 画像を透過させるか
 		bool isTrans_;
 
 		//! DxLibで読み込んだ画像のパス
 		int imagePath_;
+
+		//! アニメーションID（未指定のときは-1）
+		int animationId_;
 
 	private:
 

@@ -1,5 +1,6 @@
 #pragma once
 #include <climits>
+#include "FrameWork/Game.h"
 #include "Entity/Object.h"
 #include "Entity/Shape.h"
 #include "DxLib.h"
@@ -12,6 +13,9 @@ namespace Entity
 	public:
 		Button();
 		~Button() {};
+
+		void onMouseOver() override;
+		bool animationUpdate() override;
 
 		void render() const override;
 

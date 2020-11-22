@@ -10,6 +10,7 @@ namespace Entity {
 	{
 		// すべてクリア
 		vector<map<int, shared_ptr<Object>>>().swap(layerObjList_);
+		clearAnimation();
 		// レイヤー追加
 		for (int i = 0; i < size; i++)
 		{
@@ -162,6 +163,85 @@ namespace Entity {
 				}
 			}
 		}
+	}
+
+	/**
+	 * @fn
+	 * IDで指定されたオブジェクトをアニメーション中のアブジェクトリストに追加
+	 * @param (animationId) セットするアニメーションID
+	 * @param (layaerId) 対象レイヤーのID
+	 * @param (objectId) 対象オブジェクトのID
+	 * @param (isView)   true: layerViewObjList_から取得, false: layerObjList_から取得
+	 */
+	void ObjectsControl::addAnimationObj(int animationId, int layerId, int objectId, bool isView)
+	{
+		weak_ptr<Object> objWp;
+		if (isView)
+		{
+
+		}
+		else
+		{
+			objWp = getObjectWp(layerId, objectId);
+		}
+
+		shared_ptr<ViewObject> objSP = objWp.lock();
+
+		if (objSP)
+		{
+			// 既にアニメーション中の場合は追加しない
+			if (objSP->setAnimationId(animationId))
+			{
+				animationObjList_.push_front(objWp);
+			}
+		}
+	}
+
+	/**
+	 * @fn
+	 * 1フレーム分のオブジェクトのアニメーション処理を実行
+	 */
+	void ObjectsControl::updateAnimation()
+	{
+		for (auto objItr = animationObjList_.begin(); objItr != animationObjList_.end();)
+		{
+			bool isRemove = false;
+			shared_ptr<ViewObject> objSp = (*objItr).lock();
+			if (objSp)
+			{
+				isRemove = objSp->animationUpdate();
+
+				if (isRemove)
+				{
+					// アニメーションIDを未指定状態にする
+					objSp->setAnimationId(-1);
+				}
+			}
+			else
+			{
+				// 存在しない個体を参照している場合
+				isRemove = true;
+			}
+
+			if (isRemove)
+			{
+				// リストから削除
+				objItr = animationObjList_.erase(objItr);
+			}
+			else
+			{
+				++objItr;
+			}
+		}
+	}
+
+	/**
+	 * @fn
+	 * アニメーションを強制的にすべて終了
+	 */
+	void ObjectsControl::clearAnimation()
+	{
+		list<weak_ptr<ViewObject>>().swap(animationObjList_);
 	}
 
 

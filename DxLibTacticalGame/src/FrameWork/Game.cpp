@@ -46,6 +46,9 @@ namespace FrameWork
 			return -1;
 		}
 
+		// アニメーション
+		objectsControl.updateAnimation();
+
 		// 描画およびオブジェクト削除処理
 		objectsControl.renderAndDelete();
 

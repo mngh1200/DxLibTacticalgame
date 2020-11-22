@@ -7,6 +7,31 @@ namespace Entity {
 		objectType = ObjectType::BUTTON;
 	}
 
+	// テスト
+	void Button::onMouseOver()
+	{
+		// アニメーション追加
+		FrameWork::Game::getInstance().objectsControl.addAnimationObj(1, getLayerId(), getObjectId(), false);
+	}
+
+	// テスト
+	bool Button::animationUpdate()
+	{
+		if (animationId_ == 1)
+		{
+			if (shape_.x >= 500)
+			{
+				return true;
+			}
+			else
+			{
+				shape_.x += 1;
+			}
+		}
+
+		return false;
+	}
+
 	/**
 	 * @fn
 	 * 描画処理

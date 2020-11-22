@@ -26,6 +26,31 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * アニメーションIDがセットされていないときのみセット可能
+	 * @return セットできた場合はtrueを返す
+	 */
+	bool ViewObject::setAnimationId(int animationId)
+	{
+		if (!isAnimation())
+		{
+			animationId_ = animationId;
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @fn
+	 * アニメーションの追加可能か
+	 * @return 追加済みの場合 false
+	 */
+	bool ViewObject::isAnimation()
+	{
+		return animationId_ != -1;
+	}
+
+	/**
+	 * @fn
 	 * オブジェクト削除(予約)
 	 */
 	void ViewObject::destroy()
