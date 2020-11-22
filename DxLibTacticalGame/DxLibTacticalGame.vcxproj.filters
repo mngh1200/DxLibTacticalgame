@@ -66,6 +66,9 @@
     <ClCompile Include="src\Entity\ObjectsControl.cpp">
       <Filter>ソース ファイル\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entity\ViewObject.cpp">
+      <Filter>ソース ファイル\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -89,13 +92,13 @@
     <ClInclude Include="src\Entity\UI\Button.h">
       <Filter>ヘッダー ファイル\Entity\UI</Filter>
     </ClInclude>
-    <ClInclude Include="src\Entity\View\ViewObject.h">
-      <Filter>ヘッダー ファイル\Entity\View</Filter>
-    </ClInclude>
     <ClInclude Include="src\Entity\View\Text.h">
       <Filter>ヘッダー ファイル\Entity\View</Filter>
     </ClInclude>
     <ClInclude Include="src\Entity\ObjectsControl.h">
+      <Filter>ヘッダー ファイル\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\ViewObject.h">
       <Filter>ヘッダー ファイル\Entity</Filter>
     </ClInclude>
   </ItemGroup>

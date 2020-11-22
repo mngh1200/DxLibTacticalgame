@@ -3,20 +3,6 @@
 namespace Entity {
 	/**
 	 * @fn
-	 * 初期化処理
-	 * @param (layerId) 所属レイヤー
-	 * @param (objectId) 所属オブジェクト
-	 * @param (shape) 位置、サイズ
-	 */
-	void Object::init(int layerId, int objectId, Shape shape)
-	{
-		layerId_ = layerId;
-		objectId_ = objectId;
-		shape_ = shape;
-	}
-
-	/**
-	 * @fn
 	 * マウスイベント
 	 * @param (x) マウスのx座標
 	 * @param (y) マウスのy座標
@@ -97,62 +83,5 @@ namespace Entity {
 			}
 		}
 		return isHit;
-	}
-
-	/**
-	 * @fn
-	 * 描画処理
-	 */
-	void Object::render() const
-	{
-		DxLib::DrawGraph(shape_.x, shape_.y, imagePath_, isTrans_);
-	}
-
-	/**
-	 * @fn
-	 * オブジェクト削除(予約)
-	 */
-	void Object::destroy()
-	{
-		isReserveDelete_ = true;
-	}
-
-	/**
-	 * @fn
-	 * オブジェクトが削除予約されているか判定
-	 * @return 削除する場合true
-	 */
-	bool Object::isDelete() const
-	{
-		return isReserveDelete_;
-	}
-
-	/**
-	 * @fn
-	 * 所属レイヤーIDを取得
-	 * @return 所属レイヤーID
-	 */
-	int Object::getLayerId() const
-	{
-		return layerId_;
-	}
-
-	/**
-	 * @fn
-	 * オブジェクトIDを取得
-	 * @return オブジェクトID
-	 */
-	int Object::getObjectId() const
-	{
-		return objectId_;
-	}
-
-	/**
-	 * @fn
-	 * shape_のサイズに合わせた描画処理
-	 */
-	void Object::renderExtend() const
-	{
-		DxLib::DrawExtendGraph(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), imagePath_, isTrans_);
 	}
 }

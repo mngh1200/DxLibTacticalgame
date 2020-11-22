@@ -6,17 +6,16 @@ namespace Entity {
 	 * @fn
 	 * コンストラクタ
 	 */
-	Text::Text()
+	Text::Text() : text_("")
 	{
 		objectType = ViewObject::ObjectType::TEXT;
-		text_ = "";
 	}
 
 	/**
 	 * @fn
 	 * コンストラクタ
 	 */
-	Text::Text(string text, Shape shape)
+	Text::Text(string text, Shape shape) : Text()
 	{
 		text_ = text;
 		shape_ = shape;

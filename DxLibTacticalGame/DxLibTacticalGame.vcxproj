@@ -156,6 +156,7 @@
     <ClCompile Include="src\Entity\Shape.cpp" />
     <ClCompile Include="src\Entity\UI\Back.cpp" />
     <ClCompile Include="src\Entity\UI\Button.cpp" />
+    <ClCompile Include="src\Entity\ViewObject.cpp" />
     <ClCompile Include="src\Entity\View\Text.cpp" />
     <ClCompile Include="src\FrameWork\Controller.cpp" />
     <ClCompile Include="src\FrameWork\Game.cpp" />
@@ -168,8 +169,8 @@
     <ClInclude Include="src\Entity\Shape.h" />
     <ClInclude Include="src\Entity\UI\Back.h" />
     <ClInclude Include="src\Entity\UI\Button.h" />
+    <ClInclude Include="src\Entity\ViewObject.h" />
     <ClInclude Include="src\Entity\View\Text.h" />
-    <ClInclude Include="src\Entity\View\ViewObject.h" />
     <ClInclude Include="src\FrameWork\Controller.h" />
     <ClInclude Include="src\FrameWork\Game.h" />
   </ItemGroup>
