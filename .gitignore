@@ -42,7 +42,6 @@ Latest commit 6eff882 on 4 Jul
 # User-specific files
 *.rsuser
 *.suo
-*.user
 *.userosscache
 *.sln.docstates
 
