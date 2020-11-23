@@ -8,11 +8,10 @@ namespace Entity {
 	 * @param (objectId) 所属オブジェクト
 	 * @param (shape) 位置、サイズ
 	 */
-	void ViewObject::init(int layerId, int objectId, Shape shape)
+	void ViewObject::init(int layerId, int objectId)
 	{
 		layerId_ = layerId;
 		objectId_ = objectId;
-		shape_ = shape;
 	}
 
 	/**
@@ -22,6 +21,15 @@ namespace Entity {
 	void ViewObject::render() const
 	{
 		DxLib::DrawGraph(shape_.x, shape_.y, imagePath_, isTrans_);
+	}
+
+	/**
+	 * @fn
+	 * shape_のサイズに合わせた描画処理
+	 */
+	void ViewObject::renderExtend() const
+	{
+		DxLib::DrawExtendGraph(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), imagePath_, isTrans_);
 	}
 
 	/**
@@ -86,14 +94,5 @@ namespace Entity {
 	int ViewObject::getObjectId() const
 	{
 		return objectId_;
-	}
-
-	/**
-	 * @fn
-	 * shape_のサイズに合わせた描画処理
-	 */
-	void ViewObject::renderExtend() const
-	{
-		DxLib::DrawExtendGraph(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), imagePath_, isTrans_);
 	}
 }

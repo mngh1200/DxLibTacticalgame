@@ -7,6 +7,11 @@ namespace Entity {
 		objectType = ObjectType::BUTTON;
 	}
 
+	Button::Button(Shape shape) : Button()
+	{
+		shape_ = shape;
+	}
+
 	// ƒeƒXƒg
 	void Button::onMouseOver()
 	{

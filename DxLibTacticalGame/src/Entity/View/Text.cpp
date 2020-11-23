@@ -14,14 +14,16 @@ namespace Entity {
 	/**
 	 * @fn
 	 * コンストラクタ
+	 * @param (text) 表示文字
+	 * @param (x) x座標
+	 * @param (y) y座標
 	 */
-	Text::Text(string text, Shape shape) : Text()
+	Text::Text(string text, int x, int y) : Text()
 	{
 		text_ = text;
-		shape_ = shape;
+		shape_.x = x;
+		shape_.y = y;
 	}
-
-
 
 	/**
 	 * @fn

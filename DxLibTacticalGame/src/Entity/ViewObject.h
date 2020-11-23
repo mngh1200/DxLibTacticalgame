@@ -28,7 +28,7 @@ namespace Entity
 			isReserveDelete_(false), animationId_(-1) {};
 		virtual ~ViewObject() {};
 
-		virtual void init(int layerId, int objectId, Shape shape);
+		virtual void init(int layerId, int objectId);
 
 		virtual void render() const;
 

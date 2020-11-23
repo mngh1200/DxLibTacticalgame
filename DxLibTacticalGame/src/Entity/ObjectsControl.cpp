@@ -10,11 +10,13 @@ namespace Entity {
 	{
 		// すべてクリア
 		vector<map<int, shared_ptr<Object>>>().swap(layerObjList_);
+		vector<map<int, shared_ptr<ViewObject>>>().swap(layerViewObjList_);
 		clearAnimation();
 		// レイヤー追加
 		for (int i = 0; i < size; i++)
 		{
 			layerObjList_.push_back(map<int, shared_ptr<Entity::Object>>());
+			layerViewObjList_.push_back(map<int, shared_ptr<Entity::ViewObject>>());
 		}
 	}
 
@@ -32,6 +34,7 @@ namespace Entity {
 		try
 		{
 			map<int, shared_ptr<Object>> tmpMap = layerObjList_.at(layerId);
+			
 			wp = tmpMap[objectId];
 		}
 		catch (out_of_range&)
@@ -44,20 +47,61 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * 指定されたViewオブジェクト取得
+	 * @param (layaerId) 対象レイヤーのID
+	 * @param (objectId) 対象オブジェクトのID
+	 * @return 対象オブジェクト
+	 */
+	weak_ptr<ViewObject> ObjectsControl::getViewObjectWp(int layerId, int objectId) const
+	{
+		weak_ptr<ViewObject> wp;
+
+		try
+		{
+			map<int, shared_ptr<ViewObject>> tmpMap = layerViewObjList_.at(layerId);
+
+			wp = tmpMap[objectId];
+		}
+		catch (out_of_range&)
+		{
+			DxLib::AppLogAdd("Error:ObjectsControl::getViewObjectWp: out_of_range\n");
+		}
+
+		return wp;
+	}
+
+	/**
+	 * @fn
 	 * オブジェクト追加
 	 * @param (layaerId) レイヤーのID
 	 * @param (objectId) オブジェクトのID
 	 * @param (objSp)    追加オブジェクト
 	 */
-	void ObjectsControl::addObject(int layerId, int objectId, shared_ptr<Object> objSp, Shape shape)
+	void ObjectsControl::addObject(int layerId, int objectId, shared_ptr<Object> objSp)
 	{
-		if (0 <= layerId && layerId < layerObjList_.size() ) // 存在するレイヤーであるかチェック
+		if (0 <= layerId && layerId < layerObjList_.size()) // 存在するレイヤーであるかチェック
 		{
-			objSp->init(layerId, objectId, shape);
-			auto mapItr = layerObjList_.begin() + layerId;
+			objSp->init(layerId, objectId);
+			auto mapItr = layerObjList_.begin() + layerId;				 
 			(*mapItr).emplace(objectId, objSp); // 新規追加のみ
 		}
+	}
 
+	/**
+	 * @fn
+	 * Viewオブジェクト追加
+	 * @param (layaerId) レイヤーのID
+	 * @param (objectId) オブジェクトのID
+	 * @param (objSp)    追加オブジェクト
+	 */
+	void ObjectsControl::addViewObject(int layerId, int objectId, shared_ptr<ViewObject> objSp)
+	{
+		if (0 <= layerId && layerId < layerObjList_.size()) // 存在するレイヤーであるかチェック
+		{
+			objSp->init(layerId, objectId);
+			auto mapItr = layerViewObjList_.begin() + layerId;
+			(*mapItr).emplace(objectId, objSp); // 新規追加のみ
+		}
 	}
 
 	/**
@@ -78,9 +122,22 @@ namespace Entity {
 
 	/**
 	 * @fn
-	 * 全オブジェクト描画
+	 * オブジェクト削除
 	 * @param (layaerId) 対象レイヤーのID
 	 * @param (objectId) 対象オブジェクトのID
+	 */
+	void ObjectsControl::removeViewObject(int layerId, int objectId)
+	{
+		if (0 <= layerId && layerId < layerObjList_.size()) // 存在するレイヤーであるかチェック
+		{
+			auto mapItr = layerViewObjList_.begin() + layerId;
+			(*mapItr).erase(objectId);
+		}
+	}
+
+	/**
+	 * @fn
+	 * 全オブジェクトのマウスイベント
 	 * @return 終了判定のとき -1 を返す
 	 */
 	int ObjectsControl::checkMouseEvent()
@@ -145,8 +202,13 @@ namespace Entity {
 	 */
 	void ObjectsControl::renderAndDelete()
 	{
+		// layerViewObjList_用のイテレータ
+		auto layerViewItr = rbegin(layerViewObjList_);
+		auto layerVIewItrEnd = rend(layerViewObjList_);
+
 		for (auto layerItr = rbegin(layerObjList_); layerItr != rend(layerObjList_); ++layerItr)
 		{
+			// layerObjList_
 			auto& targetLayer = (*layerItr);
 			for (auto objMapItr = layerItr->rbegin(); objMapItr != layerItr->rend(); )
 			{
@@ -162,6 +224,28 @@ namespace Entity {
 					objMapItr++;
 				}
 			}
+
+			// layerViewObjList_
+			if (layerViewItr == layerVIewItrEnd)
+			{
+				continue;
+			}
+
+			for (auto objMapItr = layerViewItr->rbegin(); objMapItr != layerViewItr->rend(); )
+			{
+				shared_ptr<ViewObject> obj = (*objMapItr).second;
+
+				if (obj->isDelete()) // 削除
+				{
+					targetLayer.erase((*objMapItr).first);
+				}
+				else // 描画
+				{
+					obj->render();
+					objMapItr++;
+				}
+			}
+			++layerViewItr;
 		}
 	}
 
@@ -175,15 +259,16 @@ namespace Entity {
 	 */
 	void ObjectsControl::addAnimationObj(int animationId, int layerId, int objectId, bool isView)
 	{
-		weak_ptr<Object> objWp;
+		weak_ptr<ViewObject> objWp;
 		if (isView)
 		{
-
+			objWp = getViewObjectWp(layerId, objectId);
 		}
 		else
 		{
 			objWp = getObjectWp(layerId, objectId);
 		}
+		
 
 		shared_ptr<ViewObject> objSP = objWp.lock();
 

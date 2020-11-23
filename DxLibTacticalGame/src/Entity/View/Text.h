@@ -14,7 +14,7 @@ namespace Entity
 	{
 	public:
 		Text();
-		Text(string text, Shape shape);
+		Text(string text, int x, int y);
 		~Text() {};
 
 		void render() const;

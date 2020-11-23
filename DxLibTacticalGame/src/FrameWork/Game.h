@@ -9,6 +9,7 @@
 #include "Entity/ObjectsControl.h"
 #include "Entity/UI/Back.h"
 #include "Entity/UI/Button.h"
+#include "Entity/View/Text.h"
 #include "Entity/Shape.h"
 
 using namespace std;

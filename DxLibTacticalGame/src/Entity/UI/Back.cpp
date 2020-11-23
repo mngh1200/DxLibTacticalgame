@@ -8,15 +8,7 @@ namespace Entity {
 	Back::Back()
 	{
 		objectType = BACKGROUND;
-	}
-
-	/**
-	 * @fn
-	 * 初期化処理（サイズは固定）
-	 */
-	void Back::init(int layerId, int objectId, Shape shape)
-	{
-		Object::init(layerId, objectId, Shape(0, 0, WIN_W, WIN_H));
+		shape_ = Shape(0, 0, WIN_W, WIN_H);
 	}
 
 	/**

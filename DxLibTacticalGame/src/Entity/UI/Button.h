@@ -12,6 +12,7 @@ namespace Entity
 	{
 	public:
 		Button();
+		Button(Shape shape);
 		~Button() {};
 
 		void onMouseOver() override;

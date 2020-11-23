@@ -21,10 +21,6 @@ namespace FrameWork
 	{
 		// テスト用コード
 		if (isInit) {
-			// 初期処理
-			Entity::Shape shape(0, 0, 100, 100);
-			// Entity::Object(&shape);
-
 			// レイヤーセット
 			objectsControl.setLayer(InitLayer::LEN);
 
@@ -32,9 +28,12 @@ namespace FrameWork
 			objectsControl.addObject(InitLayer::BACK, 0, make_shared<Entity::Back>());
 
 			// ボタン追加
-			objectsControl.addObject(InitLayer::BUTTON, 0, make_shared<Entity::Button>(), Entity::Shape(WIN_W / 2 - 50, WIN_H / 2 - 15, 100, 30));
+			objectsControl.addObject(InitLayer::BUTTON, 0, make_shared<Entity::Button>(Entity::Shape(WIN_W / 2 - 50, WIN_H / 2 - 15, 100, 30)));
 
-			objectsControl.addObject(InitLayer::BUTTON, 1, make_shared<Entity::Button>(), Entity::Shape(WIN_W / 2 - 50, WIN_H / 2 - 15 + 50, 100, 30));
+			objectsControl.addObject(InitLayer::BUTTON, 1, make_shared<Entity::Button>(Entity::Shape(WIN_W / 2 - 50, WIN_H / 2 - 15 + 50, 100, 30)));
+
+			// テキスト追加
+			objectsControl.addViewObject(InitLayer::BUTTON, 2, make_shared<Entity::Text>("タイトル", WIN_W / 2 - 10, 200));
 
 			isInit = false;
 		}
