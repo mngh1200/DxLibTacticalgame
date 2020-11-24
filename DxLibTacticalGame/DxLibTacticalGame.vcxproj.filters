@@ -72,11 +72,11 @@
     <ClCompile Include="src\Entity\ObjectsControl.cpp">
       <Filter>ソース ファイル\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="src\Screnn\ScreenBase.cpp">
-      <Filter>ソース ファイル\Screen</Filter>
-    </ClCompile>
     <ClCompile Include="src\Entity\Figure.cpp">
       <Filter>ソース ファイル\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screen\ScreenBase.cpp">
+      <Filter>ソース ファイル\Screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -107,11 +107,11 @@
     <ClInclude Include="src\Entity\ObjectsControl.h">
       <Filter>ヘッダー ファイル\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="src\Screnn\ScreenBase.h">
-      <Filter>ヘッダー ファイル\Screen</Filter>
-    </ClInclude>
     <ClInclude Include="src\Entity\Figure.h">
       <Filter>ヘッダー ファイル\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screen\ScreenBase.h">
+      <Filter>ヘッダー ファイル\Screen</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
