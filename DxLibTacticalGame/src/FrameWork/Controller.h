@@ -43,7 +43,7 @@ namespace FrameWork
 		int getAllEvents();
 
 	private:
-		Controller() {};
+		Controller() : key_{ {NOT_PRESSED} }, prevKey_{ {NOT_PRESSED} } {};
 		~Controller() {};
 
 		/**

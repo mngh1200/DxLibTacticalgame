@@ -1,4 +1,4 @@
-#include "ViewObject.h"
+#include "Figure.h"
 
 namespace Entity {
 	/**
@@ -8,7 +8,7 @@ namespace Entity {
 	 * @param (objectId) 所属オブジェクト
 	 * @param (shape) 位置、サイズ
 	 */
-	void ViewObject::init(int layerId, int objectId)
+	void Figure::init(int layerId, int objectId)
 	{
 		layerId_ = layerId;
 		objectId_ = objectId;
@@ -18,7 +18,7 @@ namespace Entity {
 	 * @fn
 	 * 描画処理
 	 */
-	void ViewObject::render() const
+	void Figure::render() const
 	{
 		DxLib::DrawGraph(shape_.x, shape_.y, imagePath_, isTrans_);
 	}
@@ -27,7 +27,7 @@ namespace Entity {
 	 * @fn
 	 * shape_のサイズに合わせた描画処理
 	 */
-	void ViewObject::renderExtend() const
+	void Figure::renderExtend() const
 	{
 		DxLib::DrawExtendGraph(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), imagePath_, isTrans_);
 	}
@@ -37,7 +37,7 @@ namespace Entity {
 	 * アニメーションIDがセットされていないときのみセット可能
 	 * @return セットできた場合はtrueを返す
 	 */
-	bool ViewObject::setAnimationId(int animationId)
+	bool Figure::setAnimationId(int animationId)
 	{
 		if (!isAnimation())
 		{
@@ -52,7 +52,7 @@ namespace Entity {
 	 * アニメーションの追加可能か
 	 * @return 追加済みの場合 false
 	 */
-	bool ViewObject::isAnimation()
+	bool Figure::isAnimation()
 	{
 		return animationId_ != -1;
 	}
@@ -61,7 +61,7 @@ namespace Entity {
 	 * @fn
 	 * オブジェクト削除(予約)
 	 */
-	void ViewObject::destroy()
+	void Figure::destroy()
 	{
 		isReserveDelete_ = true;
 	}
@@ -71,7 +71,7 @@ namespace Entity {
 	 * オブジェクトが削除予約されているか判定
 	 * @return 削除する場合true
 	 */
-	bool ViewObject::isDelete() const
+	bool Figure::isDelete() const
 	{
 		return isReserveDelete_;
 	}
@@ -81,7 +81,7 @@ namespace Entity {
 	 * 所属レイヤーIDを取得
 	 * @return 所属レイヤーID
 	 */
-	int ViewObject::getLayerId() const
+	int Figure::getLayerId() const
 	{
 		return layerId_;
 	}
@@ -91,8 +91,18 @@ namespace Entity {
 	 * オブジェクトIDを取得
 	 * @return オブジェクトID
 	 */
-	int ViewObject::getObjectId() const
+	int Figure::getObjectId() const
 	{
 		return objectId_;
+	}
+
+	/**
+	 * @fn
+	 * オブジェクトIDを取得
+	 * @return オブジェクトID
+	 */
+	int Figure::getType() const
+	{
+		return type_;
 	}
 }

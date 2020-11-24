@@ -10,13 +10,13 @@ namespace Entity {
 	{
 		// すべてクリア
 		vector<map<int, shared_ptr<Object>>>().swap(layerObjList_);
-		vector<map<int, shared_ptr<ViewObject>>>().swap(layerViewObjList_);
+		vector<map<int, shared_ptr<Figure>>>().swap(layerViewObjList_);
 		clearAnimation();
 		// レイヤー追加
 		for (int i = 0; i < size; i++)
 		{
 			layerObjList_.push_back(map<int, shared_ptr<Entity::Object>>());
-			layerViewObjList_.push_back(map<int, shared_ptr<Entity::ViewObject>>());
+			layerViewObjList_.push_back(map<int, shared_ptr<Entity::Figure>>());
 		}
 	}
 
@@ -52,19 +52,19 @@ namespace Entity {
 	 * @param (objectId) 対象オブジェクトのID
 	 * @return 対象オブジェクト
 	 */
-	weak_ptr<ViewObject> ObjectsControl::getViewObjectWp(int layerId, int objectId) const
+	weak_ptr<Figure> ObjectsControl::getFigureWp(int layerId, int objectId) const
 	{
-		weak_ptr<ViewObject> wp;
+		weak_ptr<Figure> wp;
 
 		try
 		{
-			map<int, shared_ptr<ViewObject>> tmpMap = layerViewObjList_.at(layerId);
+			map<int, shared_ptr<Figure>> tmpMap = layerViewObjList_.at(layerId);
 
 			wp = tmpMap[objectId];
 		}
 		catch (out_of_range&)
 		{
-			DxLib::AppLogAdd("Error:ObjectsControl::getViewObjectWp: out_of_range\n");
+			DxLib::AppLogAdd("Error:ObjectsControl::getFigureWp: out_of_range\n");
 		}
 
 		return wp;
@@ -94,7 +94,7 @@ namespace Entity {
 	 * @param (objectId) オブジェクトのID
 	 * @param (objSp)    追加オブジェクト
 	 */
-	void ObjectsControl::addViewObject(int layerId, int objectId, shared_ptr<ViewObject> objSp)
+	void ObjectsControl::addFigure(int layerId, int objectId, shared_ptr<Figure> objSp)
 	{
 		if (0 <= layerId && layerId < layerObjList_.size()) // 存在するレイヤーであるかチェック
 		{
@@ -126,7 +126,7 @@ namespace Entity {
 	 * @param (layaerId) 対象レイヤーのID
 	 * @param (objectId) 対象オブジェクトのID
 	 */
-	void ObjectsControl::removeViewObject(int layerId, int objectId)
+	void ObjectsControl::removeFigure(int layerId, int objectId)
 	{
 		if (0 <= layerId && layerId < layerObjList_.size()) // 存在するレイヤーであるかチェック
 		{
@@ -233,7 +233,7 @@ namespace Entity {
 
 			for (auto objMapItr = layerViewItr->rbegin(); objMapItr != layerViewItr->rend(); )
 			{
-				shared_ptr<ViewObject> obj = (*objMapItr).second;
+				shared_ptr<Figure> obj = (*objMapItr).second;
 
 				if (obj->isDelete()) // 削除
 				{
@@ -259,10 +259,10 @@ namespace Entity {
 	 */
 	void ObjectsControl::addAnimationObj(int animationId, int layerId, int objectId, bool isView)
 	{
-		weak_ptr<ViewObject> objWp;
+		weak_ptr<Figure> objWp;
 		if (isView)
 		{
-			objWp = getViewObjectWp(layerId, objectId);
+			objWp = getFigureWp(layerId, objectId);
 		}
 		else
 		{
@@ -270,7 +270,7 @@ namespace Entity {
 		}
 		
 
-		shared_ptr<ViewObject> objSP = objWp.lock();
+		shared_ptr<Figure> objSP = objWp.lock();
 
 		if (objSP)
 		{
@@ -291,7 +291,7 @@ namespace Entity {
 		for (auto objItr = animationObjList_.begin(); objItr != animationObjList_.end();)
 		{
 			bool isRemove = false;
-			shared_ptr<ViewObject> objSp = (*objItr).lock();
+			shared_ptr<Figure> objSp = (*objItr).lock();
 			if (objSp)
 			{
 				isRemove = objSp->animationUpdate();
@@ -326,7 +326,7 @@ namespace Entity {
 	 */
 	void ObjectsControl::clearAnimation()
 	{
-		list<weak_ptr<ViewObject>>().swap(animationObjList_);
+		list<weak_ptr<Figure>>().swap(animationObjList_);
 	}
 
 

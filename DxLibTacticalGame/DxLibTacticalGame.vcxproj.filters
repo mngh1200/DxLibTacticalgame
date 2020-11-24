@@ -37,6 +37,12 @@
     <Filter Include="ヘッダー ファイル\Entity\View">
       <UniqueIdentifier>{414e1c60-f313-4e25-b45e-9697613a94ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Screen">
+      <UniqueIdentifier>{5106a2a5-d6cd-45c6-bf6f-7222ae9aa050}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Screen">
+      <UniqueIdentifier>{ba3a2cd9-ecec-48e4-9c5a-a431b4572db5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -66,7 +72,10 @@
     <ClCompile Include="src\Entity\ObjectsControl.cpp">
       <Filter>ソース ファイル\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="src\Entity\ViewObject.cpp">
+    <ClCompile Include="src\Screnn\ScreenBase.cpp">
+      <Filter>ソース ファイル\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Figure.cpp">
       <Filter>ソース ファイル\Entity</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,7 +107,10 @@
     <ClInclude Include="src\Entity\ObjectsControl.h">
       <Filter>ヘッダー ファイル\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="src\Entity\ViewObject.h">
+    <ClInclude Include="src\Screnn\ScreenBase.h">
+      <Filter>ヘッダー ファイル\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Figure.h">
       <Filter>ヘッダー ファイル\Entity</Filter>
     </ClInclude>
   </ItemGroup>

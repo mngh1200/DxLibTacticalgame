@@ -4,7 +4,7 @@ namespace Entity {
 
 	Button::Button()
 	{
-		objectType = ObjectType::BUTTON;
+		type_ = BUTTON;
 	}
 
 	Button::Button(Shape shape) : Button()

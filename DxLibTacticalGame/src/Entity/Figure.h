@@ -7,15 +7,15 @@
 
 namespace Entity
 {
-	class ViewObject
+	class Figure
 	{
 	public:
 		/**
 		 * @enum ObjectType
 		 * オブジェクトの種類
 		 */
-		enum ObjectType {
-			OBJECT,
+		enum Type {
+			FIGURE,
 			BACKGROUND,
 			BUTTON,
 			UNIT,
@@ -23,10 +23,10 @@ namespace Entity
 			TEXT
 		};
 
-		ViewObject() :
-			objectType(ObjectType::OBJECT),	isTrans_(false), imagePath_(-1), layerId_(-1), objectId_(-1),
+		Figure() :
+			type_(FIGURE),	isTrans_(false), imagePath_(-1), layerId_(-1), objectId_(-1),
 			isReserveDelete_(false), animationId_(-1) {};
-		virtual ~ViewObject() {};
+		virtual ~Figure() {};
 
 		virtual void init(int layerId, int objectId);
 
@@ -51,12 +51,14 @@ namespace Entity
 
 		int getObjectId() const;
 
-		//! Objectの種類
-		ObjectType objectType;
+		int getType() const;
 
 	protected:
 
 		void renderExtend() const;
+
+		//! Objectの種類
+		Type type_;
 
 		//! オブジェクトの形状(位置やサイズ)
 		Shape shape_;

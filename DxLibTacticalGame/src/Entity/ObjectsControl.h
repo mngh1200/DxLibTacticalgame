@@ -23,11 +23,11 @@ namespace Entity
 		
 		void setLayer(int size);
 		weak_ptr<Object> getObjectWp(int layerId, int objectId) const;
-		weak_ptr<ViewObject> getViewObjectWp(int layerId, int objectId) const;
+		weak_ptr<Figure> getFigureWp(int layerId, int objectId) const;
 		void addObject(int layerId, int objectId, shared_ptr<Object> objSp);
-		void addViewObject(int layerId, int objectId, shared_ptr<ViewObject> viewObjSp);
+		void addFigure(int layerId, int objectId, shared_ptr<Figure> viewObjSp);
 		void removeObject(int layerId, int objectId);
-		void removeViewObject(int layerId, int objectId);
+		void removeFigure(int layerId, int objectId);
 
 		int checkMouseEvent();
 		void renderAndDelete();
@@ -41,9 +41,9 @@ namespace Entity
 		vector<map<int, shared_ptr<Object>>> layerObjList_;
 
 		//! マウスイベント対象以外のオブジェクト群を格納
-		vector<map<int, shared_ptr<ViewObject>>> layerViewObjList_;
+		vector<map<int, shared_ptr<Figure>>> layerViewObjList_;
 
 		//! アニメーション中のオブジェクトを格納（layerObjList_から弱参照）
-		list<weak_ptr<ViewObject>> animationObjList_;
+		list<weak_ptr<Figure>> animationObjList_;
 	};
 }

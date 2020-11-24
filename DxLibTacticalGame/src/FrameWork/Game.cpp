@@ -33,7 +33,7 @@ namespace FrameWork
 			objectsControl.addObject(InitLayer::BUTTON, 1, make_shared<Entity::Button>(Entity::Shape(WIN_W / 2 - 50, WIN_H / 2 - 15 + 50, 100, 30)));
 
 			// テキスト追加
-			objectsControl.addViewObject(InitLayer::BUTTON, 2, make_shared<Entity::Text>("タイトル", WIN_W / 2 - 10, 200));
+			objectsControl.addFigure(InitLayer::BUTTON, 2, make_shared<Entity::Text>("タイトル", WIN_W / 2 - 10, 200));
 
 			isInit = false;
 		}

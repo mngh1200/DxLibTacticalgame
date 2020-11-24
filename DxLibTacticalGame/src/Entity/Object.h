@@ -1,14 +1,14 @@
 #pragma once
 #include <climits>
 #include <string>
-#include "ViewObject.h"
+#include "Figure.h"
 #include "Shape.h"
 #include "DxLib.h"
 #include "Define.h"
 
 namespace Entity
 {
-	class Object : public ViewObject
+	class Object : public Figure
 	{
 	public:
 

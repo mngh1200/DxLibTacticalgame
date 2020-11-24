@@ -2,7 +2,7 @@
 #include <climits>
 #include <string>
 #include "Entity/Shape.h"
-#include "Entity/ViewObject.h"
+#include "Entity/Figure.h"
 #include "DxLib.h"
 #include "Define.h"
 
@@ -10,7 +10,7 @@ using namespace std;
 
 namespace Entity
 {
-	class Text : public ViewObject
+	class Text : public Figure
 	{
 	public:
 		Text();

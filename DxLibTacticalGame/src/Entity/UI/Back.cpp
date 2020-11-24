@@ -7,7 +7,7 @@ namespace Entity {
 	 */
 	Back::Back()
 	{
-		objectType = BACKGROUND;
+		type_ = BACKGROUND;
 		shape_ = Shape(0, 0, WIN_W, WIN_H);
 	}
 

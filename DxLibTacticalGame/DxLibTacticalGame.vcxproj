@@ -156,11 +156,12 @@
     <ClCompile Include="src\Entity\Shape.cpp" />
     <ClCompile Include="src\Entity\UI\Back.cpp" />
     <ClCompile Include="src\Entity\UI\Button.cpp" />
-    <ClCompile Include="src\Entity\ViewObject.cpp" />
+    <ClCompile Include="src\Entity\Figure.cpp" />
     <ClCompile Include="src\Entity\View\Text.cpp" />
     <ClCompile Include="src\FrameWork\Controller.cpp" />
     <ClCompile Include="src\FrameWork\Game.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Screnn\ScreenBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Define.h" />
@@ -169,10 +170,11 @@
     <ClInclude Include="src\Entity\Shape.h" />
     <ClInclude Include="src\Entity\UI\Back.h" />
     <ClInclude Include="src\Entity\UI\Button.h" />
-    <ClInclude Include="src\Entity\ViewObject.h" />
+    <ClInclude Include="src\Entity\Figure.h" />
     <ClInclude Include="src\Entity\View\Text.h" />
     <ClInclude Include="src\FrameWork\Controller.h" />
     <ClInclude Include="src\FrameWork\Game.h" />
+    <ClInclude Include="src\Screnn\ScreenBase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

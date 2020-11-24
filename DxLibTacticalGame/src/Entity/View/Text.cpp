@@ -8,7 +8,7 @@ namespace Entity {
 	 */
 	Text::Text() : text_("")
 	{
-		objectType = ViewObject::ObjectType::TEXT;
+		type_ = TEXT;
 	}
 
 	/**

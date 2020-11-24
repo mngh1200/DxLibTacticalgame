@@ -7,11 +7,11 @@ using namespace std;
 
 namespace Screen
 {
-	class ScreenImpl
+	class ScreenBase
 	{
 	public:
-		ScreenImpl() : isInited_(false) {};
-		~ScreenImpl() {};
+		ScreenBase() : isInited_(false) {};
+		~ScreenBase() {};
 
 		/**
 		 * @fn
