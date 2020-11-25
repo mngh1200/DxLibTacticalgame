@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Screen/ScreenBase.h"
 
 namespace FrameWork
 {
@@ -19,44 +20,67 @@ namespace FrameWork
 	 */
 	int Game::process()
 	{
-		// テスト用コード
-		if (isInit) {
-			// レイヤーセット
-			objectsControl.setLayer(InitLayer::LEN);
-
-			// 背景追加
-			objectsControl.addObject(InitLayer::BACK, 0, make_shared<Entity::Back>());
-
-			// ボタン追加
-			objectsControl.addObject(InitLayer::BUTTON, 0, make_shared<Entity::Button>(Entity::Shape(WIN_W / 2 - 50, WIN_H / 2 - 15, 100, 30)));
-
-			objectsControl.addObject(InitLayer::BUTTON, 1, make_shared<Entity::Button>(Entity::Shape(WIN_W / 2 - 50, WIN_H / 2 - 15 + 50, 100, 30)));
-
-			// テキスト追加
-			objectsControl.addFigure(InitLayer::BUTTON, 2, make_shared<Entity::Text>("タイトル", WIN_W / 2 - 10, 200));
-
-			isInit = false;
+		// スクリーン初期処理
+		if (!nowScreen_->isInited()) {
+			nowScreen_->init(); // 初期処理
+			nowScreen_->inited(); // 初期処理済みフラグセット
 		}
 
-		// コントロール管理
+		// キーイベント管理
 		Controller& controller = Controller::getInstance();
 		if (controller.getAllEvents() != 0)
 		{
 			return -1;
 		}
 
+		// マウスイベント
+		int x, y, button, eventType;
+		weak_ptr<Entity::Object> hitObjWp = objectsControl.checkMouseEvent(&x, &y, &button, &eventType);
+
+		// イベント取得後の画面更新処理
+		nowScreen_->updateByEvents(hitObjWp, x, y, button, eventType);
+
+
 		// アニメーション
 		objectsControl.updateAnimation();
+
+		// アニメーション後の画面更新処理（特定の要素のアニメーションが終了しているかを基準に更新する場合に使用）
+		nowScreen_->updateByAnimation();
 
 		// 描画およびオブジェクト削除処理
 		objectsControl.renderAndDelete();
 
+
+		// 終了判定
+		if (isFinish_)
+		{
+			return -1;
+		}
 
 		// FPS管理
 		controlFps();
 		increaseFrame();
 
 		return 0;
+	}
+
+	/**
+	 * @fn
+	 * 画面遷移
+	 * @param (newScreen) 遷移先のスクリーンクラス
+	 */
+	void Game::setScreen(Screen::ScreenBase* newScreen)
+	{
+		nowScreen_.reset(newScreen);
+	}
+
+	/**
+	 * @fn
+	 * ゲーム終了
+	 */
+	void Game::finish()
+	{
+		isFinish_ = true;
 	}
 
 	/**

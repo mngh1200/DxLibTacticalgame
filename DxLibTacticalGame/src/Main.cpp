@@ -1,4 +1,5 @@
 #include "FrameWork/Game.h"
+#include "Screen/StartScreen.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
@@ -24,6 +25,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		// Gameインスタンス設定
 		FrameWork::Game& game = FrameWork::Game::getInstance();
+
+		// スタート画面セット
+		game.setScreen(new Screen::StartScreen());
 
 		// int img = DxLib::LoadGraph("resource/test1.bmp");
 

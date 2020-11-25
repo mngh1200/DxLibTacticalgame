@@ -140,19 +140,16 @@ namespace Entity {
 	 * 全オブジェクトのマウスイベント
 	 * @return 終了判定のとき -1 を返す
 	 */
-	int ObjectsControl::checkMouseEvent()
+	weak_ptr<Object> ObjectsControl::checkMouseEvent(int* x, int* y, int* button, int* eventType)
 	{
-		// マウスイベント取得
-		int x, y, button, eventType;
-
-		if (DxLib::GetMouseInputLog2(&button, &x, &y, &eventType, true) == -1)
+		if (DxLib::GetMouseInputLog2(button, x, y, eventType, true) == -1)
 		{
 			// マウスイベントログがなかった場合、マウスの位置だけ取得
-			eventType = -1;
-			button = -1;
-			if (DxLib::GetMousePoint(&x, &y) == -1)
+			*eventType = -1;
+			*button = -1;
+			if (DxLib::GetMousePoint(x, y) == -1)
 			{
-				return -1;
+				return weak_ptr<Object>();
 			}
 		}
 
@@ -168,7 +165,7 @@ namespace Entity {
 			for (auto&& objMap : layer)
 			{
 				shared_ptr<Entity::Object> obj = objMap.second;
-				if (obj->checkMouseEvent(x, y, button, &eventType, isFoundHitObj)) {
+				if (obj->checkMouseEvent(*x, *y, *button, eventType, isFoundHitObj)) {
 					// マウス接触
 					isFoundHitObj = true;
 					hitObjWp = obj;
@@ -176,23 +173,7 @@ namespace Entity {
 			}
 		}
 
-		// テスト用コード
-		shared_ptr<Object> hitObjSp = hitObjWp.lock();
-
-		if (hitObjSp && hitObjSp->getLayerId() == InitLayer::BUTTON && eventType == MOUSE_INPUT_LOG_CLICK)
-		{
-			int objId = hitObjSp->getObjectId();
-			if (objId == 0)
-			{
-				return -1;
-			}
-			else if (objId == 1)
-			{
-				hitObjSp->destroy();
-			}
-		}
-
-		return 0;
+		return hitObjWp;
 	}
 
 

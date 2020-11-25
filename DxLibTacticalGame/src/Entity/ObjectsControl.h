@@ -29,7 +29,7 @@ namespace Entity
 		void removeObject(int layerId, int objectId);
 		void removeFigure(int layerId, int objectId);
 
-		int checkMouseEvent();
+		weak_ptr<Object> checkMouseEvent(int* x, int* y, int* button, int* eventType);
 		void renderAndDelete();
 
 		void addAnimationObj(int animationId, int layerId, int objectId, bool isView = false);

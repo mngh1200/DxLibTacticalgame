@@ -6,11 +6,9 @@
 #include "Define.h"
 #include "DxLib.h"
 #include "Controller.h"
+#include "Screen/ScreenBase.h"
 #include "Entity/ObjectsControl.h"
-#include "Entity/UI/Back.h"
-#include "Entity/UI/Button.h"
-#include "Entity/View/Text.h"
-#include "Entity/Shape.h"
+#include "Entity/Object.h"
 
 using namespace std;
 
@@ -33,15 +31,20 @@ namespace FrameWork
 
 		static Game& getInstance();
 		int process();
+
+		void setScreen(Screen::ScreenBase* newScreen);
+
+		void finish();
+
 		int getFrame() const;
 		void increaseFrame();
-		
+
 		//! 各レイヤーのオブジェクト管理
 		Entity::ObjectsControl objectsControl;
-		
+
 
 	private:
-		Game() : frame_(0), prevTime_(0), waitTime_(0){};
+		Game() : frame_(0), prevTime_(0), isFinish_(false), waitTime_(0), nowScreen_() {};
 		~Game() {};
 		void controlFps();
 
@@ -54,7 +57,10 @@ namespace FrameWork
 		//! 前回時刻
 		int prevTime_;
 
-		//! テスト用
-		bool isInit = true;
+		//! 終了判定
+		bool isFinish_;
+
+		//! 画面制御管理クラス
+		unique_ptr<Screen::ScreenBase> nowScreen_;
 	};
 }

@@ -162,6 +162,7 @@
     <ClCompile Include="src\FrameWork\Game.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Screen\ScreenBase.cpp" />
+    <ClCompile Include="src\Screen\StartScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Define.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="src\FrameWork\Controller.h" />
     <ClInclude Include="src\FrameWork\Game.h" />
     <ClInclude Include="src\Screen\ScreenBase.h" />
+    <ClInclude Include="src\Screen\StartScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

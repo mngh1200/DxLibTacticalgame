@@ -35,10 +35,7 @@ namespace FrameWork
 			prevKey_[i] = key_[i];
 		}
 
-
-		// マウスイベント
-		Game& game = Game::getInstance();
-		return game.objectsControl.checkMouseEvent();
+		return 0;
 	}
 
 	/**
