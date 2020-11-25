@@ -20,7 +20,8 @@ namespace Entity
 			BUTTON,
 			UNIT,
 			MASS,
-			TEXT
+			TEXT,
+			MASK
 		};
 
 		Figure() :

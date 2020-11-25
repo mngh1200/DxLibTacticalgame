@@ -81,6 +81,12 @@
     <ClCompile Include="src\Screen\StartScreen.cpp">
       <Filter>ソース ファイル\Screen</Filter>
     </ClCompile>
+    <ClCompile Include="src\Screen\MenuScreen.cpp">
+      <Filter>ソース ファイル\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\UI\Mask.cpp">
+      <Filter>ソース ファイル\Entity\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -118,6 +124,12 @@
     </ClInclude>
     <ClInclude Include="src\Screen\StartScreen.h">
       <Filter>ヘッダー ファイル\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screen\MenuScreen.h">
+      <Filter>ヘッダー ファイル\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\UI\Mask.h">
+      <Filter>ヘッダー ファイル\Entity\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

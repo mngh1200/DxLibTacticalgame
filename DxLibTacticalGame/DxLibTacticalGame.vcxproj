@@ -157,10 +157,12 @@
     <ClCompile Include="src\Entity\UI\Back.cpp" />
     <ClCompile Include="src\Entity\UI\Button.cpp" />
     <ClCompile Include="src\Entity\Figure.cpp" />
+    <ClCompile Include="src\Entity\UI\Mask.cpp" />
     <ClCompile Include="src\Entity\View\Text.cpp" />
     <ClCompile Include="src\FrameWork\Controller.cpp" />
     <ClCompile Include="src\FrameWork\Game.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Screen\MenuScreen.cpp" />
     <ClCompile Include="src\Screen\ScreenBase.cpp" />
     <ClCompile Include="src\Screen\StartScreen.cpp" />
   </ItemGroup>
@@ -172,9 +174,11 @@
     <ClInclude Include="src\Entity\UI\Back.h" />
     <ClInclude Include="src\Entity\UI\Button.h" />
     <ClInclude Include="src\Entity\Figure.h" />
+    <ClInclude Include="src\Entity\UI\Mask.h" />
     <ClInclude Include="src\Entity\View\Text.h" />
     <ClInclude Include="src\FrameWork\Controller.h" />
     <ClInclude Include="src\FrameWork\Game.h" />
+    <ClInclude Include="src\Screen\MenuScreen.h" />
     <ClInclude Include="src\Screen\ScreenBase.h" />
     <ClInclude Include="src\Screen\StartScreen.h" />
   </ItemGroup>

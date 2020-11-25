@@ -21,4 +21,64 @@ namespace Screen
 	{
 		isInited_ = true;
 	}
+
+	/**
+	 * @fn
+	 * 画面遷移時のオーバーレイをセットする
+	 * @param (isOpen) true: 画面表示時、false: 画面終了時
+	 */
+	void ScreenBase::createOverlay(bool isOpen)
+	{
+		Entity::ObjectsControl& objectsControl = FrameWork::Game::getInstance().objectsControl;
+		objectsControl.addObject(0, OVERLAY_ID, make_shared<Entity::Mask>(isOpen));
+		objectsControl.addAnimationObj(0, 0, OVERLAY_ID);
+
+		if (isOpen)
+		{
+			nowScene_ = START_OVERLAY_SCENE;
+		}
+		else
+		{
+			nowScene_ = END_OVERLAY_SCENE;
+		}
+	}
+
+
+	/**
+	 * @fn
+	 * オーバーレイのアニメーションが終了しているか判定
+	 * @return 終了していればtrue
+	 */
+	bool ScreenBase::isOpenOverlayEnded()
+	{
+		if (nowScene_ == START_OVERLAY_SCENE)
+		{
+			FrameWork::Game& game = FrameWork::Game::getInstance();
+			shared_ptr<Entity::Object> overlay = game.objectsControl.getObjectWp(0, OVERLAY_ID).lock();
+			if (overlay && !overlay->isAnimation())
+			{
+				game.objectsControl.removeObject(0, OVERLAY_ID);
+				return true;
+			}
+		}
+	}
+
+	/**
+	 * @fn
+	 * オーバーレイのアニメーションが終了しているか判定
+	 * @return 終了していればtrue
+	 */
+	bool ScreenBase::isCloseOverlayEnded()
+	{
+		if (nowScene_ == END_OVERLAY_SCENE)
+		{
+			FrameWork::Game& game = FrameWork::Game::getInstance();
+			shared_ptr<Entity::Object> overlay = game.objectsControl.getObjectWp(0, OVERLAY_ID).lock();
+			if (overlay && !overlay->isAnimation())
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }

@@ -2,6 +2,7 @@
 #include <climits>
 #include <memory>
 #include "Entity/Object.h"
+#include "Entity/UI/Mask.h"
 
 using namespace std;
 
@@ -10,16 +11,25 @@ namespace FrameWork
 	class Game;
 }
 
+namespace
+{
+	constexpr int OVERLAY_ID = 99999;
+	constexpr int START_OVERLAY_SCENE = -1;
+	constexpr int END_OVERLAY_SCENE = -2;
+}
+
 namespace Screen
 {
 	class ScreenBase
 	{
 	public:
-		ScreenBase() : isInited_(false), nowScene_(-1) {};
+		ScreenBase() : isInited_(false), nowScene_(START_OVERLAY_SCENE) {};
 		~ScreenBase() {};
 
 		bool isInited() const;
 		void inited();
+
+		
 
 		/**
 		 * @fn
@@ -40,6 +50,11 @@ namespace Screen
 		virtual void updateByAnimation() = 0;
 
 	protected:
+		void createOverlay(bool isOpen);
+
+		bool isOpenOverlayEnded();
+		bool isCloseOverlayEnded();
+
 		//! åªç›ÇÃÉVÅ[ÉìÇï€éù
 		int nowScene_;
 

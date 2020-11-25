@@ -2,7 +2,6 @@
 #include <climits>
 #include <memory>
 #include "ScreenBase.h"
-#include "MenuScreen.h"
 #include "Entity/UI/Back.h"
 #include "Entity/UI/Button.h"
 #include "Entity/View/Text.h"
@@ -11,11 +10,11 @@ using namespace std;
 
 namespace Screen
 {
-	class StartScreen : public ScreenBase
+	class MenuScreen : public ScreenBase
 	{
 	public:
-		StartScreen() {};
-		~StartScreen() {};
+		MenuScreen() {};
+		~MenuScreen() {};
 
 		void init();
 		void updateByEvents(weak_ptr < Entity::Object> hitObjWp, int x, int y, int button, int eventType);
@@ -24,7 +23,7 @@ namespace Screen
 		enum Layer
 		{
 			MASK,
-			TEXT,
+			UI,
 			BACK,
 			LEN
 		};
