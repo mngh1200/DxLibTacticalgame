@@ -9,13 +9,13 @@ namespace Screen
 	*/
 	void StartScreen::init()
 	{
-		// テスト
 		FrameWork::Game& game = FrameWork::Game::getInstance();
 		Entity::ObjectsControl& objectsControl = game.objectsControl;
 
 		objectsControl.setLayer(Layer::LEN);
 		objectsControl.addObject(Layer::BACK, 0, make_shared<Entity::Back>());
-		objectsControl.addFigure(Layer::TEXT, 0, make_shared<Entity::Text>("PRESS START", WIN_W / 2 - 10, 200));
+		objectsControl.addFigure(Layer::TEXT, 0, make_shared<Entity::Text>("GAME TITLE", WIN_W / 2, 200, DxLib::CreateFontToHandle("メイリオ", 64, 3, DX_FONTTYPE_NORMAL) , Entity::Text::Align::CENTER, DxLib::GetColor(124, 104, 95)));
+		objectsControl.addFigure(Layer::TEXT, 1, make_shared<Entity::Text>("PRESS START", WIN_W / 2, 300, DxLib::CreateFontToHandle("ＭＳ 明朝", 9, 3, DX_FONTTYPE_ANTIALIASING), Entity::Text::Align::CENTER, DxLib::GetColor(211, 181, 155)));
 	}
 
 	/**

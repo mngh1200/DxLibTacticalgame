@@ -24,7 +24,7 @@ namespace Screen
 	{
 	public:
 		ScreenBase() : isInited_(false), nowScene_(START_OVERLAY_SCENE) {};
-		~ScreenBase() {};
+		virtual ~ScreenBase() {};
 
 		bool isInited() const;
 		void inited();

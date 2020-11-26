@@ -14,13 +14,32 @@ namespace Entity
 	{
 	public:
 		Text();
-		Text(string text, int x, int y);
+		Text(string text, int x, int y, int font, int align = LEFT, int color = -1);
 		~Text() {};
 
+		void setColor(int color);
+
 		void render() const;
+
+		/**
+		 * @enum Enum
+		 * 配置
+		 */
+		enum Align
+		{
+			LEFT,
+			CENTER,
+			RIGHT
+		};
 
 	private:
 		//! 文字列
 		string text_;
+
+		//! フォントの種類
+		int font_;
+
+		//! 色
+		int color_;
 	};
 }
