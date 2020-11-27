@@ -11,6 +11,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		// WindowÉÇÅ[Éhê›íË
 		if (DxLib::ChangeWindowMode(true) != DX_CHANGESCREEN_OK
 			|| DxLib::DxLib_Init() == -1
+			|| SetGraphMode(WIN_W, WIN_H, 32) == -1
 			|| DxLib::SetWindowSizeExtendRate(1.0) == -1
 			)
 		{

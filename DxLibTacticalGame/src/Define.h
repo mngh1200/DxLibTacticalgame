@@ -1,10 +1,10 @@
 #pragma once
 
 //! ウィンドウ解像度(幅)
-constexpr int WIN_W = 640;
+constexpr int WIN_W = 1280;
 
 //! ウィンドウ解像度（高さ）
-constexpr int WIN_H = 480;
+constexpr int WIN_H = 720;
 
 //! マウスのクリック時のイベントタイプ
 constexpr int MOUSE_INPUT_LOG_CLICK = 2;
