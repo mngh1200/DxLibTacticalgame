@@ -45,6 +45,6 @@ namespace Entity {
 	{
 		// ƒeƒXƒg
 		DxLib::DrawBox(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), DxLib::GetColor(227, 221, 210), TRUE);
-		DrawString(shape_.x, shape_.y, "Close", DxLib::GetColor(90, 50, 0));
+		DxLib::DrawString(shape_.x, shape_.y, "Close", DxLib::GetColor(90, 50, 0));
 	}
 }
