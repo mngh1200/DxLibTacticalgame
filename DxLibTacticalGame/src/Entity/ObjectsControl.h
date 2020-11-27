@@ -9,6 +9,11 @@
 #include "DxLib.h"
 #include "Define.h"
 
+/**
+ * @file ObjectsControl.h
+ * @brief ‚·‚×‚Ä‚Ì‰æ–Ê“à—v‘f‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+ */
+
 using namespace std;
 
 namespace Entity

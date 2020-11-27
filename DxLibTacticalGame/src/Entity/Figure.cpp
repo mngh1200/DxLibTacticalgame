@@ -16,24 +16,6 @@ namespace Entity {
 
 	/**
 	 * @fn
-	 * 描画処理
-	 */
-	void Figure::render() const
-	{
-		DxLib::DrawGraph(shape_.x, shape_.y, imagePath_, isTrans_);
-	}
-
-	/**
-	 * @fn
-	 * shape_のサイズに合わせた描画処理
-	 */
-	void Figure::renderExtend() const
-	{
-		DxLib::DrawExtendGraph(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), imagePath_, isTrans_);
-	}
-
-	/**
-	 * @fn
 	 * アニメーションIDがセットされていないときのみセット可能
 	 * @return セットできた場合はtrueを返す
 	 */

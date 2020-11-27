@@ -2,9 +2,14 @@
 #include <climits>
 #include <memory>
 #include "Entity/Object.h"
-#include "Entity/UI/Mask.h"
+#include "Entity/UI/Overlay.h"
 
 using namespace std;
+
+/**
+ * @file ScreenBase.h
+ * @brief 各画面の進行を管理するクラスの基底クラス
+ */
 
 namespace FrameWork
 {

@@ -9,6 +9,11 @@
 
 using namespace std;
 
+/**
+ * @file StartScreen.h
+ * @brief スタート画面の進行を管理するクラス
+ */
+
 namespace Screen
 {
 	class StartScreen : public ScreenBase

@@ -5,6 +5,11 @@
 #include "DxLib.h"
 #include "Define.h"
 
+/**
+ * @file Figure.h
+ * @brief 画面内要素の抽象クラス（マウスイベントを検知しない要素はFigureクラスを直接継承）
+ */
+
 namespace Entity
 {
 	class Figure
@@ -21,17 +26,17 @@ namespace Entity
 			UNIT,
 			MASS,
 			TEXT,
-			MASK
+			OVERLAY
 		};
 
 		Figure() :
-			type_(FIGURE),	isTrans_(false), imagePath_(-1), layerId_(-1), objectId_(-1),
+			type_(FIGURE), layerId_(-1), objectId_(-1),
 			isReserveDelete_(false), animationId_(-1) {};
 		virtual ~Figure() {};
 
 		virtual void init(int layerId, int objectId);
 
-		virtual void render() const;
+		virtual void render() const = 0;
 
 		/**
 		 * @fn
@@ -63,12 +68,6 @@ namespace Entity
 
 		//! オブジェクトの形状(位置やサイズ)
 		Shape shape_;
-
-		//! 画像を透過させるか
-		bool isTrans_;
-
-		//! DxLibで読み込んだ画像のパス
-		int imagePath_;
 
 		//! アニメーションID（未指定のときは-1）
 		int animationId_;

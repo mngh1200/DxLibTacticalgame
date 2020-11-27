@@ -1,5 +1,10 @@
 #pragma once
 
+/**
+ * @file Shape.h
+ * @brief 画面内要素の位置や形状を管理するクラス
+ */
+
 namespace Entity
 {
 	class Shape

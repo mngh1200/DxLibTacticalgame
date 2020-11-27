@@ -30,7 +30,7 @@ namespace Screen
 	void ScreenBase::createOverlay(bool isOpen)
 	{
 		Entity::ObjectsControl& objectsControl = FrameWork::Game::getInstance().objectsControl;
-		objectsControl.addObject(0, OVERLAY_ID, make_shared<Entity::Mask>(isOpen));
+		objectsControl.addObject(0, OVERLAY_ID, make_shared<Entity::Overlay>(isOpen));
 		objectsControl.addAnimationObj(0, 0, OVERLAY_ID);
 
 		if (isOpen)

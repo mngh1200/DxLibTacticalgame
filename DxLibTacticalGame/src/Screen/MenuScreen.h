@@ -8,6 +8,11 @@
 
 using namespace std;
 
+/**
+ * @file MenuScreen.h
+ * @brief メニュー画面の進行を管理するクラス
+ */
+
 namespace Screen
 {
 	class MenuScreen : public ScreenBase

@@ -5,6 +5,11 @@
 #include "DxLib.h"
 #include "Define.h"
 
+/**
+ * @file Mask.h
+ * @brief 画面遷移時のオーバーレイ
+ */
+
 namespace
 {
 	const int COLOR = DxLib::GetColor(0, 0, 0);
@@ -13,12 +18,12 @@ namespace
 
 namespace Entity
 {
-	class Mask : public Object
+	class Overlay : public Object
 	{
 	public:
-		Mask();
-		Mask(bool isOpen);
-		~Mask() {};
+		Overlay();
+		Overlay(bool isOpen);
+		~Overlay() {};
 
 		bool animationUpdate() override;
 

@@ -3,14 +3,16 @@
 #include <vector>
 #include <list>
 #include "DxLib.h"
-#include "Game.h"
-#include "Entity/Object.h"
 
+/**
+ * @file Controller.h
+ * @brief キーイベントを管理
+ */
 
 namespace
 {
 	//! キー入力の種類数
-	const int	KEY_LEN = 256;
+	constexpr int	KEY_LEN = 256;
 }
 
 namespace FrameWork

@@ -6,6 +6,11 @@
 #include "DxLib.h"
 #include "Define.h"
 
+/**
+ * @file Object.h
+ * @brief マウスイベントを検知する画面内要素の抽象クラス
+ */
+
 namespace Entity
 {
 	class Object : public Figure

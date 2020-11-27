@@ -1,6 +1,11 @@
 #include "FrameWork/Game.h"
 #include "Screen/StartScreen.h"
 
+/**
+ * @file Main.cpp
+ * @brief ƒƒCƒ“ŠÖ”
+ */
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {

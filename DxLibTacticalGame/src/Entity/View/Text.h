@@ -8,6 +8,11 @@
 
 using namespace std;
 
+/**
+ * @file Text.h
+ * @brief 画面内テキスト要素
+ */
+
 namespace Entity
 {
 	class Text : public Figure

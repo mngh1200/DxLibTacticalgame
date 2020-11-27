@@ -6,6 +6,11 @@
 #include "DxLib.h"
 #include "Define.h"
 
+/**
+ * @file Button.h
+ * @brief ƒ{ƒ^ƒ“—v‘f
+ */
+
 namespace Entity
 {
 	class Button : public Object

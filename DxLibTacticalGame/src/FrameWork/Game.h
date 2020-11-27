@@ -10,6 +10,12 @@
 #include "Entity/ObjectsControl.h"
 #include "Entity/Object.h"
 
+/**
+ * @file Game.h
+ * @brief シングルトンクラス、ゲーム全体の処理を管理するクラス
+ *        1フレーム分の処理、FPS管理、画面遷移等
+ */
+
 using namespace std;
 
 namespace

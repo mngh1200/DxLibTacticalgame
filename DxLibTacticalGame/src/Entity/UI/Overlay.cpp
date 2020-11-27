@@ -1,13 +1,13 @@
-#include "Mask.h"
+#include "Overlay.h"
 
 namespace Entity {
 	/**
 	 * @fn
 	 * コンストラクタ
 	 */
-	Mask::Mask() : isOpen_(true), alpha_(MAX_ALPHA)
+	Overlay::Overlay() : isOpen_(true), alpha_(MAX_ALPHA)
 	{
-		type_ = MASK;
+		type_ = OVERLAY;
 		shape_ = Shape(0, 0, WIN_W, WIN_H);
 	}
 
@@ -15,7 +15,7 @@ namespace Entity {
 	 * @fn
 	 * コンストラクタ
 	 */
-	Mask::Mask(bool isOpen) : Mask()
+	Overlay::Overlay(bool isOpen) : Overlay()
 	{
 		isOpen_ = isOpen;
 		if (isOpen)
@@ -33,7 +33,7 @@ namespace Entity {
 	 * アニメーション
 	 * @return アニメーション終了時にtrue
 	 */
-	bool Mask::animationUpdate()
+	bool Overlay::animationUpdate()
 	{
 		if (isOpen_) // 画面表示時
 		{
@@ -63,7 +63,7 @@ namespace Entity {
 	 * @fn
 	 * 描画処理
 	 */
-	void Mask::render() const
+	void Overlay::render() const
 	{
 		DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha_);
 

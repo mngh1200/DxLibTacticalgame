@@ -5,6 +5,11 @@
 #include "DxLib.h"
 #include "Define.h"
 
+/**
+ * @file Back.h
+ * @brief îwåióvëf
+ */
+
 namespace Entity
 {
 	class Back : public Object
