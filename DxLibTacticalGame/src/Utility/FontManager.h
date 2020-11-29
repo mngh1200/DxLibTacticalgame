@@ -4,15 +4,28 @@
 #include "DxLib.h"
 #include "Define.h"
 
+namespace
+{
+	enum FontType : int {
+		NORMAL,
+		TITLE,
+		FONT_LEN
+	};
+
+	enum ColorType : int {
+		BACK,
+		NORMAL_TEXT,
+		TITLE_TEXT,
+		COLOR_LEN
+	};
+}
+
 namespace Utility
 {
 	class FontManager
 	{
 	public:
-		enum FontType : int {
-			MEIRYO,
-			MSGOTHIC
-		};
+
 		// for singleton
 		FontManager(const FontManager&) = delete;
 		FontManager& operator=(const FontManager&) = delete;
@@ -25,11 +38,14 @@ namespace Utility
 
 		int getHdlFont(int kind) const;
 
+		int getColor(int kind) const;
+
 	private:
 		FontManager()
-			:hdlFont_{}
+			:hdlFont_{}, colorType_{}
 		{};
 		~FontManager() {};
-		int hdlFont_[2];
+		int hdlFont_[FontType::FONT_LEN];
+		int colorType_[ColorType::COLOR_LEN];
 	};
 }

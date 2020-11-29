@@ -10,13 +10,22 @@ namespace Utility {
 	int FontManager::load()
 	{
 		int ret = 0;
-		hdlFont_[MEIRYO] = DxLib::CreateFontToHandle("メイリオ", 24, 3, DX_FONTTYPE_ANTIALIASING_EDGE);
-		hdlFont_[MSGOTHIC] = DxLib::CreateFontToHandle("MSゴシック", 24, 3, DX_FONTTYPE_ANTIALIASING_EDGE);
+		hdlFont_[FontType::NORMAL] = DxLib::CreateFontToHandle("メイリオ", 24, 3, DX_FONTTYPE_ANTIALIASING_4X4);
+		hdlFont_[FontType::TITLE] = DxLib::CreateFontToHandle("メイリオ", 64, 3, DX_FONTTYPE_ANTIALIASING_4X4);
+
+		colorType_[ColorType::BACK] = DxLib::GetColor(247, 241, 230);
+		colorType_[ColorType::NORMAL_TEXT] = DxLib::GetColor(124, 104, 95);
+		colorType_[ColorType::TITLE_TEXT] = DxLib::GetColor(211, 181, 155);
+
 		return ret;
 	}
 
 	int FontManager::getHdlFont(int kind) const
 	{
 		return hdlFont_[kind];
+	}
+	int FontManager::getColor(int kind) const
+	{
+		return colorType_[kind];
 	}
 }
