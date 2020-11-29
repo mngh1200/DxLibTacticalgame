@@ -17,3 +17,5 @@ constexpr int MOUSE_INPUT_LOG_CLICK = 2;
 //! 透過度の最大値
 constexpr int MAX_ALPHA = 255;
 
+//! 画像チップのサイズ
+constexpr int CHIP_SIZE = 64;

@@ -43,6 +43,12 @@
     <Filter Include="ヘッダー ファイル\Screen">
       <UniqueIdentifier>{ba3a2cd9-ecec-48e4-9c5a-a431b4572db5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Utility">
+      <UniqueIdentifier>{6459ec5d-8aa2-485b-b3a1-710fd410ed46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Utility">
+      <UniqueIdentifier>{2ff2c5c1-0b89-43d4-a0ca-5cf79d287ee5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -87,6 +93,9 @@
     <ClCompile Include="src\Entity\UI\Overlay.cpp">
       <Filter>ソース ファイル\Entity\UI</Filter>
     </ClCompile>
+    <ClCompile Include="src\Utility\ResourceManager.cpp">
+      <Filter>ソース ファイル\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -130,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="src\Entity\UI\Overlay.h">
       <Filter>ヘッダー ファイル\Entity\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\ResourceManager.h">
+      <Filter>ヘッダー ファイル\Utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
