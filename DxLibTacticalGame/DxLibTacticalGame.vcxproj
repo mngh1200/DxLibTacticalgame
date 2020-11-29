@@ -165,6 +165,7 @@
     <ClCompile Include="src\Screen\MenuScreen.cpp" />
     <ClCompile Include="src\Screen\ScreenBase.cpp" />
     <ClCompile Include="src\Screen\StartScreen.cpp" />
+    <ClCompile Include="src\Utility\FontManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Define.h" />
@@ -181,6 +182,7 @@
     <ClInclude Include="src\Screen\MenuScreen.h" />
     <ClInclude Include="src\Screen\ScreenBase.h" />
     <ClInclude Include="src\Screen\StartScreen.h" />
+    <ClInclude Include="src\Utility\FontManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

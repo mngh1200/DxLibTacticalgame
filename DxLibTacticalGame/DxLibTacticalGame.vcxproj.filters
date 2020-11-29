@@ -43,6 +43,12 @@
     <Filter Include="ヘッダー ファイル\Screen">
       <UniqueIdentifier>{ba3a2cd9-ecec-48e4-9c5a-a431b4572db5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Utility">
+      <UniqueIdentifier>{a32821f4-4417-4f3e-9766-12583eeab5e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Utility">
+      <UniqueIdentifier>{b220aa6f-e190-4883-b045-799e4d6e7d55}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -87,6 +93,9 @@
     <ClCompile Include="src\Entity\UI\Overlay.cpp">
       <Filter>ソース ファイル\Entity\UI</Filter>
     </ClCompile>
+    <ClCompile Include="src\Utility\FontManager.cpp">
+      <Filter>ソース ファイル\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -130,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="src\Entity\UI\Overlay.h">
       <Filter>ヘッダー ファイル\Entity\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\FontManager.h">
+      <Filter>ヘッダー ファイル\Utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
