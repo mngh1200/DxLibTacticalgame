@@ -17,7 +17,7 @@ namespace Screen
 		objectsControl.addObject(Layer::BACK, 0, make_shared<Entity::Back>());
 		objectsControl.addObject(Layer::UI, 0, make_shared<Entity::Button>(Entity::Shape(WIN_W / 2 - 50, WIN_H / 2 - 15, 100, 30)));
 		objectsControl.addObject(Layer::UI, 1, make_shared<Entity::Button>(Entity::Shape(WIN_W / 2 - 50, WIN_H / 2 - 15 + 50, 100, 30)));
-		objectsControl.addFigure(Layer::UI, 2, make_shared<Entity::Text>("メニュー", WIN_W / 2, 200, DxLib::CreateFontToHandle("メイリオ", 24, 3, DX_FONTTYPE_ANTIALIASING), Entity::Text::Align::CENTER, DxLib::GetColor(124, 104, 95)));
+		objectsControl.addFigure(Layer::UI, 2, make_shared<Entity::Text>("メニュー", WIN_W / 2, 200, FontType::TITLE, ColorType::TITLE_TEXT, Entity::Text::Align::CENTER));
 
 		// オーバーレイセット
 		createOverlay(true);

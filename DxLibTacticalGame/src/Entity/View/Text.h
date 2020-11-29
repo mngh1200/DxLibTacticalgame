@@ -1,6 +1,7 @@
 #pragma once
 #include <climits>
 #include <string>
+#include "Utility/FontManager.h"
 #include "Entity/Shape.h"
 #include "Entity/Figure.h"
 #include "DxLib.h"
@@ -19,10 +20,8 @@ namespace Entity
 	{
 	public:
 		Text();
-		Text(string text, int x, int y, int font, int align = LEFT, int color = -1);
+		Text(string text, int x, int y, int fontType, int colorType, int align = LEFT);
 		~Text() {};
-
-		void setColor(int color);
 
 		void render() const;
 

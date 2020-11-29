@@ -2,6 +2,7 @@
 #include <climits>
 #include <memory>
 #include "ScreenBase.h"
+#include "Utility/FontManager.h"
 #include "Entity/UI/Back.h"
 #include "Entity/UI/Button.h"
 #include "Entity/View/Text.h"

@@ -1,4 +1,5 @@
 #include "FrameWork/Game.h"
+#include "Utility/FontManager.h"
 #include "Screen/StartScreen.h"
 
 /**
@@ -35,7 +36,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		// スタート画面セット
 		game.setScreen(new Screen::StartScreen());
 
-		// int img = DxLib::LoadGraph("resource/test1.bmp");
+
+		// フォント管理クラス
+		Utility::FontManager& fontManager = Utility::FontManager::getInstance();
+
+		// フォントデータロード
+		fontManager.load();
 
 		while (DxLib::ProcessMessage() == 0
 			&& DxLib::ClearDrawScreen() == 0)

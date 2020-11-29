@@ -17,14 +17,18 @@ namespace Entity {
 	 * @param (text) 表示文字
 	 * @param (x) x座標
 	 * @param (y) y座標
-	 * @param (font) フォント
+	 * @param (fontType) 対象フォント（fontManagerのFontTypeのenum値）
+	 * @param (colorType) テキスト色（fontManagerのColorTypeのenum値）
+	 * @param (align) x座標の基準（左、中央、右揃えを指定）
 	 */
-	Text::Text(string text, int x, int y, int font, int align, int color) : Text()
+	Text::Text(string text, int x, int y, int fontType, int colorType, int align) : Text()
 	{
+		Utility::FontManager& fontManager = Utility::FontManager::getInstance();
+
 		text_ = text;
-		font_ = font;
 		shape_.y = y;
-		color_ = color;
+		font_ = fontManager.getHdlFont(fontType);
+		color_ = fontManager.getColor(colorType);
 
 		if (align == CENTER) // 中央揃え
 		{
@@ -39,20 +43,7 @@ namespace Entity {
 		else // 左揃え
 		{
 			shape_.x = x;
-			
 		}
-		font_ = DxLib::CreateFontToHandle("メイリオ", 24, 3, DX_FONTTYPE_ANTIALIASING);
-
-	}
-
-	/**
-	 * @fn
-	 * 文字色をセット
-	 * @param (color) 色
-	 */
-	void Text::setColor(int color)
-	{
-		color_ = color;
 	}
 
 	/**
