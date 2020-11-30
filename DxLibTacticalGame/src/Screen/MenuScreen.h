@@ -2,9 +2,10 @@
 #include <climits>
 #include <memory>
 #include "ScreenBase.h"
+#include "FrameWork/Game.h"
 #include "Utility/FontManager.h"
 #include "Entity/UI/Back.h"
-#include "Entity/UI/Button.h"
+#include "Entity/UI/MenuScreenButton.h"
 #include "Entity/View/Text.h"
 
 using namespace std;
@@ -32,6 +33,13 @@ namespace Screen
 			UI,
 			BACK,
 			LEN
+		};
+
+		enum UIid
+		{
+			TITLE,
+			CAMPAIN_BUTTON,
+			QUIT_BUTTON
 		};
 	};
 }

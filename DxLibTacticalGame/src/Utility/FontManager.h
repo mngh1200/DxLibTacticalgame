@@ -9,6 +9,7 @@ namespace
 	enum FontType : int {
 		NORMAL,
 		TITLE,
+		MAIN_MENU,
 		FONT_LEN
 	};
 
@@ -16,6 +17,7 @@ namespace
 		BACK,
 		NORMAL_TEXT,
 		TITLE_TEXT,
+		BUTTON,
 		COLOR_LEN
 	};
 }

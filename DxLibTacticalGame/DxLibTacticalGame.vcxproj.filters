@@ -49,6 +49,12 @@
     <Filter Include="ソース ファイル\Utility">
       <UniqueIdentifier>{b220aa6f-e190-4883-b045-799e4d6e7d55}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Entity\UI\Button">
+      <UniqueIdentifier>{e287a7b5-566c-4341-9b9b-c96359957946}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entity\UI\Button">
+      <UniqueIdentifier>{ae130153-6c7e-4dae-b873-e700ed36b6c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -67,9 +73,6 @@
       <Filter>ソース ファイル\Entity</Filter>
     </ClCompile>
     <ClCompile Include="src\Entity\UI\Back.cpp">
-      <Filter>ソース ファイル\Entity\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Entity\UI\Button.cpp">
       <Filter>ソース ファイル\Entity\UI</Filter>
     </ClCompile>
     <ClCompile Include="src\Entity\View\Text.cpp">
@@ -96,6 +99,12 @@
     <ClCompile Include="src\Utility\FontManager.cpp">
       <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entity\UI\Button.cpp">
+      <Filter>ソース ファイル\Entity\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\UI\MenuScreenButton.cpp">
+      <Filter>ソース ファイル\Entity\UI\Button</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -114,9 +123,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Entity\UI\Back.h">
-      <Filter>ヘッダー ファイル\Entity\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Entity\UI\Button.h">
       <Filter>ヘッダー ファイル\Entity\UI</Filter>
     </ClInclude>
     <ClInclude Include="src\Entity\View\Text.h">
@@ -142,6 +148,12 @@
     </ClInclude>
     <ClInclude Include="src\Utility\FontManager.h">
       <Filter>ヘッダー ファイル\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\UI\Button.h">
+      <Filter>ヘッダー ファイル\Entity\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\UI\MenuScreenButton.h">
+      <Filter>ヘッダー ファイル\Entity\UI\Button</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,49 +2,23 @@
 
 namespace Entity {
 
-	Button::Button()
+	Button::Button() : text_("")
 	{
 		type_ = BUTTON;
 	}
 
-	Button::Button(Shape shape) : Button()
-	{
-		shape_ = shape;
-	}
-
-	// テスト
-	void Button::onMouseOver()
-	{
-		// アニメーション追加
-		FrameWork::Game::getInstance().objectsControl.addAnimationObj(1, getLayerId(), getObjectId(), false);
-	}
-
-	// テスト
-	bool Button::animationUpdate()
-	{
-		if (animationId_ == 1)
-		{
-			if (shape_.x >= 500)
-			{
-				return true;
-			}
-			else
-			{
-				shape_.x += 1;
-			}
-		}
-
-		return false;
-	}
-
 	/**
 	 * @fn
-	 * 描画処理
+	 * コンストラクタ
+	 * @param (text) ボタンの文言
+	 * @param (x) x座標
+	 * @param (y) y座標
+	 * @param (w) 幅
+	 * @param (h) 高さ
 	 */
-	void Button::render() const
+	Button::Button(string text, int& x, int& y, int& w, int& h) : Button()
 	{
-		// テスト
-		DxLib::DrawBox(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), DxLib::GetColor(227, 221, 210), TRUE);
-		DxLib::DrawString(shape_.x, shape_.y, "Close", DxLib::GetColor(90, 50, 0));
+		shape_ = Shape(x, y, w, h);
+		text_ = text;
 	}
 }

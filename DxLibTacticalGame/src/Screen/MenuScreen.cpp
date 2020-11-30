@@ -9,15 +9,15 @@ namespace Screen
 	*/
 	void MenuScreen::init()
 	{
-		// テスト
 		FrameWork::Game& game = FrameWork::Game::getInstance();
 		Entity::ObjectsControl& objectsControl = game.objectsControl;
 
 		objectsControl.setLayer(Layer::LEN);
 		objectsControl.addObject(Layer::BACK, 0, make_shared<Entity::Back>());
-		objectsControl.addObject(Layer::UI, 0, make_shared<Entity::Button>(Entity::Shape(WIN_W / 2 - 50, WIN_H / 2 - 15, 100, 30)));
-		objectsControl.addObject(Layer::UI, 1, make_shared<Entity::Button>(Entity::Shape(WIN_W / 2 - 50, WIN_H / 2 - 15 + 50, 100, 30)));
-		objectsControl.addFigure(Layer::UI, 2, make_shared<Entity::Text>("メニュー", WIN_W / 2, 200, FontType::TITLE, ColorType::TITLE_TEXT, Entity::Text::Align::CENTER));
+		objectsControl.addFigure(Layer::UI, UIid::TITLE, make_shared<Entity::Text>("GAME TITLE", 100, 100, FontType::TITLE, ColorType::TITLE_TEXT));
+		objectsControl.addObject(Layer::UI, UIid::CAMPAIN_BUTTON, make_shared<Entity::MenuScreenButton>("キャンペーン", 100, 250, 400, 100));
+		objectsControl.addObject(Layer::UI, UIid::QUIT_BUTTON, make_shared<Entity::MenuScreenButton>("終了", 100, 375, 400, 70));
+
 
 		// オーバーレイセット
 		createOverlay(true);
@@ -29,19 +29,21 @@ namespace Screen
 	*/
 	void MenuScreen::updateByEvents(weak_ptr<Entity::Object> hitObjWp, int x, int y, int button, int eventType)
 	{
-		// テスト
 		shared_ptr<Entity::Object> hitObjSp = hitObjWp.lock();
 
-		if (hitObjSp && hitObjSp->getType() == Entity::Figure::BUTTON && eventType == MOUSE_INPUT_LOG_CLICK)
+
+		if (hitObjSp)
 		{
-			int objId = hitObjSp->getObjectId();
-			if (objId == 0)
+			// ボタンのクリックイベント
+			if (hitObjSp->getType() == Entity::Figure::BUTTON && eventType == MOUSE_INPUT_LOG_CLICK)
 			{
-				FrameWork::Game::getInstance().finish();
-			}
-			else if (objId == 1)
-			{
-				hitObjSp->destroy();
+				int objId = hitObjSp->getObjectId();
+
+				// 終了ボタン
+				if (objId == UIid::QUIT_BUTTON)
+				{
+					FrameWork::Game::getInstance().finish();
+				}
 			}
 		}
 	}

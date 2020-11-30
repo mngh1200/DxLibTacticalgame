@@ -1,10 +1,11 @@
 #pragma once
 #include <climits>
+#include <string>
 #include "FrameWork/Game.h"
 #include "Entity/Object.h"
 #include "Entity/Shape.h"
-#include "DxLib.h"
-#include "Define.h"
+
+using namespace std;
 
 /**
  * @file Button.h
@@ -17,13 +18,9 @@ namespace Entity
 	{
 	public:
 		Button();
-		Button(Shape shape);
-		~Button() {};
-
-		void onMouseOver() override;
-		bool animationUpdate() override;
-
-		void render() const override;
-
+		Button(string text, int& x, int& y, int& w, int& h);
+		virtual ~Button() {};
+	protected:
+		string text_;
 	};
 }
