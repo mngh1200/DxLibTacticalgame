@@ -1,8 +1,11 @@
 #pragma once
 #include <climits>
 #include <string>
+#include "FrameWork/Game.h"
 #include "Entity/Object.h"
+#include "Entity/Shape.h"
 #include "Utility/FontManager.h"
+#include "Animation/Animation.h"
 
 using namespace std;
 
@@ -22,6 +25,7 @@ namespace Entity
 
 		void render() const override;
 
+		bool animationUpdate() override;
 
 		void onMouseLeftDown() override;
 		void onMouseLeftUp() override;
@@ -49,5 +53,17 @@ namespace Entity
 
 		//! 文字色
 		int textColor_;
+
+		//! アニメーションクラス
+		Animation animation_;
+
+		//! 基準の大きさ
+		Shape baseShape_;
+
+		enum AnimationId 
+		{
+			EXPANSION,
+			SHRINK
+		};
 	};
 }

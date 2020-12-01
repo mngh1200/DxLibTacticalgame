@@ -6,7 +6,7 @@ namespace Entity {
 	 * @fn
 	 * コンストラクタ
 	 */
-	MenuScreenButton::MenuScreenButton() : textY_(0)
+	MenuScreenButton::MenuScreenButton() : textY_(0), animation_ {}
 	{
 		type_ = Figure::BUTTON;
 		Utility::FontManager& fontManager = Utility::FontManager::getInstance();
@@ -28,6 +28,8 @@ namespace Entity {
 		shape_ = Shape(x, y, w, h);
 		text_ = text;
 		textY_ = (y + h / 2) - TEXT_SIZE / 2;
+
+		baseShape_ = shape_;
 	}
 
 	/**
@@ -46,6 +48,37 @@ namespace Entity {
 		DxLib::DrawFormatStringToHandle(shape_.x + ACCENT_WIDTH + TEXT_PADDING_LEFT, textY_, textColor_, fontManager.getHdlFont(FontType::MAIN_MENU), text_.c_str());
 	}
 
+	/**
+	 * @fn
+	 * アニメーション更新
+	 * @return true:終了
+	 */
+	bool MenuScreenButton::animationUpdate()
+	{
+		bool isFin = true;
+
+		if (animationId_ == EXPANSION)
+		{
+			float y;
+			isFin = animation_.update(&y);
+			shape_.x = baseShape_.x - (y * 25);
+			shape_.y = baseShape_.y - (y * 5);
+			shape_.w = baseShape_.w + (y * 50);
+			shape_.h = baseShape_.h + (y * 10);
+		}
+		else if (animationId_ == SHRINK)
+		{
+			float y;
+			isFin = animation_.update(&y);
+
+			shape_.x = baseShape_.x - (y * 25);
+			shape_.y = baseShape_.y - (y * 5);
+			shape_.w = baseShape_.w + (y * 50);
+			shape_.h = baseShape_.h + (y * 10);
+		}
+		return isFin;
+	}
+
 
 	/**
 	 * @fn
@@ -53,6 +86,10 @@ namespace Entity {
 	 */
 	void MenuScreenButton::onMouseLeftDown()
 	{
+		// 拡大
+		FrameWork::Game& game = FrameWork::Game::getInstance();
+		game.objectsControl.addAnimationObj(EXPANSION, getLayerId(), getObjectId());
+		animation_ = Animation(100);
 	}
 
 	/**
@@ -61,6 +98,10 @@ namespace Entity {
 	 */
 	void MenuScreenButton::onMouseLeftUp()
 	{
+		// 縮小
+		FrameWork::Game& game = FrameWork::Game::getInstance();
+		game.objectsControl.addAnimationObj(SHRINK, getLayerId(), getObjectId());
+		animation_ = Animation(100, 0, 1);
 	}
 
 	/**
@@ -83,5 +124,13 @@ namespace Entity {
 		Utility::FontManager& fontManager = Utility::FontManager::getInstance();
 		backgroundColor_ = fontManager.getColor(ColorType::BUTTON);
 		textColor_ = fontManager.getColor(ColorType::NORMAL_TEXT);
+
+		// 縮小
+		if (isMouseDown_)
+		{
+			FrameWork::Game& game = FrameWork::Game::getInstance();
+			game.objectsControl.addAnimationObj(SHRINK, getLayerId(), getObjectId());
+			animation_ = Animation(100, 0, 1);
+		}
 	}
 }

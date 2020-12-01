@@ -20,8 +20,8 @@ using namespace std;
 
 namespace
 {
-	const int FPS = 60;				// FPS
-	const int ONE_FRAME_MS = 16;	// millsec per frame (16ms)
+	constexpr int FPS = 60;				// FPS
+	constexpr int ONE_FRAME_MS = 16;	// millsec per frame (16ms)
 }
 
 namespace FrameWork
@@ -43,7 +43,6 @@ namespace FrameWork
 		void finish();
 
 		int getFrame() const;
-		void increaseFrame();
 
 		//! 各レイヤーのオブジェクト管理
 		Entity::ObjectsControl objectsControl;
@@ -53,6 +52,7 @@ namespace FrameWork
 		Game() : frame_(0), prevTime_(0), isFinish_(false), waitTime_(0), nowScreen_() {};
 		~Game() {};
 		void controlFps();
+		void increaseFrame();
 
 		//! フレームカウント
 		int frame_;

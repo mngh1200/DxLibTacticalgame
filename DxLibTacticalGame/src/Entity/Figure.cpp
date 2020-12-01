@@ -16,12 +16,12 @@ namespace Entity {
 
 	/**
 	 * @fn
-	 * アニメーションIDがセットされていないときのみセット可能
+	 * 別のアニメーションIDだった場合のみセット
 	 * @return セットできた場合はtrueを返す
 	 */
 	bool Figure::setAnimationId(int animationId)
 	{
-		if (!isAnimation())
+		if (animationId_ != animationId)
 		{
 			animationId_ = animationId;
 			return true;

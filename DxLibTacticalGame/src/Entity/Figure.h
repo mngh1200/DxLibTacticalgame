@@ -43,7 +43,7 @@ namespace Entity
 		 * １フレーム分のアニメーション実行
 		 * @return trueのとき、アニメーション終了
 		 */
-		virtual bool animationUpdate() { return false; };
+		virtual bool animationUpdate() { return true; };
 
 		bool setAnimationId(int animationId);
 

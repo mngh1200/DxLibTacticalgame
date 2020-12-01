@@ -55,6 +55,12 @@
     <Filter Include="ヘッダー ファイル\Entity\UI\Button">
       <UniqueIdentifier>{ae130153-6c7e-4dae-b873-e700ed36b6c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Animation">
+      <UniqueIdentifier>{fb26c7c0-54fe-499c-b643-c9d877d3dee1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Animation">
+      <UniqueIdentifier>{7cc775f0-b850-4e85-93e8-f9f521651880}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -105,6 +111,9 @@
     <ClCompile Include="src\Entity\UI\MenuScreenButton.cpp">
       <Filter>ソース ファイル\Entity\UI\Button</Filter>
     </ClCompile>
+    <ClCompile Include="src\Animation\Animation.cpp">
+      <Filter>ソース ファイル\Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -154,6 +163,12 @@
     </ClInclude>
     <ClInclude Include="src\Entity\UI\MenuScreenButton.h">
       <Filter>ヘッダー ファイル\Entity\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Animation\Animation.h">
+      <Filter>ヘッダー ファイル\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Animation\Easing.h">
+      <Filter>ヘッダー ファイル\Animation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
