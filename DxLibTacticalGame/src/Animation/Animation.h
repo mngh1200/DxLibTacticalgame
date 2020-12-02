@@ -25,7 +25,7 @@ namespace Entity
 			y1_(1)
 		{};
 
-		Animation(int timeMs, int y1 = 1, int y0 = 0);
+		Animation(int timeMs, int y1 = 1, int y0 = 0, function<float(float, float, float, float)> func = Easing::Linear<float>);
 
 		~Animation() {};
 

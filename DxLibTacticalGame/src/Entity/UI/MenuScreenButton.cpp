@@ -89,7 +89,7 @@ namespace Entity {
 		// КgСе
 		FrameWork::Game& game = FrameWork::Game::getInstance();
 		game.objectsControl.addAnimationObj(EXPANSION, getLayerId(), getObjectId());
-		animation_ = Animation(100);
+		animation_ = Animation(100, 1, 0, Easing::OutQuint<float>);
 	}
 
 	/**

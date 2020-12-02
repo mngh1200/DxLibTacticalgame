@@ -299,7 +299,7 @@ public:
 
         return max / _2<Ty> * (std::sqrt(_1<Ty> -time * time) + _1<Ty>) + min;
     }
-
+    /*
     template<typename Ty = float>
     [[nodiscard]] static inline Ty InBack(Ty time, Ty totaltime, Ty back, Ty max = _1<Ty>, Ty min = _0<Ty>)
     {
@@ -331,7 +331,7 @@ public:
 
         return max / _2<Ty> * (time * time * ((back + _1<Ty>) * time + back) + _2<Ty>) + min;
     }
-
+    */
     template<typename Ty = float>
     [[nodiscard]] static inline Ty OutBounce(Ty time, Ty totaltime, Ty max = _1<Ty>, Ty min = _0<Ty>)
     {
