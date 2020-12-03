@@ -23,17 +23,19 @@ namespace Entity
 			frameMax_(0),
 			delayFrame_(0),
 			direction_(NORMAL),
-			repeat_(0)
+			isNormalOrder_(true),
+			repeat_(1)
 		{};
 
-		Animation(int timeMs, int direction = NORMAL, int repeat = 0, function<float(float, float, float, float)> func = Easing::Linear<float>, int delayMs = 0);
+		Animation(int timeMs, int direction = NORMAL, int repeat = 1, int delayMs = 0, function<float(float, float, float, float)> func = Easing::Linear<float>);
 
 		~Animation() {};
 
-		void increaseFrame(bool* isFin, bool* isUpdate, bool isIncreaseFrame = true);
+		bool increaseFrame();
+		inline bool getAbleUpdate() const;
 
-		void adjustFrame(int x, int y, int x0, int y0, int x1, int y1);
-		void adjustFrame(Shape* nowShape, Shape baseShape, float scale);
+		void adjustFrame(float y, float y0, float y1);
+		void adjustFrame(Shape nowShape, Shape baseShape, float scale);
 
 		bool update(float* y, float y0 = 0, float y1 = 1, bool isIncreaseFrame = true);
 		bool update(int* y, int y0, int y1, bool isIncreaseFrame = true);
@@ -66,11 +68,13 @@ namespace Entity
 		//! アニメーション開始遅延フレーム（値が0になった時点からアニメーションを開始する）
 		int delayFrame_;
 
-		//! 実行する方向
+		//! 実行する方向の種類
 		int direction_;
+
+		//! 現在、通常方向にアニメーションを実行しているか
+		bool isNormalOrder_;
 
 		//! リピート回数
 		int repeat_;
-
 	};
 }

@@ -22,20 +22,11 @@
     <Filter Include="ソース ファイル\Entity">
       <UniqueIdentifier>{bdcce9fc-3a5d-440a-bf02-5ff19d8621ca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Entity">
-      <UniqueIdentifier>{441bcf55-bb6a-4e55-b3d6-331239bf0eaa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Entity\UI">
       <UniqueIdentifier>{ff371e08-eef1-458c-8b88-2d5af6737340}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Entity\UI">
-      <UniqueIdentifier>{e62a4c02-6b02-4035-8f2e-32371d7eda23}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Entity\View">
       <UniqueIdentifier>{fcf9cc9a-f440-407a-81b0-ec7f17893b25}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Entity\View">
-      <UniqueIdentifier>{414e1c60-f313-4e25-b45e-9697613a94ee}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Screen">
       <UniqueIdentifier>{5106a2a5-d6cd-45c6-bf6f-7222ae9aa050}</UniqueIdentifier>
@@ -52,14 +43,23 @@
     <Filter Include="ソース ファイル\Entity\UI\Button">
       <UniqueIdentifier>{e287a7b5-566c-4341-9b9b-c96359957946}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Entity\Animation">
+      <UniqueIdentifier>{7cc775f0-b850-4e85-93e8-f9f521651880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entity">
+      <UniqueIdentifier>{441bcf55-bb6a-4e55-b3d6-331239bf0eaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entity\UI">
+      <UniqueIdentifier>{e62a4c02-6b02-4035-8f2e-32371d7eda23}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ヘッダー ファイル\Entity\UI\Button">
       <UniqueIdentifier>{ae130153-6c7e-4dae-b873-e700ed36b6c0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Animation">
-      <UniqueIdentifier>{fb26c7c0-54fe-499c-b643-c9d877d3dee1}</UniqueIdentifier>
+    <Filter Include="ヘッダー ファイル\Entity\View">
+      <UniqueIdentifier>{414e1c60-f313-4e25-b45e-9697613a94ee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Animation">
-      <UniqueIdentifier>{7cc775f0-b850-4e85-93e8-f9f521651880}</UniqueIdentifier>
+    <Filter Include="ヘッダー ファイル\Entity\Animation">
+      <UniqueIdentifier>{fb26c7c0-54fe-499c-b643-c9d877d3dee1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -112,7 +112,7 @@
       <Filter>ソース ファイル\Entity\UI\Button</Filter>
     </ClCompile>
     <ClCompile Include="src\Animation\Animation.cpp">
-      <Filter>ソース ファイル\Animation</Filter>
+      <Filter>ソース ファイル\Entity\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -165,10 +165,10 @@
       <Filter>ヘッダー ファイル\Entity\UI\Button</Filter>
     </ClInclude>
     <ClInclude Include="src\Animation\Animation.h">
-      <Filter>ヘッダー ファイル\Animation</Filter>
+      <Filter>ヘッダー ファイル\Entity\Animation</Filter>
     </ClInclude>
     <ClInclude Include="src\Animation\Easing.h">
-      <Filter>ヘッダー ファイル\Animation</Filter>
+      <Filter>ヘッダー ファイル\Entity\Animation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

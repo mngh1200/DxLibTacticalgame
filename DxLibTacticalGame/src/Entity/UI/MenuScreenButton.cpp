@@ -55,28 +55,11 @@ namespace Entity {
 	 */
 	bool MenuScreenButton::animationUpdate()
 	{
-		bool isFin = true;
-
-		if (animationId_ == EXPANSION)
+		if (animationId_ == EXPANSION || animationId_ == SHRINK)
 		{
-			float y;
-			isFin = animation_.update(&y);
-			shape_.x = baseShape_.x - (y * 25);
-			shape_.y = baseShape_.y - (y * 5);
-			shape_.w = baseShape_.w + (y * 50);
-			shape_.h = baseShape_.h + (y * 10);
+			return animation_.update(&shape_, baseShape_, 1.2F);
 		}
-		else if (animationId_ == SHRINK)
-		{
-			float y;
-			isFin = animation_.update(&y);
-
-			shape_.x = baseShape_.x - (y * 25);
-			shape_.y = baseShape_.y - (y * 5);
-			shape_.w = baseShape_.w + (y * 50);
-			shape_.h = baseShape_.h + (y * 10);
-		}
-		return isFin;
+		return true;
 	}
 
 
@@ -89,7 +72,7 @@ namespace Entity {
 		// ägëÂ
 		FrameWork::Game& game = FrameWork::Game::getInstance();
 		game.objectsControl.addAnimationObj(EXPANSION, getLayerId(), getObjectId());
-		animation_ = Animation(100, 1, 0, Easing::OutQuint<float>);
+		animation_ = Animation(100);
 	}
 
 	/**
@@ -101,7 +84,8 @@ namespace Entity {
 		// èkè¨
 		FrameWork::Game& game = FrameWork::Game::getInstance();
 		game.objectsControl.addAnimationObj(SHRINK, getLayerId(), getObjectId());
-		animation_ = Animation(100, 0, 1);
+		animation_ = Animation(100, Animation::REVERSE);
+		animation_.adjustFrame(shape_, baseShape_, 1.2F);
 	}
 
 	/**
@@ -130,7 +114,8 @@ namespace Entity {
 		{
 			FrameWork::Game& game = FrameWork::Game::getInstance();
 			game.objectsControl.addAnimationObj(SHRINK, getLayerId(), getObjectId());
-			animation_ = Animation(100, 0, 1);
+			animation_ = Animation(100, Animation::REVERSE);
+			animation_.adjustFrame(shape_, baseShape_, 1.2F);
 		}
 	}
 }
