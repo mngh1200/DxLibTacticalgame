@@ -4,16 +4,35 @@
 #include <map>
 #include <vector>
 using namespace std;
+
+/**
+ * @file Resource Manager.h
+ * @brief リソースを管理するクラス
+ */
 namespace Utility
 {
 	class ResourceManager
 	{
 	public:
+		// リソースタイプ
 		enum ResourceType {
 			PLAYER,
 			ENEMY,
 			MAP,
 			IMAGE
+		};
+		// PLAYER、ENEMYのりソースの格納場所
+		enum UnitKey {
+			LANCER,
+			CAVALRY,
+			GUNNER
+		};
+		// PLAYER、ENEMYのアニメーション開始位置(仮)
+		enum UnitStartPos {
+			TOP,
+			LEFT=4,
+			RIGHT=8,
+			DOWN=12
 		};
 
 		//for singleton
