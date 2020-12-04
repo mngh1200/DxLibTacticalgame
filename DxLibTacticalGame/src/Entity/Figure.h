@@ -19,7 +19,7 @@ namespace Entity
 		 * @enum ObjectType
 		 * オブジェクトの種類
 		 */
-		enum Type {
+		enum Type : int {
 			FIGURE,
 			BACKGROUND,
 			BUTTON,
@@ -30,7 +30,7 @@ namespace Entity
 		};
 
 		Figure() :
-			type_(FIGURE), layerId_(-1), objectId_(-1),
+			type_(Type::FIGURE), layerId_(-1), objectId_(-1),
 			isReserveDelete_(false), animationId_(-1) {};
 		virtual ~Figure() {};
 
@@ -61,10 +61,8 @@ namespace Entity
 
 	protected:
 
-		void renderExtend() const;
-
 		//! Objectの種類
-		Type type_;
+		int type_;
 
 		//! オブジェクトの形状(位置やサイズ)
 		Shape shape_;

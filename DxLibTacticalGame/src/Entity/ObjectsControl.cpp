@@ -79,7 +79,7 @@ namespace Entity {
 	 */
 	void ObjectsControl::addObject(int layerId, int objectId, shared_ptr<Object> objSp)
 	{
-		if (0 <= layerId && layerId < layerObjList_.size()) // 存在するレイヤーであるかチェック
+		if (0 <= layerId && (unsigned int)layerId < layerObjList_.size()) // 存在するレイヤーであるかチェック
 		{
 			objSp->init(layerId, objectId);
 			auto mapItr = layerObjList_.begin() + layerId;				 
@@ -96,7 +96,7 @@ namespace Entity {
 	 */
 	void ObjectsControl::addFigure(int layerId, int objectId, shared_ptr<Figure> objSp)
 	{
-		if (0 <= layerId && layerId < layerObjList_.size()) // 存在するレイヤーであるかチェック
+		if (0 <= layerId && (unsigned int)layerId < layerObjList_.size()) // 存在するレイヤーであるかチェック
 		{
 			objSp->init(layerId, objectId);
 			auto mapItr = layerViewObjList_.begin() + layerId;
@@ -112,7 +112,7 @@ namespace Entity {
 	 */
 	void ObjectsControl::removeObject(int layerId, int objectId)
 	{
-		if (0 <= layerId && layerId < layerObjList_.size()) // 存在するレイヤーであるかチェック
+		if (0 <= layerId && (unsigned int)layerId < layerObjList_.size()) // 存在するレイヤーであるかチェック
 		{
 			auto mapItr = layerObjList_.begin() + layerId;
 			(*mapItr).erase(objectId);
@@ -128,7 +128,7 @@ namespace Entity {
 	 */
 	void ObjectsControl::removeFigure(int layerId, int objectId)
 	{
-		if (0 <= layerId && layerId < layerObjList_.size()) // 存在するレイヤーであるかチェック
+		if (0 <= layerId && (unsigned int)layerId < layerObjList_.size()) // 存在するレイヤーであるかチェック
 		{
 			auto mapItr = layerViewObjList_.begin() + layerId;
 			(*mapItr).erase(objectId);

@@ -61,6 +61,7 @@ namespace Screen
 				return true;
 			}
 		}
+		return false;
 	}
 
 	/**
