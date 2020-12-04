@@ -10,10 +10,16 @@
  * @brief 画面内要素の抽象クラス（マウスイベントを検知しない要素はFigureクラスを直接継承）
  */
 
+namespace FrameWork
+{
+	class Game;
+}
+
 namespace Entity
 {
 	class Figure
 	{
+		friend class ObjectsControl;
 	public:
 		/**
 		 * @enum ObjectType
@@ -31,7 +37,7 @@ namespace Entity
 
 		Figure() :
 			type_(Type::FIGURE), layerId_(-1), objectId_(-1),
-			isReserveDelete_(false), animationId_(-1) {};
+			isReserveDelete_(false), animationId_(-1), isView_(true) {};
 		virtual ~Figure() {};
 
 		virtual void init(int layerId, int objectId);
@@ -45,9 +51,7 @@ namespace Entity
 		 */
 		virtual bool animationUpdate() { return true; };
 
-		bool setAnimationId(int animationId);
-
-		bool isAnimation();
+		bool isAnimation() const;
 
 		void destroy();
 
@@ -60,6 +64,14 @@ namespace Entity
 		int getType() const;
 
 	protected:
+		/**
+		 * @fn
+		 * アニメーション作成(ObjectsControl::addAnimationObjメソッド専用で呼び出す)
+		 * @return アニメーション作成可能な場合trueを返す
+		 */
+		virtual bool createAnimation(int animationId) { return false; };
+
+		void joinAnimationList(int animationId);
 
 		//! Objectの種類
 		int type_;
@@ -69,6 +81,9 @@ namespace Entity
 
 		//! アニメーションID（未指定のときは-1）
 		int animationId_;
+
+		//! 見た目だけの要素の場合 true、マウスイベントを検知する要素の場合 false
+		bool isView_;
 
 	private:
 

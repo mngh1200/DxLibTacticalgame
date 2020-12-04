@@ -256,8 +256,9 @@ namespace Entity {
 		if (objSP)
 		{
 			// 既にアニメーション中の場合は追加しない
-			if (objSP->setAnimationId(animationId))
+			if (objSP->createAnimation(animationId))
 			{
+				objSP->animationId_ = animationId;
 				animationObjList_.push_front(objWp);
 			}
 		}
@@ -280,7 +281,7 @@ namespace Entity {
 				if (isRemove)
 				{
 					// アニメーションIDを未指定状態にする
-					objSp->setAnimationId(-1);
+					objSp->animationId_ = -1;
 				}
 			}
 			else

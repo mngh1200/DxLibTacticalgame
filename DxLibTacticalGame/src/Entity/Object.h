@@ -17,7 +17,7 @@ namespace Entity
 	{
 	public:
 
-		Object() : isMouseDown_(false), isMouseOver_(false) {};
+		Object() : isMouseDown_(false), isMouseOver_(false) { isView_ = false; };
 		virtual ~Object() {};
 
 		bool checkMouseEvent(int x, int y, int button, int* eventType, bool isOtherHit);

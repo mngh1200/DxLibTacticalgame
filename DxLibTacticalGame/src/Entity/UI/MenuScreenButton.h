@@ -32,15 +32,16 @@ namespace Entity
 		void onMouseOver() override;
 		void onMouseOut() override;
 
+	protected:
+		bool createAnimation(int animationId);
+
 	private:
-		//! アクセント部分の幅
-		static const int ACCENT_WIDTH = 25;
-
-		//! テキストの左余白
-		static const int TEXT_PADDING_LEFT = 25;
-
-		//! フォントサイズ
-		static const int TEXT_SIZE = 32;
+		
+		static const int ACCENT_WIDTH = 25;			//! アクセント部分の幅
+		static const int TEXT_PADDING_LEFT = 25;	//! テキストの左余白
+		static const int TEXT_SIZE = 32;			//! フォントサイズ
+		static const int ANIMATION_MS = 100;		//! 拡大、縮小の時間
+		static const float ANIMATION_SCALE;			//! サイズ倍率(floatはcppで定義する必要あり)
 
 		//! テキストのY座標
 		int textY_;
@@ -66,4 +67,6 @@ namespace Entity
 			SHRINK
 		};
 	};
+
+	
 }

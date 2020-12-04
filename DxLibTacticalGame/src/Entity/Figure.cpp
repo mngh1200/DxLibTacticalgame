@@ -1,4 +1,5 @@
 #include "Figure.h"
+#include "FrameWork/Game.h"
 
 namespace Entity {
 	/**
@@ -16,27 +17,23 @@ namespace Entity {
 
 	/**
 	 * @fn
-	 * 別のアニメーションIDだった場合のみセット
-	 * @return セットできた場合はtrueを返す
+	 * アニメーションの追加可能か
+	 * @return 追加済みの場合 false
 	 */
-	bool Figure::setAnimationId(int animationId)
+	bool Figure::isAnimation() const
 	{
-		if (animationId_ != animationId)
-		{
-			animationId_ = animationId;
-			return true;
-		}
-		return false;
+		return animationId_ != -1;
 	}
 
 	/**
 	 * @fn
-	 * アニメーションの追加可能か
-	 * @return 追加済みの場合 false
+	 * オブジェクト自身をObjectsControlクラスのアニメーションオブジェクトリストに追加する
+	 * @param (animationId) セットするアニメーションID
 	 */
-	bool Figure::isAnimation()
+	void Figure::joinAnimationList(int animationId)
 	{
-		return animationId_ != -1;
+		FrameWork::Game& game = FrameWork::Game::getInstance();
+		game.objectsControl.addAnimationObj(animationId, getLayerId(), getObjectId(), isView_);
 	}
 
 	/**

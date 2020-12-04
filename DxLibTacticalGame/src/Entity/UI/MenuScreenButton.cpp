@@ -1,6 +1,7 @@
 #include "MenuScreenButton.h"
 
 namespace Entity {
+	const float MenuScreenButton::ANIMATION_SCALE = 1.2f;
 
 	/**
 	 * @fn
@@ -50,6 +51,33 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * アニメーション作成(ObjectsControl::addAnimationObjメソッド専用で呼び出す)
+	 * @return アニメーション作成可能な場合trueを返す
+	 */
+	bool MenuScreenButton::createAnimation(int animationId)
+	{
+		// 既に実行済みのアニメーションがある場合は作成不可
+		if (animationId == animationId_)
+		{
+			return false;
+		}
+		
+		if (animationId == EXPANSION) // 拡大
+		{
+			animation_ = Animation(ANIMATION_MS);
+			return true;
+		}
+		else if (animationId == SHRINK) // 縮小
+		{
+			animation_ = Animation(ANIMATION_MS, Animation::REVERSE);
+			animation_.adjustFrame(shape_, baseShape_, ANIMATION_SCALE);
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @fn
 	 * アニメーション更新
 	 * @return true:終了
 	 */
@@ -57,7 +85,7 @@ namespace Entity {
 	{
 		if (animationId_ == EXPANSION || animationId_ == SHRINK)
 		{
-			return animation_.update(&shape_, baseShape_, 1.2F);
+			return animation_.update(&shape_, baseShape_, ANIMATION_SCALE);
 		}
 		return true;
 	}
@@ -69,10 +97,7 @@ namespace Entity {
 	 */
 	void MenuScreenButton::onMouseLeftDown()
 	{
-		// 拡大
-		FrameWork::Game& game = FrameWork::Game::getInstance();
-		game.objectsControl.addAnimationObj(EXPANSION, getLayerId(), getObjectId());
-		animation_ = Animation(100);
+		joinAnimationList(EXPANSION); // 拡大
 	}
 
 	/**
@@ -81,11 +106,7 @@ namespace Entity {
 	 */
 	void MenuScreenButton::onMouseLeftUp()
 	{
-		// 縮小
-		FrameWork::Game& game = FrameWork::Game::getInstance();
-		game.objectsControl.addAnimationObj(SHRINK, getLayerId(), getObjectId());
-		animation_ = Animation(100, Animation::REVERSE);
-		animation_.adjustFrame(shape_, baseShape_, 1.2F);
+		joinAnimationList(SHRINK); // 縮小
 	}
 
 	/**
@@ -109,13 +130,10 @@ namespace Entity {
 		backgroundColor_ = fontManager.getColor(ColorType::BUTTON);
 		textColor_ = fontManager.getColor(ColorType::NORMAL_TEXT);
 
-		// 縮小
 		if (isMouseDown_)
 		{
-			FrameWork::Game& game = FrameWork::Game::getInstance();
-			game.objectsControl.addAnimationObj(SHRINK, getLayerId(), getObjectId());
-			animation_ = Animation(100, Animation::REVERSE);
-			animation_.adjustFrame(shape_, baseShape_, 1.2F);
+			joinAnimationList(SHRINK); // 縮小
 		}
 	}
+
 }
