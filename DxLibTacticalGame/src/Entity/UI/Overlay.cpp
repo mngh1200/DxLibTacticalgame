@@ -1,11 +1,13 @@
 #include "Overlay.h"
 
 namespace Entity {
+	const int Overlay::COLOR = DxLib::GetColor(0, 0, 0); //! オーバーレイの色
+
 	/**
 	 * @fn
 	 * コンストラクタ
 	 */
-	Overlay::Overlay() : isOpen_(true), alpha_(MAX_ALPHA)
+	Overlay::Overlay(bool isOpen) : isOpen_(isOpen), alpha_(MAX_ALPHA), animation_({})
 	{
 		type_ = OVERLAY;
 		shape_ = Shape(0, 0, WIN_W, WIN_H);
@@ -13,19 +15,26 @@ namespace Entity {
 
 	/**
 	 * @fn
-	 * コンストラクタ
+	 * アニメーション作成(ObjectsControl::addAnimationObjメソッド専用で呼び出す)
+	 * @return アニメーション作成可能な場合trueを返す
 	 */
-	Overlay::Overlay(bool isOpen) : Overlay()
+	bool Overlay::createAnimation(int animationId)
 	{
-		isOpen_ = isOpen;
-		if (isOpen)
+		// 既に実行済みのアニメーションがある場合は作成不可
+		if (animationId == animationId_)
 		{
-			alpha_ = MAX_ALPHA;
+			return false;
 		}
-		else
+
+		int direction = Animation::REVERSE;
+
+		if (!isOpen_)
 		{
-			alpha_ = 0;
+			direction = Animation::NORMAL;
 		}
+
+		animation_ = Animation(ANIMATION_TIME, direction);
+		return true;
 	}
 
 	/**
@@ -35,27 +44,10 @@ namespace Entity {
 	 */
 	bool Overlay::animationUpdate()
 	{
-		if (isOpen_) // 画面表示時
+		if (animation_.update(&alpha_, 0, MAX_ALPHA))
 		{
-			alpha_ -= ADD_ALPHA;
-			if (alpha_ <= 0)
-			{
-				alpha_ = 0;
-				animationId_ = -1;
-				return true;
-			}
+			return true;
 		}
-		else // 画面終了時
-		{
-			alpha_ += ADD_ALPHA;
-			if (alpha_ >= MAX_ALPHA)
-			{
-				alpha_ = MAX_ALPHA;
-				animationId_ = -1;
-				return true;
-			}
-		}
-
 		return false;
 	}
 
@@ -65,7 +57,8 @@ namespace Entity {
 	 */
 	void Overlay::render() const
 	{
-		DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha_);
+
+ 		DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha_);
 
 		DxLib::DrawBox(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), COLOR, TRUE);
 

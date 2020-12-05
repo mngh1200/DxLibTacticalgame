@@ -2,7 +2,7 @@
 #include <climits>
 #include <memory>
 #include "Entity/Object.h"
-#include "Entity/UI/Overlay.h"
+
 
 using namespace std;
 
@@ -14,6 +14,11 @@ using namespace std;
 namespace FrameWork
 {
 	class Game;
+}
+
+namespace Entity
+{
+	class Overlay;
 }
 
 namespace

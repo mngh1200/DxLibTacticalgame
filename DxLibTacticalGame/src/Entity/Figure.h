@@ -71,7 +71,7 @@ namespace Entity
 		 */
 		virtual bool createAnimation(int animationId) { return false; };
 
-		void joinAnimationList(int animationId);
+		void joinAnimationList(int animationId = 0);
 
 		//! Object‚ÌŽí—Þ
 		int type_;

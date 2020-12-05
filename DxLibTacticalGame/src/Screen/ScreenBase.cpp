@@ -1,5 +1,6 @@
 #include "ScreenBase.h"
 #include "FrameWork/Game.h"
+#include "Entity/UI/Overlay.h"
 
 namespace Screen
 {
@@ -32,12 +33,9 @@ namespace Screen
 		Entity::ObjectsControl& objectsControl = FrameWork::Game::getInstance().objectsControl;
 		objectsControl.addObject(0, OVERLAY_ID, make_shared<Entity::Overlay>(isOpen));
 		objectsControl.addAnimationObj(0, 0, OVERLAY_ID);
+		nowScene_ = START_OVERLAY_SCENE;
 
-		if (isOpen)
-		{
-			nowScene_ = START_OVERLAY_SCENE;
-		}
-		else
+		if (!isOpen)
 		{
 			nowScene_ = END_OVERLAY_SCENE;
 		}
