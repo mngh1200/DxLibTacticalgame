@@ -5,10 +5,15 @@ namespace Entity {
 	 * @fn
 	 * コンストラクタ
 	 */
-	Back::Back()
+	Back::Back() : imageId_(0)
 	{
 		type_ = BACKGROUND;
 		shape_ = Shape(0, 0, WIN_W, WIN_H);
+
+
+		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
+		typedef Utility::ResourceManager RM;
+		imageId_ = rm.getResource(RM::ResourceType::IMAGE, RM::BACKGROUND_MENU, 0);
 	}
 
 	/**
@@ -17,7 +22,6 @@ namespace Entity {
 	 */
 	void Back::render() const
 	{
-		// テスト用
-		DxLib::DrawBox(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), DxLib::GetColor(247, 241, 230), TRUE);
+		DxLib::DrawGraph(shape_.x, shape_.y, imageId_, FALSE);
 	}
 }

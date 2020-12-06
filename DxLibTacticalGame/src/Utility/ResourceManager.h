@@ -35,6 +35,12 @@ namespace Utility
 			DOWN=12
 		};
 
+		// Image‚ÌID
+		enum ImageId {
+			BACKGROUND_MENU,
+			IMAGE_ID_LEN
+		};
+
 		//for singleton
 		ResourceManager(const ResourceManager&) = delete;
 		ResourceManager& operator=(const ResourceManager&) = delete;

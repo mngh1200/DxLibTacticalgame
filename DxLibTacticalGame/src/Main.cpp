@@ -36,6 +36,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		// スタート画面セット
 		game.setScreen(new Screen::StartScreen());
 
+		// イメージ管理クラス
+		Utility::ResourceManager& resourceManager = Utility::ResourceManager::getInstance();
+
+		// リソースロード
+		resourceManager.load();
 
 		// フォント管理クラス
 		Utility::FontManager& fontManager = Utility::FontManager::getInstance();

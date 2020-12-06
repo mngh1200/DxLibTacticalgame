@@ -15,6 +15,12 @@ namespace Utility {
 	int ResourceManager::load()
 	{
 		int ret = 0;
+
+		resource_.insert(std::make_pair(ResourceType::IMAGE, vector<int*>()));
+		resource_.at(ResourceType::IMAGE).push_back(new int[IMAGE_ID_LEN]);
+		loadImage("resource/image/menu/background.jpg", resource_.at(ResourceType::IMAGE).at(0));
+
+
 		resource_.insert(std::make_pair(MAP, vector<int*>()));
 		resource_.at(MAP).push_back(new int[8]);
 		loadMapchip("resource/mapchip.png", resource_.at(MAP).at(0));

@@ -3,6 +3,7 @@
 #include "Entity/Object.h"
 #include "Entity/Shape.h"
 #include "DxLib.h"
+#include "Utility/ResourceManager.h"
 #include "Define.h"
 
 /**
@@ -18,5 +19,8 @@ namespace Entity
 		Back();
 		~Back() {};
 		void render() const override;
+
+	private:
+		int imageId_;
 	};
 }
