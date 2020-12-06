@@ -411,3 +411,5 @@ About
 
 # Others
 Log.txt
+*.wav
+*.ogg

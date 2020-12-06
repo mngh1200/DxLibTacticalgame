@@ -20,6 +20,11 @@ namespace
 		BUTTON,
 		COLOR_LEN
 	};
+
+	enum SoundKind : int {
+		MOUSE_DOWN,
+		SOUNDS_LEN
+	};
 }
 
 namespace Utility
@@ -42,6 +47,8 @@ namespace Utility
 
 		int getColor(int kind) const;
 
+		int getSound(int kind) const;
+
 	private:
 		FontManager()
 			:hdlFont_{}, colorType_{}
@@ -49,5 +56,6 @@ namespace Utility
 		~FontManager() {};
 		int hdlFont_[FontType::FONT_LEN];
 		int colorType_[ColorType::COLOR_LEN];
+		int sounds_[SoundKind::SOUNDS_LEN];
 	};
 }

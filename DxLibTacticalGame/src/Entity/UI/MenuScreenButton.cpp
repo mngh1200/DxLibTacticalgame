@@ -98,6 +98,11 @@ namespace Entity {
 	void MenuScreenButton::onMouseLeftDown()
 	{
 		joinAnimationList(EXPANSION); // Šg‘å
+		
+		// ƒTƒEƒ“ƒh
+		Utility::FontManager& fontM = Utility::FontManager::getInstance();
+		DxLib::PlaySoundMem(fontM.getSound(SoundKind::MOUSE_DOWN), DX_PLAYTYPE_BACK);
+
 	}
 
 	/**

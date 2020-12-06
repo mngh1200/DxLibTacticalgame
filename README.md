@@ -16,3 +16,12 @@ MITライセンス
 http://jikasei.me/font/rounded-mplus/
 
 DxLibTacticalGame/resource/font/rounded-mplus/以下のファイル
+
+
+#### サウンド
+
+原則再配布禁止の素材を使用しているため、利用規約に従い、
+元ファイルをgithub上では非公開にしています。
+
+配布元
+https://www.tam-music.com/

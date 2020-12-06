@@ -20,6 +20,9 @@ namespace Utility {
 		colorType_[ColorType::TITLE_TEXT] = DxLib::GetColor(211, 181, 155);
 		colorType_[ColorType::BUTTON] = DxLib::GetColor(232, 220, 197);
 
+		sounds_[SoundKind::MOUSE_DOWN] = DxLib::LoadSoundMem("resource/sound/mouse-down.wav");
+		DxLib::ChangeVolumeSoundMem(128, sounds_[SoundKind::MOUSE_DOWN]);
+
 		return ret;
 	}
 
@@ -30,5 +33,9 @@ namespace Utility {
 	int FontManager::getColor(int kind) const
 	{
 		return colorType_[kind];
+	}
+	int FontManager::getSound(int kind) const
+	{
+		return sounds_[kind];
 	}
 }
