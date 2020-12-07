@@ -117,6 +117,9 @@
     <ClCompile Include="src\Utility\ResourceManager.cpp">
       <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\Screen\SelectScreen.cpp">
+      <Filter>ソース ファイル\Screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -175,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="src\Utility\ResourceManager.h">
       <Filter>ヘッダー ファイル\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screen\SelectScreen.h">
+      <Filter>ヘッダー ファイル\Screen</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

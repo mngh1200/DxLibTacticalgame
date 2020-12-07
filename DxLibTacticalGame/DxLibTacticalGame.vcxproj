@@ -166,6 +166,7 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Screen\MenuScreen.cpp" />
     <ClCompile Include="src\Screen\ScreenBase.cpp" />
+    <ClCompile Include="src\Screen\SelectScreen.cpp" />
     <ClCompile Include="src\Screen\StartScreen.cpp" />
     <ClCompile Include="src\Utility\FontManager.cpp" />
     <ClCompile Include="src\Utility\ResourceManager.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="src\FrameWork\Game.h" />
     <ClInclude Include="src\Screen\MenuScreen.h" />
     <ClInclude Include="src\Screen\ScreenBase.h" />
+    <ClInclude Include="src\Screen\SelectScreen.h" />
     <ClInclude Include="src\Screen\StartScreen.h" />
     <ClInclude Include="src\Utility\FontManager.h" />
     <ClInclude Include="src\Utility\ResourceManager.h" />
