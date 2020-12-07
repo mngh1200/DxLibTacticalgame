@@ -26,7 +26,7 @@ namespace Entity
 		void render() const override;
 
 	private:
-		const static int ANIMATION_TIME = 150; //! アニメーション時間
+		const static int ANIMATION_TIME = 250; //! アニメーション時間
 		const static int COLOR;
 
 		//! 画面終了時か表示時か
