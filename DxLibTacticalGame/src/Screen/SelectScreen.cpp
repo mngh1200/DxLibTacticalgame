@@ -14,13 +14,22 @@ namespace Screen
 		Entity::ObjectsControl& objectsControl = game.objectsControl;
 
 		objectsControl.setLayer(Layer::LEN);
-		objectsControl.addObject(Layer::BACK, 0, make_shared<Entity::Back>());
+		objectsControl.addObject(Layer::BACK, 0, make_shared<Entity::Back>(Entity::Back::Screen::SELECT));
 		
 		/*
 		objectsControl.addFigure(Layer::UI, UIid::TITLE, make_shared<Entity::Text>("GAME TITLE", 100, 100, FontType::TITLE, ColorType::TITLE_TEXT));
 		objectsControl.addObject(Layer::UI, UIid::CAMPAIN_BUTTON, make_shared<Entity::MenuScreenButton>("キャンペーン", 100, 250, 400, 100));
-		objectsControl.addObject(Layer::UI, UIid::QUIT_BUTTON, make_shared<Entity::MenuScreenButton>("終了", 100, 375, 400, 70));
+
+
+		objectsControl.addObject(Layer::UI, 0, make_shared<Entity::ChapterButton>("チュートリアル", Entity::ChapterButton::H));
+
+		for (int i = 1; i < 10; i++)
+		{
+			objectsControl.addObject(Layer::UI, i, make_shared<Entity::ChapterButton>("Chapter." + to_string(i), Entity::ChapterButton::H * (i + 1)));
+		}
 		*/
+		
+
 
 		// オーバーレイセット
 		createOverlay(true);

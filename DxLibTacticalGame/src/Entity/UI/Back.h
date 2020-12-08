@@ -4,6 +4,7 @@
 #include "Entity/Shape.h"
 #include "DxLib.h"
 #include "Utility/ResourceManager.h"
+#include "Utility/FontManager.h"
 #include "Define.h"
 
 /**
@@ -17,10 +18,22 @@ namespace Entity
 	{
 	public:
 		Back();
+		Back(int screen);
+
 		~Back() {};
 		void render() const override;
 
+		enum Screen
+		{
+			UNSELECTED,
+			SELECT
+		};
+
 	private:
-		int imageId_;
+		const static int SELECT_LEFT_WIDTH = 820;
+
+		int imageId_; // イメージID
+
+		int screen_; // 表示スクリーン
 	};
 }
