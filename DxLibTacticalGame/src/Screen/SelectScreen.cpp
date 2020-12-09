@@ -15,7 +15,18 @@ namespace Screen
 
 		objectsControl.setLayer(Layer::LEN);
 		objectsControl.addObject(Layer::BACK, 0, make_shared<Entity::Back>(Entity::Back::Screen::SELECT));
+
+		int viewId = 0;
 		
+		// 左上のテキスト
+		objectsControl.addFigure(Layer::UI, ++viewId, make_shared<Entity::Text>("コースセレクト", PADDING_LEFT, PADDING_TOP, FontType::NORMAL, ColorType::BUTTON));
+
+		// コースタイトル
+		courseTitle_ = ++viewId;
+		objectsControl.addFigure(Layer::UI, courseTitle_, make_shared<Entity::Text>("チュートリアル1", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, RIGHT_AREA_PADDING_TOP, FontType::MAIN_MENU, ColorType::NORMAL_TEXT));
+
+
+
 		/*
 		objectsControl.addFigure(Layer::UI, UIid::TITLE, make_shared<Entity::Text>("GAME TITLE", 100, 100, FontType::TITLE, ColorType::TITLE_TEXT));
 		objectsControl.addObject(Layer::UI, UIid::CAMPAIN_BUTTON, make_shared<Entity::MenuScreenButton>("キャンペーン", 100, 250, 400, 100));
