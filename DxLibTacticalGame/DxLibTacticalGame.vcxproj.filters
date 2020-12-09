@@ -105,9 +105,6 @@
     <ClCompile Include="src\Utility\FontManager.cpp">
       <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="src\Entity\UI\Button.cpp">
-      <Filter>ソース ファイル\Entity\UI\Button</Filter>
-    </ClCompile>
     <ClCompile Include="src\Entity\UI\MenuScreenButton.cpp">
       <Filter>ソース ファイル\Entity\UI\Button</Filter>
     </ClCompile>
@@ -119,6 +116,9 @@
     </ClCompile>
     <ClCompile Include="src\Screen\SelectScreen.cpp">
       <Filter>ソース ファイル\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\UI\TextButton.cpp">
+      <Filter>ソース ファイル\Entity\UI\Button</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -164,9 +164,6 @@
     <ClInclude Include="src\Utility\FontManager.h">
       <Filter>ヘッダー ファイル\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="src\Entity\UI\Button.h">
-      <Filter>ヘッダー ファイル\Entity\UI\Button</Filter>
-    </ClInclude>
     <ClInclude Include="src\Entity\UI\MenuScreenButton.h">
       <Filter>ヘッダー ファイル\Entity\UI\Button</Filter>
     </ClInclude>
@@ -181,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="src\Screen\SelectScreen.h">
       <Filter>ヘッダー ファイル\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\UI\TextButton.h">
+      <Filter>ヘッダー ファイル\Entity\UI\Button</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
