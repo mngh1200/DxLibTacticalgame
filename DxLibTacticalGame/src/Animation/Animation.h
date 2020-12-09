@@ -34,6 +34,10 @@ namespace Entity
 		bool increaseFrame();
 		inline bool getAbleUpdate() const;
 
+		void reset();
+		void reset(int direction);
+
+
 		void adjustFrame(float y, float y0, float y1);
 		void adjustFrame(Shape nowShape, Shape baseShape, float scale);
 
@@ -55,6 +59,7 @@ namespace Entity
 		static const int REPEAT_INFINITE = -1;
 
 	private:
+		void setDirection(int direction);
 
 		//! 変化量計算用の関数を保持する
 		function<float(float, float, float, float)> calcFunk_;
@@ -76,5 +81,8 @@ namespace Entity
 
 		//! リピート回数
 		int repeat_;
+
+		//! リピート回数（最大値=初期値）
+		int repeatMax_;
 	};
 }

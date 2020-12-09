@@ -12,18 +12,13 @@ namespace Entity {
 	 */
 	Animation::Animation(int timeMs, int direction, int repeat, int delayMs,
 		function<float(float, float, float, float)> func)
-		: direction_(direction), isNormalOrder_(true), repeat_(repeat), frameCount_(0)
+		: isNormalOrder_(true), repeatMax_(repeat), repeat_(repeat), frameCount_(0)
 	{
 		delayFrame_ = (delayMs - ONE_FRAME_MS + 1) / ONE_FRAME_MS;
 		frameMax_ = (float)((timeMs - ONE_FRAME_MS + 1) / ONE_FRAME_MS);
 		calcFunk_ = func;
 
-		if (direction_ == Direction::REVERSE || direction_ == Direction::AlTERNATE_REVERSE)
-		{
-			// 逆順から始まる場合
-			isNormalOrder_ = false;
-			frameCount_ = frameMax_;
-		}
+		setDirection(direction);
 	}
 
 	/**
@@ -88,6 +83,26 @@ namespace Entity {
 	inline bool Animation::getAbleUpdate() const
 	{
 		return delayFrame_ <= 0 && repeat_ != 0;
+	}
+
+	/**
+	 * @fn
+	 * アニメーションを初期状態にする
+	 */
+	void Animation::reset()
+	{
+		reset(direction_);
+	}
+
+	/**
+	 * @fn
+	 * アニメーションを初期状態にする(再生方向を再指定)
+	 * @param (direction) 再生方向の種類
+	 */
+	void Animation::reset(int direction)
+	{
+		setDirection(direction);
+		repeat_ = repeatMax_;
 	}
 
 	/**
@@ -237,6 +252,22 @@ namespace Entity {
 			*nowColor = DxLib::GetColor(r, g, b);
 		}
 		return isFin;
+	}
+
+	/**
+	 * @fn
+	 * 再生方向を指定
+	 * @param (direction) 再生方向
+	 */
+	void Animation::setDirection(int direction)
+	{
+		direction_ = direction;
+		if (direction_ == Direction::REVERSE || direction_ == Direction::AlTERNATE_REVERSE)
+		{
+			// 逆順から始まる場合
+			isNormalOrder_ = false;
+			frameCount_ = frameMax_;
+		}
 	}
 
 
