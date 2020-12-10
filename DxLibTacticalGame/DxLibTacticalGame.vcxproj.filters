@@ -105,9 +105,6 @@
     <ClCompile Include="src\Utility\FontManager.cpp">
       <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="src\Entity\UI\MenuScreenButton.cpp">
-      <Filter>ソース ファイル\Entity\UI\Button</Filter>
-    </ClCompile>
     <ClCompile Include="src\Animation\Animation.cpp">
       <Filter>ソース ファイル\Entity\Animation</Filter>
     </ClCompile>
@@ -117,7 +114,10 @@
     <ClCompile Include="src\Screen\SelectScreen.cpp">
       <Filter>ソース ファイル\Screen</Filter>
     </ClCompile>
-    <ClCompile Include="src\Entity\UI\TextButton.cpp">
+    <ClCompile Include="src\Entity\UI\Button\TextButton.cpp">
+      <Filter>ソース ファイル\Entity\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\UI\Button\MenuScreenButton.cpp">
       <Filter>ソース ファイル\Entity\UI\Button</Filter>
     </ClCompile>
   </ItemGroup>
@@ -164,9 +164,6 @@
     <ClInclude Include="src\Utility\FontManager.h">
       <Filter>ヘッダー ファイル\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="src\Entity\UI\MenuScreenButton.h">
-      <Filter>ヘッダー ファイル\Entity\UI\Button</Filter>
-    </ClInclude>
     <ClInclude Include="src\Animation\Animation.h">
       <Filter>ヘッダー ファイル\Entity\Animation</Filter>
     </ClInclude>
@@ -179,7 +176,10 @@
     <ClInclude Include="src\Screen\SelectScreen.h">
       <Filter>ヘッダー ファイル\Screen</Filter>
     </ClInclude>
-    <ClInclude Include="src\Entity\UI\TextButton.h">
+    <ClInclude Include="src\Entity\UI\Button\MenuScreenButton.h">
+      <Filter>ヘッダー ファイル\Entity\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\UI\Button\TextButton.h">
       <Filter>ヘッダー ファイル\Entity\UI\Button</Filter>
     </ClInclude>
   </ItemGroup>

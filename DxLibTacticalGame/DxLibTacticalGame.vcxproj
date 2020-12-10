@@ -156,9 +156,9 @@
     <ClCompile Include="src\Entity\ObjectsControl.cpp" />
     <ClCompile Include="src\Entity\Shape.cpp" />
     <ClCompile Include="src\Entity\UI\Back.cpp" />
-    <ClCompile Include="src\Entity\UI\TextButton.cpp" />
     <ClCompile Include="src\Entity\Figure.cpp" />
-    <ClCompile Include="src\Entity\UI\MenuScreenButton.cpp" />
+    <ClCompile Include="src\Entity\UI\Button\MenuScreenButton.cpp" />
+    <ClCompile Include="src\Entity\UI\Button\TextButton.cpp" />
     <ClCompile Include="src\Entity\UI\Overlay.cpp" />
     <ClCompile Include="src\Entity\View\Text.cpp" />
     <ClCompile Include="src\FrameWork\Controller.cpp" />
@@ -179,9 +179,9 @@
     <ClInclude Include="src\Entity\ObjectsControl.h" />
     <ClInclude Include="src\Entity\Shape.h" />
     <ClInclude Include="src\Entity\UI\Back.h" />
-    <ClInclude Include="src\Entity\UI\TextButton.h" />
     <ClInclude Include="src\Entity\Figure.h" />
-    <ClInclude Include="src\Entity\UI\MenuScreenButton.h" />
+    <ClInclude Include="src\Entity\UI\Button\MenuScreenButton.h" />
+    <ClInclude Include="src\Entity\UI\Button\TextButton.h" />
     <ClInclude Include="src\Entity\UI\Overlay.h" />
     <ClInclude Include="src\Entity\View\Text.h" />
     <ClInclude Include="src\FrameWork\Controller.h" />

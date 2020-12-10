@@ -12,14 +12,17 @@ namespace Screen
 		FrameWork::Game& game = FrameWork::Game::getInstance();
 		Entity::ObjectsControl& objectsControl = game.objectsControl;
 
+		constexpr int PADDING_LEFT = 100; //! 左側余白
+		constexpr int PADDING_TOP = 100; //! 上側余白
+
 		objectsControl.setLayer(Layer::LEN);
 		objectsControl.addObject(Layer::BACK, 0, make_shared<Entity::Back>());
-		objectsControl.addFigure(Layer::UI, UIid::TITLE, make_shared<Entity::Text>("GAME TITLE", 100, 100, FontType::TITLE, ColorType::TITLE_TEXT));
-		/*
-		Entity::TextButton templateTextButton = Entity::TextButton()
-		objectsControl.addObject(Layer::UI, UIid::CAMPAIN_BUTTON, make_shared<Entity::TextButton>("キャンペーン", 100, 250, 400, 100));
+		objectsControl.addFigure(Layer::UI, UIid::TITLE, make_shared<Entity::Text>("GAME TITLE", PADDING_LEFT, PADDING_TOP, FontType::TITLE, ColorType::TITLE_TEXT));
+
+		// メニューボタン
+		objectsControl.addObject(Layer::UI, UIid::CAMPAIN_BUTTON, make_shared<Entity::MenuScreenButton>("キャンペーン", 100, 250, 400, 100));
 		objectsControl.addObject(Layer::UI, UIid::QUIT_BUTTON, make_shared<Entity::MenuScreenButton>("終了", 100, 375, 400, 70));
-		*/
+
 
 		// オーバーレイセット
 		createOverlay(true);
