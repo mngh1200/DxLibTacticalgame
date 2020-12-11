@@ -21,7 +21,7 @@ namespace Screen
 	class SelectScreen : public ScreenBase
 	{
 	public:
-		SelectScreen() : courseTitle_(-1) {};
+		SelectScreen() : selectedCourseId_(-1) {};
 		~SelectScreen() {};
 
 		void init();
@@ -39,9 +39,11 @@ namespace Screen
 		constexpr static int RIGHT_AREA_PADDING_TOP = 25;	//! （右エリアの）上側の余白
 		constexpr static int RIGHT_AREA_PADDING_LEFT = 80;	//! (右エリアの)左側の余白
 
-		int selectedCourseId_; //! 選択中のコースID
+		constexpr static int START_MARGIN = 70; //! スタートボタンの余白
+		constexpr static int START_Y = 545;		//! スタートボタンのY座標
+		constexpr static int START_HEIGHT = 100; //! スタートボタンの高さ
 
-		int courseTitle_; //! コース名表示欄
+		int selectedCourseId_; //! 選択中のコースID
 
 		enum Layer
 		{
@@ -54,7 +56,10 @@ namespace Screen
 
 		enum UIid
 		{
-			BACK_BTN
+			BACK_BTN,
+			START_BTN,
+			COURSE_NAME,
+			UIID_LEN
 		};
 	};
 }

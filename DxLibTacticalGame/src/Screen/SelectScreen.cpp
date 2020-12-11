@@ -15,14 +15,13 @@ namespace Screen
 		objectsControl.setLayer(Layer::LEN);
 		objectsControl.addObject(Layer::BACK, 0, make_shared<Entity::Back>(Entity::Back::Screen::SELECT));
 
-		int viewId = 0;
+		int viewId = UIid::UIID_LEN;
 		
 		// 左上のテキスト
 		objectsControl.addFigure(Layer::UI, ++viewId, make_shared<Entity::Text>("コースセレクト", COURSE_MARGIN_X, PADDING_TOP, ::FontType::NORMAL, ::ColorType::BUTTON));
 
 		// コースタイトル テスト処理
-		courseTitle_ = ++viewId;
-		objectsControl.addFigure(Layer::UI, courseTitle_, make_shared<Entity::Text>("チュートリアル1", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, RIGHT_AREA_PADDING_TOP, FontType::MAIN_MENU, ColorType::NORMAL_TEXT));
+		objectsControl.addFigure(Layer::UI, UIid::COURSE_NAME, make_shared<Entity::Text>("チュートリアル1", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, RIGHT_AREA_PADDING_TOP, FontType::MAIN_MENU, ColorType::NORMAL_TEXT));
 
 		// コースボタン
 		for (int i = 0; i < 13; i++) // テスト処理
@@ -53,7 +52,12 @@ namespace Screen
 			objectsControl.addObject(Layer::COURSE_BUTTON, i, make_shared<Entity::CourseButton>(x, y, status));
 		}
 		
-		
+		// スタート画面
+		shared_ptr<Entity::TextButton> startBtn = make_shared<Entity::TextButton>(ColorType::POSITIVE_LITE_COLOR, ColorType::POSITIVE_COLOR);
+		startBtn->setShape(LEFT_AREA_WIDTH + START_MARGIN, START_Y, WIN_W - LEFT_AREA_WIDTH - START_MARGIN * 2, START_HEIGHT);
+		startBtn->setColor(ColorType::POSITIVE_COLOR, ColorType::POSITIVE_LITE_COLOR, Entity::TextButton::State::MOUSE_DOWN);
+		startBtn->setText("スタート", FontType::MAIN_MENU);
+		objectsControl.addObject(Layer::UI, UIid::START_BTN, startBtn);
 
 
 		// オーバーレイセット
