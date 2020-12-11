@@ -51,7 +51,7 @@ namespace Utility
 
 	private:
 		FontManager()
-			:hdlFont_{}, colorType_{}
+			:hdlFont_{}, colorType_{}, sounds_{}
 		{};
 		~FontManager() {};
 		int hdlFont_[FontType::FONT_LEN];

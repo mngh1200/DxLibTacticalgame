@@ -24,7 +24,8 @@ namespace Entity
 			delayFrame_(0),
 			direction_(NORMAL),
 			isNormalOrder_(true),
-			repeat_(1)
+			repeat_(1),
+			repeatMax_(repeat_)
 		{};
 
 		Animation(int timeMs, int direction = NORMAL, int repeat = 1, int delayMs = 0, function<float(float, float, float, float)> func = Easing::Linear<float>);
