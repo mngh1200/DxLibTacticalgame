@@ -18,7 +18,19 @@ namespace Utility {
 		colorType_[ColorType::BACK] = DxLib::GetColor(247, 241, 230);
 		colorType_[ColorType::NORMAL_TEXT] = DxLib::GetColor(124, 104, 95);
 		colorType_[ColorType::TITLE_TEXT] = DxLib::GetColor(211, 181, 155);
-		colorType_[ColorType::BUTTON] = DxLib::GetColor(232, 220, 197);
+		
+		colorType_[ColorType::BUTTON] = DxLib::GetColor(250, 244, 232);
+		colorType_[ColorType::MAIN_COLOR_ON] = DxLib::GetColor(254, 213, 175);
+		
+		colorType_[ColorType::PLAYER_COLOR] = DxLib::GetColor(35, 87, 137);
+		colorType_[ColorType::ENEMY_COLOR] = DxLib::GetColor(209, 6, 6);
+
+		colorType_[ColorType::POSITIVE_COLOR] = DxLib::GetColor(116, 142, 84);
+		colorType_[ColorType::POSITIVE_LITE_COLOR] = DxLib::GetColor(185, 202, 165);
+
+		colorType_[ColorType::NEGATIVE_COLOR] = DxLib::GetColor(139, 137, 130);
+		
+		colorType_[ColorType::ACCENT_COLOR] = DxLib::GetColor(204, 75, 194);
 
 		sounds_[SoundKind::MOUSE_DOWN] = DxLib::LoadSoundMem("resource/sound/mouse-down.wav");
 		DxLib::ChangeVolumeSoundMem(128, sounds_[SoundKind::MOUSE_DOWN]);

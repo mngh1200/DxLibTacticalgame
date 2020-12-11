@@ -148,6 +148,52 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * ボタンの背景色指定
+	 * @param (backgroundColor) ボタン色
+	 * @param (state) 対象の状態
+	 */
+	void TextButton::setBackgroundColor(int backgroundColorType, int state)
+	{
+		Utility::FontManager& fontManager = Utility::FontManager::getInstance();
+		if (state == State::ALL)
+		{
+
+			for (int i = 0; i < State::ALL; ++i)
+			{
+				color_[i] = fontManager.getColor(backgroundColorType);
+			}
+		}
+		else
+		{
+			color_[state] = fontManager.getColor(backgroundColorType);
+		}
+	}
+
+	/**
+	 * @fn
+	 * ボタンのテキスト色指定
+	 * @param (textColorType) テキスト色
+	 * @param (state) 対象の状態
+	 */
+	void TextButton::setTextColor(int textColorType, int state)
+	{
+		Utility::FontManager& fontManager = Utility::FontManager::getInstance();
+		if (state == State::ALL)
+		{
+
+			for (int i = 0; i < State::ALL; ++i)
+			{
+				textColor_[i] = fontManager.getColor(textColorType);
+			}
+		}
+		else
+		{
+			textColor_[state] = fontManager.getColor(textColorType);
+		}
+	}
+
+	/**
+	 * @fn
 	 * 描画
 	 */
 	void TextButton::render() const

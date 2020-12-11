@@ -3,7 +3,6 @@
 
 namespace Screen
 {
-
 	/**
 	 * @fn
 	 * 初期処理
@@ -19,26 +18,41 @@ namespace Screen
 		int viewId = 0;
 		
 		// 左上のテキスト
-		objectsControl.addFigure(Layer::UI, ++viewId, make_shared<Entity::Text>("コースセレクト", PADDING_LEFT, PADDING_TOP, FontType::NORMAL, ColorType::BUTTON));
+		objectsControl.addFigure(Layer::UI, ++viewId, make_shared<Entity::Text>("コースセレクト", COURSE_MARGIN_X, PADDING_TOP, ::FontType::NORMAL, ::ColorType::BUTTON));
 
-		// コースタイトル
+		// コースタイトル テスト処理
 		courseTitle_ = ++viewId;
 		objectsControl.addFigure(Layer::UI, courseTitle_, make_shared<Entity::Text>("チュートリアル1", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, RIGHT_AREA_PADDING_TOP, FontType::MAIN_MENU, ColorType::NORMAL_TEXT));
 
-
-
-		/*
-		objectsControl.addFigure(Layer::UI, UIid::TITLE, make_shared<Entity::Text>("GAME TITLE", 100, 100, FontType::TITLE, ColorType::TITLE_TEXT));
-		objectsControl.addObject(Layer::UI, UIid::CAMPAIN_BUTTON, make_shared<Entity::MenuScreenButton>("キャンペーン", 100, 250, 400, 100));
-
-
-		objectsControl.addObject(Layer::UI, 0, make_shared<Entity::ChapterButton>("チュートリアル", Entity::ChapterButton::H));
-
-		for (int i = 1; i < 10; i++)
+		// コースボタン
+		for (int i = 0; i < 13; i++) // テスト処理
 		{
-			objectsControl.addObject(Layer::UI, i, make_shared<Entity::ChapterButton>("Chapter." + to_string(i), Entity::ChapterButton::H * (i + 1)));
+			// X座標
+			int x = (i % COURSE_COLUMN_NUM) * (Entity::CourseButton::SIZE + COURSE_MARGIN_X) + COURSE_MARGIN_X;
+			int y = (i / COURSE_COLUMN_NUM) * (Entity::CourseButton::SIZE + COURSE_MARGIN_Y) + COURSE_TOP;
+			int status = Entity::CourseButton::Status::B;
+
+			// テスト処理
+			if (i == 2)
+			{
+				status = Entity::CourseButton::Status::S;
+			}
+			else if (i == 3)
+			{
+				status = Entity::CourseButton::Status::A;
+			}
+			else if (i == 5)
+			{
+				status = Entity::CourseButton::Status::C;
+			}
+			else if (i == 12)
+			{
+				status = Entity::CourseButton::Status::NO_CLEAR;
+			}
+
+			objectsControl.addObject(Layer::COURSE_BUTTON, i, make_shared<Entity::CourseButton>(x, y, status));
 		}
-		*/
+		
 		
 
 
@@ -57,19 +71,25 @@ namespace Screen
 
 		if (hitObjSp)
 		{
-			/*
-			// ボタンのクリックイベント
-			if (hitObjSp->getType() == Entity::Figure::BUTTON && eventType == MOUSE_INPUT_LOG_CLICK)
-			{
-				int objId = hitObjSp->getObjectId();
+			Entity::ObjectsControl& objCont = FrameWork::Game::getInstance().objectsControl;
 
-				// 終了ボタン
-				if (objId == UIid::QUIT_BUTTON)
+			// コースボタンのクリックイベント
+			if (hitObjSp->getLayerId() == Layer::COURSE_BUTTON && eventType == MOUSE_INPUT_LOG_CLICK)
+			{
+				// 選択中のボタンの解除
+				weak_ptr<Entity::Object> prevObjWp = objCont.getObjectWp(Layer::COURSE_BUTTON, selectedCourseId_);
+				shared_ptr<Entity::Object> prevObjSp = prevObjWp.lock();
+				if (prevObjSp)
 				{
-					FrameWork::Game::getInstance().finish();
+					shared_ptr<Entity::CourseButton> prevSelected = dynamic_pointer_cast<Entity::CourseButton>(prevObjSp);
+					prevSelected->setSelected(false);
 				}
+
+				// 新しい選択中のボタンを有効化
+				shared_ptr<Entity::CourseButton> courseBtn = dynamic_pointer_cast<Entity::CourseButton>(hitObjSp);
+				courseBtn->setSelected(true);
+				selectedCourseId_ = hitObjSp->getObjectId();
 			}
-			*/
 		}
 	}
 

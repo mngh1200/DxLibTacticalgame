@@ -30,7 +30,7 @@ namespace Entity
 		};
 
 	private:
-		const static int SELECT_LEFT_WIDTH = 820;
+		const static int SELECT_LEFT_WIDTH = 800;
 
 		int imageId_; // ÉCÉÅÅ[ÉWID
 

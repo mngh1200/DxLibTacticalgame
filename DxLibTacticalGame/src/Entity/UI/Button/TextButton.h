@@ -30,7 +30,10 @@ namespace Entity
 		void setFont(int fontType);
 
 		void setColor(int backgroundColorType, int textColorType, int state = ALL);
-		void render() const override;
+		void setBackgroundColor(int backgroundColorType, int state = ALL);
+		void setTextColor(int textColorType, int state = ALL);
+
+		virtual void render() const override;
 
 		// ボタンの状態
 		enum State
@@ -41,14 +44,7 @@ namespace Entity
 			ALL
 		};
 
-
-	private:
-		void setTextCenter();
-		void setTextMiddle();
-
-		//! 中央揃えにするか
-		bool isCenter_;
-
+	protected:
 		//! テキストの座標
 		int textX_;
 		int textY_;
@@ -64,6 +60,13 @@ namespace Entity
 
 		//! 文字色(ボタンの各状態の場合を管理)
 		int textColor_[State::ALL];
+
+	private:
+		void setTextCenter();
+		void setTextMiddle();
+
+		//! 中央揃えにするか
+		bool isCenter_;
 	};
 
 
