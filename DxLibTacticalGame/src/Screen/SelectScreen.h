@@ -5,6 +5,7 @@
 #include "ScreenBase.h"
 #include "FrameWork/Game.h"
 #include "Utility/FontManager.h"
+#include "Screen/MenuScreen.h"
 #include "Entity/UI/Back.h"
 #include "Entity/UI/Button/CourseButton.h"
 #include "Entity/View/Text.h"
@@ -21,7 +22,7 @@ namespace Screen
 	class SelectScreen : public ScreenBase
 	{
 	public:
-		SelectScreen() : selectedCourseId_(-1) {};
+		SelectScreen() : selectedCourseId_(-1), openScreen_(Screen::MAIN_MENU) {};
 		~SelectScreen() {};
 
 		void init();
@@ -36,12 +37,13 @@ namespace Screen
 		constexpr static int COURSE_MARGIN_Y = 30;		//! コースボタンの余白
 		constexpr static int COURSE_COLUMN_NUM = 5;		//! コースボタンの列数
 
-		constexpr static int RIGHT_AREA_PADDING_TOP = 25;	//! （右エリアの）上側の余白
 		constexpr static int RIGHT_AREA_PADDING_LEFT = 80;	//! (右エリアの)左側の余白
 
 		constexpr static int START_MARGIN = 70; //! スタートボタンの余白
 		constexpr static int START_Y = 545;		//! スタートボタンのY座標
 		constexpr static int START_HEIGHT = 100; //! スタートボタンの高さ
+
+		constexpr static int BACK_SIZE = 60;	//! 戻るボタンのサイズ
 
 		int selectedCourseId_; //! 選択中のコースID
 
@@ -52,6 +54,14 @@ namespace Screen
 			COURSE_BUTTON,
 			BACK,
 			LEN
+		};
+
+		int openScreen_; //! 遷移予定のスクリーン
+
+		enum Screen
+		{
+			MAIN_MENU,
+			BATTLE
 		};
 
 		enum UIid
