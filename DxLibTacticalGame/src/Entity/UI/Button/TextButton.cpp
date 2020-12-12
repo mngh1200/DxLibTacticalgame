@@ -16,7 +16,7 @@ namespace Entity {
 		type_ = Type::BUTTON;
 
 		Utility::FontManager& fontManager = Utility::FontManager::getInstance();
-		font_ = fontManager.getHdlFont(FontType::NORMAL);
+		font_ = fontManager.getHdlFont(FontType::NORMAL_S24);
 	}
 
 	/**

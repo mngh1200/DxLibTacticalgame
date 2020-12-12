@@ -11,9 +11,10 @@ namespace Utility {
 	{
 		int ret = 0;
 
-		hdlFont_[FontType::NORMAL] = DxLib::LoadFontDataToHandle("resource/font/rounded-mplus/rounded-mplus-1p-medium-S24-T3-B4.dft", 0); // DxLib::CreateFontToHandle("メイリオ", 24, 3, DX_FONTTYPE_ANTIALIASING_4X4);
-		hdlFont_[FontType::TITLE] = DxLib::CreateFontToHandle("メイリオ", 90, 3, DX_FONTTYPE_ANTIALIASING_4X4);
-		hdlFont_[FontType::MAIN_MENU] = DxLib::LoadFontDataToHandle("resource/font/rounded-mplus/rounded-mplus-1p-medium-S32-T3-B4.dft", 0);
+		// hdlFont_[FontType::TITLE] = DxLib::CreateFontToHandle("メイリオ", 90, 3, DX_FONTTYPE_ANTIALIASING_4X4);
+		hdlFont_[FontType::NORMAL_S24] = DxLib::LoadFontDataToHandle("resource/font/rounded-mplus/rounded-mplus-1p-medium-S24.dft", 0);
+		hdlFont_[FontType::NORMAL_S32] = DxLib::LoadFontDataToHandle("resource/font/rounded-mplus/rounded-mplus-1p-medium-S32.dft", 0);
+		hdlFont_[FontType::BLACK_S48] = DxLib::LoadFontDataToHandle("resource/font/rounded-mplus/rounded-mplus-1p-black-S48.dft", 0);
 
 		// 色取得
 		colorType_[ColorType::MAIN_COLOR] = DxLib::GetColor(250, 244, 232);

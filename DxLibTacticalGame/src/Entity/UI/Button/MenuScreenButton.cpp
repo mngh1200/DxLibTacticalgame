@@ -1,7 +1,7 @@
 #include "MenuScreenButton.h"
 
 namespace Entity {
-	const float MenuScreenButton::ANIMATION_SCALE = 1.2f;
+	const float MenuScreenButton::ANIMATION_SCALE = 1.1f;
 
 	/**
 	 * @fn
@@ -27,7 +27,7 @@ namespace Entity {
 	MenuScreenButton::MenuScreenButton(string text, int x, int y, int w, int h) : MenuScreenButton()
 	{
 		setShape(x, y, w, h);
-		setText(text, FontType::MAIN_MENU);
+		setText(text, FontType::BLACK_S48);
 		baseShape_ = shape_;
 	}
 

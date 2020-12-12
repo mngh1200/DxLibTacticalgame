@@ -7,9 +7,9 @@
 namespace
 {
 	enum FontType : int {
-		NORMAL,
-		TITLE,
-		MAIN_MENU,
+		NORMAL_S24,
+		NORMAL_S32,
+		BLACK_S48,
 		FONT_LEN
 	};
 

@@ -14,14 +14,20 @@ namespace Screen
 
 		constexpr int PADDING_LEFT = 100; //! 左側余白
 		constexpr int PADDING_TOP = 100; //! 上側余白
+		constexpr int BUTTON_TOP = 250; //! ボタンY座標
+		constexpr int BUTTON_MARGIN_Y = 35; //! ボタンの縦余白
+		constexpr int BUTTON_WIDTH = 400; //! ボタンの幅
+		constexpr int BUTTON_HEIGHT_S = 85; //! ボタン高さ（Sサイズ）
+		constexpr int BUTTON_HEIGHT_L = 110; //! ボタンの高さ（Lサイズ）
+
 
 		objectsControl.setLayer(Layer::LEN);
 		objectsControl.addObject(Layer::BACK, 0, make_shared<Entity::Back>());
-		objectsControl.addFigure(Layer::UI, UIid::TITLE, make_shared<Entity::Text>("GAME TITLE", PADDING_LEFT, PADDING_TOP, FontType::TITLE, ColorType::TITLE_TEXT));
+		objectsControl.addFigure(Layer::UI, UIid::TITLE, make_shared<Entity::Text>("GAME TITLE", PADDING_LEFT, PADDING_TOP, FontType::BLACK_S48, ColorType::TITLE_TEXT));
 
 		// メニューボタン
-		objectsControl.addObject(Layer::UI, UIid::CAMPAIN_BUTTON, make_shared<Entity::MenuScreenButton>("キャンペーン", 100, 250, 400, 100));
-		objectsControl.addObject(Layer::UI, UIid::QUIT_BUTTON, make_shared<Entity::MenuScreenButton>("終了", 100, 375, 400, 70));
+		objectsControl.addObject(Layer::UI, UIid::CAMPAIN_BUTTON, make_shared<Entity::MenuScreenButton>("キャンペーン", PADDING_LEFT, BUTTON_TOP, BUTTON_WIDTH, BUTTON_HEIGHT_L));
+		objectsControl.addObject(Layer::UI, UIid::QUIT_BUTTON, make_shared<Entity::MenuScreenButton>("終了", PADDING_LEFT, BUTTON_TOP + BUTTON_HEIGHT_L + BUTTON_MARGIN_Y, BUTTON_WIDTH, BUTTON_HEIGHT_S));
 
 
 		// オーバーレイセット

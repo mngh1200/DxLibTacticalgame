@@ -18,10 +18,10 @@ namespace Screen
 		int viewId = UIid::UIID_LEN;
 		
 		// 左上のテキスト
-		objectsControl.addFigure(Layer::UI, ++viewId, make_shared<Entity::Text>("コースセレクト", COURSE_MARGIN_X, PADDING_TOP, ::FontType::NORMAL, ::ColorType::MAIN_COLOR));
+		objectsControl.addFigure(Layer::UI, ++viewId, make_shared<Entity::Text>("コースセレクト", COURSE_MARGIN_X, PADDING_TOP, ::FontType::NORMAL_S24, ::ColorType::MAIN_COLOR));
 
 		// コースタイトル テスト処理
-		objectsControl.addFigure(Layer::UI, UIid::COURSE_NAME, make_shared<Entity::Text>("チュートリアル1", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, COURSE_TOP, FontType::MAIN_MENU, ColorType::SUB_COLOR));
+		objectsControl.addFigure(Layer::UI, UIid::COURSE_NAME, make_shared<Entity::Text>("チュートリアル1", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, COURSE_TOP, FontType::NORMAL_S32, ColorType::SUB_COLOR));
 
 		// コースボタン
 		for (int i = 0; i < 13; i++) // テスト処理
@@ -57,7 +57,7 @@ namespace Screen
 		startBtn->setShape(LEFT_AREA_WIDTH + START_MARGIN, START_Y, WIN_W - LEFT_AREA_WIDTH - START_MARGIN * 2, START_HEIGHT);
 		startBtn->setColor(ColorType::POSITIVE_COLOR, ColorType::POSITIVE_LITE_COLOR, Entity::TextButton::State::MOUSE_OVER);
 		startBtn->setColor(ColorType::POSITIVE_COLOR, ColorType::POSITIVE_LITE_COLOR, Entity::TextButton::State::MOUSE_DOWN);
-		startBtn->setText("スタート", FontType::MAIN_MENU);
+		startBtn->setText("スタート", FontType::BLACK_S48);
 		objectsControl.addObject(Layer::UI, UIid::START_BTN, startBtn);
 
 		// 戻るボタン
@@ -65,7 +65,7 @@ namespace Screen
 		backBtn->setShape(WIN_W - BACK_SIZE, 0, BACK_SIZE, BACK_SIZE);
 		backBtn->setColor(ColorType::SUB_COLOR, ColorType::MAIN_COLOR, Entity::TextButton::State::MOUSE_OVER);
 		backBtn->setColor(ColorType::SUB_COLOR, ColorType::MAIN_COLOR, Entity::TextButton::State::MOUSE_DOWN);
-		backBtn->setText("×", FontType::MAIN_MENU);
+		backBtn->setText("×", FontType::NORMAL_S32);
 		objectsControl.addObject(Layer::UI, UIid::BACK_BTN, backBtn);
 
 

@@ -24,7 +24,7 @@ namespace Entity {
 		setShape(x, y, SIZE, SIZE);
 		baseShape_ = shape_;
 
-		setText(string(1, status), FontType::MAIN_MENU);
+		setText(string(1, status), FontType::BLACK_S48);
 
 		// クリア状況次第でテキストと色変更
 		if (status == Status::S)
