@@ -15,12 +15,13 @@ namespace Utility {
 		hdlFont_[FontType::TITLE] = DxLib::CreateFontToHandle("ÉÅÉCÉäÉI", 90, 3, DX_FONTTYPE_ANTIALIASING_4X4);
 		hdlFont_[FontType::MAIN_MENU] = DxLib::LoadFontDataToHandle("resource/font/rounded-mplus/rounded-mplus-1p-medium-S32-T3-B4.dft", 0);
 
-		colorType_[ColorType::BACK] = DxLib::GetColor(247, 241, 230);
-		colorType_[ColorType::NORMAL_TEXT] = DxLib::GetColor(124, 104, 95);
-		colorType_[ColorType::TITLE_TEXT] = DxLib::GetColor(211, 181, 155);
-		
-		colorType_[ColorType::BUTTON] = DxLib::GetColor(250, 244, 232);
+		// êFéÊìæ
+		colorType_[ColorType::MAIN_COLOR] = DxLib::GetColor(250, 244, 232);
 		colorType_[ColorType::MAIN_COLOR_ON] = DxLib::GetColor(254, 213, 175);
+
+		colorType_[ColorType::SUB_COLOR] = DxLib::GetColor(124, 104, 95);
+
+		colorType_[ColorType::TITLE_TEXT] = DxLib::GetColor(211, 181, 155);
 		
 		colorType_[ColorType::PLAYER_COLOR] = DxLib::GetColor(35, 87, 137);
 		colorType_[ColorType::ENEMY_COLOR] = DxLib::GetColor(209, 6, 6);
@@ -32,6 +33,8 @@ namespace Utility {
 		
 		colorType_[ColorType::ACCENT_COLOR] = DxLib::GetColor(204, 75, 194);
 
+
+		// å¯â âπéÊìæ
 		sounds_[SoundKind::MOUSE_DOWN] = DxLib::LoadSoundMem("resource/sound/mouse-down.wav");
 		DxLib::ChangeVolumeSoundMem(128, sounds_[SoundKind::MOUSE_DOWN]);
 

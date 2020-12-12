@@ -15,7 +15,7 @@ namespace Screen
 		objectsControl.setLayer(Layer::LEN);
 		objectsControl.addObject(Layer::BACK, 0, make_shared<Entity::Back>());
 		objectsControl.addFigure(Layer::TEXT, 0, make_shared<Entity::Text>("GAME TITLE", WIN_W / 2, 200, FontType::TITLE, ColorType::TITLE_TEXT, Entity::Text::Align::CENTER));
-		objectsControl.addFigure(Layer::TEXT, 1, make_shared<Entity::Text>("PRESS START", WIN_W / 2, 500, FontType::NORMAL, ColorType::NORMAL_TEXT, Entity::Text::Align::CENTER));
+		objectsControl.addFigure(Layer::TEXT, 1, make_shared<Entity::Text>("PRESS START", WIN_W / 2, 500, FontType::NORMAL, ColorType::SUB_COLOR, Entity::Text::Align::CENTER));
 	}
 
 	/**

@@ -9,7 +9,7 @@ namespace Entity {
 	 */
 	CourseButton::CourseButton() : animation_ {}, isSelected_(false)
 	{
-		setColor(ColorType::BUTTON, ColorType::NORMAL_TEXT);
+		setColor(ColorType::MAIN_COLOR, ColorType::SUB_COLOR);
 	}
 
 	/**
@@ -37,7 +37,7 @@ namespace Entity {
 		}
 		else if (status == Status::B)
 		{
-			setTextColor(ColorType::NORMAL_TEXT);
+			setTextColor(ColorType::SUB_COLOR);
 		}
 		else if (status == Status::C)
 		{
@@ -65,7 +65,7 @@ namespace Entity {
 		}
 		else
 		{
-			setBackgroundColor(ColorType::BUTTON);
+			setBackgroundColor(ColorType::MAIN_COLOR);
 		}
 	}
 

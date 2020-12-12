@@ -43,8 +43,8 @@ namespace Entity {
 		else if (screen_ == Screen::SELECT)
 		{
 			Utility::FontManager& fontManager = Utility::FontManager::getInstance();
-			DxLib::DrawBox(shape_.x, shape_.y, SELECT_LEFT_WIDTH, shape_.getY2(), fontManager.getColor(ColorType::NORMAL_TEXT), TRUE);
-			DxLib::DrawBox(shape_.x + SELECT_LEFT_WIDTH, shape_.y, shape_.getX2(), shape_.getY2(), fontManager.getColor(ColorType::BUTTON), TRUE);
+			DxLib::DrawBox(shape_.x, shape_.y, SELECT_LEFT_WIDTH, shape_.getY2(), fontManager.getColor(ColorType::SUB_COLOR), TRUE);
+			DxLib::DrawBox(shape_.x + SELECT_LEFT_WIDTH, shape_.y, shape_.getX2(), shape_.getY2(), fontManager.getColor(ColorType::MAIN_COLOR), TRUE);
 		}
 	}
 }

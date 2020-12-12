@@ -14,11 +14,10 @@ namespace
 	};
 
 	enum ColorType : int {
-		BACK,
-		NORMAL_TEXT,
-		TITLE_TEXT,
-		BUTTON,
+		MAIN_COLOR,
 		MAIN_COLOR_ON,
+		SUB_COLOR,
+		TITLE_TEXT,
 		PLAYER_COLOR,
 		ENEMY_COLOR,
 		POSITIVE_COLOR,
