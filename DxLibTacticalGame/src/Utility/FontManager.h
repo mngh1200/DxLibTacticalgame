@@ -28,7 +28,9 @@ namespace
 	};
 
 	enum SoundKind : int {
-		MOUSE_DOWN,
+		CLICK,
+		CHECK,
+		BACK,
 		SOUNDS_LEN
 	};
 }

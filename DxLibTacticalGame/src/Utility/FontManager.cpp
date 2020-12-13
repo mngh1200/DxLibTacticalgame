@@ -36,8 +36,14 @@ namespace Utility {
 
 
 		// Œø‰Ê‰¹Žæ“¾
-		sounds_[SoundKind::MOUSE_DOWN] = DxLib::LoadSoundMem("resource/sound/mouse-down.wav");
-		DxLib::ChangeVolumeSoundMem(128, sounds_[SoundKind::MOUSE_DOWN]);
+		sounds_[SoundKind::CLICK] = DxLib::LoadSoundMem("resource/sound/click.ogg");
+		DxLib::ChangeVolumeSoundMem(210, sounds_[SoundKind::CLICK]);
+
+		sounds_[SoundKind::CHECK] = DxLib::LoadSoundMem("resource/sound/check.ogg");
+		DxLib::ChangeVolumeSoundMem(220, sounds_[SoundKind::CHECK]);
+
+		sounds_[SoundKind::BACK] = DxLib::LoadSoundMem("resource/sound/back.wav");
+		DxLib::ChangeVolumeSoundMem(180, sounds_[SoundKind::BACK]);
 
 		return ret;
 	}
