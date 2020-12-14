@@ -30,7 +30,10 @@ namespace Screen
 	 */
 	void ScreenBase::createOverlay(bool isOpen)
 	{
-		Entity::ObjectsControl& objectsControl = FrameWork::Game::getInstance().objectsControl;
+		FrameWork::Game& game = FrameWork::Game::getInstance();
+		game.setScreenLock(true);
+
+		Entity::ObjectsControl& objectsControl = game.objectsControl;
 		objectsControl.addObject(0, OVERLAY_ID, make_shared<Entity::Overlay>(isOpen));
 		objectsControl.addAnimationObj(0, 0, OVERLAY_ID);
 		nowScene_ = START_OVERLAY_SCENE;
@@ -53,9 +56,12 @@ namespace Screen
 		{
 			FrameWork::Game& game = FrameWork::Game::getInstance();
 			shared_ptr<Entity::Object> overlay = game.objectsControl.getObjectWp(0, OVERLAY_ID).lock();
-			if (overlay && !overlay->isAnimation())
+			if (!overlay || (overlay && !overlay->isAnimation()))
 			{
 				game.objectsControl.removeObject(0, OVERLAY_ID);
+
+				FrameWork::Game& game = FrameWork::Game::getInstance();
+				game.setScreenLock(false);
 				return true;
 			}
 		}
@@ -73,8 +79,12 @@ namespace Screen
 		{
 			FrameWork::Game& game = FrameWork::Game::getInstance();
 			shared_ptr<Entity::Object> overlay = game.objectsControl.getObjectWp(0, OVERLAY_ID).lock();
-			if (overlay && !overlay->isAnimation())
+			if (!overlay || (overlay && !overlay->isAnimation()))
 			{
+				game.objectsControl.removeObject(0, OVERLAY_ID);
+
+				FrameWork::Game& game = FrameWork::Game::getInstance();
+				game.setScreenLock(false);
 				return true;
 			}
 		}
