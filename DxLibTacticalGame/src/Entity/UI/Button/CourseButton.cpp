@@ -133,7 +133,7 @@ namespace Entity {
 	{
 		// サウンド
 		Utility::FontManager& fontM = Utility::FontManager::getInstance();
-		DxLib::PlaySoundMem(fontM.getSound(SoundKind::MOUSE_DOWN), DX_PLAYTYPE_BACK);
+		DxLib::PlaySoundMem(fontM.getSound(SoundKind::CHECK), DX_PLAYTYPE_BACK);
 	}
 
 	/**

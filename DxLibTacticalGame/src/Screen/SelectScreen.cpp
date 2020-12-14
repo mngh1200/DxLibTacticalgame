@@ -109,12 +109,20 @@ namespace Screen
 				if (hitObjSp->getObjectId() == UIid::START_BTN)
 				{
 					// スタートボタン
+					
+					// サウンド
+					Utility::FontManager& fontM = Utility::FontManager::getInstance();
+					DxLib::PlaySoundMem(fontM.getSound(SoundKind::CLICK), DX_PLAYTYPE_BACK);
 				}
 				else if (hitObjSp->getObjectId() == UIid::BACK_BTN)
 				{
 					// 戻るボタン　メインメニューに戻る
 					openScreen_ = Screen::MAIN_MENU;
 					createOverlay(false);
+
+					// サウンド
+					Utility::FontManager& fontM = Utility::FontManager::getInstance();
+					DxLib::PlaySoundMem(fontM.getSound(SoundKind::BACK), DX_PLAYTYPE_BACK);
 				}
 
 			}
