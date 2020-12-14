@@ -45,6 +45,9 @@ namespace Utility {
 		sounds_[SoundKind::BACK] = DxLib::LoadSoundMem("resource/sound/back.wav");
 		DxLib::ChangeVolumeSoundMem(180, sounds_[SoundKind::BACK]);
 
+		sounds_[SoundKind::BORN] = DxLib::LoadSoundMem("resource/sound/born.wav");
+		DxLib::ChangeVolumeSoundMem(190, sounds_[SoundKind::BORN]);
+
 		return ret;
 	}
 

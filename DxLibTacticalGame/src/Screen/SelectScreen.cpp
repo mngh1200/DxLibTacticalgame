@@ -46,10 +46,11 @@ namespace Screen
 			}
 			else if (i == 12)
 			{
+				selectedCourseId_ = newCourseId_ = i;
 				status = Entity::CourseButton::Status::NO_CLEAR;
 			}
 
-			objectsControl.addObject(Layer::COURSE_BUTTON, i, make_shared<Entity::CourseButton>(x, y, status));
+			objectsControl.addObject(Layer::COURSE_BUTTON, i, make_shared<Entity::CourseButton>(x, y, status, i == newCourseId_));
 		}
 		
 		// スタートボタン
@@ -135,14 +136,37 @@ namespace Screen
 	*/
 	void SelectScreen::updateByAnimation()
 	{
-		isOpenOverlayEnded(); // オーバーレイ（open）終了判定用
+		FrameWork::Game& game = FrameWork::Game::getInstance();
 
-		if (isCloseOverlayEnded()) // オーバーレイ（close）終了判定用
+		if (isOpenOverlayEnded()) // オーバーレイ（open）終了判定用
+		{
+			// NEWコース表示アニメーションシーンセット
+			if (newCourseId_ != -1)
+			{
+				nowScene_ = Scene::BORN;
+				game.setScreenLock(true);
+				game.objectsControl.addAnimationObj(Entity::CourseButton::AnimationId::BORN, Layer::COURSE_BUTTON, newCourseId_);
+			}
+			else
+			{
+				nowScene_ = Scene::SELECT;
+			}
+		}
+		else if (isCloseOverlayEnded()) // オーバーレイ（close）終了判定用
 		{
 			if (openScreen_ == Screen::MAIN_MENU)
 			{
 				// メインメニューに遷移
 				FrameWork::Game::getInstance().setScreen(new MenuScreen());
+			}
+		}
+		else if (nowScene_ == Scene::BORN)
+		{
+			shared_ptr<Entity::Object> obj = game.objectsControl.getObjectWp(Layer::COURSE_BUTTON, newCourseId_).lock();
+			if (!obj || obj->isAnimation() == false) // 終了
+			{
+				nowScene_ == Scene::SELECT;
+				game.setScreenLock(false);
 			}
 		}
 	}

@@ -31,6 +31,7 @@ namespace
 		CLICK,
 		CHECK,
 		BACK,
+		BORN,
 		SOUNDS_LEN
 	};
 }

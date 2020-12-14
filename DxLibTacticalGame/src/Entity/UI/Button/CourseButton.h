@@ -20,7 +20,7 @@ namespace Entity
 	
 	public:
 		CourseButton();
-		CourseButton(int x, int y, char status);
+		CourseButton(int x, int y, char status, bool isNew = false);
 		~CourseButton() {};
 
 		void render() const override;
@@ -45,6 +45,14 @@ namespace Entity
 
 		static const int SIZE = 100; //! 幅、高さ
 
+		// アニメーションの種類
+		enum AnimationId
+		{
+			EXPANSION,
+			SHRINK,
+			BORN
+		};
+
 	protected:
 		bool createAnimation(int animationId);
 
@@ -52,6 +60,10 @@ namespace Entity
 		constexpr static int RECT_ROUND = 10; //! 角丸の値
 		constexpr static int HOVER_ANIMATION_MS = 100;	//! 拡大、縮小の時間
 		static const float HOVER_ANIMATION_SCALE;	//! サイズ倍率(floatはcppで定義する必要あり)
+
+		constexpr static int BORN_ANIMATION_MS = 500; //! NEWコースアニメーションの時間
+		constexpr static int BORN_ANIMATION_DELAY = 100; //! NEWコースアニメーションの遅延時間
+		constexpr static int BORN_DISP_TEXT_SIZE = 48; //! どの大きさの時点で文字を表示するか
 
 		//! 選択状態にあるか
 		bool isSelected_;
@@ -62,13 +74,8 @@ namespace Entity
 		//! 基準の大きさ
 		Shape baseShape_;
 
-		// アニメーションの種類
-		enum AnimationId 
-		{
-			EXPANSION,
-			SHRINK,
-			BORN
-		};
+		//! コースのクリア状況
+		char status_;
 	};
 
 	

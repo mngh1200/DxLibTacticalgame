@@ -22,7 +22,7 @@ namespace Screen
 	class SelectScreen : public ScreenBase
 	{
 	public:
-		SelectScreen() : selectedCourseId_(-1), openScreen_(Screen::MAIN_MENU) {};
+		SelectScreen() : selectedCourseId_(-1), openScreen_(Screen::MAIN_MENU), newCourseId_(-1) {};
 		~SelectScreen() {};
 
 		void init();
@@ -46,6 +46,7 @@ namespace Screen
 		constexpr static int BACK_SIZE = 60;	//! 戻るボタンのサイズ
 
 		int selectedCourseId_; //! 選択中のコースID
+		int newCourseId_; // 新コースID
 
 		enum Layer
 		{
@@ -70,6 +71,12 @@ namespace Screen
 			START_BTN,
 			COURSE_NAME,
 			UIID_LEN
+		};
+
+		enum Scene
+		{
+			BORN,
+			SELECT
 		};
 	};
 }
