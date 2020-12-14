@@ -42,10 +42,6 @@ namespace FrameWork
 			// イベント取得後の画面更新処理
 			nowScreen_->updateByEvents(hitObjWp, x, y, button, eventType);
 		}
-		else
-		{
-
-		}
 
 
 		// アニメーション
