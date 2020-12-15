@@ -165,6 +165,7 @@
     <ClCompile Include="src\FrameWork\Controller.cpp" />
     <ClCompile Include="src\FrameWork\Game.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Screen\BattleScreen.cpp" />
     <ClCompile Include="src\Screen\MenuScreen.cpp" />
     <ClCompile Include="src\Screen\ScreenBase.cpp" />
     <ClCompile Include="src\Screen\SelectScreen.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="src\Entity\View\Text.h" />
     <ClInclude Include="src\FrameWork\Controller.h" />
     <ClInclude Include="src\FrameWork\Game.h" />
+    <ClInclude Include="src\Screen\BattleScreen.h" />
     <ClInclude Include="src\Screen\MenuScreen.h" />
     <ClInclude Include="src\Screen\ScreenBase.h" />
     <ClInclude Include="src\Screen\SelectScreen.h" />

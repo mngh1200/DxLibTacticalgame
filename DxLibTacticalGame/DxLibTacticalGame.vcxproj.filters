@@ -123,6 +123,9 @@
     <ClCompile Include="src\Entity\UI\Button\CourseButton.cpp">
       <Filter>ソース ファイル\Entity\UI\Button</Filter>
     </ClCompile>
+    <ClCompile Include="src\Screen\BattleScreen.cpp">
+      <Filter>ソース ファイル\Screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -187,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="src\Entity\UI\Button\CourseButton.h">
       <Filter>ヘッダー ファイル\Entity\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screen\BattleScreen.h">
+      <Filter>ヘッダー ファイル\Screen</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

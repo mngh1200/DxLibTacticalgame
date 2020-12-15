@@ -110,7 +110,9 @@ namespace Screen
 				if (hitObjSp->getObjectId() == UIid::START_BTN)
 				{
 					// スタートボタン
-					
+					openScreen_ = Screen::BATTLE;
+					createOverlay(false);
+
 					// サウンド
 					Utility::FontManager& fontM = Utility::FontManager::getInstance();
 					DxLib::PlaySoundMem(fontM.getSound(SoundKind::CLICK), DX_PLAYTYPE_BACK);
@@ -158,6 +160,11 @@ namespace Screen
 			{
 				// メインメニューに遷移
 				FrameWork::Game::getInstance().setScreen(new MenuScreen());
+			}
+			else if (openScreen_ == Screen::BATTLE)
+			{
+				// バトル画面に遷移
+				FrameWork::Game::getInstance().setScreen(new BattleScreen());
 			}
 		}
 		else if (nowScene_ == Scene::BORN)
