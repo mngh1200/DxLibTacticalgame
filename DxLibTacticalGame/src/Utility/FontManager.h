@@ -62,9 +62,10 @@ namespace Utility
 		FontManager()
 			:hdlFont_{}, colorType_{}, sounds_{}
 		{};
-		~FontManager() {};
+		~FontManager();
 
 		void loadFont(const LPCSTR fontFilePath);
+		void unloadFont(const LPCSTR fontFilePath);
 
 		int hdlFont_[FontType::FONT_LEN];
 		int colorType_[ColorType::COLOR_LEN];

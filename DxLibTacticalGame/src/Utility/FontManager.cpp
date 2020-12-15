@@ -7,6 +7,12 @@ namespace Utility {
 		return instance;
 	}
 
+	FontManager::~FontManager()
+	{
+		unloadFont("resource/font/rounded-mplus/rounded-mplus-1p-regular.ttf");
+		unloadFont("resource/font/rounded-mplus/rounded-mplus-1p-black.ttf");
+	}
+
 	int FontManager::load()
 	{
 		int ret = 0;
@@ -74,6 +80,16 @@ namespace Utility {
 		else {
 			// フォント読込エラー処理
 			MessageBox(NULL, "フォント読込失敗", "", MB_OK);
+		}
+	}
+
+	void FontManager::unloadFont(const LPCSTR fontFilePath)
+	{
+		if (RemoveFontResource(fontFilePath)) {
+			PostMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0);
+		}
+		else {
+			MessageBox(NULL, "remove failure", "", MB_OK);
 		}
 	}
 }
