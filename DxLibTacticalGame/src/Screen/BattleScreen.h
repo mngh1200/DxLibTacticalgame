@@ -5,12 +5,13 @@
 #include "ScreenBase.h"
 #include "FrameWork/Game.h"
 #include "Utility/FontManager.h"
+#include "Entity/Battle/Map.h"
 
 using namespace std;
 
 /**
- * @file SelectScreen.h
- * @brief キャンペーンセレクト画面
+ * @file BattleScreen.h
+ * @brief バトル画面
  */
 
 namespace Screen
@@ -30,13 +31,21 @@ namespace Screen
 		{
 			MASK,
 			UI,
-			BACK,
+			PLAYER_UNIT,
+			ENEMY_UNIT,
+			MAP,
 			LEN
 		};
 
 		enum UIid
 		{
 			UIID_LEN
+		};
+
+		enum Scene
+		{
+			PLAYER_TURN,
+			ENEMY_TURN
 		};
 	};
 }

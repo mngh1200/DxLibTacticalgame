@@ -2,12 +2,20 @@
 
 namespace Screen
 {
+
 	/**
 	 * @fn
 	 * 初期処理
 	*/
 	void BattleScreen::init()
 	{
+		FrameWork::Game& game = FrameWork::Game::getInstance();
+		Entity::ObjectsControl& objectsControl = game.objectsControl;
+		objectsControl.setLayer(Layer::LEN);
+
+		// マップ（マス）
+		objectsControl.addObject(Layer::MAP, 0, make_shared<Entity::Map>());
+
 		// オーバーレイセット
 		createOverlay(true);
 	}

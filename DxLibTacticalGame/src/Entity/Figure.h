@@ -30,7 +30,7 @@ namespace Entity
 			BACKGROUND,
 			BUTTON,
 			UNIT,
-			MASS,
+			MAP,
 			TEXT,
 			OVERLAY
 		};

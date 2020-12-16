@@ -61,6 +61,12 @@
     <Filter Include="ヘッダー ファイル\Entity\Animation">
       <UniqueIdentifier>{fb26c7c0-54fe-499c-b643-c9d877d3dee1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Entity\Battle">
+      <UniqueIdentifier>{7268d3f0-15be-48b7-9624-820fd1ee0644}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entity\Battle">
+      <UniqueIdentifier>{9faec344-9b9a-4d58-a438-f700347145d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -125,6 +131,12 @@
     </ClCompile>
     <ClCompile Include="src\Screen\BattleScreen.cpp">
       <Filter>ソース ファイル\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Battle\Map.cpp">
+      <Filter>ソース ファイル\Entity\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Battle\Mass.cpp">
+      <Filter>ソース ファイル\Entity\Battle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +205,12 @@
     </ClInclude>
     <ClInclude Include="src\Screen\BattleScreen.h">
       <Filter>ヘッダー ファイル\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Battle\Map.h">
+      <Filter>ヘッダー ファイル\Entity\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Battle\Mass.h">
+      <Filter>ヘッダー ファイル\Entity\Battle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

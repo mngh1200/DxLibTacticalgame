@@ -152,6 +152,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Animation\Animation.cpp" />
+    <ClCompile Include="src\Entity\Battle\Map.cpp" />
+    <ClCompile Include="src\Entity\Battle\Mass.cpp" />
     <ClCompile Include="src\Entity\Object.cpp" />
     <ClCompile Include="src\Entity\ObjectsControl.cpp" />
     <ClCompile Include="src\Entity\Shape.cpp" />
@@ -177,6 +179,8 @@
     <ClInclude Include="src\Animation\Animation.h" />
     <ClInclude Include="src\Animation\Easing.h" />
     <ClInclude Include="src\Define.h" />
+    <ClInclude Include="src\Entity\Battle\Map.h" />
+    <ClInclude Include="src\Entity\Battle\Mass.h" />
     <ClInclude Include="src\Entity\Object.h" />
     <ClInclude Include="src\Entity\ObjectsControl.h" />
     <ClInclude Include="src\Entity\Shape.h" />
