@@ -172,7 +172,7 @@ namespace Screen
 			shared_ptr<Entity::Object> obj = game.objectsControl.getObjectWp(Layer::COURSE_BUTTON, newCourseId_).lock();
 			if (!obj || obj->isAnimation() == false) // èIóπ
 			{
-				nowScene_ == Scene::SELECT;
+				nowScene_ = Scene::SELECT;
 				game.setScreenLock(false);
 			}
 		}
