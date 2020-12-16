@@ -75,6 +75,7 @@ namespace FrameWork
 	void Game::setScreen(Screen::ScreenBase* newScreen)
 	{
 		setScreenLock(false);
+		objectsControl.clearAnimation();
 		nowScreen_.reset(newScreen);
 	}
 
