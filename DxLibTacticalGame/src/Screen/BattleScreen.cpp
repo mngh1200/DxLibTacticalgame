@@ -16,6 +16,9 @@ namespace Screen
 		// マップ（マス）
 		objectsControl.addObject(Layer::MAP, 0, make_shared<Entity::Map>());
 
+		// ユニット設置(テスト)
+		objectsControl.addObject(Layer::PLAYER_UNIT, 0, make_shared<Entity::Unit>());
+
 		// オーバーレイセット
 		createOverlay(true);
 	}

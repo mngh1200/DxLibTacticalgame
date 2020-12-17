@@ -163,6 +163,7 @@
     <ClCompile Include="src\Entity\UI\Button\MenuScreenButton.cpp" />
     <ClCompile Include="src\Entity\UI\Button\TextButton.cpp" />
     <ClCompile Include="src\Entity\UI\Overlay.cpp" />
+    <ClCompile Include="src\Entity\Unit\Unit.cpp" />
     <ClCompile Include="src\Entity\View\Text.cpp" />
     <ClCompile Include="src\FrameWork\Controller.cpp" />
     <ClCompile Include="src\FrameWork\Game.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="src\Entity\UI\Button\MenuScreenButton.h" />
     <ClInclude Include="src\Entity\UI\Button\TextButton.h" />
     <ClInclude Include="src\Entity\UI\Overlay.h" />
+    <ClInclude Include="src\Entity\Unit\Unit.h" />
     <ClInclude Include="src\Entity\View\Text.h" />
     <ClInclude Include="src\FrameWork\Controller.h" />
     <ClInclude Include="src\FrameWork\Game.h" />

@@ -6,6 +6,7 @@
 #include "FrameWork/Game.h"
 #include "Utility/FontManager.h"
 #include "Entity/Battle/Map.h"
+#include "Entity/Unit/Unit.h"
 
 using namespace std;
 
