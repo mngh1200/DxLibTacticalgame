@@ -10,9 +10,9 @@ namespace Entity
 	class Shape
 	{
 	public:
-		Shape() : x(0), y(0), w(0), h(0), type(RECT) {};
-		Shape(int x, int y, int w, int h) : x(x), y(y), w(w), h(h), type(RECT) {};
-		Shape(int x, int y, int w, int h, int type) : x(x), y(y), w(w), h(h), type(type) {};
+		Shape() : x(0), y(0), w(0), h(0), type(RECT), disabledHit(false) {};
+		Shape(int x, int y, int w, int h) : x(x), y(y), w(w), h(h), type(RECT), disabledHit(false) {};
+		Shape(int x, int y, int w, int h, int type) : x(x), y(y), w(w), h(h), type(type), disabledHit(false) {};
 		~Shape() {};
 
 		bool isHit(int x, int y) const;
@@ -40,6 +40,9 @@ namespace Entity
 		int h;
 		//! 形状
 		int type;
+
+		//! イベント無効化
+		bool disabledHit;
 
 	private:
 
