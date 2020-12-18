@@ -199,8 +199,8 @@ namespace Entity {
 		if (getAbleUpdate())
 		{
 			float y = calcFunk_(frameCount_, frameMax_, 1.0, 0.0);
-			*nowX = x0 + (int)(x1 * y);
-			*nowY = y0 + (int)(y1 * y);
+			*nowX = x0 + (int)((x1 - x0) * y);
+			*nowY = y0 + (int)((y1 - y0) * y);
 		}
 		return isFin;
 	}
