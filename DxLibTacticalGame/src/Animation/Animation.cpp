@@ -107,6 +107,23 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * アニメーションを強制終了
+	 */
+	void Animation::forceFinish()
+	{
+		repeat_ = 0;
+		if (isNormalOrder_)
+		{
+			frameCount_ = frameMax_;
+		}
+		else
+		{
+			frameCount_ = 0;
+		}
+	}
+
+	/**
+	 * @fn
 	 * float値を少しずつ変化する
 	 * @param (y) 変化値
 	 * @param (y0) 初期値
