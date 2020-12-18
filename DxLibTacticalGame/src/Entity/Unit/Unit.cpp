@@ -3,18 +3,24 @@
 namespace Entity {
 	/**
 	 * @fn
-	 * コンストラクタ テスト処理
+	 * 初期処理
 	 */
-	Unit::Unit() : 
-		x_(0), y_(0), imageId_(0), animation_{},
-		hp_(0), hpm_(0), atk_(0), def_(0), mov_(0),
-		isSelected_(false)
+	void Unit::init(int x, int y, bool isEnemy)
 	{
-		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
-		
-		imageId_ = rm.getResource(Utility::ResourceManager::ResourceType::PLAYER, rm.LANCER, 0);
+		setPos(x, y);
 
-		shape_.set(x_ * CHIP_SIZE, y_ * CHIP_SIZE, CHIP_SIZE, CHIP_SIZE);
+		isEnemy_ = isEnemy;
+
+		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
+
+		if (isEnemy)
+		{
+			imageId_ = rm.getResource(Utility::ResourceManager::ResourceType::PLAYER, rm.LANCER, 0);
+		}
+		else
+		{
+			imageId_ = rm.getResource(Utility::ResourceManager::ResourceType::PLAYER, rm.LANCER, 2);
+		}
 	}
 
 	/**
@@ -23,6 +29,13 @@ namespace Entity {
 	 */
 	void Unit::render() const
 	{
+		Utility::FontManager& fm = Utility::FontManager::getInstance();
+
+		if (state_ == State::SELECTED)
+		{
+			// 選択中の表示(テスト)
+			DxLib::DrawBox(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), fm.getColor(ColorType::POSITIVE_COLOR), FALSE);
+		}
 		DxLib::DrawGraph(shape_.x, shape_.y, imageId_, TRUE);
 	}
 
@@ -32,6 +45,33 @@ namespace Entity {
 	 */
 	bool Unit::animationUpdate()
 	{
+		// 移動
+		if (animationId_ == AnimationKind::MOVE)
+		{
+			if (animation_.update(&shape_.x, &shape_.y, Map::getRealX(baseX_), Map::getRealY(baseY_), Map::getRealX(x_), Map::getRealY(y_)))
+			{
+				state_ = State::SELECTED;
+				shape_.disabledHit = false;
+				setPos(x_, y_); // テスト処理
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @fn
+	 * アニメーション作成
+	 * @param (animationId) アニメーションの種類
+	 */
+	bool Unit::createAnimation(int animationId)
+	{
+		if (animationId == AnimationKind::MOVE) // 移動
+		{
+			animation_ = Animation(100);
+			shape_.disabledHit = true; // イベント無効
+			return true;
+		}
 		return false;
 	}
 
@@ -45,6 +85,15 @@ namespace Entity {
 		y_ = y;
 		joinAnimationList(AnimationKind::MOVE);
 	}
+
+	void Unit::setPos(int x, int y)
+	{
+		baseX_ = x_ = x;
+		baseY_ = y_ = y;
+		shape_.set(Map::getRealX(x_), Map::getRealY(y_), CHIP_SIZE, CHIP_SIZE);
+	}
+
+
 
 	void Unit::damage(int damage)
 	{
@@ -66,14 +115,23 @@ namespace Entity {
 		joinAnimationList(AnimationKind::DESTROY);
 	}
 
-	void Unit::select(bool isSelect)
+	bool Unit::select(bool isSelect)
 	{
-		isSelected_ = isSelect;
-	}
-
-	bool Unit::createAnimation(int animationId)
-	{
+		if (isSelect && state_ == State::NORMAL)
+		{
+			state_ = State::SELECTED;
+			return true;
+		}
+		else if (!isSelect)
+		{	
+			if (state_ == State::MOVE || state_ == State::SELECTED)
+			{
+				state_ = State::NORMAL;
+				setPos(baseX_, baseY_);
+				animation_.forceFinish();
+				return true;
+			}
+		}
 		return false;
 	}
-
 }

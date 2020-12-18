@@ -27,6 +27,10 @@ namespace Screen
 		void updateByEvents(weak_ptr < Entity::Object> hitObjWp, int x, int y, int button, int eventType);
 		void updateByAnimation();
 	private:
+		bool deselectUnit();
+
+		//! 選択中のユニット
+		weak_ptr<Entity::Unit> selectedUnit_;
 
 		enum Layer
 		{

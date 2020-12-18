@@ -22,6 +22,11 @@ namespace Entity
 
 		void render() const override;
 
+		static int getRealX(int massX);
+		static int getRealY(int massY);
+		static int getMassX(int realX);
+		static int getMassY(int realY);
+
 	private:
 		//! 横のマスサイズ
 		int w_;

@@ -58,4 +58,40 @@ namespace Entity {
 		}
 	}
 
+	/**
+	 * @fn
+	 * マスの座標から正味の座標を取得(x座標)
+	 */
+	int Map::getRealX(int massX)
+	{
+		return massX * CHIP_SIZE;
+	}
+
+	/**
+	 * @fn
+	 * マスの座標から正味の座標を取得(y座標)
+	 */
+	int Map::getRealY(int massY)
+	{
+		return massY * CHIP_SIZE;
+	}
+
+	/**
+	 * @fn
+	 * 正味の座標からマスの座標を取得(x座標)
+	 */
+	int Map::getMassX(int realX)
+	{
+		return realX / CHIP_SIZE;
+	}
+
+	/**
+	 * @fn
+	 * 正味の座標からマスの座標を取得(y座標)
+	 */
+	int Map::getMassY(int realY)
+	{
+		return realY / CHIP_SIZE;
+	}
+
 }
