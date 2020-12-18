@@ -23,12 +23,12 @@ namespace Entity {
 	 */
 	Text::Text(string text, int x, int y, int fontType, int colorType, int align) : Text()
 	{
-		Utility::FontManager& fontManager = Utility::FontManager::getInstance();
+		Utility::ResourceManager& resourceManager = Utility::ResourceManager::getInstance();
 
 		text_ = text;
 		shape_.y = y;
-		font_ = fontManager.getHdlFont(fontType);
-		color_ = fontManager.getColor(colorType);
+		font_ = resourceManager.getHdlFont(fontType);
+		color_ = resourceManager.getColor(colorType);
 
 		if (align == CENTER) // ’†‰›‘µ‚¦
 		{

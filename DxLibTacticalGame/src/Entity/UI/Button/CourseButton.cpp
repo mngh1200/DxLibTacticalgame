@@ -112,9 +112,7 @@ namespace Entity {
 			setText("");
 
 			// サウンド
-			Utility::FontManager& fontM = Utility::FontManager::getInstance();
-			DxLib::PlaySoundMem(fontM.getSound(SoundKind::BORN), DX_PLAYTYPE_BACK);
-
+			Utility::ResourceManager::playSound(SoundKind::BORN);
 			return true;
 		}
 		return false;
@@ -171,8 +169,7 @@ namespace Entity {
 	void CourseButton::onMouseClick()
 	{
 		// サウンド
-		Utility::FontManager& fontM = Utility::FontManager::getInstance();
-		DxLib::PlaySoundMem(fontM.getSound(SoundKind::CHECK), DX_PLAYTYPE_BACK);
+		Utility::ResourceManager::playSound(SoundKind::CHECK);
 	}
 
 	/**

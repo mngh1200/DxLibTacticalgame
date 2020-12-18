@@ -12,8 +12,7 @@ namespace Entity {
 
 
 		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
-		typedef Utility::ResourceManager RM;
-		imageId_ = rm.getResource(RM::ResourceType::IMAGE, RM::BACKGROUND_MENU, 0);
+		imageId_ = rm.getImage(ImageType::IMAGE, BACKGROUND_MENU, 0);
 	}
 
 	/**
@@ -42,9 +41,9 @@ namespace Entity {
 		}
 		else if (screen_ == Screen::SELECT)
 		{
-			Utility::FontManager& fontManager = Utility::FontManager::getInstance();
-			DxLib::DrawBox(shape_.x, shape_.y, SELECT_LEFT_WIDTH, shape_.getY2(), fontManager.getColor(ColorType::SUB_COLOR), TRUE);
-			DxLib::DrawBox(shape_.x + SELECT_LEFT_WIDTH, shape_.y, shape_.getX2(), shape_.getY2(), fontManager.getColor(ColorType::MAIN_COLOR), TRUE);
+			Utility::ResourceManager& resourceManager = Utility::ResourceManager::getInstance();
+			DxLib::DrawBox(shape_.x, shape_.y, SELECT_LEFT_WIDTH, shape_.getY2(), resourceManager.getColor(ColorType::SUB_COLOR), TRUE);
+			DxLib::DrawBox(shape_.x + SELECT_LEFT_WIDTH, shape_.y, shape_.getX2(), shape_.getY2(), resourceManager.getColor(ColorType::MAIN_COLOR), TRUE);
 		}
 	}
 }

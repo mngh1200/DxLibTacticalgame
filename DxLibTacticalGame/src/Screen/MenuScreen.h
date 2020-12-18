@@ -3,7 +3,7 @@
 #include <memory>
 #include "ScreenBase.h"
 #include "FrameWork/Game.h"
-#include "Utility/FontManager.h"
+#include "Utility/ResourceManager.h"
 #include "SelectScreen.h"
 #include "Entity/UI/Back.h"
 #include "Entity/UI/Button/MenuScreenButton.h"

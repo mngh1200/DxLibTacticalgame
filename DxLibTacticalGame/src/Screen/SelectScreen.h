@@ -4,7 +4,7 @@
 #include <string>
 #include "ScreenBase.h"
 #include "FrameWork/Game.h"
-#include "Utility/FontManager.h"
+#include "Utility/ResourceManager.h"
 #include "Screen/MenuScreen.h"
 #include "Entity/UI/Back.h"
 #include "Entity/UI/Button/CourseButton.h"

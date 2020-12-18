@@ -84,9 +84,7 @@ namespace Entity {
 		joinAnimationList(EXPANSION); // Šg‘å
 		
 		// ƒTƒEƒ“ƒh
-		Utility::FontManager& fontM = Utility::FontManager::getInstance();
-		DxLib::PlaySoundMem(fontM.getSound(SoundKind::CLICK), DX_PLAYTYPE_BACK);
-
+		Utility::ResourceManager::playSound(SoundKind::CLICK);
 	}
 
 	/**

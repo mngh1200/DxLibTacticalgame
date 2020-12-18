@@ -4,7 +4,6 @@
 #include "Entity/Shape.h"
 #include "DxLib.h"
 #include "Utility/ResourceManager.h"
-#include "Utility/FontManager.h"
 #include "Define.h"
 
 /**

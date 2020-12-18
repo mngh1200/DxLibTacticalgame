@@ -1,7 +1,7 @@
 #pragma once
 #include <climits>
 #include <string>
-#include "Utility/FontManager.h"
+#include "Utility/ResourceManager.h"
 #include "Entity/Shape.h"
 #include "Entity/Figure.h"
 #include "DxLib.h"

@@ -2,7 +2,7 @@
 #include <climits>
 #include <string>
 #include "Entity/UI/Button/TextButton.h"
-#include "Utility/FontManager.h"
+#include "Utility/ResourceManager.h"
 #include "Animation/Animation.h"
 
 using namespace std;

@@ -2,7 +2,7 @@
 #include <climits>
 #include <string>
 #include "Entity/Object.h"
-#include "Utility/FontManager.h"
+#include "Utility/ResourceManager.h"
 
 using namespace std;
 

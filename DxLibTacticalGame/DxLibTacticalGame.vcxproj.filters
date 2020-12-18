@@ -102,9 +102,6 @@
     <ClCompile Include="src\Entity\UI\Overlay.cpp">
       <Filter>ソース ファイル\Entity\UI</Filter>
     </ClCompile>
-    <ClCompile Include="src\Utility\FontManager.cpp">
-      <Filter>ソース ファイル\Utility</Filter>
-    </ClCompile>
     <ClCompile Include="src\Animation\Animation.cpp">
       <Filter>ソース ファイル\Entity\Animation</Filter>
     </ClCompile>
@@ -163,9 +160,6 @@
     </ClInclude>
     <ClInclude Include="src\Entity\UI\Overlay.h">
       <Filter>ヘッダー ファイル\Entity\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Utility\FontManager.h">
-      <Filter>ヘッダー ファイル\Utility</Filter>
     </ClInclude>
     <ClInclude Include="src\Animation\Animation.h">
       <Filter>ヘッダー ファイル\Entity\Animation</Filter>

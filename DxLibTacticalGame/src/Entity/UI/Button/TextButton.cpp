@@ -15,8 +15,8 @@ namespace Entity {
 	{
 		type_ = Type::BUTTON;
 
-		Utility::FontManager& fontManager = Utility::FontManager::getInstance();
-		font_ = fontManager.getHdlFont(FontType::NORMAL_S24);
+		Utility::ResourceManager& resourceManager = Utility::ResourceManager::getInstance();
+		font_ = resourceManager.getHdlFont(FontType::NORMAL_S24);
 	}
 
 	/**
@@ -114,8 +114,8 @@ namespace Entity {
 	 */
 	void TextButton::setFont(int fontType)
 	{
-		Utility::FontManager& fontM = Utility::FontManager::getInstance();
-		font_ = fontM.getHdlFont(fontType);
+		Utility::ResourceManager& resourceM = Utility::ResourceManager::getInstance();
+		font_ = resourceM.getHdlFont(fontType);
 		setTextCenter();
 		setTextMiddle();
 	}
@@ -129,20 +129,20 @@ namespace Entity {
 	 */
 	void TextButton::setColor(int backgroundColorType, int textColorType, int state)
 	{
-		Utility::FontManager& fontManager = Utility::FontManager::getInstance();
+		Utility::ResourceManager& resourceManager = Utility::ResourceManager::getInstance();
 		if (state == State::ALL)
 		{
 			
 			for (int i = 0; i < State::ALL; ++i)
 			{
-				color_[i] = fontManager.getColor(backgroundColorType);
-				textColor_[i] = fontManager.getColor(textColorType);
+				color_[i] = resourceManager.getColor(backgroundColorType);
+				textColor_[i] = resourceManager.getColor(textColorType);
 			}
 		}
 		else
 		{
-			color_[state] = fontManager.getColor(backgroundColorType);
-			textColor_[state] = fontManager.getColor(textColorType);
+			color_[state] = resourceManager.getColor(backgroundColorType);
+			textColor_[state] = resourceManager.getColor(textColorType);
 		}
 	}
 
@@ -154,18 +154,18 @@ namespace Entity {
 	 */
 	void TextButton::setBackgroundColor(int backgroundColorType, int state)
 	{
-		Utility::FontManager& fontManager = Utility::FontManager::getInstance();
+		Utility::ResourceManager& resourceManager = Utility::ResourceManager::getInstance();
 		if (state == State::ALL)
 		{
 
 			for (int i = 0; i < State::ALL; ++i)
 			{
-				color_[i] = fontManager.getColor(backgroundColorType);
+				color_[i] = resourceManager.getColor(backgroundColorType);
 			}
 		}
 		else
 		{
-			color_[state] = fontManager.getColor(backgroundColorType);
+			color_[state] = resourceManager.getColor(backgroundColorType);
 		}
 	}
 
@@ -177,7 +177,7 @@ namespace Entity {
 	 */
 	void TextButton::setTextColor(int textColorType, int state)
 	{
-		Utility::FontManager& fontManager = Utility::FontManager::getInstance();
+		Utility::ResourceManager& fontManager = Utility::ResourceManager::getInstance();
 		if (state == State::ALL)
 		{
 

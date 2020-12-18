@@ -112,8 +112,7 @@ namespace Screen
 					// スタートボタン
 					
 					// サウンド
-					Utility::FontManager& fontM = Utility::FontManager::getInstance();
-					DxLib::PlaySoundMem(fontM.getSound(SoundKind::CLICK), DX_PLAYTYPE_BACK);
+					Utility::ResourceManager::playSound(SoundKind::CLICK);
 				}
 				else if (hitObjSp->getObjectId() == UIid::BACK_BTN)
 				{
@@ -122,8 +121,7 @@ namespace Screen
 					createOverlay(false);
 
 					// サウンド
-					Utility::FontManager& fontM = Utility::FontManager::getInstance();
-					DxLib::PlaySoundMem(fontM.getSound(SoundKind::BACK), DX_PLAYTYPE_BACK);
+					Utility::ResourceManager::playSound(SoundKind::BACK);
 				}
 
 			}
