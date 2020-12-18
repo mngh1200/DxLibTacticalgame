@@ -40,6 +40,8 @@ namespace FrameWork
 
 		void setScreen(Screen::ScreenBase* newScreen);
 
+		void setScreenLock(bool isLock);
+
 		void finish();
 
 		int getFrame() const;
@@ -49,7 +51,7 @@ namespace FrameWork
 
 
 	private:
-		Game() : frame_(0), prevTime_(0), isFinish_(false), waitTime_(0), nowScreen_() {};
+		Game() : frame_(0), prevTime_(0), isFinish_(false), waitTime_(0), nowScreen_(), isLock_(false){};
 		~Game() {};
 		void controlFps();
 		void increaseFrame();
@@ -65,6 +67,9 @@ namespace FrameWork
 
 		//! 終了判定
 		bool isFinish_;
+
+		//! 画面ロック(イベントの有効/無効)
+		bool isLock_;
 
 		//! 画面制御管理クラス
 		unique_ptr<Screen::ScreenBase> nowScreen_;

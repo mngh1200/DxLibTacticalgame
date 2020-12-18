@@ -7,7 +7,7 @@ namespace Entity {
 	 * @fn
 	 * コンストラクタ
 	 */
-	CourseButton::CourseButton() : animation_ {}, isSelected_(false)
+	CourseButton::CourseButton() : animation_ {}, isSelected_(false), status_('!')
 	{
 		setColor(ColorType::MAIN_COLOR, ColorType::SUB_COLOR);
 	}
@@ -19,12 +19,25 @@ namespace Entity {
 	 * @param (y) y座標
 	 * @param (status) コースのクリア状況
 	 */
-	CourseButton::CourseButton(int x, int y, char status) : CourseButton()
+	CourseButton::CourseButton(int x, int y, char status, bool isNew) : CourseButton()
 	{
-		setShape(x, y, SIZE, SIZE);
-		baseShape_ = shape_;
+		status_ = status;
+		baseShape_ = Shape(x, y, SIZE, SIZE);
 
-		setText(string(1, status), FontType::BLACK_S48);
+		// 新コースの場合
+		if (isNew)
+		{
+			setShape(x, y, 0, 0);
+			setText("", FontType::BLACK_S48);
+		}
+		else
+		{
+			setShape(x, y, SIZE, SIZE);
+			setText(string(1, status), FontType::BLACK_S48);
+		}
+
+
+
 
 		// クリア状況次第でテキストと色変更
 		if (status == Status::S)
@@ -93,6 +106,17 @@ namespace Entity {
 			animation_.adjustFrame(shape_, baseShape_, HOVER_ANIMATION_SCALE);
 			return true;
 		}
+		else if (animationId == BORN) // 新コースアニメーション
+		{
+			animation_ = Animation(BORN_ANIMATION_MS, Animation::REVERSE, 1, BORN_ANIMATION_DELAY, Easing::InOutCirc<float>);
+			setText("");
+
+			// サウンド
+			Utility::FontManager& fontM = Utility::FontManager::getInstance();
+			DxLib::PlaySoundMem(fontM.getSound(SoundKind::BORN), DX_PLAYTYPE_BACK);
+
+			return true;
+		}
 		return false;
 	}
 
@@ -122,6 +146,21 @@ namespace Entity {
 			setSize(shape_.w, shape_.h); // テキスト位置調整用に再適用
 			return isEnd;
 		}
+		else if (animationId_ == BORN)
+		{
+			if (animation_.update(&shape_, baseShape_, 0.0f))
+			{
+				setSize(shape_.w, shape_.h); // 文字位置調整用
+				setSelected(true);
+				return true;
+			}
+			else if (shape_.h >= BORN_DISP_TEXT_SIZE) // 文字表示
+			{
+				setText(string(1, status_));
+				setSize(shape_.w, shape_.h); // 文字位置調整用
+			}
+			return false;
+		}
 		return true;
 	}
 
@@ -133,7 +172,7 @@ namespace Entity {
 	{
 		// サウンド
 		Utility::FontManager& fontM = Utility::FontManager::getInstance();
-		DxLib::PlaySoundMem(fontM.getSound(SoundKind::MOUSE_DOWN), DX_PLAYTYPE_BACK);
+		DxLib::PlaySoundMem(fontM.getSound(SoundKind::CHECK), DX_PLAYTYPE_BACK);
 	}
 
 	/**

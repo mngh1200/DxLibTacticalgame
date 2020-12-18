@@ -26,19 +26,22 @@ namespace FrameWork
 			nowScreen_->inited(); // 初期処理済みフラグセット
 		}
 
-		// キーイベント管理
-		Controller& controller = Controller::getInstance();
-		if (controller.getAllEvents() != 0)
+		if (!isLock_)
 		{
-			return -1;
+			// キーイベント管理
+			Controller& controller = Controller::getInstance();
+			if (controller.getAllEvents() != 0)
+			{
+				return -1;
+			}
+
+			// マウスイベント
+			int x, y, button, eventType;
+			weak_ptr<Entity::Object> hitObjWp = objectsControl.checkMouseEvent(&x, &y, &button, &eventType);
+
+			// イベント取得後の画面更新処理
+			nowScreen_->updateByEvents(hitObjWp, x, y, button, eventType);
 		}
-
-		// マウスイベント
-		int x, y, button, eventType;
-		weak_ptr<Entity::Object> hitObjWp = objectsControl.checkMouseEvent(&x, &y, &button, &eventType);
-
-		// イベント取得後の画面更新処理
-		nowScreen_->updateByEvents(hitObjWp, x, y, button, eventType);
 
 
 		// アニメーション
@@ -71,7 +74,18 @@ namespace FrameWork
 	 */
 	void Game::setScreen(Screen::ScreenBase* newScreen)
 	{
+		setScreenLock(false);
 		nowScreen_.reset(newScreen);
+	}
+
+	/**
+	 * @fn
+	 * イベントの有効/無効切り替え
+	 * @param (isLock) true: 無効、false: 有効
+	 */
+	void Game::setScreenLock(bool isLock)
+	{
+		isLock_ = isLock;
 	}
 
 	/**

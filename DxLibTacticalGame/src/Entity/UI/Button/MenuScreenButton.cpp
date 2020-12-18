@@ -85,7 +85,7 @@ namespace Entity {
 		
 		// ƒTƒEƒ“ƒh
 		Utility::FontManager& fontM = Utility::FontManager::getInstance();
-		DxLib::PlaySoundMem(fontM.getSound(SoundKind::MOUSE_DOWN), DX_PLAYTYPE_BACK);
+		DxLib::PlaySoundMem(fontM.getSound(SoundKind::CLICK), DX_PLAYTYPE_BACK);
 
 	}
 

@@ -7,14 +7,22 @@ namespace Utility {
 		return instance;
 	}
 
+	FontManager::~FontManager()
+	{
+		unloadFont("resource/font/rounded-mplus/rounded-mplus-1p-regular.ttf");
+		unloadFont("resource/font/rounded-mplus/rounded-mplus-1p-black.ttf");
+	}
+
 	int FontManager::load()
 	{
 		int ret = 0;
 
-		// hdlFont_[FontType::TITLE] = DxLib::CreateFontToHandle("メイリオ", 90, 3, DX_FONTTYPE_ANTIALIASING_4X4);
-		hdlFont_[FontType::NORMAL_S24] = DxLib::LoadFontDataToHandle("resource/font/rounded-mplus/rounded-mplus-1p-medium-S24.dft", 0);
-		hdlFont_[FontType::NORMAL_S32] = DxLib::LoadFontDataToHandle("resource/font/rounded-mplus/rounded-mplus-1p-medium-S32.dft", 0);
-		hdlFont_[FontType::BLACK_S48] = DxLib::LoadFontDataToHandle("resource/font/rounded-mplus/rounded-mplus-1p-black-S48.dft", 0);
+		loadFont("resource/font/rounded-mplus/rounded-mplus-1p-regular.ttf");
+		loadFont("resource/font/rounded-mplus/rounded-mplus-1p-black.ttf");
+
+		hdlFont_[FontType::NORMAL_S24] = DxLib::CreateFontToHandle("Rounded M+ 1p regular", 24, 3, DX_FONTTYPE_ANTIALIASING_4X4);
+		hdlFont_[FontType::NORMAL_S32] = DxLib::CreateFontToHandle("Rounded M+ 1p regular", 32, 3, DX_FONTTYPE_ANTIALIASING_4X4);
+		hdlFont_[FontType::BLACK_S48]  = DxLib::CreateFontToHandle("Rounded M+ 1p black", 48, 3, DX_FONTTYPE_ANTIALIASING_4X4);
 
 		// 色取得
 		colorType_[ColorType::MAIN_COLOR] = DxLib::GetColor(250, 244, 232);
@@ -36,8 +44,17 @@ namespace Utility {
 
 
 		// 効果音取得
-		sounds_[SoundKind::MOUSE_DOWN] = DxLib::LoadSoundMem("resource/sound/mouse-down.wav");
-		DxLib::ChangeVolumeSoundMem(128, sounds_[SoundKind::MOUSE_DOWN]);
+		sounds_[SoundKind::CLICK] = DxLib::LoadSoundMem("resource/sound/click.ogg");
+		DxLib::ChangeVolumeSoundMem(210, sounds_[SoundKind::CLICK]);
+
+		sounds_[SoundKind::CHECK] = DxLib::LoadSoundMem("resource/sound/check.ogg");
+		DxLib::ChangeVolumeSoundMem(220, sounds_[SoundKind::CHECK]);
+
+		sounds_[SoundKind::BACK] = DxLib::LoadSoundMem("resource/sound/back.wav");
+		DxLib::ChangeVolumeSoundMem(180, sounds_[SoundKind::BACK]);
+
+		sounds_[SoundKind::BORN] = DxLib::LoadSoundMem("resource/sound/born.wav");
+		DxLib::ChangeVolumeSoundMem(190, sounds_[SoundKind::BORN]);
 
 		return ret;
 	}
@@ -53,5 +70,26 @@ namespace Utility {
 	int FontManager::getSound(int kind) const
 	{
 		return sounds_[kind];
+	}
+
+	void FontManager::loadFont(const LPCSTR fontFilePath)
+	{
+		if (AddFontResource(fontFilePath) > 0) {
+			PostMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0);
+		}
+		else {
+			// フォント読込エラー処理
+			MessageBox(NULL, "フォント読込失敗", "", MB_OK);
+		}
+	}
+
+	void FontManager::unloadFont(const LPCSTR fontFilePath)
+	{
+		if (RemoveFontResource(fontFilePath)) {
+			PostMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0);
+		}
+		else {
+			MessageBox(NULL, "remove failure", "", MB_OK);
+		}
 	}
 }
