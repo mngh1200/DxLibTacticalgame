@@ -51,6 +51,7 @@ namespace Utility
 
 		int load();
 
+		int getResource(ResourceType type, int kind) const;
 		int getResource(ResourceType type, int kind, int pos) const;
 	private:
 		ResourceManager()

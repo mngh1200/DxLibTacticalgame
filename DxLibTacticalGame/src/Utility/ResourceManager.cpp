@@ -21,23 +21,45 @@ namespace Utility {
 		loadImage("resource/image/menu/background.jpg", resource_.at(ResourceType::IMAGE).at(0));
 
 
-		resource_.insert(std::make_pair(MAP, vector<int*>()));
-		resource_.at(MAP).push_back(new int[8]);
-		loadMapchip("resource/mapchip.png", resource_.at(MAP).at(0));
-
-		resource_.insert(std::make_pair(PLAYER, vector<int*>()));
-		resource_.at(PLAYER).push_back(new int[16]);
-		loadCharacterchip("resource/lancer.png", resource_.at(PLAYER).at(LANCER));
-		resource_.insert(std::make_pair(PLAYER, vector<int*>()));
-		resource_.at(PLAYER).push_back(new int[16]);
-		loadCharacterchip("resource/cavalry.png", resource_.at(PLAYER).at(CAVALRY));
-		resource_.insert(std::make_pair(PLAYER, vector<int*>()));
-		resource_.at(PLAYER).push_back(new int[16]);
-		loadCharacterchip("resource/gunner.png", resource_.at(PLAYER).at(GUNNER));
+		resource_.insert(std::make_pair(ResourceType::MAP, vector<int*>()));
+		resource_.at(ResourceType::MAP).push_back(new int[8]);
+		loadMapchip("resource/mapchip.png", resource_.at(ResourceType::MAP).at(0));
+		// プレイヤー画像の読み込み
+		resource_.insert(std::make_pair(ResourceType::PLAYER, vector<int*>()));
+		resource_.at(ResourceType::PLAYER).push_back(new int[16]);
+		loadCharacterchip("resource/lancer.png", resource_.at(ResourceType::PLAYER).at(UnitKey::LANCER));
+		resource_.insert(std::make_pair(ResourceType::PLAYER, vector<int*>()));
+		resource_.at(ResourceType::PLAYER).push_back(new int[16]);
+		loadCharacterchip("resource/cavalry.png", resource_.at(ResourceType::PLAYER).at(UnitKey::CAVALRY));
+		resource_.insert(std::make_pair(ResourceType::PLAYER, vector<int*>()));
+		resource_.at(ResourceType::PLAYER).push_back(new int[16]);
+		loadCharacterchip("resource/gunner.png", resource_.at(ResourceType:: PLAYER).at(UnitKey::GUNNER));
+		// エネミー画像の読み込み
+		resource_.insert(std::make_pair(ResourceType::ENEMY, vector<int*>()));
+		resource_.at(ResourceType::ENEMY).push_back(new int[16]);
+		loadCharacterchip("resource/lancer_enemy.png", resource_.at(ResourceType::ENEMY).at(UnitKey::LANCER));
+		resource_.insert(std::make_pair(ResourceType::ENEMY, vector<int*>()));
+		resource_.at(ResourceType::ENEMY).push_back(new int[16]);
+		loadCharacterchip("resource/cavalry_enemy.png", resource_.at(ResourceType::ENEMY).at(UnitKey::CAVALRY));
+		resource_.insert(std::make_pair(ResourceType::ENEMY, vector<int*>()));
+		resource_.at(ResourceType::ENEMY).push_back(new int[16]);
+		loadCharacterchip("resource/gunner_enemy.png", resource_.at(ResourceType::ENEMY).at(UnitKey::GUNNER));
 		
 		return ret;
 	}
 
+	/**
+	 * @fn
+	 * 指定されたオブジェクト取得(1毎絵用)
+	 * @param (type) リソースタイプ
+	 * @param (kind) リソースの種類
+	 * @return 対象リソースのID
+	 */
+	int ResourceManager::getResource(ResourceType type, int kind) const
+	{
+		vector<int*> test = resource_.at(type);
+		return resource_.at(type).at(kind)[0];
+	}
 	/**
      * @fn
      * 指定されたオブジェクト取得
