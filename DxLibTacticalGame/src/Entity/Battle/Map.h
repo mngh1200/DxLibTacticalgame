@@ -3,7 +3,7 @@
 #include <vector>
 #include "Entity/Object.h"
 #include "Entity/Battle/Mass.h"
-#include "Utility/FontManager.h"
+#include "Utility/ResourceManager.h"
 
 using namespace std;
 

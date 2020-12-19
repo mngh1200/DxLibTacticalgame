@@ -15,11 +15,11 @@ namespace Entity {
 
 		if (isEnemy)
 		{
-			imageId_ = rm.getResource(Utility::ResourceManager::ResourceType::PLAYER, rm.LANCER, 0);
+			imageId_ = rm.getImage(ImageType::PLAYER, LANCER, 0);
 		}
 		else
 		{
-			imageId_ = rm.getResource(Utility::ResourceManager::ResourceType::PLAYER, rm.LANCER, 2);
+			imageId_ = rm.getImage(ImageType::PLAYER, LANCER, 2);
 		}
 	}
 
@@ -29,12 +29,12 @@ namespace Entity {
 	 */
 	void Unit::render() const
 	{
-		Utility::FontManager& fm = Utility::FontManager::getInstance();
+		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
 
 		if (state_ == State::SELECTED)
 		{
 			// 選択中の表示(テスト)
-			DxLib::DrawBox(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), fm.getColor(ColorType::POSITIVE_COLOR), FALSE);
+			DxLib::DrawBox(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), rm.getColor(ColorType::POSITIVE_COLOR), FALSE);
 		}
 		DxLib::DrawGraph(shape_.x, shape_.y, imageId_, TRUE);
 	}

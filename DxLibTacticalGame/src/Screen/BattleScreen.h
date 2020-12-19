@@ -4,7 +4,7 @@
 #include <string>
 #include "ScreenBase.h"
 #include "FrameWork/Game.h"
-#include "Utility/FontManager.h"
+#include "Utility/ResourceManager.h"
 #include "Entity/Battle/Map.h"
 #include "Entity/Unit/Unit.h"
 

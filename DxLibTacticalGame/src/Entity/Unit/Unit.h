@@ -2,7 +2,6 @@
 #include <climits>
 #include "Entity/Object.h"
 #include "Utility/ResourceManager.h"
-#include "Utility/FontManager.h"
 #include "Animation/Animation.h"
 #include "Entity/Battle/Map.h"
 

@@ -69,24 +69,23 @@ namespace Entity {
 	void Mass::setImageIdFromKind(int kindId)
 	{
 		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
-		typedef Utility::ResourceManager::ResourceType RTYPE;
 
 		// テスト処理
 		if (kindId == Kind::MOUNTAIN) // 山
 		{
-			imageId_ = rm.getResource(RTYPE::MAP, 0, 0);
+			imageId_ = rm.getImage(ImageType::MAP, 0, 0);
 		}
 		else if (kindId == Kind::FOREST) // 森
 		{
-			imageId_ = rm.getResource(RTYPE::MAP, 0, 2);
+			imageId_ = rm.getImage(ImageType::MAP, 0, 2);
 		}
 		else if (kindId == Kind::RIVER) // 川
 		{
-			imageId_ = rm.getResource(RTYPE::MAP, 0, 3);
+			imageId_ = rm.getImage(ImageType::MAP, 0, 3);
 		}
 		else // 平原
 		{
-			imageId_ = rm.getResource(RTYPE::MAP, 0, 1);
+			imageId_ = rm.getImage(ImageType::MAP, 0, 1);
 		}
 	}
 }
