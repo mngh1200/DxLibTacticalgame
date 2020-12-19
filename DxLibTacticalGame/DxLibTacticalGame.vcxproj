@@ -152,6 +152,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Animation\Animation.cpp" />
+    <ClCompile Include="src\Entity\Battle\Map.cpp" />
+    <ClCompile Include="src\Entity\Battle\Mass.cpp" />
     <ClCompile Include="src\Entity\Object.cpp" />
     <ClCompile Include="src\Entity\ObjectsControl.cpp" />
     <ClCompile Include="src\Entity\Shape.cpp" />
@@ -161,10 +163,12 @@
     <ClCompile Include="src\Entity\UI\Button\MenuScreenButton.cpp" />
     <ClCompile Include="src\Entity\UI\Button\TextButton.cpp" />
     <ClCompile Include="src\Entity\UI\Overlay.cpp" />
+    <ClCompile Include="src\Entity\Unit\Unit.cpp" />
     <ClCompile Include="src\Entity\View\Text.cpp" />
     <ClCompile Include="src\FrameWork\Controller.cpp" />
     <ClCompile Include="src\FrameWork\Game.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Screen\BattleScreen.cpp" />
     <ClCompile Include="src\Screen\MenuScreen.cpp" />
     <ClCompile Include="src\Screen\ScreenBase.cpp" />
     <ClCompile Include="src\Screen\SelectScreen.cpp" />
@@ -175,6 +179,8 @@
     <ClInclude Include="src\Animation\Animation.h" />
     <ClInclude Include="src\Animation\Easing.h" />
     <ClInclude Include="src\Define.h" />
+    <ClInclude Include="src\Entity\Battle\Map.h" />
+    <ClInclude Include="src\Entity\Battle\Mass.h" />
     <ClInclude Include="src\Entity\Object.h" />
     <ClInclude Include="src\Entity\ObjectsControl.h" />
     <ClInclude Include="src\Entity\Shape.h" />
@@ -184,9 +190,11 @@
     <ClInclude Include="src\Entity\UI\Button\MenuScreenButton.h" />
     <ClInclude Include="src\Entity\UI\Button\TextButton.h" />
     <ClInclude Include="src\Entity\UI\Overlay.h" />
+    <ClInclude Include="src\Entity\Unit\Unit.h" />
     <ClInclude Include="src\Entity\View\Text.h" />
     <ClInclude Include="src\FrameWork\Controller.h" />
     <ClInclude Include="src\FrameWork\Game.h" />
+    <ClInclude Include="src\Screen\BattleScreen.h" />
     <ClInclude Include="src\Screen\MenuScreen.h" />
     <ClInclude Include="src\Screen\ScreenBase.h" />
     <ClInclude Include="src\Screen\SelectScreen.h" />

@@ -38,6 +38,8 @@ namespace Entity
 		void reset();
 		void reset(int direction);
 
+		void forceFinish();
+
 
 		void adjustFrame(float y, float y0, float y1);
 		void adjustFrame(Shape nowShape, Shape baseShape, float scale);

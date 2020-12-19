@@ -10,6 +10,11 @@ namespace Entity
 	 */
 	bool Shape::isHit(int x, int y) const
 	{
+		if (disabledHit) // ƒCƒxƒ“ƒg–³Œø
+		{
+			return false;
+		}
+
 		if (type == RECT) 
 		{
 			return this->x <= x && x <= this->getX2() && this->y <= y && y <= this->getY2();

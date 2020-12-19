@@ -107,6 +107,23 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * アニメーションを強制終了
+	 */
+	void Animation::forceFinish()
+	{
+		repeat_ = 0;
+		if (isNormalOrder_)
+		{
+			frameCount_ = frameMax_;
+		}
+		else
+		{
+			frameCount_ = 0;
+		}
+	}
+
+	/**
+	 * @fn
 	 * float値を少しずつ変化する
 	 * @param (y) 変化値
 	 * @param (y0) 初期値
@@ -182,8 +199,8 @@ namespace Entity {
 		if (getAbleUpdate())
 		{
 			float y = calcFunk_(frameCount_, frameMax_, 1.0, 0.0);
-			*nowX = x0 + (int)(x1 * y);
-			*nowY = y0 + (int)(y1 * y);
+			*nowX = x0 + (int)((x1 - x0) * y);
+			*nowY = y0 + (int)((y1 - y0) * y);
 		}
 		return isFin;
 	}

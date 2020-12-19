@@ -110,7 +110,9 @@ namespace Screen
 				if (hitObjSp->getObjectId() == UIid::START_BTN)
 				{
 					// スタートボタン
-					
+					openScreen_ = Screen::BATTLE;
+					createOverlay(false);
+
 					// サウンド
 					Utility::ResourceManager::playSound(SoundKind::CLICK);
 				}
@@ -157,13 +159,18 @@ namespace Screen
 				// メインメニューに遷移
 				FrameWork::Game::getInstance().setScreen(new MenuScreen());
 			}
+			else if (openScreen_ == Screen::BATTLE)
+			{
+				// バトル画面に遷移
+				FrameWork::Game::getInstance().setScreen(new BattleScreen());
+			}
 		}
 		else if (nowScene_ == Scene::BORN)
 		{
 			shared_ptr<Entity::Object> obj = game.objectsControl.getObjectWp(Layer::COURSE_BUTTON, newCourseId_).lock();
 			if (!obj || obj->isAnimation() == false) // 終了
 			{
-				nowScene_ == Scene::SELECT;
+				nowScene_ = Scene::SELECT;
 				game.setScreenLock(false);
 			}
 		}
