@@ -1,6 +1,7 @@
 #pragma once
 #include "Define.h"
 #include "DxLib.h"
+#include "resource.h"
 #include <map>
 #include <vector>
 using namespace std;

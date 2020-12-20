@@ -218,5 +218,13 @@
     <ClInclude Include="src\Entity\Unit\Unit.h">
       <Filter>ヘッダー ファイル\Entity\Unit</Filter>
     </ClInclude>
+    <ClInclude Include="src\resource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\DxLibTacticalGame.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

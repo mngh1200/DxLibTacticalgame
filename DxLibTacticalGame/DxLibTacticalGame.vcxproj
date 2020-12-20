@@ -194,12 +194,16 @@
     <ClInclude Include="src\Entity\View\Text.h" />
     <ClInclude Include="src\FrameWork\Controller.h" />
     <ClInclude Include="src\FrameWork\Game.h" />
+    <ClInclude Include="src\resource.h" />
     <ClInclude Include="src\Screen\BattleScreen.h" />
     <ClInclude Include="src\Screen\MenuScreen.h" />
     <ClInclude Include="src\Screen\ScreenBase.h" />
     <ClInclude Include="src\Screen\SelectScreen.h" />
     <ClInclude Include="src\Screen\StartScreen.h" />
     <ClInclude Include="src\Utility\ResourceManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\DxLibTacticalGame.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
