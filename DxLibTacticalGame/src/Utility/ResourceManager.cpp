@@ -188,7 +188,7 @@ namespace Utility {
 		DxLib::ChangeVolumeSoundMem(220, sounds_[SoundKind::CHECK]);
 
 		// sounds_[SoundKind::BACK] = DxLib::LoadSoundMem("resource/sound/back.wav");
-		sounds_[SoundKind::BACK] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE ("BACK_WAVE"), MAKEINTRESOURCE ("WAVE"));
+		sounds_[SoundKind::BACK] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE (BACK_WAVE), MAKEINTRESOURCE (WAVE));
 		DxLib::ChangeVolumeSoundMem(180, sounds_[SoundKind::BACK]);
 
 		sounds_[SoundKind::BORN] = DxLib::LoadSoundMem("resource/sound/born.wav");

@@ -1,3 +1,3 @@
 #include "resource.h"
 
-BACK_WAVE	WAVE	"resource/sound/back.wav"
+BACK_WAVE	WAVE	"../resource/sound/back.wav"
