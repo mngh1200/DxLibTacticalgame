@@ -1,13 +1,14 @@
 #pragma once
 #include <climits>
+#include <memory>
 #include "Utility/ResourceManager.h"
-
 
 using namespace std;
 
 namespace Entity
 {
 	class Map;
+	class Unit;
 }
 
 /**
@@ -46,13 +47,20 @@ namespace Entity
 		int getKind() const;
 		int getImageId() const;
 
+		void setUnit(shared_ptr<Entity::Unit> unit);
+		void resetUnit();
+		shared_ptr<Entity::Unit> getUnit() const;
+
 	private:
 		void setImageIdFromKind(int kindId);
 
 		//! 地形種類
 		int kindId_;
 
-		// 画像
+		//! 画像
 		int imageId_;
+
+		//! マスにいるユニット
+		weak_ptr<Entity::Unit> unit_;
 	};
 }

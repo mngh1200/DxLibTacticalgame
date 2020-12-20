@@ -14,16 +14,19 @@ namespace Screen
 		objectsControl.setLayer(Layer::LEN);
 
 		// マップ（マス）
-		objectsControl.addObject(Layer::MAP, 0, make_shared<Entity::Map>());
+		shared_ptr<Entity::Map> map = make_shared<Entity::Map>();
+		objectsControl.addObject(Layer::MAP, 0, map);
 
 		// ユニット設置(テスト)
 		shared_ptr<Entity::Unit> playerUnit = make_shared<Entity::Unit>();
 		playerUnit->init(4, 9, false);
 		objectsControl.addObject(Layer::PLAYER_UNIT, 0, playerUnit);
+		map->setUnit(4, 9, playerUnit);
 
 		shared_ptr<Entity::Unit> enemy = make_shared<Entity::Unit>();
 		enemy->init(4, 0, true);
 		objectsControl.addObject(Layer::ENEMY_UNIT, 0, enemy);
+		map->setUnit(4, 0, enemy);
 
 		// オーバーレイセット
 		createOverlay(true);
@@ -49,30 +52,12 @@ namespace Screen
 					if (hitObjSp->getLayerId() == Layer::MAP) // マップクリック
 					{
 						shared_ptr<Entity::Map> map = dynamic_pointer_cast<Entity::Map>(hitObjSp);
-
-						shared_ptr<Entity::Unit> selectedUnitSp = selectedUnit_.lock();
-						if (selectedUnitSp)
-						{
-							// 移動
-							selectedUnitSp->move(Entity::Map::getMassX(x), Entity::Map::getMassY(y));
-						}
-
+						map->onClickMass(x, y);
 					}
 					else if (hitObjSp->getLayerId() == Layer::PLAYER_UNIT) // ユニットクリック
 					{
-						if (deselectUnit())
-						{
-							// ユニット選択
-							shared_ptr<Entity::Unit> unit = dynamic_pointer_cast<Entity::Unit>(hitObjSp);
-							if (unit->select(true))
-							{
-								selectedUnit_ = unit;
-							}
-						}
-					}
-					else
-					{
-						deselectUnit();
+						shared_ptr<Entity::Map> map = dynamic_pointer_cast<Entity::Map>(hitObjSp);
+						map->onClickPlayerUnit(x, y);
 					}
 				}
 			}
@@ -91,27 +76,4 @@ namespace Screen
 		}
 		isCloseOverlayEnded();
 	}
-
-	/**
-	 * @fn
-	 * ユニットの選択状態を解除
-	 * @return 解除できた場合と選択済みのユニットがない場合はtrueを返す
-	*/
-	bool BattleScreen::deselectUnit()
-	{
-		shared_ptr<Entity::Unit> prevSelectedUnit = selectedUnit_.lock();
-		if (prevSelectedUnit)
-		{
-			if (prevSelectedUnit->select(false))
-			{
-				selectedUnit_.reset();
-				return true;
-			}
-			return false;
-		}
-
-		// 選択済みのユニットがない場合もtureを返す
-		return true;
-	}
-
 }

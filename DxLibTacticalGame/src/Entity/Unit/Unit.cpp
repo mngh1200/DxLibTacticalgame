@@ -21,6 +21,12 @@ namespace Entity {
 		{
 			imageId_ = rm.getImage(ImageType::PLAYER, LANCER, 2);
 		}
+
+		// テスト処理（仮ステータス）
+		hpm_ = hp_ = 10;
+		atk_ = 2;
+		def_ = 1;
+		mov_ = 2;
 	}
 
 	/**
@@ -78,6 +84,8 @@ namespace Entity {
 	/**
 	 * @fn
 	 * 移動
+	 * @param (x) 移動先のx座標(マス基準)
+	 * @param (y) 移動先のy座標(マス基準)
 	 */
 	void Unit::move(int x, int y)
 	{
@@ -86,6 +94,12 @@ namespace Entity {
 		joinAnimationList(AnimationKind::MOVE);
 	}
 
+	/**
+	 * @fn
+	 * 位置指定
+	 * @param (x) x座標(マス基準)
+	 * @param (y) y座標(マス基準)
+	 */
 	void Unit::setPos(int x, int y)
 	{
 		baseX_ = x_ = x;
@@ -115,6 +129,12 @@ namespace Entity {
 		joinAnimationList(AnimationKind::DESTROY);
 	}
 
+	/**
+	 * @fn
+	 * 選択または選択解除
+	 * @param (isSelect) 選択するときはtrue、選択解除するときはfalse
+	 * @return 選択状態が変更されたときはtrueを返す
+	 */
 	bool Unit::select(bool isSelect)
 	{
 		if (isSelect && state_ == State::NORMAL)

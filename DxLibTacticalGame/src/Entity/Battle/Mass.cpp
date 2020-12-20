@@ -1,5 +1,6 @@
 #include "Mass.h"
 #include "Map.h"
+#include "Entity/Unit/Unit.h"
 
 namespace Entity {
 
@@ -64,7 +65,37 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * マスに配置されたユニットをセット
+	 * @param (unit) ユニット
+	 */
+	void Mass::setUnit(shared_ptr<Entity::Unit> unit)
+	{
+		unit_ = unit;
+	}
+
+	/**
+	 * @fn
+	 * マスに配置されたユニットの参照を削除
+	 */
+	void Mass::resetUnit()
+	{
+		unit_.reset();
+	}
+
+	/**
+	 * @fn
+	 * マスに配置されたユニットを取得
+	 * @return ユニット
+	 */
+	shared_ptr<Entity::Unit> Mass::getUnit() const
+	{
+		return unit_.lock();
+	}
+
+	/**
+	 * @fn
 	 * 画像の種類を元に画像IDをセット
+	 * @param (kindId) 画像の種類
 	 */
 	void Mass::setImageIdFromKind(int kindId)
 	{
