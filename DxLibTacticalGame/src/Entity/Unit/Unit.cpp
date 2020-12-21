@@ -154,4 +154,13 @@ namespace Entity {
 		}
 		return false;
 	}
+	int Unit::getX() const
+	{
+		return x_;
+	}
+
+	int Unit::getY() const
+	{
+		return y_;
+	}
 }

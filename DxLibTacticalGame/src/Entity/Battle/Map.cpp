@@ -8,6 +8,12 @@ namespace Entity {
 	 */
 	Map::Map()
 	{
+		weak_ptr<Unit> tmpUnit;
+
+		if (tmpUnit.expired()) {
+			int a = 10;
+		}
+
 		// テスト処理
 		w_ = 20;
 		h_ = 10;
@@ -65,70 +71,9 @@ namespace Entity {
 		}
 	}
 
-	/**
-	 * @fn
-	 * マスにユニットへの参照をセット
-	 * @param (x) x座標（マス）
-	 * @param (y) y座標（マス）
-	 */
-	void Map::setUnit(int x, int y, shared_ptr<Entity::Unit> unit)
+	bool Map::isRange(int x, int y) const
 	{
-		try {
-			mass_[y][x].setUnit(unit);
-		}
-		catch (std::out_of_range& oor) {
-			std::cerr << "Out of Range: " << oor.what() << std::endl;
-		}
-		
-	}
-
-	void Map::onClickPlayerUnit(int x, int y)
-	{
-		if (deselectUnit()) // 選択解除
-		{
-			// ユニット選択
-			shared_ptr<Entity::Unit> unit = mass_[getMassX(y)][getMassX(x)].getUnit();
-			if (unit && unit->select(true))
-			{
-				selectedUnit_ = unit;
-			}
-		}
-	}
-
-	void Map::onClickMass(int x, int y)
-	{
-		shared_ptr<Entity::Unit> selectedUnitSp = selectedUnit_.lock();
-		if (selectedUnitSp)
-		{
-			// 移動
-			selectedUnitSp->move(Entity::Map::getMassX(x), Entity::Map::getMassY(y));
-		}
-	}
-
-	/**
-	 * @fn
-	 * ユニットの選択状態を解除
-	 * @return 解除できた場合と選択済みのユニットがない場合はtrueを返す
-	*/
-	bool Map::deselectUnit()
-	{
-		if (selectedUnit_.expired())
-		{
-			return true;
-		}
-		shared_ptr<Entity::Unit> prevSelectedUnit = selectedUnit_.lock();
-		if (prevSelectedUnit)
-		{
-			if (prevSelectedUnit->select(false))
-			{
-				selectedUnit_.reset();
-				return true;
-			}
-			return false;
-		}
-
-		// 選択済みのユニットがない場合もtureを返す
-		return true;
+		return 0 <= x && x <= w_ && 0 <= y && y <= h_;
 	}
 
 	/**

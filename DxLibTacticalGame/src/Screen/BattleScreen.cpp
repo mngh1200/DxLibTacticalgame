@@ -17,16 +17,32 @@ namespace Screen
 		shared_ptr<Entity::Map> map = make_shared<Entity::Map>();
 		objectsControl.addObject(Layer::MAP, 0, map);
 
+		// バトル管理クラス
+		btlMng = Battle::BattleManager(map);
+
 		// ユニット設置(テスト)
 		shared_ptr<Entity::Unit> playerUnit = make_shared<Entity::Unit>();
 		playerUnit->init(4, 9, false);
-		objectsControl.addObject(Layer::PLAYER_UNIT, 0, playerUnit);
-		map->setUnit(4, 9, playerUnit);
+		if (btlMng.setUnit(playerUnit))
+		{
+			objectsControl.addObject(Layer::PLAYER_UNIT, 0, playerUnit);
+		}
+
+		shared_ptr<Entity::Unit> playerUnit2 = make_shared<Entity::Unit>();
+		playerUnit2->init(4, 9, false);
+		if (btlMng.setUnit(playerUnit2))
+		{
+			objectsControl.addObject(Layer::PLAYER_UNIT, 0, playerUnit2);
+		}
 
 		shared_ptr<Entity::Unit> enemy = make_shared<Entity::Unit>();
 		enemy->init(4, 0, true);
-		objectsControl.addObject(Layer::ENEMY_UNIT, 0, enemy);
-		map->setUnit(4, 0, enemy);
+		if (btlMng.setUnit(enemy))
+		{
+			objectsControl.addObject(Layer::ENEMY_UNIT, 0, enemy);
+		}
+		
+		
 
 		// オーバーレイセット
 		createOverlay(true);
@@ -52,12 +68,12 @@ namespace Screen
 					if (hitObjSp->getLayerId() == Layer::MAP) // マップクリック
 					{
 						shared_ptr<Entity::Map> map = dynamic_pointer_cast<Entity::Map>(hitObjSp);
-						map->onClickMass(x, y);
+						btlMng.onClickMass(x, y);
 					}
 					else if (hitObjSp->getLayerId() == Layer::PLAYER_UNIT) // ユニットクリック
 					{
 						shared_ptr<Entity::Map> map = dynamic_pointer_cast<Entity::Map>(hitObjSp);
-						map->onClickPlayerUnit(x, y);
+						btlMng.onClickPlayerUnit(x, y);
 					}
 				}
 			}

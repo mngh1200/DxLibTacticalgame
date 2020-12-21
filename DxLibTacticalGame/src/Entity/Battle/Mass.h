@@ -8,7 +8,6 @@ using namespace std;
 namespace Entity
 {
 	class Map;
-	class Unit;
 }
 
 /**
@@ -47,10 +46,6 @@ namespace Entity
 		int getKind() const;
 		int getImageId() const;
 
-		void setUnit(shared_ptr<Entity::Unit> unit);
-		void resetUnit();
-		shared_ptr<Entity::Unit> getUnit() const;
-
 	private:
 		void setImageIdFromKind(int kindId);
 
@@ -59,8 +54,5 @@ namespace Entity
 
 		//! 画像
 		int imageId_;
-
-		//! マスにいるユニット
-		weak_ptr<Entity::Unit> unit_;
 	};
 }

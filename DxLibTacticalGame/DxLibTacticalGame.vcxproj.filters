@@ -73,6 +73,12 @@
     <Filter Include="ヘッダー ファイル\Entity\Unit">
       <UniqueIdentifier>{565592bb-ad3c-4f0d-97bb-c5a2c581c9ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Battle">
+      <UniqueIdentifier>{7cb89ef4-6217-4886-afc7-90344f413999}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Battle">
+      <UniqueIdentifier>{0f905c69-d2fd-4efc-9a25-57934bd3b7ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -143,6 +149,9 @@
     </ClCompile>
     <ClCompile Include="src\Entity\Unit\Unit.cpp">
       <Filter>ソース ファイル\Entity\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Battle\BattleManager.cpp">
+      <Filter>ソース ファイル\Battle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -217,6 +226,9 @@
     </ClInclude>
     <ClInclude Include="src\Entity\Unit\Unit.h">
       <Filter>ヘッダー ファイル\Entity\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\BattleManager.h">
+      <Filter>ヘッダー ファイル\Battle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

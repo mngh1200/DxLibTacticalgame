@@ -44,6 +44,9 @@ namespace Entity
 
 		bool select(bool isSelect);
 
+		int getX() const;
+		int getY() const;
+
 		/**
 		 * @fn
 		 * UŒ‚—Í‚ğ•Ô‚·

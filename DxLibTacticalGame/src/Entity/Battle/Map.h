@@ -13,8 +13,8 @@ namespace Entity
 }
 
 /**
- * @file TextButton.h
- * @brief テキスト付きボタン要素
+ * @file Map.h
+ * @brief 戦闘画面のマップ(マスとユニットを管理)
  */
 
 namespace Entity
@@ -27,11 +27,7 @@ namespace Entity
 
 		void render() const override;
 
-		void setUnit(int x, int y, shared_ptr<Unit> unit);
-
-		void onClickPlayerUnit(int x, int y);
-
-		void onClickMass(int massX, int massY);
+		bool isRange(int x, int y) const;
 
 		static int getRealX(int massX);
 		static int getRealY(int massY);
@@ -39,7 +35,6 @@ namespace Entity
 		static int getMassY(int realY);
 
 	private:
-		bool deselectUnit();
 
 		//! 横のマスサイズ
 		int w_;
@@ -49,9 +44,6 @@ namespace Entity
 
 		//! マスのデータ
 		vector<vector<Mass>> mass_;
-
-		//! 選択中のユニット
-		weak_ptr<Entity::Unit> selectedUnit_;
 	};
 
 
