@@ -1,6 +1,7 @@
 #pragma once
 #include <climits>
 #include <vector>
+#include <algorithm>
 #include "Entity/Object.h"
 #include "Entity/Battle/Mass.h"
 #include "Utility/ResourceManager.h"

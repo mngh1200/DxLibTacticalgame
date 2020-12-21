@@ -56,18 +56,16 @@ namespace Entity {
 	 */
 	void Map::render() const
 	{
-		for (int y = 0; y < h_; y++)
-		{
-			for (int x = 0; x < w_; x++)
-			{
-				try {
-					DxLib::DrawGraph(getRealX(x), getRealY(y), mass_[y][x].getImageId(), FALSE);
-				}
-				catch (std::out_of_range& oor) {
-					std::cerr << "Out of Range: " << oor.what() << std::endl;
-				}
-				
+		int x = 0;
+		int y = 0;
+
+		for (auto line = mass_.begin(); line != mass_.end(); ++line) {
+			for (auto cell = (*line).begin(); cell != (*line).end(); ++cell) {
+				DxLib::DrawGraph(getRealX(x), getRealY(y), cell->getImageId(), FALSE);
+				++x;
 			}
+			++y;
+			x = 0;
 		}
 	}
 
