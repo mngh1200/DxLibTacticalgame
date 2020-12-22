@@ -20,18 +20,19 @@ namespace Entity
 	class Mass
 	{
 	public:
-		Mass() = delete;
+		Mass() : kindId_(OUT_OF_MAP), state(State::NORMAL);
 		Mass(int kindId);
 		~Mass() {};
 
-		// マップ種類
+		// マス種類
 		enum Kind
 		{
 			PLAIN,		// 草原
 			FOREST,		// 森
 			RIVER,		// 川
 			MOUNTAIN,	// 山
-			LEN
+			LEN,
+			OUT_OF_MAP	// 範囲外
 		};
 
 		//! 地形効果(草原、森、川、山)
@@ -45,6 +46,17 @@ namespace Entity
 
 		int getKind() const;
 		int getImageId() const;
+
+		//! マスの状況
+		int state;
+
+		// マスの状況
+		enum State
+		{
+			NORMAL,
+			MOVABLE,
+			ATK_ABLE
+		};
 
 	private:
 		void setImageIdFromKind(int kindId);

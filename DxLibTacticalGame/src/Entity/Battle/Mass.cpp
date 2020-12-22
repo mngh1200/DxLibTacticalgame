@@ -8,7 +8,7 @@ namespace Entity {
 	 * @fn
 	 * コンストラクタ
 	 */
-	Mass::Mass(int kindId) : kindId_(kindId)
+	Mass::Mass(int kindId) : kindId_(kindId), state(State::NORMAL)
 	{
 		if (0 > kindId_ || kindId_ >= Kind::LEN)
 		{
