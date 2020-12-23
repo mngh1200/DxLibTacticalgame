@@ -5,7 +5,7 @@ namespace Battle {
 	 * @fn
 	 * コンストラクタ
 	 */
-	BattleManager::BattleManager(shared_ptr<Entity::Map> map)
+	BattleManager::BattleManager(shared_ptr<Entity::Map> map) : BattleManager()
 	{
 		map_ = map;
 	}
@@ -18,8 +18,8 @@ namespace Battle {
 	 */
 	bool BattleManager::setUnit(shared_ptr<Entity::Unit> unit)
 	{
-		int x = unit->getX();
-		int y = unit->getY();
+		int x = unit->getMassX();
+		int y = unit->getMassY();
 
 		if (map_->isRange(x, y))
 		{
@@ -29,6 +29,11 @@ namespace Battle {
 		return false;
 	}
 
+
+	/**
+	 * @fn
+	 * ユニットクリック時処理
+	 */
 	void BattleManager::onClickPlayerUnit(int x, int y)
 	{
 		if (deselectUnit()) // 選択解除
@@ -38,29 +43,55 @@ namespace Battle {
 			if (unit && unit->select(true))
 			{
 				selectedUnit_ = unit;
+				displayMovableRange();
 			}
 		}
 	}
 
+	/**
+	 * @fn
+	 * マスクリック時処理
+	 */
 	void BattleManager::onClickMass(int x, int y)
 	{
 		shared_ptr<Entity::Unit> selectedUnitSp = selectedUnit_.lock();
 		if (selectedUnitSp)
 		{
-			// 移動
-			selectedUnitSp->move(Map::getMassX(x), Map::getMassY(y));
+			int massX = Map::getMassX(x);
+			int massY = Map::getMassY(y);
+			Mass& targetMass = map_->getMass(massX, massY);
+			
+			if (targetMass.isMovable())
+			{
+				selectedUnitSp->move(massX, massY); // 移動
+				phase_ = Phase::MOVE;
+			}
+			else
+			{
+				deselectUnit(); // 選択解除
+			}
 		}
 	}
 
-	weak_ptr<Unit> BattleManager::getUnitWp(int massX, int massY)
+	/**
+	 * @fn
+	 * アニメーション処理チェック
+	*/
+	void BattleManager::animationCheck()
 	{
-		try
+		if (phase_ == Phase::MOVE)
 		{
-			return mapUnits_.at(make_pair(massX, massY));
-		}
-		catch (out_of_range&) {}
+			shared_ptr<Unit> selectedUnit = selectedUnit_.lock();
+			if (selectedUnit && !selectedUnit->isAnimation()) // 移動終了
+			{
+				phase_ = Phase::NORMAL; 
+				confirmMove(selectedUnit);
 
-		return weak_ptr<Unit>();
+				// テスト処理
+				deselectUnit();
+			}
+		}
+
 	}
 
 	/**
@@ -80,6 +111,7 @@ namespace Battle {
 			if (prevSelectedUnit->select(false))
 			{
 				selectedUnit_.reset();
+				map_->clearMassState();
 				return true;
 			}
 			return false;
@@ -87,5 +119,102 @@ namespace Battle {
 
 		// 選択済みのユニットがない場合もtureを返す
 		return true;
+	}
+
+	/**
+	 * @fn
+	 * 移動可能範囲表示
+	*/
+	void BattleManager::displayMovableRange()
+	{
+		shared_ptr<Unit> unit = selectedUnit_.lock();
+		if (unit)
+		{
+			int move = unit->getMove();
+			int x = unit->getMassX();
+			int y = unit->getMassY();
+			searchMovableMass(x, y, move);
+		}
+	}
+
+	/**
+	 * @fn
+	 * 移動可能範囲の探索
+	*/
+	void BattleManager::searchMovableMass(int x, int y, int move, bool isInit)
+	{
+		Mass& nowMass = map_->getMass(x, y);
+
+		// マップ外
+		if (!map_->isRange(x, y) || nowMass.getKind() == Mass::Kind::OUT_OF_MAP)
+		{
+			return;
+		}
+
+		shared_ptr<Unit> massUnit = getUnitWp(x, y).lock();
+		bool isPlayerUnitOnMass = false; // プレイヤーユニットがマス上に存在するか
+		
+		// 敵ユニットがいる場合
+		if (massUnit)
+		{
+			if (massUnit->isEnemy())
+			{
+				return;
+			}
+			isPlayerUnitOnMass = true && !isInit; // 自身の場合は無視
+		}
+
+		// movコスト消費(初回はコスト消費しない)
+		if (!isInit)
+		{
+			move = move - nowMass.getCost();
+		}
+
+		if (move > nowMass.passingMov)
+		{
+			if (!isPlayerUnitOnMass)
+			{
+				nowMass.state = Mass::State::MOVABLE;
+			}
+
+			// マス通過時のmovコストを保持
+			nowMass.passingMov = move;
+
+			searchMovableMass(x - 1, y, move, false);
+			searchMovableMass(x + 1, y, move, false);
+			searchMovableMass(x, y - 1, move, false);
+			searchMovableMass(x, y + 1, move, false);
+		}
+	}
+
+	/**
+	 * @fn
+	 * ユニットのマス移動（移動確定時）
+	*/
+	void BattleManager::confirmMove(shared_ptr<Unit> unit)
+	{
+		int baseX = unit->getBaseX();
+		int baseY = unit->getBaseY();
+		int massX = unit->getMassX();
+		int massY = unit->getMassY();
+
+		unit->setPos(massX, massY);
+		mapUnits_.emplace(make_pair(massX, massY), unit);
+		mapUnits_.erase(make_pair(baseX, baseY));
+	}
+
+	/**
+	 * @fn
+	 * マス座標からユニット取得
+	*/
+	weak_ptr<Unit> BattleManager::getUnitWp(int massX, int massY)
+	{
+		try
+		{
+			return mapUnits_.at(make_pair(massX, massY));
+		}
+		catch (out_of_range&) {}
+
+		return weak_ptr<Unit>();
 	}
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <climits>
 #include <vector>
+#include <map>
 #include <algorithm>
 #include "Entity/Object.h"
 #include "Entity/Battle/Mass.h"
@@ -27,6 +28,9 @@ namespace Entity
 		~Map() {};
 
 		void render() const override;
+
+		Mass & getMass(int x, int y);
+		void clearMassState();
 
 		bool isRange(int x, int y) const;
 

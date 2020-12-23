@@ -58,7 +58,6 @@ namespace Entity {
 			{
 				state_ = State::SELECTED;
 				shape_.disabledHit = false;
-				setPos(x_, y_); // ƒeƒXƒgˆ—
 				return true;
 			}
 		}
@@ -153,14 +152,5 @@ namespace Entity {
 			}
 		}
 		return false;
-	}
-	int Unit::getX() const
-	{
-		return x_;
-	}
-
-	int Unit::getY() const
-	{
-		return y_;
 	}
 }

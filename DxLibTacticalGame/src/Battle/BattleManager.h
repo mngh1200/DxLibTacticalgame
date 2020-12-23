@@ -17,17 +17,21 @@ namespace Battle
 	class BattleManager
 	{
 	public:
-		BattleManager() {};
+		BattleManager() : phase_(Phase::NORMAL) {};
 		BattleManager(shared_ptr<Entity::Map> map);
 		~BattleManager() {};
 
 		bool setUnit(shared_ptr<Entity::Unit> unit);
 		void onClickPlayerUnit(int x, int y);
 		void onClickMass(int x, int y);
+		void animationCheck();
 
 	private:
 		weak_ptr<Unit> getUnitWp(int massX, int massY);
 		bool deselectUnit();
+		void displayMovableRange();
+		void searchMovableMass(int x, int y, int move, bool isInit = true);
+		void confirmMove(shared_ptr<Unit> unit);
 
 		//! マスのXY座標を基準にしたユニットのマップ
 		map<pair<int, int>, weak_ptr<Entity::Unit>> mapUnits_;
@@ -36,6 +40,15 @@ namespace Battle
 		weak_ptr<Entity::Unit> selectedUnit_;
 
 		shared_ptr<Entity::Map> map_;
+
+		//! フェーズ
+		int phase_;
+
+		enum Phase
+		{
+			NORMAL,
+			MOVE
+		};
 	};
 
 

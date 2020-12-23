@@ -44,19 +44,20 @@ namespace Entity
 
 		bool select(bool isSelect);
 
-		int getX() const;
-		int getY() const;
+		void setPos(int x, int y);
 
-		/**
-		 * @fn
-		 * 攻撃力を返す
-		*/
-		virtual int getAtk() const { return atk_; } ;
+		int getMassX() const { return x_; }; // x座標を返す
+		int getMassY() const { return y_; }; // y座標を返す
+		int getBaseX() const { return baseX_; }; // 移動元x座標を返す
+		int getBaseY() const { return baseY_; }; // 移動元y座標を返す
+		virtual int getAtk() const { return atk_; } ; // 攻撃力を返す
+		int getMove() const { return mov_; }; // 移動力を返す
+		bool isEnemy() const { return isEnemy_; } // 敵ユニットであるかを返す
 
 	protected:
 		bool createAnimation(int animationId);
 
-		void setPos(int x, int y);
+		
 
 		//! 画像
 		int imageId_;

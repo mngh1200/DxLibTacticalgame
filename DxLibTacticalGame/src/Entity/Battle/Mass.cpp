@@ -3,12 +3,15 @@
 #include "Entity/Unit/Unit.h"
 
 namespace Entity {
+	const static vector<int> COST = { 1, 2, 2, INT_MAX }; //! 移動コスト
+	const static vector<int> AGL_UP = { 0, 20, -20, 0 };  //! 回避UP
+	const static vector<int> DEF_UP = { 0,  3,  -3, 0 };  //! 防御UP
 
 	/**
 	 * @fn
 	 * コンストラクタ
 	 */
-	Mass::Mass(int kindId) : kindId_(kindId), state(State::NORMAL)
+	Mass::Mass(int kindId) : kindId_(kindId), state(State::NORMAL), passingMov(-1)
 	{
 		if (0 > kindId_ || kindId_ >= Kind::LEN)
 		{
@@ -24,7 +27,13 @@ namespace Entity {
 	 */
 	int Mass::getCost() const
 	{
-		return COST[kindId_];
+		try
+		{
+			return COST.at(kindId_);
+		}
+		catch (out_of_range&) {}
+		
+		return INT_MAX;
 	}
 
 	/**
@@ -33,7 +42,13 @@ namespace Entity {
 	 */
 	int Mass::getAgl() const
 	{
-		return AGL_UP[kindId_];
+		try
+		{
+			return AGL_UP.at(kindId_);
+		}
+		catch (out_of_range&) {}
+
+		return 0;
 	}
 
 	/**
@@ -42,7 +57,14 @@ namespace Entity {
 	 */
 	int Mass::getDef() const
 	{
-		return DEF_UP[kindId_];
+		try
+		{
+			return DEF_UP.at(kindId_);
+		}
+		catch (out_of_range&) {}
+
+		return 0;
+
 	}
 
 	/**

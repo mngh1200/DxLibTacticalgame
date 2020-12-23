@@ -56,16 +56,52 @@ namespace Entity {
 	 */
 	void Map::render() const
 	{
+		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
+
 		int x = 0;
 		int y = 0;
 
 		for (auto line = mass_.begin(); line != mass_.end(); ++line) {
 			for (auto cell = (*line).begin(); cell != (*line).end(); ++cell) {
-				DxLib::DrawGraph(getRealX(x), getRealY(y), cell->getImageId(), FALSE);
+				int realX = getRealX(x);
+				int realY = getRealY(y);
+				DxLib::DrawGraph(realX, realY, cell->getImageId(), FALSE);
+
+				// ƒeƒXƒgˆ—
+				if (cell->state == Mass::State::MOVABLE)
+				{
+					DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::PLAYER_COLOR), FALSE);
+
+					DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
+					DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::PLAYER_COLOR), TRUE);
+					DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+				}
 				++x;
 			}
 			++y;
 			x = 0;
+		}
+	}
+
+	Mass & Map::getMass(int x, int y)
+	{
+		try
+		{
+			return mass_.at(y).at(x);
+		}
+		catch (out_of_range&) {}
+
+		Mass mass = Mass();
+		return mass;
+	}
+
+	void Map::clearMassState()
+	{
+		for (auto line = mass_.begin(); line != mass_.end(); ++line) {
+			for (auto cell = (*line).begin(); cell != (*line).end(); ++cell) {
+				cell->state = Mass::State::NORMAL;
+				cell->passingMov = -1;
+			}
 		}
 	}
 
