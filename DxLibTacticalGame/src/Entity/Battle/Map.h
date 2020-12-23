@@ -29,7 +29,7 @@ namespace Entity
 
 		void render() const override;
 
-		Mass & getMass(int x, int y);
+		shared_ptr<Mass> getMass(int x, int y);
 		void clearMassState();
 
 		bool isRange(int x, int y) const;
@@ -48,7 +48,7 @@ namespace Entity
 		int h_;
 
 		//! マスのデータ
-		vector<vector<Mass>> mass_;
+		vector<vector<shared_ptr<Mass>>> mass_;
 	};
 
 

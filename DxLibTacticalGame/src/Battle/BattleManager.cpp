@@ -36,10 +36,17 @@ namespace Battle {
 	 */
 	void BattleManager::onClickPlayerUnit(int x, int y)
 	{
-		if (deselectUnit()) // 選択解除
+		shared_ptr<Entity::Unit> unit = getUnitWp(Map::getMassX(x), Map::getMassY(y)).lock();
+
+
+		if (unit == selectedUnit_.lock()) // クリックしたユニットが 選択中のユニットだった場合
+		{
+			deselectUnit(); // テスト処理
+		}
+		else if (deselectUnit()) // 選択解除
 		{
 			// ユニット選択
-			shared_ptr<Entity::Unit> unit = getUnitWp(Map::getMassX(x), Map::getMassY(y)).lock();
+			
 			if (unit && unit->select(true))
 			{
 				selectedUnit_ = unit;
@@ -59,9 +66,9 @@ namespace Battle {
 		{
 			int massX = Map::getMassX(x);
 			int massY = Map::getMassY(y);
-			Mass& targetMass = map_->getMass(massX, massY);
+			shared_ptr<Mass> targetMass = map_->getMass(massX, massY);
 			
-			if (targetMass.isMovable())
+			if (targetMass->isMovable())
 			{
 				selectedUnitSp->move(massX, massY); // 移動
 				phase_ = Phase::MOVE;
@@ -143,10 +150,10 @@ namespace Battle {
 	*/
 	void BattleManager::searchMovableMass(int x, int y, int move, bool isInit)
 	{
-		Mass& nowMass = map_->getMass(x, y);
+		shared_ptr<Mass> nowMass = map_->getMass(x, y);
 
 		// マップ外
-		if (!map_->isRange(x, y) || nowMass.getKind() == Mass::Kind::OUT_OF_MAP)
+		if (nowMass->getKind() == Mass::Kind::OUT_OF_MAP)
 		{
 			return;
 		}
@@ -167,18 +174,18 @@ namespace Battle {
 		// movコスト消費(初回はコスト消費しない)
 		if (!isInit)
 		{
-			move = move - nowMass.getCost();
+			move = move - nowMass->getCost();
 		}
 
-		if (move > nowMass.passingMov)
+		if (move > nowMass->passingMov)
 		{
 			if (!isPlayerUnitOnMass)
 			{
-				nowMass.state = Mass::State::MOVABLE;
+				nowMass->state = Mass::State::MOVABLE;
 			}
 
 			// マス通過時のmovコストを保持
-			nowMass.passingMov = move;
+			nowMass->passingMov = move;
 
 			searchMovableMass(x - 1, y, move, false);
 			searchMovableMass(x + 1, y, move, false);
@@ -209,11 +216,11 @@ namespace Battle {
 	*/
 	weak_ptr<Unit> BattleManager::getUnitWp(int massX, int massY)
 	{
-		try
+		pair<int,int> pos = make_pair(massX, massY);
+		if (mapUnits_.count(pos) > 0)
 		{
-			return mapUnits_.at(make_pair(massX, massY));
+			return mapUnits_.at(pos);
 		}
-		catch (out_of_range&) {}
 
 		return weak_ptr<Unit>();
 	}

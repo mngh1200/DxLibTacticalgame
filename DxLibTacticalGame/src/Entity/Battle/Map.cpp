@@ -25,7 +25,7 @@ namespace Entity {
 		// マップデータ生成
 		for (int y = 0; y < h_; y++)
 		{
-			mass_.push_back(vector<Mass>());
+			mass_.push_back(vector<shared_ptr<Mass>>());
 			mass_[y].reserve(w_); // メモリ確保
 			
 			for (int x = 0; x < w_; x++)
@@ -45,7 +45,7 @@ namespace Entity {
 					kind = Mass::Kind::FOREST;
 				}
 
-				mass_[y].push_back(Mass(kind));
+				mass_[y].push_back(make_shared<Mass>(kind));
 			}
 		}
 	}
@@ -65,10 +65,10 @@ namespace Entity {
 			for (auto cell = (*line).begin(); cell != (*line).end(); ++cell) {
 				int realX = getRealX(x);
 				int realY = getRealY(y);
-				DxLib::DrawGraph(realX, realY, cell->getImageId(), FALSE);
+				DxLib::DrawGraph(realX, realY, (*cell)->getImageId(), FALSE);
 
 				// テスト処理
-				if (cell->state == Mass::State::MOVABLE)
+				if ((*cell)->state == Mass::State::MOVABLE)
 				{
 					DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::PLAYER_COLOR), FALSE);
 
@@ -83,15 +83,18 @@ namespace Entity {
 		}
 	}
 
-	Mass & Map::getMass(int x, int y)
+	shared_ptr<Mass> Map::getMass(int x, int y)
 	{
-		try
+		if (isRange(x, y))
 		{
-			return mass_.at(y).at(x);
+			try
+			{
+				return mass_.at(y).at(x);
+			}
+			catch (out_of_range&) {}
 		}
-		catch (out_of_range&) {}
 
-		Mass mass = Mass();
+		shared_ptr<Mass> mass = make_shared<Mass>();
 		return mass;
 	}
 
@@ -99,15 +102,15 @@ namespace Entity {
 	{
 		for (auto line = mass_.begin(); line != mass_.end(); ++line) {
 			for (auto cell = (*line).begin(); cell != (*line).end(); ++cell) {
-				cell->state = Mass::State::NORMAL;
-				cell->passingMov = -1;
+				(*cell)->state = Mass::State::NORMAL;
+				(*cell)->passingMov = -1;
 			}
 		}
 	}
 
 	bool Map::isRange(int x, int y) const
 	{
-		return 0 <= x && x <= w_ && 0 <= y && y <= h_;
+		return 0 <= x && x < w_ && 0 <= y && y < h_;
 	}
 
 	/**

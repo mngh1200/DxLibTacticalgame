@@ -20,7 +20,7 @@ namespace Entity
 	class Mass
 	{
 	public:
-		Mass() : kindId_(OUT_OF_MAP), state(State::NORMAL), passingMov(-1), imageId_(-1) {};
+		Mass() : kindId_(Kind::OUT_OF_MAP), state(State::NORMAL), passingMov(-1), imageId_(-1) {};
 		Mass(int kindId);
 		~Mass() {};
 
