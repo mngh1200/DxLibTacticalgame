@@ -43,6 +43,18 @@ namespace Entity {
 			DxLib::DrawBox(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), rm.getColor(ColorType::POSITIVE_COLOR), FALSE);
 		}
 		DxLib::DrawGraph(shape_.x, shape_.y, imageId_, TRUE);
+
+		// HPÉoÅ[
+		int hpx1 = shape_.x + HP_PADDING;
+		int hpy1 = shape_.y + HP_Y;
+		int hpx2 = shape_.getX2() - HP_PADDING;
+		int hpy2 = hpy1 + HP_H;
+
+		int hpw = (int)((float)(CHIP_SIZE - HP_PADDING * 2) * ((float)hp_ / (float)hpm_));
+
+		DxLib::DrawBox(hpx1, hpy1, hpx2, hpy2, rm.getColor(ColorType::NEGATIVE_COLOR), TRUE);
+		DxLib::DrawBox(hpx1, hpy1, hpx1 + hpw, hpy2, rm.getColor(ColorType::POSITIVE_LITE_COLOR), TRUE);
+		
 	}
 
 	/**

@@ -100,6 +100,10 @@ namespace Entity
 		};
 	private:
 		bool isEnemy_;
+
+		constexpr static int HP_PADDING = 5;
+		constexpr static int HP_Y = 55;
+		constexpr static int HP_H = 5;
 	};
 
 

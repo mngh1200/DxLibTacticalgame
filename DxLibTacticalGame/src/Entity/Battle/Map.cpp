@@ -70,11 +70,11 @@ namespace Entity {
 				// ƒeƒXƒgˆ—
 				if ((*cell)->state == Mass::State::MOVABLE)
 				{
-					DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::PLAYER_COLOR), FALSE);
-
 					DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
 					DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::PLAYER_COLOR), TRUE);
 					DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+					DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::PLAYER_COLOR), FALSE);
 				}
 				++x;
 			}
