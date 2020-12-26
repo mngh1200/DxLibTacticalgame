@@ -18,7 +18,7 @@ namespace Entity
 	{
 	public:
 		Unit() : x_(0), y_(0), baseX_(0), baseY_(0), imageId_(0), animation_{},
-			hp_(0), hpm_(0), atk_(0), def_(0), mov_(0),
+			hp_(0), hpm_(0), atk_(0), def_(0), mov_(0), range_(1),
 			isEnemy_(false), state_(State::NORMAL) {};
 		virtual ~Unit() {};
 
@@ -52,6 +52,7 @@ namespace Entity
 		int getBaseY() const { return baseY_; }; // ˆÚ“®Œ³yÀ•W‚ğ•Ô‚·
 		virtual int getAtk() const { return atk_; } ; // UŒ‚—Í‚ğ•Ô‚·
 		int getMove() const { return mov_; }; // ˆÚ“®—Í‚ğ•Ô‚·
+		int getRange() const { return range_; }; // UŒ‚”ÍˆÍ‚ğ•Ô‚·
 		bool isEnemy() const { return isEnemy_; } // “Gƒ†ƒjƒbƒg‚Å‚ ‚é‚©‚ğ•Ô‚·
 
 	protected:
@@ -80,6 +81,7 @@ namespace Entity
 		int atk_;
 		int def_;
 		int mov_;
+		int range_;
 
 
 

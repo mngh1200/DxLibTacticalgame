@@ -68,13 +68,25 @@ namespace Entity {
 				DxLib::DrawGraph(realX, realY, (*cell)->getImageId(), FALSE);
 
 				// テスト処理
-				if ((*cell)->state == Mass::State::MOVABLE)
+				if ((*cell)->state == Mass::State::NORMAL)
+				{
+					// 何もしない
+				}
+				if ((*cell)->state == Mass::State::MOVABLE) // 移動範囲
 				{
 					DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
 					DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::PLAYER_COLOR), TRUE);
 					DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 					DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::PLAYER_COLOR), FALSE);
+				}
+				else if ((*cell)->state == Mass::State::ATK_ABLE) // 攻撃可能範囲
+				{
+					DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
+					DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::ENEMY_COLOR), TRUE);
+					DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+					DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::ENEMY_COLOR), FALSE);
 				}
 				++x;
 			}

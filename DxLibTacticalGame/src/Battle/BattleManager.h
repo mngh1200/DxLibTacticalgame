@@ -22,16 +22,21 @@ namespace Battle
 		~BattleManager() {};
 
 		bool setUnit(shared_ptr<Entity::Unit> unit);
-		void onClickPlayerUnit(int x, int y);
+		void onClickUnit(int x, int y);
 		void onClickMass(int x, int y);
 		void animationCheck();
 
 	private:
 		weak_ptr<Unit> getUnitWp(int massX, int massY);
+		void startSelectActionPhase();
 		bool deselectUnit();
 		void displayMovableRange();
 		void searchMovableMass(int x, int y, int move, bool isInit = true);
 		void confirmMove(shared_ptr<Unit> unit);
+		void displayAtackRange();
+		void setAtackMass(int x, int y);
+		void atackAction(shared_ptr<Unit> atkUnit, shared_ptr<Unit> defUnit);
+		
 
 		//! マスのXY座標を基準にしたユニットのマップ
 		map<pair<int, int>, weak_ptr<Entity::Unit>> mapUnits_;
@@ -47,7 +52,8 @@ namespace Battle
 		enum Phase
 		{
 			NORMAL,
-			MOVE
+			MOVE,
+			SELECT_ACTION
 		};
 	};
 

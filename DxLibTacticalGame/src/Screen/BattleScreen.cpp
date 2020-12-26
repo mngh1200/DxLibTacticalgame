@@ -67,13 +67,11 @@ namespace Screen
 				{
 					if (hitObjSp->getLayerId() == Layer::MAP) // マップクリック
 					{
-						shared_ptr<Entity::Map> map = dynamic_pointer_cast<Entity::Map>(hitObjSp);
 						btlMng.onClickMass(x, y);
 					}
-					else if (hitObjSp->getLayerId() == Layer::PLAYER_UNIT) // ユニットクリック
+					else if (hitObjSp->getType() == Entity::Figure::UNIT) // ユニットクリック
 					{
-						shared_ptr<Entity::Map> map = dynamic_pointer_cast<Entity::Map>(hitObjSp);
-						btlMng.onClickPlayerUnit(x, y);
+						btlMng.onClickUnit(x, y);
 					}
 				}
 			}

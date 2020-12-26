@@ -34,25 +34,42 @@ namespace Battle {
 	 * @fn
 	 * ユニットクリック時処理
 	 */
-	void BattleManager::onClickPlayerUnit(int x, int y)
+	void BattleManager::onClickUnit(int x, int y)
 	{
-		shared_ptr<Entity::Unit> unit = getUnitWp(Map::getMassX(x), Map::getMassY(y)).lock();
+		int massX = Map::getMassX(x); // マスのX座標
+		int massY = Map::getMassY(y); // マスのY座標
+		shared_ptr<Entity::Unit> unit = getUnitWp(massX, massY).lock(); // クリックしたユニット
+		bool isEnemy = unit->isEnemy(); // 敵ユニットであるか
 
-
-		if (unit == selectedUnit_.lock()) // クリックしたユニットが 選択中のユニットだった場合
+		if (!isEnemy) // プレイヤーユニット
 		{
-			deselectUnit(); // テスト処理
-		}
-		else if (deselectUnit()) // 選択解除
-		{
-			// ユニット選択
-			
-			if (unit && unit->select(true))
+			if (unit == selectedUnit_.lock()) // クリックしたユニットが 選択中のユニットだった場合
 			{
-				selectedUnit_ = unit;
-				displayMovableRange();
+				startSelectActionPhase(); // 行動選択フェイズ
+			}
+			else if (deselectUnit()) // 選択解除
+			{
+				// ユニット選択
+				if (unit && unit->select(true))
+				{
+					selectedUnit_ = unit;
+					displayMovableRange();
+				}
 			}
 		}
+		else // 敵ユニット
+		{
+			if (phase_ == Phase::SELECT_ACTION)
+			{
+				if (map_->getMass(massX, massY)->state == Mass::ATK_ABLE)
+				{
+					// 攻撃
+					atackAction(selectedUnit_.lock(), unit);
+					deselectUnit();
+				}
+			}
+		}
+
 	}
 
 	/**
@@ -91,14 +108,22 @@ namespace Battle {
 			shared_ptr<Unit> selectedUnit = selectedUnit_.lock();
 			if (selectedUnit && !selectedUnit->isAnimation()) // 移動終了
 			{
-				phase_ = Phase::NORMAL; 
 				confirmMove(selectedUnit);
-
-				// テスト処理
-				deselectUnit();
+				startSelectActionPhase(); // 行動選択フェイズ
 			}
 		}
 
+	}
+
+	/**
+	 * @fn
+	 * 行動選択フェイズ開始
+	*/
+	void BattleManager::startSelectActionPhase()
+	{
+		map_->clearMassState();
+		phase_ = Phase::SELECT_ACTION; // 行動選択 
+		displayAtackRange();
 	}
 
 	/**
@@ -210,6 +235,61 @@ namespace Battle {
 		mapUnits_.erase(make_pair(baseX, baseY));
 	}
 
+
+	/**
+	 * @fn
+	 * 攻撃範囲表示
+	*/
+	void BattleManager::displayAtackRange()
+	{
+		shared_ptr<Unit> unit = selectedUnit_.lock();
+		if (unit)
+		{
+			int move = unit->getMove();
+			int x = unit->getMassX();
+			int y = unit->getMassY();
+			int range = unit->getRange();
+
+			for (int i = 1; i <= range; i++)
+			{
+				setAtackMass(x - i, y);
+				setAtackMass(x + i, y);
+				setAtackMass(x, y - i);
+				setAtackMass(x, y + i);
+			}
+		}
+	}
+
+	/**
+	 * @fn
+	 * 攻撃可能範囲の探索
+	*/
+	void BattleManager::setAtackMass(int x, int y)
+	{
+		shared_ptr<Mass> nowMass = map_->getMass(x, y);
+
+		// マップ外
+		if (nowMass->getKind() == Mass::Kind::OUT_OF_MAP)
+		{
+			return;
+		}
+		nowMass->state = Mass::ATK_ABLE;
+	}
+
+
+	/**
+	 * @fn
+	 * 攻撃
+	*/
+	void BattleManager::atackAction(shared_ptr<Unit> atkUnit, shared_ptr<Unit> defUnit)
+	{
+		if (atkUnit && defUnit)
+		{
+			int damage = atkUnit->getAtk();
+			defUnit->damage(damage);
+		}
+	}
+
 	/**
 	 * @fn
 	 * マス座標からユニット取得
@@ -224,4 +304,5 @@ namespace Battle {
 
 		return weak_ptr<Unit>();
 	}
+
 }

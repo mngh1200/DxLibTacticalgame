@@ -7,6 +7,8 @@ namespace Entity {
 	 */
 	void Unit::init(int x, int y, bool isEnemy)
 	{
+		type_ = Figure::UNIT;
+
 		setPos(x, y);
 
 		isEnemy_ = isEnemy;
@@ -73,6 +75,32 @@ namespace Entity {
 				return true;
 			}
 		}
+		else if (animationId_ == AnimationKind::ATACK) // 攻撃
+		{
+			return animation_.increaseFrame();
+		}
+		else if (animationId_ == AnimationKind::DAMAGE) // ダメージ
+		{
+			if (animation_.increaseFrame())
+			{
+				if (hp_ <= 0)
+				{
+					changeAnimation(AnimationKind::DESTROY); // 死亡、アニメーション継続
+				}
+				else
+				{
+					return true;
+				}
+			}
+		}
+		else if (animationId_ == AnimationKind::DESTROY) // 死亡
+		{
+			if (animation_.increaseFrame())
+			{
+				destroy();
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -87,6 +115,21 @@ namespace Entity {
 		{
 			animation_ = Animation(100);
 			shape_.disabledHit = true; // イベント無効
+			return true;
+		}
+		else if (animationId == AnimationKind::ATACK) // 攻撃
+		{
+			animation_ = Animation(400);
+			return true;
+		}
+		else if (animationId == AnimationKind::DAMAGE) // ダメージ
+		{
+			animation_ = Animation(200, 0, 1, 200);
+			return true;
+		}
+		else if (animationId == AnimationKind::DESTROY) // 死亡
+		{
+			animation_ = Animation(200);
 			return true;
 		}
 		return false;
@@ -123,21 +166,11 @@ namespace Entity {
 	void Unit::damage(int damage)
 	{
 		hp_ -= damage;
-
 		if (hp_ <= 0)
 		{
 			hp_ = 0;
-			dead();
 		}
-		else
-		{
-			joinAnimationList(AnimationKind::DAMAGE);
-		}
-	}
-
-	void Unit::dead()
-	{
-		joinAnimationList(AnimationKind::DESTROY);
+		joinAnimationList(AnimationKind::DAMAGE);
 	}
 
 	/**
