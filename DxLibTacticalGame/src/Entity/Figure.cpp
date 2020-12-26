@@ -38,6 +38,24 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * アニメーションを変更する
+	 * @param (animationId) セットするアニメーションID
+	 */
+	void Figure::changeAnimation(int animationId)
+	{
+		if (isAnimation())
+		{
+			animationId_ = animationId;
+			createAnimation(animationId_);
+		}
+		else
+		{
+			joinAnimationList(animationId);
+		}
+	}
+
+	/**
+	 * @fn
 	 * オブジェクト削除(予約)
 	 */
 	void Figure::destroy()
