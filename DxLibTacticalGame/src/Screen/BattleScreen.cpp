@@ -60,7 +60,6 @@ namespace Screen
 	{
 		shared_ptr<Entity::Object> hitObjSp = hitObjWp.lock();
 
-
 		if (hitObjSp)
 		{
 			Entity::ObjectsControl& objCont = FrameWork::Game::getInstance().objectsControl;
@@ -82,9 +81,14 @@ namespace Screen
 						if (hitObjSp->getObjectId() == UIid::SELECT_ACTIVE_MENU) // 行動選択
 						{
 							shared_ptr<Entity::SelectActiveMenu> menu = dynamic_pointer_cast<Entity::SelectActiveMenu>(hitObjSp);
-							btlMng.onClickActionMenu(menu->getHitButtonKey(x, y));
+							btlMng.onSelectActionMenu(menu->getHitButtonKey(x, y));
 						}
 					}
+				}
+				else
+				{
+					// キーイベント
+					btlMng.checkKeyEvent();
 				}
 			}
 		}

@@ -44,6 +44,9 @@ namespace FrameWork
 
 		int getAllEvents();
 
+		bool isKeyPressed(int input) const;
+		bool isKeyPressedNow(int input) const;
+
 	private:
 		Controller() : key_{ {NOT_PRESSED} }, prevKey_{ {NOT_PRESSED} } {};
 		~Controller() {};
@@ -58,8 +61,6 @@ namespace FrameWork
 			PRESSED_NOW = 2
 		};
 
-		bool isKeyPressed(int input) const;
-		bool isKeyPressedNow(int input) const;
 		char getKey(int input) const;
 
 

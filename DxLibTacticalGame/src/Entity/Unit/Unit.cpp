@@ -39,10 +39,13 @@ namespace Entity {
 	{
 		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
 
-		if (state_ == State::SELECTED)
+		if (state_ == State::SELECTED) // 選択中
 		{
-			// 選択中の表示(テスト)
-			DxLib::DrawBox(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), rm.getColor(ColorType::POSITIVE_COLOR), FALSE);
+			DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
+			DxLib::DrawBox(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), rm.getColor(ColorType::PLAYER_COLOR), TRUE);
+			DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+			DxLib::DrawBox(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), rm.getColor(ColorType::PLAYER_COLOR), FALSE);
 		}
 		DxLib::DrawGraph(shape_.x, shape_.y, imageId_, TRUE);
 

@@ -50,11 +50,24 @@ namespace Battle {
 
 		if (phase_ == Phase::SELECT_ACTION) // 行動選択
 		{
+
 			if (isEnemy && map_->getMass(massX, massY)->state == Mass::ATK_ABLE)
 			{
-				// 攻撃
-				atackAction(selectedUnit_.lock(), unit);
+				atackAction(selectedUnit_.lock(), unit); // 攻撃
 			}
+			else
+			{
+				shared_ptr<Unit> selectedUnit = selectedUnit_.lock();
+				if (selectedUnit)
+				{
+					if (selectedUnit->getMassX() == massX && selectedUnit->getMassY() == massY) // 選択中のユニットクリック
+					{
+						confirmMove(selectedUnit); // 待機
+					}
+				}
+			}
+
+			endSelectActionPhase(); // 行動選択終了
 		}
 		else if (!isEnemy) // プレイヤーユニット
 		{
@@ -92,7 +105,12 @@ namespace Battle {
 			int massY = Map::getMassY(y);
 			shared_ptr<Mass> targetMass = map_->getMass(massX, massY);
 			
-			if (targetMass->isMovable())
+			if (phase_ == Phase::SELECT_ACTION) // 行動選択
+			{
+				selectedUnitSp->back(); // 移動キャンセル
+				endSelectActionPhase(); // 行動選択終了
+			}
+			else if (targetMass->isMovable())
 			{
 				selectedUnitSp->move(massX, massY); // 移動
 				phase_ = Phase::MOVE;
@@ -108,13 +126,13 @@ namespace Battle {
 	 * @fn
 	 * 行動選択
 	*/
-	void BattleManager::onClickActionMenu(int kind)
+	void BattleManager::onSelectActionMenu(int kind)
 	{
 		if (kind == -1)
 		{
 			return;
 		}
-
+		/*
 		shared_ptr<Unit> selectedUnit = selectedUnit_.lock();
 		if (selectedUnit)
 		{
@@ -131,6 +149,17 @@ namespace Battle {
 			}
 		}
 		endSelectActionPhase(); // 行動選択終了
+		*/
+	}
+
+	/**
+	 * @fn
+	 * キーチェック
+	*/
+	void BattleManager::checkKeyEvent()
+	{
+		// 行動選択メニュー用のキーチェック
+		onSelectActionMenu(selectActiveMenu_->getKeyPressButtonKey());
 	}
 
 	/**

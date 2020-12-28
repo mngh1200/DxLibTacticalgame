@@ -10,9 +10,14 @@ namespace Entity {
 	 */
 	void SelectActiveMenu::start(int unitX, int unitY)
 	{
+		int size = 0; // テスト処理 ボタンの個数
+
+		if (size == 0) // 表示ボタンがない場合は有効化しない
+		{
+			return;
+		}
+
 		menuBtns_.clear();
-		
-		int size = 2; // テスト処理 ボタンの個数
 
 		shape_.set(unitX + CHIP_SIZE, unitY + CHIP_SIZE, WIDTH, size * (BUTTON_HEIGHT + BUTTON_MARGIN) + PADDING * 2);
 
@@ -32,8 +37,8 @@ namespace Entity {
 		int buttonY = shape_.y + PADDING; // ボタンY座標
 		
 
-		addMenuButton(ButtonKind::WAIT, "待機", buttonX, buttonY, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_MARGIN);
-		addMenuButton(ButtonKind::CANCEL, "キャンセル", buttonX, buttonY, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_MARGIN);
+		// addMenuButton(ButtonKind::WAIT, "待機[X]", KEY_INPUT_X, buttonX, buttonY, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_MARGIN);
+		// addMenuButton(ButtonKind::CANCEL, "キャンセル[Z]", KEY_INPUT_Z, buttonX, buttonY, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_MARGIN);
 
 		
 
@@ -101,7 +106,7 @@ namespace Entity {
 	 * 押下されているボタンのkey取得
 	 * @param (x) マウスのx座標
 	 * @param (y) マウスのy座標
-	 * @return key
+	 * @return key(対象がない場合は-1を返す)
 	 */
 	int SelectActiveMenu::getHitButtonKey(int x, int y)
 	{
@@ -122,6 +127,30 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * キー入力されているボタンのkey取得
+	 * @return key(対象がない場合は-1を返す)
+	 */
+	int SelectActiveMenu::getKeyPressButtonKey() const
+	{
+		if (!isDisplay_)
+		{
+			return -1;
+		}
+
+		FrameWork::Controller& cont = FrameWork::Controller::getInstance();
+
+		for (auto itr = menuBtns_.begin(); itr != menuBtns_.end(); ++itr)
+		{
+			if (cont.isKeyPressed(itr->keyCode))
+			{
+				return itr->key;
+			}
+		}
+		return -1;
+	}
+
+	/**
+	 * @fn
 	 * ボタン追加
 	 * @param (key) ボタンのkey
 	 * @param (text) テキスト
@@ -131,10 +160,10 @@ namespace Entity {
 	 * @param (buttonH) 高さ
 	 * @param (margin) 上下の余白
 	 */
-	void SelectActiveMenu::addMenuButton(int key, string text, int buttonX, int buttonY, int buttonW, int buttonH, int margin)
+	void SelectActiveMenu::addMenuButton(int key, string text, int keyCode, int buttonX, int buttonY, int buttonW, int buttonH, int margin)
 	{
 		int size = menuBtns_.size();
-		menuBtns_.push_back(MenuButton{ key, text, Shape(buttonX, buttonY + (buttonH + margin) * size, buttonW, buttonH)});
+		menuBtns_.push_back(MenuButton{ key, text, Shape(buttonX, buttonY + (buttonH + margin) * size, buttonW, buttonH), keyCode });
 	}
 
 

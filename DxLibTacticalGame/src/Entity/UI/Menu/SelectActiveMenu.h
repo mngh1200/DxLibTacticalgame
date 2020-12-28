@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 #include "Entity/Object.h"
+#include "FrameWork/Controller.h"
 #include "Utility/ResourceManager.h"
 
 using namespace std;
@@ -19,6 +20,7 @@ namespace Entity
 		int key; //! ボタンの種類識別用のキー
 		string text; //! ボタンのテキスト
 		Shape shape; //! ボタンの座標と位置
+		int keyCode; //! 入力キーコード
 	};
 
 	class SelectActiveMenu : public Object
@@ -34,6 +36,7 @@ namespace Entity
 		};
 
 		int getHitButtonKey(int x, int y);
+		int getKeyPressButtonKey() const;
 
 		void start(int unitX, int unitY);
 		void end();
@@ -41,12 +44,12 @@ namespace Entity
 		void render() const override;
 
 	private:
-		void addMenuButton(int key, string text, int buttonX, int buttonY, int buttonW, int buttonH, int margin);
+		void addMenuButton(int key, string text, int keyCode, int buttonX, int buttonY, int buttonW, int buttonH, int margin);
 		MenuButton* getHitMenuButton(int x, int y);
 
 
 		constexpr static int PADDING = 12; //! メニューの余白
-		constexpr static int WIDTH = 200;  //! メニューの幅
+		constexpr static int WIDTH = 230;  //! メニューの幅
 		constexpr static int RECT_ROUND = 15; //! 角丸のrx, ry値
 		constexpr static int POS_NUM = 16; //! 角丸のpos_num
 		constexpr static int TEXT_SIZE = 24; //! ボタンテキストサイズ

@@ -25,7 +25,8 @@ namespace Battle
 		bool setUnit(shared_ptr<Entity::Unit> unit);
 		void onClickUnit(int x, int y);
 		void onClickMass(int x, int y);
-		void onClickActionMenu(int kind);
+		void onSelectActionMenu(int kind);
+		void checkKeyEvent();
 		void animationCheck();
 
 	private:
