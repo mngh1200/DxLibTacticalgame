@@ -38,6 +38,8 @@ namespace Entity
 
 		void move(int x, int y);
 
+		void back();
+
 		void damage(int damage);
 
 		void dead();

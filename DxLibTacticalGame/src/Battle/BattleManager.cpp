@@ -5,9 +5,10 @@ namespace Battle {
 	 * @fn
 	 * コンストラクタ
 	 */
-	BattleManager::BattleManager(shared_ptr<Entity::Map> map) : BattleManager()
+	BattleManager::BattleManager(shared_ptr<Entity::Map> map, shared_ptr<Entity::SelectActiveMenu> selectActiveMenu) : BattleManager()
 	{
 		map_ = map;
+		selectActiveMenu_ = selectActiveMenu;
 	}
 
 	/**
@@ -32,16 +33,30 @@ namespace Battle {
 
 	/**
 	 * @fn
-	 * ユニットクリック時処理
+	 * ユニット クリック時処理
 	 */
 	void BattleManager::onClickUnit(int x, int y)
 	{
 		int massX = Map::getMassX(x); // マスのX座標
 		int massY = Map::getMassY(y); // マスのY座標
 		shared_ptr<Entity::Unit> unit = getUnitWp(massX, massY).lock(); // クリックしたユニット
-		bool isEnemy = unit->isEnemy(); // 敵ユニットであるか
+		bool isEnemy = false;
+		
+		if (unit)
+		{
+			isEnemy = unit->isEnemy(); // 敵ユニットであるか
+		}
+		
 
-		if (!isEnemy) // プレイヤーユニット
+		if (phase_ == Phase::SELECT_ACTION) // 行動選択
+		{
+			if (isEnemy && map_->getMass(massX, massY)->state == Mass::ATK_ABLE)
+			{
+				// 攻撃
+				atackAction(selectedUnit_.lock(), unit);
+			}
+		}
+		else if (!isEnemy) // プレイヤーユニット
 		{
 			if (unit == selectedUnit_.lock()) // クリックしたユニットが 選択中のユニットだった場合
 			{
@@ -59,22 +74,14 @@ namespace Battle {
 		}
 		else // 敵ユニット
 		{
-			if (phase_ == Phase::SELECT_ACTION)
-			{
-				if (map_->getMass(massX, massY)->state == Mass::ATK_ABLE)
-				{
-					// 攻撃
-					atackAction(selectedUnit_.lock(), unit);
-					deselectUnit();
-				}
-			}
+
 		}
 
 	}
 
 	/**
 	 * @fn
-	 * マスクリック時処理
+	 * マス クリック時処理
 	 */
 	void BattleManager::onClickMass(int x, int y)
 	{
@@ -99,6 +106,35 @@ namespace Battle {
 
 	/**
 	 * @fn
+	 * 行動選択
+	*/
+	void BattleManager::onClickActionMenu(int kind)
+	{
+		if (kind == -1)
+		{
+			return;
+		}
+
+		shared_ptr<Unit> selectedUnit = selectedUnit_.lock();
+		if (selectedUnit)
+		{
+			if (kind == SelectActiveMenu::ButtonKind::WAIT)
+			{
+				// 待機
+				confirmMove(selectedUnit);
+			}
+			else if (kind == SelectActiveMenu::ButtonKind::CANCEL)
+			{
+				// キャンセル
+				selectedUnit->back();
+
+			}
+		}
+		endSelectActionPhase(); // 行動選択終了
+	}
+
+	/**
+	 * @fn
 	 * アニメーション処理チェック
 	*/
 	void BattleManager::animationCheck()
@@ -108,7 +144,6 @@ namespace Battle {
 			shared_ptr<Unit> selectedUnit = selectedUnit_.lock();
 			if (selectedUnit && !selectedUnit->isAnimation()) // 移動終了
 			{
-				confirmMove(selectedUnit);
 				startSelectActionPhase(); // 行動選択フェイズ
 			}
 		}
@@ -124,6 +159,25 @@ namespace Battle {
 		map_->clearMassState();
 		phase_ = Phase::SELECT_ACTION; // 行動選択 
 		displayAtackRange();
+
+		shared_ptr<Entity::Unit> selectedUnit = selectedUnit_.lock();
+		if (selectedUnit)
+		{
+			selectActiveMenu_->start(selectedUnit->getX(), selectedUnit->getY());
+		}
+		
+	}
+
+	/**
+	 * @fn
+	 * 行動選択終了
+	*/
+	void BattleManager::endSelectActionPhase()
+	{
+		map_->clearMassState();
+		phase_ = Phase::NORMAL;
+		deselectUnit();
+		selectActiveMenu_->end();
 	}
 
 	/**
@@ -229,10 +283,13 @@ namespace Battle {
 		int baseY = unit->getBaseY();
 		int massX = unit->getMassX();
 		int massY = unit->getMassY();
-
-		unit->setPos(massX, massY);
-		mapUnits_.emplace(make_pair(massX, massY), unit);
-		mapUnits_.erase(make_pair(baseX, baseY));
+		
+		if (baseX != massX || baseY != massY) // 移動しているときのみ
+		{
+			unit->setPos(massX, massY);
+			mapUnits_.emplace(make_pair(massX, massY), unit);
+			mapUnits_.erase(make_pair(baseX, baseY));
+		}
 	}
 
 
@@ -283,11 +340,16 @@ namespace Battle {
 	*/
 	void BattleManager::atackAction(shared_ptr<Unit> atkUnit, shared_ptr<Unit> defUnit)
 	{
+		confirmMove(atkUnit);
+
 		if (atkUnit && defUnit)
 		{
 			int damage = atkUnit->getAtk();
 			defUnit->damage(damage);
 		}
+
+		endSelectActionPhase(); // テスト
+
 	}
 
 	/**

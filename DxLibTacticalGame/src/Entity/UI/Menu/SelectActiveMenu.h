@@ -24,8 +24,7 @@ namespace Entity
 	class SelectActiveMenu : public Object
 	{
 	public:
-		SelectActiveMenu() = delete;
-		SelectActiveMenu(int unitX, int unitY);
+		SelectActiveMenu() : isDisplay_(false), menuBtns_{} {};
 		~SelectActiveMenu() {};
 
 		enum ButtonKind
@@ -34,19 +33,32 @@ namespace Entity
 			CANCEL
 		};
 
-		void onClickMenu(int x, int y);
+		int getHitButtonKey(int x, int y);
 
-		virtual void render() const override;
+		void start(int unitX, int unitY);
+		void end();
+
+		void render() const override;
 
 	private:
 		void addMenuButton(int key, string text, int buttonX, int buttonY, int buttonW, int buttonH, int margin);
-		MenuButton& getHitMenuButton(int x, int y);
+		MenuButton* getHitMenuButton(int x, int y);
 
-		constexpr static int PADDING = 10; //! メニューの余白
-		constexpr static int WIDTH = 100;  //! メニューの幅
+
+		constexpr static int PADDING = 12; //! メニューの余白
+		constexpr static int WIDTH = 200;  //! メニューの幅
+		constexpr static int RECT_ROUND = 15; //! 角丸のrx, ry値
+		constexpr static int POS_NUM = 16; //! 角丸のpos_num
+		constexpr static int TEXT_SIZE = 24; //! ボタンテキストサイズ
 		constexpr static int BUTTON_MARGIN = 5; //! ボタンのマージン
+		constexpr static int BUTTON_PADDING = 10; //! ボタンの余白
+		constexpr static int BUTTON_WIDTH = WIDTH - PADDING * 2; // ボタン幅
+		constexpr static int BUTTON_HEIGHT = TEXT_SIZE + BUTTON_PADDING * 2; // ボタン高さ
+	
 
 		vector<MenuButton> menuBtns_; //! メニューボタンリスト
+
+		bool isDisplay_; //! 表示しているか
 	};
 
 

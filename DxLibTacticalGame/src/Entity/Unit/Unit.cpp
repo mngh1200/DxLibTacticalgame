@@ -150,6 +150,15 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * 移動元に戻る
+	 */
+	void Unit::back()
+	{
+		setPos(baseX_, baseY_);
+	}
+
+	/**
+	 * @fn
 	 * 位置指定
 	 * @param (x) x座標(マス基準)
 	 * @param (y) y座標(マス基準)

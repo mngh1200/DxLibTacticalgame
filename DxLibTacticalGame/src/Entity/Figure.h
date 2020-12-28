@@ -63,6 +63,9 @@ namespace Entity
 
 		int getType() const;
 
+		int getX() const { return shape_.x; }; // XÀ•Wæ“¾
+		int getY() const { return shape_.y; }; // YÀ•Wæ“¾
+
 	protected:
 		/**
 		 * @fn

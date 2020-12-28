@@ -79,6 +79,12 @@
     <Filter Include="ヘッダー ファイル\Battle">
       <UniqueIdentifier>{0f905c69-d2fd-4efc-9a25-57934bd3b7ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Entity\UI\Menu">
+      <UniqueIdentifier>{a9c68f5c-0df2-4b11-943c-dd2971479880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entity\UI\Menu">
+      <UniqueIdentifier>{7e2e727e-b131-4e1c-8330-bb2d8db42427}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -152,6 +158,9 @@
     </ClCompile>
     <ClCompile Include="src\Battle\BattleManager.cpp">
       <Filter>ソース ファイル\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\UI\Menu\SelectActiveMenu.cpp">
+      <Filter>ソース ファイル\Entity\UI\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="src\Battle\BattleManager.h">
       <Filter>ヘッダー ファイル\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\UI\Menu\SelectActiveMenu.h">
+      <Filter>ヘッダー ファイル\Entity\UI\Menu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
