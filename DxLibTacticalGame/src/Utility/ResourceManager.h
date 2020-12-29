@@ -65,6 +65,8 @@ namespace
 	// Image‚ÌID
 	enum ImageId {
 		BACKGROUND_MENU,
+		MASS_ATACK,
+		MASS_MOVE,
 		IMAGE_ID_LEN
 	};
 }

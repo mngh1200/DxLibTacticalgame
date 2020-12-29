@@ -74,19 +74,23 @@ namespace Entity {
 				}
 				if ((*cell)->state == Mass::State::MOVABLE) // à⁄ìÆîÕàÕ
 				{
-					DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
-					DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::PLAYER_COLOR), TRUE);
-					DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+					DxLib::DrawGraph(realX, realY, rm.getImage(ImageType::IMAGE, ImageId::MASS_MOVE), TRUE);
 
-					DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::PLAYER_COLOR), FALSE);
+					//DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
+					//DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::PLAYER_COLOR), TRUE);
+					//DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+					//DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::PLAYER_COLOR), FALSE);
 				}
 				else if ((*cell)->state == Mass::State::ATK_ABLE) // çUåÇâ¬î\îÕàÕ
 				{
-					DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
-					DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::ENEMY_COLOR), TRUE);
-					DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+					DxLib::DrawGraph(realX, realY, rm.getImage(ImageType::IMAGE, ImageId::MASS_ATACK), TRUE);
 
-					DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::ENEMY_COLOR), FALSE);
+					//DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
+					//DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::ENEMY_COLOR), TRUE);
+					//DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+					//DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::ENEMY_COLOR), FALSE);
 				}
 				++x;
 			}

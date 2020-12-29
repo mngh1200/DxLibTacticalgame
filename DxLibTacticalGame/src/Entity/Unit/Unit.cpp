@@ -41,11 +41,7 @@ namespace Entity {
 
 		if (state_ == State::SELECTED) // ‘I‘ð’†
 		{
-			DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
-			DxLib::DrawBox(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), rm.getColor(ColorType::PLAYER_COLOR), TRUE);
-			DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-
-			DxLib::DrawBox(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), rm.getColor(ColorType::PLAYER_COLOR), FALSE);
+			DxLib::DrawGraph(shape_.x, shape_.y, rm.getImage(ImageType::IMAGE, ImageId::MASS_MOVE), TRUE);
 		}
 		DxLib::DrawGraph(shape_.x, shape_.y, imageId_, TRUE);
 

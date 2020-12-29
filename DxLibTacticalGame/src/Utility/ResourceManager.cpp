@@ -37,9 +37,9 @@ namespace Utility {
 	 * @param (kind) リソースの種類
 	 * @return 対象リソースのID
 	 */
-	int ResourceManager::getImage(int type, int kind) const
+	int ResourceManager::getImage(int type, int imageId) const
 	{
-		return image_.at(type).at(kind)[0];
+		return image_.at(type).at(imageId)[0];
 	}
 	/**
      * @fn
@@ -108,8 +108,14 @@ namespace Utility {
 	{
 		int ret = 0;
 		image_.insert(std::make_pair(ImageType::IMAGE, vector<int*>()));
-		image_.at(ImageType::IMAGE).push_back(new int[IMAGE_ID_LEN]);
-		loadImage("resource/image/menu/background.jpg", image_.at(ImageType::IMAGE).at(0));
+		for (int i = 0; i < ImageId::IMAGE_ID_LEN; i++)
+		{
+			image_.at(ImageType::IMAGE).push_back(new int[1]);
+		}
+		loadImage("resource/image/menu/background.jpg", image_.at(ImageType::IMAGE).at(ImageId::BACKGROUND_MENU));
+
+		loadImage("resource/image/map/state-atack.png", image_.at(ImageType::IMAGE).at(ImageId::MASS_ATACK));
+		loadImage("resource/image/map/state-movable.png", image_.at(ImageType::IMAGE).at(ImageId::MASS_MOVE));
 
 
 		image_.insert(std::make_pair(ImageType::MAP, vector<int*>()));
