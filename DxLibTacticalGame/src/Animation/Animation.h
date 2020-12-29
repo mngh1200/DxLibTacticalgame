@@ -21,6 +21,7 @@ namespace Entity
 			calcFunk_(Easing::Linear<float>),
 			frameCount_(0),
 			frameMax_(0),
+			frameLast_(0),
 			delayFrame_(0),
 			direction_(NORMAL),
 			isNormalOrder_(true),
@@ -40,8 +41,11 @@ namespace Entity
 
 		void forceFinish();
 
+		void adjustLastFrame(float y, float y0, float y1);
+		void adjustLastFrame(int y, int y0, int y1);
 
 		void adjustFrame(float y, float y0, float y1);
+		void adjustFrame(int y, int y0, int y1);
 		void adjustFrame(Shape nowShape, Shape baseShape, float scale);
 
 		bool update(float* y, float y0 = 0, float y1 = 1, bool isIncreaseFrame = true);
@@ -72,6 +76,9 @@ namespace Entity
 
 		//! 終了時点のフレーム数
 		float frameMax_;
+
+		//! リピート最終での終了フレーム数
+		float frameLast_;
 
 		//! アニメーション開始遅延フレーム（値が0になった時点からアニメーションを開始する）
 		int delayFrame_;

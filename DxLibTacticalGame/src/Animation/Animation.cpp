@@ -16,6 +16,7 @@ namespace Entity {
 	{
 		delayFrame_ = (delayMs - ONE_FRAME_MS + 1) / ONE_FRAME_MS;
 		frameMax_ = (float)((timeMs - ONE_FRAME_MS + 1) / ONE_FRAME_MS);
+		frameLast_ = frameMax_;
 		calcFunk_ = func;
 
 		setDirection(direction);
@@ -34,8 +35,8 @@ namespace Entity {
 			delayFrame_--;
 		}
 		// フレームカウントが最大フレームカウントまで進んでいた場合
-		else if ((isNormalOrder_ && frameCount_ >= frameMax_) ||
-					(!isNormalOrder_ && frameCount_ <= 0))
+		else if ((isNormalOrder_ && ((frameCount_ >= frameMax_) || (repeat_ == 1 && frameCount_ >= frameLast_))) ||
+					(!isNormalOrder_ && ((frameCount_ <= 0) || (repeat_ == 1 && frameCount_ <= frameMax_ - frameLast_))))
 		{
 			// 無限ループの場合は終了判定しない
 			if (repeat_ != REPEAT_INFINITE)
@@ -111,7 +112,7 @@ namespace Entity {
 	 */
 	void Animation::forceFinish()
 	{
-		repeat_ = 0;
+		repeat_ = 1;
 		if (isNormalOrder_)
 		{
 			frameCount_ = frameMax_;
@@ -290,6 +291,43 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * リピートによる最終フレームの位置を調整する
+	 * @param (lastY) 最終の終了値
+	 * @param (y0) 初期値
+	 * @param (y1) 最終以外の終了値
+	 */
+	void Animation::adjustLastFrame(float lastY, float y0, float y1)
+	{
+		// 値が増加していくか(通常再生の場合に)
+		bool isIncrease = y0 < y1;
+
+		for (int i = 0; i <= frameMax_; ++i)
+		{
+			float tmpY = calcFunk_((float)i, frameMax_, y1, y0);
+
+			if ((isIncrease && tmpY >= lastY) ||
+				(!isIncrease && tmpY <= lastY))
+			{
+				frameLast_ = (float)i;
+				return;
+			}
+		}
+	}
+
+	/**
+	 * @fn
+	 * リピートによる最終フレームの位置を調整する
+	 * @param (lastY) 最終の終了値
+	 * @param (y0) 初期値
+	 * @param (y1) 最終以外の終了値
+	 */
+	void Animation::adjustLastFrame(int lastY, int y0, int y1)
+	{
+		adjustLastFrame((float)lastY, (float)y0, (float)y1);
+	}
+
+	/**
+	 * @fn
 	 * 現在値を基準にフレーム値を調整する
 	 * @param (y) 現在値
 	 * @param (y0) 初期値
@@ -315,6 +353,18 @@ namespace Entity {
 				return;
 			}
 		}
+	}
+
+	/**
+	 * @fn
+	 * 現在値を基準にフレーム値を調整する
+	 * @param (y) 現在値
+	 * @param (y0) 初期値
+	 * @param (y1) 終了値
+	 */
+	void Animation::adjustFrame(int y, int y0, int y1)
+	{
+		adjustFrame((float)y, (float)y0, (float)y1);
 	}
 
 	/**
