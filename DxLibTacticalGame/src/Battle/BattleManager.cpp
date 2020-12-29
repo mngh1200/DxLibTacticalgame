@@ -65,9 +65,9 @@ namespace Battle {
 						confirmMove(selectedUnit); // 待機
 					}
 				}
+				endSelectActionPhase(); // 行動選択終了
 			}
-
-			endSelectActionPhase(); // 行動選択終了
+			
 
 			if (!isEnemy && selectedUnit_.expired())
 			{
@@ -185,7 +185,8 @@ namespace Battle {
 			if (selectedUnit && !selectedUnit->isAnimation() && defUnit_ && !defUnit_->isAnimation())
 			{
 				// 攻撃終了
-
+				phase_ = Phase::NORMAL;
+				deselectUnit();
 			}
 		}
 
@@ -399,12 +400,18 @@ namespace Battle {
 	void BattleManager::atackAction(shared_ptr<Unit> atkUnit, shared_ptr<Unit> defUnit)
 	{
 		confirmMove(atkUnit);
+		map_->clearMassState();
+		selectActiveMenu_->end();
 
 		if (atkUnit && defUnit)
 		{
 			int damage = atkUnit->atack(defUnit->getX(), defUnit->getY());
 			// TODO 地形効果
-			defUnit->damage(damage);
+			if (defUnit->damage(damage))
+			{
+				// 死亡時
+				mapUnits_.erase(make_pair(defUnit->getMassX(), defUnit->getMassY()));
+			}
 			defUnit_ = defUnit;
 			phase_ = Phase::ATACK;
 		}

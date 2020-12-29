@@ -17,9 +17,10 @@ namespace Entity
 	class Unit : public Object
 	{
 	public:
-		Unit() : x_(0), y_(0), baseX_(0), baseY_(0), targetRealX_(0), targetRealY_(0), imageId_(0), animation_{},
-			hp_(0), hpm_(0), atk_(0), def_(0), mov_(0), range_(1),
-			isEnemy_(false), state_(State::NORMAL) {};
+		Unit() : x_(0), y_(0), baseX_(0), baseY_(0), targetRealX_(0), targetRealY_(0), 
+			imageId_(0), animation_{}, animationSub_{},
+			hp_(0), hpm_(0), atk_(0), def_(0), mov_(0), range_(1), viewHp_(0), prevHp_(0),
+			alpha_(255), isEnemy_(false), state_(State::NORMAL) {};
 		virtual ~Unit() {};
 
 		//! 状況の種類
@@ -40,9 +41,9 @@ namespace Entity
 
 		void back();
 
-		void damage(int damage);
+		bool damage(int damage);
 
-		void dead();
+		bool checkDead();
 
 		bool select(bool isSelect);
 
@@ -93,13 +94,13 @@ namespace Entity
 		int mov_;
 		int range_;
 
-
-
 		//! 状況
 		State state_;
 
 		//! アニメーションクラス
 		Animation animation_;
+
+
 
 		// アニメーションの種類
 		enum AnimationKind
@@ -111,8 +112,6 @@ namespace Entity
 			DESTROY
 		};
 	private:
-		bool isEnemy_;
-
 		constexpr static int HP_PADDING = 5; //! HPバーの余白
 		constexpr static int HP_Y = 55; //! HPバーの相対位置y
 		constexpr static int HP_H = 5;  //! HPバーの高さ
@@ -120,6 +119,21 @@ namespace Entity
 		constexpr static int ANIME_ATACK_MS = 400;					//! 攻撃アニメーションの時間
 		constexpr static int ANIME_DAMAGE_MS = ANIME_ATACK_MS / 2;	//! ダメージアニメションの時間
 		constexpr static int ANIME_DAMAGE_MOVE = 10;				//! ダメージアニメションの動作範囲
+		constexpr static int ANIME_DAMAGE_REPEAT = 4;				//! ダメージアニメションのリピート回数
+
+		//! アニメーション用
+		int viewHp_, prevHp_;
+
+		//! アニメーション用 不透明度
+		int alpha_;
+
+		//! 敵かどうか
+		bool isEnemy_;
+
+		//! アニメーションクラス（複数必要だった場合のサブ）
+		Animation animationSub_;
+
+
 
 	};
 

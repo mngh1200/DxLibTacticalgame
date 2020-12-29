@@ -25,8 +25,8 @@ namespace Entity {
 		}
 
 		// テスト処理（仮ステータス）
-		hpm_ = hp_ = 10;
-		atk_ = 2;
+		viewHp_ = hpm_ = hp_ = 10;
+		atk_ = 6;
 		def_ = 1;
 		mov_ = 2;
 	}
@@ -38,6 +38,11 @@ namespace Entity {
 	void Unit::render() const
 	{
 		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
+
+		if (alpha_ != 255) // 不透明度
+		{
+			DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha_);
+		}
 
 		if (state_ == State::SELECTED) // 選択中
 		{
@@ -58,11 +63,15 @@ namespace Entity {
 		int hpx2 = shape_.getX2() - HP_PADDING;
 		int hpy2 = hpy1 + HP_H;
 
-		int hpw = (int)((float)(CHIP_SIZE - HP_PADDING * 2) * ((float)hp_ / (float)hpm_));
+		int hpw = (int)((float)(CHIP_SIZE - HP_PADDING * 2) * ((float)viewHp_ / (float)hpm_));
 
 		DxLib::DrawBox(hpx1, hpy1, hpx2, hpy2, rm.getColor(ColorType::NEGATIVE_COLOR), TRUE);
 		DxLib::DrawBox(hpx1, hpy1, hpx1 + hpw, hpy2, rm.getColor(ColorType::POSITIVE_LITE_COLOR), TRUE);
-		
+
+		if (alpha_ != 255) // 不透明度
+		{
+			DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		}
 	}
 
 	/**
@@ -89,22 +98,19 @@ namespace Entity {
 		}
 		else if (animationId_ == AnimationKind::DAMAGE) // ダメージ
 		{
+			animationSub_.update(&viewHp_, prevHp_, hp_);
+
 			int baseX = Map::getRealX(x_);
+
 			if (animation_.update(&shape_.x, baseX - ANIME_DAMAGE_MOVE, baseX + ANIME_DAMAGE_MOVE))
 			{
-				if (hp_ <= 0)
-				{
-					changeAnimation(AnimationKind::DESTROY); // 死亡、アニメーション継続
-				}
-				else
-				{
-					return true;
-				}
+				animationSub_.forceFinish();
+				return !checkDead();
 			}
 		}
 		else if (animationId_ == AnimationKind::DESTROY) // 死亡
 		{
-			if (animation_.increaseFrame())
+			if (animation_.update(&alpha_, 255, 0))
 			{
 				destroy();
 				return true;
@@ -133,15 +139,18 @@ namespace Entity {
 		}
 		else if (animationId == AnimationKind::DAMAGE) // ダメージ
 		{
-			animation_ = Animation(ANIME_DAMAGE_MS, 0, 4, ANIME_ATACK_MS / 2);
+			animation_ = Animation(ANIME_DAMAGE_MS, 0, ANIME_DAMAGE_REPEAT, ANIME_ATACK_MS / 2);
 			int baseX = Map::getRealX(x_);
 			animation_.adjustFrame(shape_.x, baseX - ANIME_DAMAGE_MOVE, baseX + ANIME_DAMAGE_MOVE);
 			animation_.adjustLastFrame(shape_.x, baseX - ANIME_DAMAGE_MOVE, baseX + ANIME_DAMAGE_MOVE);
+
+			// HPバーアニメーション
+			animationSub_ = Animation(ANIME_DAMAGE_MS * ANIME_DAMAGE_REPEAT);
 			return true;
 		}
 		else if (animationId == AnimationKind::DESTROY) // 死亡
 		{
-			animation_ = Animation(200);
+			animation_ = Animation(600);
 			return true;
 		}
 		return false;
@@ -183,15 +192,40 @@ namespace Entity {
 	}
 
 
-
-	void Unit::damage(int damage)
+	/**
+	 * @fn
+	 * ダメージ値
+	 * @return 死亡時 trueを返す
+	 */
+	bool Unit::damage(int damage)
 	{
+		prevHp_ = hp_;
 		hp_ -= damage;
+		joinAnimationList(AnimationKind::DAMAGE);
+		
 		if (hp_ <= 0)
 		{
 			hp_ = 0;
+			return true;
 		}
-		joinAnimationList(AnimationKind::DAMAGE);
+		
+		return false;
+	}
+
+	/**
+	 * @fn
+	 * ユニット死亡
+	 * @return ユニット死亡時 true
+	 */
+	bool Unit::checkDead()
+	{
+		if (hp_ <= 0)
+		{
+			changeAnimation(AnimationKind::DESTROY); // 死亡、アニメーション継続
+			return true;
+		}
+		return false;
+		
 	}
 
 	/**
