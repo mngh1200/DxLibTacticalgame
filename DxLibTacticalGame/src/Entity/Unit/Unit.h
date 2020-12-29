@@ -17,7 +17,7 @@ namespace Entity
 	class Unit : public Object
 	{
 	public:
-		Unit() : x_(0), y_(0), baseX_(0), baseY_(0), imageId_(0), animation_{},
+		Unit() : x_(0), y_(0), baseX_(0), baseY_(0), targetRealX_(0), targetRealY_(0), imageId_(0), animation_{},
 			hp_(0), hpm_(0), atk_(0), def_(0), mov_(0), range_(1),
 			isEnemy_(false), state_(State::NORMAL) {};
 		virtual ~Unit() {};
@@ -45,6 +45,8 @@ namespace Entity
 		void dead();
 
 		bool select(bool isSelect);
+
+		int atack(int targetRealX, int targetRealY);
 
 		void setPos(int x, int y);
 
@@ -77,6 +79,12 @@ namespace Entity
 		//! 移動元y
 		int baseY_;
 
+		//! 攻撃先のx座標
+		int targetRealX_;
+
+		//! 攻撃先のy座標
+		int targetRealY_;
+
 		//! 各種ステータス
 		int hp_;
 		int hpm_;
@@ -105,9 +113,14 @@ namespace Entity
 	private:
 		bool isEnemy_;
 
-		constexpr static int HP_PADDING = 5;
-		constexpr static int HP_Y = 55;
-		constexpr static int HP_H = 5;
+		constexpr static int HP_PADDING = 5; //! HPバーの余白
+		constexpr static int HP_Y = 55; //! HPバーの相対位置y
+		constexpr static int HP_H = 5;  //! HPバーの高さ
+
+		constexpr static int ANIME_ATACK_MS = 400;					//! 攻撃アニメーションの時間
+		constexpr static int ANIME_DAMAGE_MS = ANIME_ATACK_MS / 2;	//! ダメージアニメションの時間
+		constexpr static int ANIME_DAMAGE_MOVE = 10;				//! ダメージアニメションの動作範囲
+
 	};
 
 

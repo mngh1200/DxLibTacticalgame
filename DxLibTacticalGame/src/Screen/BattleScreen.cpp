@@ -40,7 +40,7 @@ namespace Screen
 		}
 
 		shared_ptr<Entity::Unit> enemy = make_shared<Entity::Unit>();
-		enemy->init(4, 0, true);
+		enemy->init(4, 7, true);
 		if (btlMng.setUnit(enemy))
 		{
 			objectsControl.addObject(Layer::ENEMY_UNIT, 0, enemy);

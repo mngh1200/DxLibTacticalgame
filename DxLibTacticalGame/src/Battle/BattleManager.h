@@ -50,6 +50,9 @@ namespace Battle
 		//! 選択中のユニット
 		weak_ptr<Entity::Unit> selectedUnit_;
 
+		//! 防御側のユニット
+		shared_ptr<Entity::Unit> defUnit_;
+
 		//! マップ
 		shared_ptr<Entity::Map> map_;
 
@@ -63,7 +66,8 @@ namespace Battle
 		{
 			NORMAL,
 			MOVE,
-			SELECT_ACTION
+			SELECT_ACTION,
+			ATACK
 		};
 	};
 

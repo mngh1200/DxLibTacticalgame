@@ -171,12 +171,21 @@ namespace Battle {
 	*/
 	void BattleManager::animationCheck()
 	{
-		if (phase_ == Phase::MOVE)
+		if (phase_ == Phase::MOVE) // 移動
 		{
 			shared_ptr<Unit> selectedUnit = selectedUnit_.lock();
 			if (selectedUnit && !selectedUnit->isAnimation()) // 移動終了
 			{
 				startSelectActionPhase(); // 行動選択フェイズ
+			}
+		}
+		else if (phase_ == Phase::ATACK) // 攻撃
+		{
+			shared_ptr<Unit> selectedUnit = selectedUnit_.lock();
+			if (selectedUnit && !selectedUnit->isAnimation() && defUnit_ && !defUnit_->isAnimation())
+			{
+				// 攻撃終了
+
 			}
 		}
 
@@ -393,12 +402,12 @@ namespace Battle {
 
 		if (atkUnit && defUnit)
 		{
-			int damage = atkUnit->getAtk();
+			int damage = atkUnit->atack(defUnit->getX(), defUnit->getY());
+			// TODO 地形効果
 			defUnit->damage(damage);
+			defUnit_ = defUnit;
+			phase_ = Phase::ATACK;
 		}
-
-		endSelectActionPhase(); // テスト
-
 	}
 
 	/**

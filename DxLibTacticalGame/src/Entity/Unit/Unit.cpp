@@ -83,11 +83,14 @@ namespace Entity {
 		}
 		else if (animationId_ == AnimationKind::ATACK) // çUåÇ
 		{
-			return animation_.increaseFrame();
+			int baseX = Map::getRealX(x_);
+			int baseY = Map::getRealY(y_);
+			return animation_.update(&shape_.x, &shape_.y, baseX, baseY, targetRealX_, targetRealY_);
 		}
 		else if (animationId_ == AnimationKind::DAMAGE) // É_ÉÅÅ[ÉW
 		{
-			if (animation_.increaseFrame())
+			int baseX = Map::getRealX(x_);
+			if (animation_.update(&shape_.x, baseX - ANIME_DAMAGE_MOVE, baseX + ANIME_DAMAGE_MOVE))
 			{
 				if (hp_ <= 0)
 				{
@@ -125,12 +128,15 @@ namespace Entity {
 		}
 		else if (animationId == AnimationKind::ATACK) // çUåÇ
 		{
-			animation_ = Animation(400);
+			animation_ = Animation(ANIME_ATACK_MS, Animation::Direction::AlTERNATE, 2);
 			return true;
 		}
 		else if (animationId == AnimationKind::DAMAGE) // É_ÉÅÅ[ÉW
 		{
-			animation_ = Animation(200, 0, 1, 200);
+			animation_ = Animation(ANIME_DAMAGE_MS, 0, 4, ANIME_ATACK_MS / 2);
+			int baseX = Map::getRealX(x_);
+			animation_.adjustFrame(shape_.x, baseX - ANIME_DAMAGE_MOVE, baseX + ANIME_DAMAGE_MOVE);
+			animation_.adjustLastFrame(shape_.x, baseX - ANIME_DAMAGE_MOVE, baseX + ANIME_DAMAGE_MOVE);
 			return true;
 		}
 		else if (animationId == AnimationKind::DESTROY) // éÄñS
@@ -207,10 +213,28 @@ namespace Entity {
 			{
 				state_ = State::NORMAL;
 				setPos(baseX_, baseY_);
-				animation_.forceFinish();
+				if (animationId_ == AnimationKind::MOVE)
+				{
+					animation_.forceFinish
+					();
+				}
+				
 				return true;
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * @fn
+	 * çUåÇ
+	 * @return çUåÇóÕ
+	 */
+	int Unit::atack(int targetRealX, int targetRealY)
+	{
+		targetRealX_ = shape_.x + (targetRealX - shape_.x) / 2;
+		targetRealY_ = shape_.y + (targetRealY - shape_.y) / 2;
+		joinAnimationList(AnimationKind::ATACK);
+		return getAtk();
 	}
 }
