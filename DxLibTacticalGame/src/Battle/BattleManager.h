@@ -33,6 +33,7 @@ namespace Battle
 		weak_ptr<Unit> getUnitWp(int massX, int massY);
 		void startSelectActionPhase();
 		void endSelectActionPhase();
+		void selectUnit(shared_ptr<Unit> unit);
 		bool deselectUnit();
 		void displayMovableRange();
 		void searchMovableMass(int x, int y, int move, bool isInit = true);

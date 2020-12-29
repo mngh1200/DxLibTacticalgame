@@ -61,36 +61,42 @@ namespace Entity {
 		int x = 0;
 		int y = 0;
 
+		int mouseX = -1;
+		int mouseY = -1;
+
+		if (isMouseOver_) // ホバー時のみ取得
+		{
+			DxLib::GetMousePoint(&mouseX, &mouseY);
+			mouseX = getMassX(mouseX);
+			mouseY = getMassY(mouseY);
+		}
+
 		for (auto line = mass_.begin(); line != mass_.end(); ++line) {
 			for (auto cell = (*line).begin(); cell != (*line).end(); ++cell) {
 				int realX = getRealX(x);
 				int realY = getRealY(y);
 				DxLib::DrawGraph(realX, realY, (*cell)->getImageId(), FALSE);
 
-				// テスト処理
+				
+				if (isMouseOver_) // ホバー時の描画
+				{
+					if (x == mouseX && y == mouseY)
+					{
+						drawHoverMass(realX, realY);
+					}
+				}
+
 				if ((*cell)->state == Mass::State::NORMAL)
 				{
 					// 何もしない
 				}
 				if ((*cell)->state == Mass::State::MOVABLE) // 移動範囲
 				{
-					DxLib::DrawGraph(realX, realY, rm.getImage(ImageType::IMAGE, ImageId::MASS_MOVE), TRUE);
-
-					//DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
-					//DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::PLAYER_COLOR), TRUE);
-					//DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-
-					//DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::PLAYER_COLOR), FALSE);
+					drawMoveableMass(realX, realY);
 				}
 				else if ((*cell)->state == Mass::State::ATK_ABLE) // 攻撃可能範囲
 				{
-					DxLib::DrawGraph(realX, realY, rm.getImage(ImageType::IMAGE, ImageId::MASS_ATACK), TRUE);
-
-					//DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
-					//DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::ENEMY_COLOR), TRUE);
-					//DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-
-					//DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::ENEMY_COLOR), FALSE);
+					drawAtackMass(realX, realY);
 				}
 				++x;
 			}
@@ -99,6 +105,13 @@ namespace Entity {
 		}
 	}
 
+	/**
+	 * @fn
+	 * マスのポインタを返す
+	 * @param (x) マスのx座標
+	 * @param (y) マスのy座標
+	 * @return マス
+	 */
 	shared_ptr<Mass> Map::getMass(int x, int y)
 	{
 		if (isRange(x, y))
@@ -114,6 +127,10 @@ namespace Entity {
 		return mass;
 	}
 
+	/**
+	 * @fn
+	 * マスの状態を初期化する
+	 */
 	void Map::clearMassState()
 	{
 		for (auto line = mass_.begin(); line != mass_.end(); ++line) {
@@ -124,9 +141,71 @@ namespace Entity {
 		}
 	}
 
+	/**
+	 * @fn
+	 * マップ範囲内であるか判定
+	 * @param (x) マスのx座標
+	 * @param (y) マスのy座標
+	 * @return 範囲内である場合はtrueを返す
+	 */
 	bool Map::isRange(int x, int y) const
 	{
 		return 0 <= x && x < w_ && 0 <= y && y < h_;
+	}
+
+
+	/**
+	 * @fn
+	 * 移動可能範囲のマスを描画
+	 * @param (realX) x座標
+	 * @param (realY) y座標
+	 */
+	void Map::drawMoveableMass(int realX, int realY)
+	{
+		DxLib::DrawGraph(realX, realY, Utility::ResourceManager::getInstance().getImage(ImageType::IMAGE, ImageId::MASS_MOVE), TRUE);
+
+		//DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
+		//DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::PLAYER_COLOR), TRUE);
+		//DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+		//DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::PLAYER_COLOR), FALSE);
+	}
+
+	/**
+	 * @fn
+	 * 攻撃可能範囲のマスを描画
+	 * @param (realX) x座標
+	 * @param (realY) y座標
+	 */
+	void Map::drawAtackMass(int realX, int realY)
+	{
+		DxLib::DrawGraph(realX, realY, Utility::ResourceManager::getInstance().getImage(ImageType::IMAGE, ImageId::MASS_ATACK), TRUE);
+	}
+
+	/**
+	 * @fn
+	 * ホバーマスを描画
+	 * @param (realX) x座標
+	 * @param (realY) y座標
+	 */
+	void Map::drawHoverMass(int realX, int realY)
+	{
+		DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, MASS_EFFECT_ALPHA);
+		DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, Utility::ResourceManager::getInstance().getColor(ColorType::MAIN_COLOR), TRUE);
+		DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	}
+
+	/**
+	 * @fn
+	 * 選択中のマスを描画
+	 * @param (realX) x座標
+	 * @param (realY) y座標
+	 */
+	void Map::drawSelectedMass(int realX, int realY)
+	{
+		DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, MASS_EFFECT_ALPHA);
+		DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, Utility::ResourceManager::getInstance().getColor(ColorType::MAIN_COLOR_ON), TRUE);
+		DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
 
 	/**

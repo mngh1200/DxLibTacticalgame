@@ -41,8 +41,15 @@ namespace Entity {
 
 		if (state_ == State::SELECTED) // 選択中
 		{
-			DxLib::DrawGraph(shape_.x, shape_.y, rm.getImage(ImageType::IMAGE, ImageId::MASS_MOVE), TRUE);
+			Map::drawMoveableMass(shape_.x, shape_.y);
+			Map::drawSelectedMass(shape_.x, shape_.y);
 		}
+
+		if (isMouseOver_) // ホバー中
+		{
+			Map::drawHoverMass(shape_.x, shape_.y);
+		}
+
 		DxLib::DrawGraph(shape_.x, shape_.y, imageId_, TRUE);
 
 		// HPバー

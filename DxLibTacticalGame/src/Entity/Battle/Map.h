@@ -34,12 +34,18 @@ namespace Entity
 
 		bool isRange(int x, int y) const;
 
+		static void drawMoveableMass(int x, int y);
+		static void drawAtackMass(int x, int y);
+		static void drawHoverMass(int x, int y);
+		static void drawSelectedMass(int x, int y);
+
 		static int getRealX(int massX);
 		static int getRealY(int massY);
 		static int getMassX(int realX);
 		static int getMassY(int realY);
 
 	private:
+		constexpr static int MASS_EFFECT_ALPHA = 50; //! マスの効果色の不透明度
 
 		//! 横のマスサイズ
 		int w_;

@@ -68,6 +68,11 @@ namespace Battle {
 			}
 
 			endSelectActionPhase(); // 行動選択終了
+
+			if (!isEnemy && selectedUnit_.expired())
+			{
+				selectUnit(unit); // 他のユニット選択
+			}
 		}
 		else if (!isEnemy) // プレイヤーユニット
 		{
@@ -75,14 +80,9 @@ namespace Battle {
 			{
 				startSelectActionPhase(); // 行動選択フェイズ
 			}
-			else if (deselectUnit()) // 選択解除
+			else
 			{
-				// ユニット選択
-				if (unit && unit->select(true))
-				{
-					selectedUnit_ = unit;
-					displayMovableRange();
-				}
+				selectUnit(unit); // ユニット選択
 			}
 		}
 		else // 敵ユニット
@@ -98,11 +98,13 @@ namespace Battle {
 	 */
 	void BattleManager::onClickMass(int x, int y)
 	{
+		int massX = Map::getMassX(x);
+		int massY = Map::getMassY(y);
+
 		shared_ptr<Entity::Unit> selectedUnitSp = selectedUnit_.lock();
 		if (selectedUnitSp)
 		{
-			int massX = Map::getMassX(x);
-			int massY = Map::getMassY(y);
+
 			shared_ptr<Mass> targetMass = map_->getMass(massX, massY);
 			
 			if (phase_ == Phase::SELECT_ACTION) // 行動選択
@@ -114,6 +116,7 @@ namespace Battle {
 			{
 				selectedUnitSp->move(massX, massY); // 移動
 				phase_ = Phase::MOVE;
+				return;
 			}
 			else
 			{
@@ -207,6 +210,23 @@ namespace Battle {
 		phase_ = Phase::NORMAL;
 		deselectUnit();
 		selectActiveMenu_->end();
+	}
+
+	/**
+	 * @fn
+	 * ユニット選択
+	*/
+	void BattleManager::selectUnit(shared_ptr<Unit> unit)
+	{
+		if (deselectUnit()) // 選択解除
+		{
+			// ユニット選択
+			if (unit && unit->select(true))
+			{
+				selectedUnit_ = unit;
+				displayMovableRange();
+			}
+		}
 	}
 
 	/**
