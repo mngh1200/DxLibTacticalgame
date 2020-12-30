@@ -29,7 +29,7 @@ namespace Entity
 
 		void render() const override;
 
-		shared_ptr<Mass> getMass(int x, int y);
+		shared_ptr<Mass> getMass(int massX, int massY);
 		void clearMassState();
 
 		bool isRange(int x, int y) const;

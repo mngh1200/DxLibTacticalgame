@@ -166,6 +166,7 @@
     <ClCompile Include="src\Entity\UI\Menu\SelectActiveMenu.cpp" />
     <ClCompile Include="src\Entity\UI\Overlay.cpp" />
     <ClCompile Include="src\Entity\Unit\Unit.cpp" />
+    <ClCompile Include="src\Entity\View\Battle\TerrainEffectDisplay.cpp" />
     <ClCompile Include="src\Entity\View\Text.cpp" />
     <ClCompile Include="src\FrameWork\Controller.cpp" />
     <ClCompile Include="src\FrameWork\Game.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="src\Entity\UI\Menu\SelectActiveMenu.h" />
     <ClInclude Include="src\Entity\UI\Overlay.h" />
     <ClInclude Include="src\Entity\Unit\Unit.h" />
+    <ClInclude Include="src\Entity\View\Battle\TerrainEffectDisplay.h" />
     <ClInclude Include="src\Entity\View\Text.h" />
     <ClInclude Include="src\FrameWork\Controller.h" />
     <ClInclude Include="src\FrameWork\Game.h" />

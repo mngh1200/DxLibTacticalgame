@@ -17,12 +17,8 @@ namespace Screen
 		shared_ptr<Entity::Map> map = make_shared<Entity::Map>();
 		objectsControl.addObject(Layer::MAP, 0, map);
 
-		// 行動選択メニュー
-		shared_ptr<Entity::SelectActiveMenu> selectActiveMenu = make_shared<Entity::SelectActiveMenu>();
-		objectsControl.addObject(Layer::UI, SELECT_ACTIVE_MENU, selectActiveMenu);
-
 		// バトル管理クラス
-		btlMng = Battle::BattleManager(map, selectActiveMenu);
+		btlMng = Battle::BattleManager(map, Layer::UI);
 
 		// ユニット設置(テスト)
 		shared_ptr<Entity::Unit> playerUnit = make_shared<Entity::Unit>();
@@ -62,34 +58,10 @@ namespace Screen
 
 		if (hitObjSp)
 		{
-			Entity::ObjectsControl& objCont = FrameWork::Game::getInstance().objectsControl;
 
 			if (nowScene_ == Scene::PLAYER_TURN) // プレイヤーターン
 			{
-				if (eventType == MOUSE_INPUT_LOG_CLICK) // クリック
-				{
-					if (hitObjSp->getLayerId() == Layer::MAP) // マップクリック
-					{
-						btlMng.onClickMass(x, y);
-					}
-					else if (hitObjSp->getType() == Entity::Figure::UNIT) // ユニットクリック
-					{
-						btlMng.onClickUnit(x, y);
-					}
-					else if (hitObjSp->getLayerId() == Layer::UI) // UI操作
-					{
-						if (hitObjSp->getObjectId() == UIid::SELECT_ACTIVE_MENU) // 行動選択
-						{
-							shared_ptr<Entity::SelectActiveMenu> menu = dynamic_pointer_cast<Entity::SelectActiveMenu>(hitObjSp);
-							btlMng.onSelectActionMenu(menu->getHitButtonKey(x, y));
-						}
-					}
-				}
-				else
-				{
-					// キーイベント
-					btlMng.checkKeyEvent();
-				}
+				btlMng.updateByEvents(hitObjSp, x, y, button, eventType);
 			}
 		}
 	}

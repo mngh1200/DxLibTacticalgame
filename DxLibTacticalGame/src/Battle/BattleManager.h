@@ -3,7 +3,7 @@
 #include <map>
 #include "Entity/Battle/Map.h"
 #include "Entity/Unit/Unit.h"
-#include "Entity/UI/Menu/SelectActiveMenu.h"
+#include "Entity/View/Battle/TerrainEffectDisplay.h"
 
 using namespace std;
 using namespace Entity;
@@ -19,17 +19,27 @@ namespace Battle
 	{
 	public:
 		BattleManager() : phase_(Phase::NORMAL) {};
-		BattleManager(shared_ptr<Entity::Map> map, shared_ptr<Entity::SelectActiveMenu> selectActiveMenu);
+		BattleManager(shared_ptr<Entity::Map> map, int uiLayerId);
 		~BattleManager() {};
 
+		enum BattleUi
+		{
+			TERRAIN_EFFECT_DISPLAY,
+			UIID_LEN
+		};
+
 		bool setUnit(shared_ptr<Entity::Unit> unit);
-		void onClickUnit(int x, int y);
-		void onClickMass(int x, int y);
-		void onSelectActionMenu(int kind);
-		void checkKeyEvent();
+
+		void updateByEvents(shared_ptr<Object> hitObj, int x, int y, int button, int eventType);
+
+		
+
 		void animationCheck();
 
 	private:
+		void onClickUnit(int x, int y);
+		void onClickMass(int x, int y);
+
 		weak_ptr<Unit> getUnitWp(int massX, int massY);
 		void startSelectActionPhase();
 		void endSelectActionPhase();
@@ -56,8 +66,8 @@ namespace Battle
 		//! マップ
 		shared_ptr<Entity::Map> map_;
 
-		//! 行動選択メニュー
-		shared_ptr<Entity::SelectActiveMenu> selectActiveMenu_;
+		//! 地形効果表示欄
+		shared_ptr<Entity::TerrainEffectDisplay> terrainEffectDisplay_;
 
 		//! フェーズ
 		int phase_;

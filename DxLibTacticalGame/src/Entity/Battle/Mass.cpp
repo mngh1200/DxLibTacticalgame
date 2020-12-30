@@ -3,9 +3,10 @@
 #include "Entity/Unit/Unit.h"
 
 namespace Entity {
-	const static vector<int> COST = { 1, 2, 2, INT_MAX }; //! ˆÚ“®ƒRƒXƒg
-	const static vector<int> AGL_UP = { 0, 20, -20, 0 };  //! ‰ñ”ðUP
-	const static vector<int> DEF_UP = { 0,  3,  -3, 0 };  //! –hŒäUP
+	const vector<int> Mass::COST = { 1, 2, 2, INT_MAX };
+	const vector<int> Mass::AGL_UP = { 0, 20, -20, 0 };
+	const vector<int> Mass::DEF_UP = { 0,  3,  -3, 0 };
+	const vector<string> Mass::TEXT1 = {"‘Œ´: “Á‚É‚È‚µ", "X: ‹R•ºŽã‘Ì‰»", "ì:", "ŽR: N“ü•s‰Â"};
 
 	/**
 	 * @fn
@@ -83,6 +84,35 @@ namespace Entity {
 	int Mass::getImageId() const
 	{
 		return imageId_;
+	}
+
+	/**
+	 * @fn
+	 * ’nŒ`Œø‰Êà–¾•¶‚ð•Ô‚·
+	 * @param (kindId) ‰æ‘œ‚ÌŽí—Þ
+	 */
+	string Mass::getText(int line) const
+	{
+		if (line == 1)
+		{
+			return TEXT1.at(kindId_);
+		}
+		else if (line == 2)
+		{
+			int agl = getAgl();
+			int def = getDef();
+
+			if (agl == 0 && def == 0)
+			{
+				return "";
+			}
+			string aglSign = agl >= 0 ? "+" : "";
+			string defSign = def >= 0 ? "+" : "";
+
+			return "‰ñ”ð " + aglSign + to_string(agl) + " –hŒä " + defSign + to_string(def);
+		}
+
+		return "";
 	}
 
 	/**

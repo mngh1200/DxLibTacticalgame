@@ -13,6 +13,7 @@ using namespace std;
 namespace
 {
 	enum FontType : int {
+		NORMAL_S20,
 		NORMAL_S24,
 		NORMAL_S32,
 		BLACK_S48,

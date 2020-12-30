@@ -85,6 +85,12 @@
     <Filter Include="ヘッダー ファイル\Entity\UI\Menu">
       <UniqueIdentifier>{7e2e727e-b131-4e1c-8330-bb2d8db42427}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Entity\View\Battle">
+      <UniqueIdentifier>{38b94c58-bd61-434d-92aa-1f5146771c66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entity\View\Battle">
+      <UniqueIdentifier>{2e2e4837-ad46-4e47-b50b-f9284d5a84a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -161,6 +167,9 @@
     </ClCompile>
     <ClCompile Include="src\Entity\UI\Menu\SelectActiveMenu.cpp">
       <Filter>ソース ファイル\Entity\UI\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\View\Battle\TerrainEffectDisplay.cpp">
+      <Filter>ソース ファイル\Entity\View\Battle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +250,9 @@
     </ClInclude>
     <ClInclude Include="src\Entity\UI\Menu\SelectActiveMenu.h">
       <Filter>ヘッダー ファイル\Entity\UI\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\View\Battle\TerrainEffectDisplay.h">
+      <Filter>ヘッダー ファイル\Entity\View\Battle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

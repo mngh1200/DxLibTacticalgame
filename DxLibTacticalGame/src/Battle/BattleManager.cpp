@@ -5,10 +5,16 @@ namespace Battle {
 	 * @fn
 	 * コンストラクタ
 	 */
-	BattleManager::BattleManager(shared_ptr<Entity::Map> map, shared_ptr<Entity::SelectActiveMenu> selectActiveMenu) : BattleManager()
+	BattleManager::BattleManager(shared_ptr<Entity::Map> map, int uiLayerId) : BattleManager()
 	{
 		map_ = map;
-		selectActiveMenu_ = selectActiveMenu;
+
+		FrameWork::Game& game = FrameWork::Game::getInstance();
+		Entity::ObjectsControl& objectsControl = game.objectsControl;
+
+		// 地形効果表示欄
+		terrainEffectDisplay_ = make_shared<TerrainEffectDisplay>();
+		objectsControl.addFigure(uiLayerId, BattleUi::TERRAIN_EFFECT_DISPLAY, terrainEffectDisplay_);
 	}
 
 	/**
@@ -28,6 +34,35 @@ namespace Battle {
 			return ret.second;
 		}
 		return false;
+	}
+
+	void BattleManager::updateByEvents(shared_ptr<Object> hitObj, int x, int y, int button, int eventType)
+	{
+		if (eventType == MOUSE_INPUT_LOG_CLICK)
+		{
+			if (hitObj->getType() == Object::Type::UNIT)
+			{
+				onClickUnit(x, y);
+			}
+			else if (hitObj->getType() == Object::Type::MAP)
+			{
+				onClickMass(x, y);
+			}
+		}
+
+		if (hitObj->getType() == Object::Type::UNIT || hitObj->getType() == Object::Type::MAP)
+		{
+			// 1マップ上の要素をホバー
+			int massX = Map::getMassX(x);
+			int massY = Map::getMassY(y);
+
+			terrainEffectDisplay_->setTargetMass(map_->getMass(massX, massY), x);
+		}
+		else
+		{
+			terrainEffectDisplay_->clear();
+		}
+
 	}
 
 
@@ -127,46 +162,6 @@ namespace Battle {
 
 	/**
 	 * @fn
-	 * 行動選択
-	*/
-	void BattleManager::onSelectActionMenu(int kind)
-	{
-		if (kind == -1)
-		{
-			return;
-		}
-		/*
-		shared_ptr<Unit> selectedUnit = selectedUnit_.lock();
-		if (selectedUnit)
-		{
-			if (kind == SelectActiveMenu::ButtonKind::WAIT)
-			{
-				// 待機
-				confirmMove(selectedUnit);
-			}
-			else if (kind == SelectActiveMenu::ButtonKind::CANCEL)
-			{
-				// キャンセル
-				selectedUnit->back();
-
-			}
-		}
-		endSelectActionPhase(); // 行動選択終了
-		*/
-	}
-
-	/**
-	 * @fn
-	 * キーチェック
-	*/
-	void BattleManager::checkKeyEvent()
-	{
-		// 行動選択メニュー用のキーチェック
-		onSelectActionMenu(selectActiveMenu_->getKeyPressButtonKey());
-	}
-
-	/**
-	 * @fn
 	 * アニメーション処理チェック
 	*/
 	void BattleManager::animationCheck()
@@ -203,11 +198,6 @@ namespace Battle {
 		displayAtackRange();
 
 		shared_ptr<Entity::Unit> selectedUnit = selectedUnit_.lock();
-		if (selectedUnit)
-		{
-			selectActiveMenu_->start(selectedUnit->getX(), selectedUnit->getY());
-		}
-		
 	}
 
 	/**
@@ -219,7 +209,6 @@ namespace Battle {
 		map_->clearMassState();
 		phase_ = Phase::NORMAL;
 		deselectUnit();
-		selectActiveMenu_->end();
 	}
 
 	/**
@@ -401,7 +390,6 @@ namespace Battle {
 	{
 		confirmMove(atkUnit);
 		map_->clearMassState();
-		selectActiveMenu_->end();
 
 		if (atkUnit && defUnit)
 		{

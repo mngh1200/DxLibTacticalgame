@@ -1,6 +1,7 @@
 #pragma once
 #include <climits>
 #include <memory>
+#include <string>
 #include "Utility/ResourceManager.h"
 
 using namespace std;
@@ -42,6 +43,8 @@ namespace Entity
 		int getKind() const;
 		int getImageId() const;
 
+		string getText(int line) const;
+
 		bool isMovable() const { return passingMov >= 0; }
 
 		//! 通過時のmov値
@@ -59,6 +62,11 @@ namespace Entity
 		};
 
 	private:
+		static const vector<int> COST;		//! 移動コスト
+		static const vector<int> AGL_UP;	//! 回避UP
+		static const vector<int> DEF_UP;    //! 防御UP
+		static const vector<string> TEXT1;  //! 地形効果説明文
+
 		void setImageIdFromKind(int kindId);
 
 		//! 地形種類

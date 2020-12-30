@@ -8,7 +8,6 @@
 #include "Battle/BattleManager.h"
 #include "Entity/Battle/Map.h"
 #include "Entity/Unit/Unit.h"
-#include "Entity/UI/Menu/SelectActiveMenu.h"
 
 using namespace std;
 
@@ -39,12 +38,6 @@ namespace Screen
 			ENEMY_UNIT,
 			MAP,
 			LEN
-		};
-
-		enum UIid
-		{
-			SELECT_ACTIVE_MENU,
-			UIID_LEN
 		};
 
 		enum Scene

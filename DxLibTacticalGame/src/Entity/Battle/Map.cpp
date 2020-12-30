@@ -8,6 +8,8 @@ namespace Entity {
 	 */
 	Map::Map()
 	{
+		type_ = Object::Type::MAP;
+
 		weak_ptr<Unit> tmpUnit;
 
 		if (tmpUnit.expired()) {
@@ -112,13 +114,13 @@ namespace Entity {
 	 * @param (y) マスのy座標
 	 * @return マス
 	 */
-	shared_ptr<Mass> Map::getMass(int x, int y)
+	shared_ptr<Mass> Map::getMass(int massX, int massY)
 	{
-		if (isRange(x, y))
+		if (isRange(massX, massY))
 		{
 			try
 			{
-				return mass_.at(y).at(x);
+				return mass_.at(massY).at(massX);
 			}
 			catch (out_of_range&) {}
 		}
