@@ -93,6 +93,11 @@ namespace Entity {
 	 */
 	string Mass::getText(int line) const
 	{
+		if (kindId_ == Kind::OUT_OF_MAP)
+		{
+			return "";
+		}
+
 		if (line == 1)
 		{
 			return TEXT1.at(kindId_);

@@ -16,25 +16,21 @@ namespace Entity {
 			int a = 10;
 		}
 
-		// テスト処理
-		w_ = 20;
-		h_ = 10;
+		shape_.set(0, MAP_Y, MAP_MASS_W * CHIP_SIZE, MAP_MASS_H * CHIP_SIZE);
 
-		shape_.set(0, 0, w_ * CHIP_SIZE, h_ * CHIP_SIZE);
-
-		mass_.reserve(h_); // メモリ確保
+		mass_.reserve(MAP_MASS_H); // メモリ確保
 
 		// マップデータ生成
-		for (int y = 0; y < h_; y++)
+		for (int y = 0; y < MAP_MASS_H; y++)
 		{
 			mass_.push_back(vector<shared_ptr<Mass>>());
-			mass_[y].reserve(w_); // メモリ確保
+			mass_[y].reserve(MAP_MASS_W); // メモリ確保
 			
-			for (int x = 0; x < w_; x++)
+			for (int x = 0; x < MAP_MASS_W; x++)
 			{
 				int kind = Mass::Kind::PLAIN;
 
-				if (x == 0 || x == w_ - 1)
+				if (x == 0 || x == MAP_MASS_W - 1)
 				{
 					kind = Mass::Kind::MOUNTAIN;
 				}
@@ -152,7 +148,7 @@ namespace Entity {
 	 */
 	bool Map::isRange(int x, int y) const
 	{
-		return 0 <= x && x < w_ && 0 <= y && y < h_;
+		return 0 <= x && x < MAP_MASS_W && 0 <= y && y < MAP_MASS_H;
 	}
 
 
@@ -225,7 +221,7 @@ namespace Entity {
 	 */
 	int Map::getRealY(int massY)
 	{
-		return massY * CHIP_SIZE;
+		return massY * CHIP_SIZE + MAP_Y;
 	}
 
 	/**
@@ -243,7 +239,7 @@ namespace Entity {
 	 */
 	int Map::getMassY(int realY)
 	{
-		return realY / CHIP_SIZE;
+		return (realY - MAP_Y) / CHIP_SIZE;
 	}
 
 }

@@ -47,12 +47,6 @@ namespace Entity
 	private:
 		constexpr static int MASS_EFFECT_ALPHA = 50; //! マスの効果色の不透明度
 
-		//! 横のマスサイズ
-		int w_;
-
-		//! 縦のマスサイズ
-		int h_;
-
 		//! マスのデータ
 		vector<vector<shared_ptr<Mass>>> mass_;
 	};
