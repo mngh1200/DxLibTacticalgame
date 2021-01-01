@@ -26,21 +26,21 @@ namespace Screen
 
 		// ユニット設置(テスト)
 		shared_ptr<Entity::Unit> playerUnit = make_shared<Entity::Unit>();
-		playerUnit->init(4, 9, false);
+		playerUnit->init(4, 9, UnitKey::LANCER);
 		if (btlMng.setUnit(playerUnit))
 		{
 			objectsControl.addObject(Layer::PLAYER_UNIT, 0, playerUnit);
 		}
 
 		shared_ptr<Entity::Unit> playerUnit2 = make_shared<Entity::Unit>();
-		playerUnit2->init(5, 9, false);
+		playerUnit2->init(5, 9, UnitKey::GUNNER);
 		if (btlMng.setUnit(playerUnit2))
 		{
 			objectsControl.addObject(Layer::PLAYER_UNIT, 1, playerUnit2);
 		}
 
 		shared_ptr<Entity::Unit> enemy = make_shared<Entity::Unit>();
-		enemy->init(4, 7, true);
+		enemy->init(4, 7, UnitKey::LANCER, true);
 		if (btlMng.setUnit(enemy))
 		{
 			objectsControl.addObject(Layer::ENEMY_UNIT, 0, enemy);

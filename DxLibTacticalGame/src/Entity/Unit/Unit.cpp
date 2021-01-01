@@ -1,11 +1,13 @@
 #include "Unit.h"
 
 namespace Entity {
+	const vector<string> Unit::LEN_TEXT = {"短", "中", "長"};
+
 	/**
 	 * @fn
 	 * 初期処理
 	 */
-	void Unit::init(int x, int y, bool isEnemy)
+	void Unit::init(int x, int y, int kind, bool isEnemy)
 	{
 		type_ = Figure::UNIT;
 
@@ -13,22 +15,46 @@ namespace Entity {
 
 		isEnemy_ = isEnemy;
 
+		setKind(kind);
+	}
+
+	/**
+	 * @fn
+	 * ユニットの種類をセット
+	 */
+	void Unit::setKind(int kind)
+	{
+		kind_ = kind;
+
 		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
 
-		if (isEnemy)
+		if (kind == UnitKey::CAVALRY) // 騎兵
 		{
-			imageId_ = rm.getImage(ImageType::PLAYER, LANCER, 0);
+			hpm_ = 30;
+			atk_ = 5;
+			def_ = 1;
+			mov_ = 4;
 		}
-		else
+		else if (kind == UnitKey::GUNNER) // 銃兵
 		{
-			imageId_ = rm.getImage(ImageType::PLAYER, LANCER, 2);
+			hpm_ = 20;
+			atk_ = 6;
+			def_ = 0;
+			mov_ = 2;
+			
+		}
+		else // kind == UnitKey::LANCER の動作 // 槍兵
+		{
+			hpm_ = 30;
+			atk_ = 3;
+			def_ = 2;
+			mov_ = 2;
+			kind_ = UnitKey::LANCER;
 		}
 
-		// テスト処理（仮ステータス）
-		viewHp_ = hpm_ = hp_ = 10;
-		atk_ = 6;
-		def_ = 1;
-		mov_ = 2;
+		viewHp_ = hp_ = hpm_;
+
+		imageId_ = rm.getImage(ImageType::PLAYER, kind_, isEnemy_ ? 0 : 2);
 	}
 
 	/**

@@ -34,4 +34,15 @@ constexpr static int BATTLE_UI_LINE_PADDING = 6; //! 一行の余白
 //! マップ表示位置
 constexpr int MAP_Y = 0;
 
+namespace
+{
+	// 兵種管理
+	enum UnitKey {
+		LANCER,
+		CAVALRY,
+		GUNNER
+	};
+}
+
+
 

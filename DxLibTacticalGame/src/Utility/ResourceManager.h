@@ -53,12 +53,7 @@ namespace
 		MAP,
 		IMAGE
 	};
-	// PLAYER、ENEMYのりソースの格納場所
-	enum UnitKey {
-		LANCER,
-		CAVALRY,
-		GUNNER
-	};
+
 	// PLAYER、ENEMYのアニメーション開始位置(仮)
 	enum UnitStartPos {
 		TOP,
