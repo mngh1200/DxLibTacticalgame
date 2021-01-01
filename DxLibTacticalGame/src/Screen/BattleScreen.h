@@ -5,6 +5,7 @@
 #include "ScreenBase.h"
 #include "FrameWork/Game.h"
 #include "Utility/ResourceManager.h"
+#include "Entity/UI/Back.h"
 #include "Battle/BattleManager.h"
 #include "Entity/Battle/Map.h"
 #include "Entity/Unit/Unit.h"
@@ -37,6 +38,7 @@ namespace Screen
 			PLAYER_UNIT,
 			ENEMY_UNIT,
 			MAP,
+			BACK,
 			LEN
 		};
 

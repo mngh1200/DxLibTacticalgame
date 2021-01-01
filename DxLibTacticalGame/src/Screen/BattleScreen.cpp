@@ -13,6 +13,10 @@ namespace Screen
 		Entity::ObjectsControl& objectsControl = game.objectsControl;
 		objectsControl.setLayer(Layer::LEN);
 
+		// 背景
+		shared_ptr<Entity::Back> back = make_shared<Entity::Back>(Entity::Back::Screen::BATTLE);
+		objectsControl.addObject(Layer::BACK, 0, back);
+
 		// マップ（マス）
 		shared_ptr<Entity::Map> map = make_shared<Entity::Map>();
 		objectsControl.addObject(Layer::MAP, 0, map);

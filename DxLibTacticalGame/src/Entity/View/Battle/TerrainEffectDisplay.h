@@ -23,6 +23,8 @@ namespace Entity
 		TerrainEffectDisplay();
 		~TerrainEffectDisplay() {};
 
+		constexpr static int WIDTH = 210; //! 幅
+
 		void render() const override;
 		bool animationUpdate() override;
 
@@ -33,12 +35,12 @@ namespace Entity
 		bool createAnimation(int animationId) override;
 
 	private:
-		constexpr static int Y = 50; //! Y座標
-		constexpr static int WIDTH = 250; //! 幅
-		
-		constexpr static int LINE_PADDING = 10; //! 一行の余白
-		constexpr static int LINE_HEIGHT = 20 + LINE_PADDING * 2; //! 一行当たりの高さ
+		constexpr static int LINE_MARGIN = 3;  //! 一行の余白
+		constexpr static int LINE_PADDING = 6; //! 一行の余白
+		constexpr static int LINE_HEIGHT = 18 + (LINE_MARGIN + LINE_PADDING) * 2; //! 一行当たりの高さ
 		constexpr static int LINE_COUNT = 2;   //! 何行あるか
+
+		constexpr static int ANIMATION_Y0 = WIN_H;  //! アニメーション開始位置
 
 		// アニメーション種類
 		enum AnimationKind
@@ -51,6 +53,5 @@ namespace Entity
 
 		//! アニメーション用変数
 		Animation animation_;
-		int x0, x1; 
 	};
 }

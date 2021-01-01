@@ -24,9 +24,14 @@ constexpr int CHIP_SIZE = 64;
 constexpr int MAP_MASS_W = 20;
 constexpr int MAP_MASS_H = 10;
 
-//! マップ表示位置
-constexpr int MAP_Y = WIN_H - MAP_MASS_H * CHIP_SIZE;
-
 //! マップ画面のUIエリア
-constexpr int BATTLE_UI_AREA_Y = 0;
-constexpr int BATTLE_UI_AREA_H = MAP_Y - BATTLE_UI_AREA_Y;
+constexpr int BATTLE_UI_AREA_Y = MAP_MASS_H * CHIP_SIZE;
+constexpr int BATTLE_UI_AREA_H = WIN_H - BATTLE_UI_AREA_Y;
+constexpr int BATTLE_UI_AREA_MARGIN = 5;
+constexpr static int BATTLE_UI_LINE_MARGIN = 3;  //! 一行の余白
+constexpr static int BATTLE_UI_LINE_PADDING = 6; //! 一行の余白
+
+//! マップ表示位置
+constexpr int MAP_Y = 0;
+
+

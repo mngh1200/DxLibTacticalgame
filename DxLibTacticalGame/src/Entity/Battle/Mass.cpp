@@ -6,7 +6,7 @@ namespace Entity {
 	const vector<int> Mass::COST = { 1, 2, 2, INT_MAX };
 	const vector<int> Mass::AGL_UP = { 0, 20, -20, 0 };
 	const vector<int> Mass::DEF_UP = { 0,  3,  -3, 0 };
-	const vector<string> Mass::TEXT1 = {"‘Œ´: “Á‚É‚È‚µ", "X: ‹R•ºã‘Ì‰»", "ì:", "R: N“ü•s‰Â"};
+	const vector<string> Mass::TEXT1 = {"‘Œ´", "X", "ì:", "R"};
 
 	/**
 	 * @fn
@@ -98,18 +98,22 @@ namespace Entity {
 			return "";
 		}
 
-		if (line == 1)
+		if (line == 0)
 		{
 			return TEXT1.at(kindId_);
 		}
-		else if (line == 2)
+		else if (line == 1)
 		{
 			int agl = getAgl();
 			int def = getDef();
 
-			if (agl == 0 && def == 0)
+
+			if (getCost() == INT_MAX)
 			{
-				return "";
+				return "N“ü•s‰Â";
+			} if (agl == 0 && def == 0)
+			{
+				return "“Á‚É‚È‚µ";
 			}
 			string aglSign = agl >= 0 ? "+" : "";
 			string defSign = def >= 0 ? "+" : "";

@@ -152,7 +152,7 @@ namespace Utility {
 		loadFont("resource/font/rounded-mplus/rounded-mplus-1p-regular.ttf");
 		loadFont("resource/font/rounded-mplus/rounded-mplus-1p-black.ttf");
 
-		hdlFont_[FontType::NORMAL_S20] = DxLib::CreateFontToHandle("Rounded M+ 1p regular", 20, 3, DX_FONTTYPE_ANTIALIASING_4X4);
+		hdlFont_[FontType::NORMAL_S18] = DxLib::CreateFontToHandle("Rounded M+ 1p regular", 18, 3, DX_FONTTYPE_ANTIALIASING_4X4);
 		hdlFont_[FontType::NORMAL_S24] = DxLib::CreateFontToHandle("Rounded M+ 1p regular", 24, 3, DX_FONTTYPE_ANTIALIASING_4X4);
 		hdlFont_[FontType::NORMAL_S32] = DxLib::CreateFontToHandle("Rounded M+ 1p regular", 32, 3, DX_FONTTYPE_ANTIALIASING_4X4);
 		hdlFont_[FontType::BLACK_S48] = DxLib::CreateFontToHandle("Rounded M+ 1p black", 48, 3, DX_FONTTYPE_ANTIALIASING_4X4);
@@ -168,11 +168,16 @@ namespace Utility {
 		colorType_[ColorType::MAIN_COLOR_ON] = DxLib::GetColor(254, 213, 175);
 
 		colorType_[ColorType::SUB_COLOR] = DxLib::GetColor(124, 104, 95);
+		colorType_[ColorType::SUB_COLOR_LITE] = DxLib::GetColor(224, 215, 204);
+		colorType_[ColorType::SUB_COLOR_DARK] = DxLib::GetColor(76, 64, 59);
 
 		colorType_[ColorType::TITLE_TEXT] = DxLib::GetColor(211, 181, 155);
 
 		colorType_[ColorType::PLAYER_COLOR] = DxLib::GetColor(35, 87, 137);
+		colorType_[ColorType::PLAYER_COLOR_LITE] = DxLib::GetColor(186, 197, 204);
+
 		colorType_[ColorType::ENEMY_COLOR] = DxLib::GetColor(209, 6, 6);
+		colorType_[ColorType::ENEMY_COLOR_LITE] = DxLib::GetColor(233, 183, 177);
 
 		colorType_[ColorType::POSITIVE_COLOR] = DxLib::GetColor(116, 142, 84);
 		colorType_[ColorType::POSITIVE_LITE_COLOR] = DxLib::GetColor(185, 202, 165);

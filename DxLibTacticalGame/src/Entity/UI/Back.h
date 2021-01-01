@@ -25,7 +25,8 @@ namespace Entity
 		enum Screen
 		{
 			UNSELECTED,
-			SELECT
+			SELECT,
+			BATTLE,
 		};
 
 	private:
