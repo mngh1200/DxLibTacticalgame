@@ -28,7 +28,7 @@ namespace Entity
 		void render() const override;
 		bool animationUpdate() override;
 
-		void setTargetMass(shared_ptr<Mass> mass, int realX);
+		void setTargetMass(shared_ptr<Mass> mass);
 		void clear();
 
 	protected:

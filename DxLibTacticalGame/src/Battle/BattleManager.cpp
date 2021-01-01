@@ -56,7 +56,7 @@ namespace Battle {
 			int massX = Map::getMassX(x);
 			int massY = Map::getMassY(y);
 
-			terrainEffectDisplay_->setTargetMass(map_->getMass(massX, massY), x);
+			terrainEffectDisplay_->setTargetMass(map_->getMass(massX, massY));
 		}
 		else
 		{

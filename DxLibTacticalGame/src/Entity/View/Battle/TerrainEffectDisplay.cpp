@@ -1,11 +1,16 @@
 #include "TerrainEffectDisplay.h"
 
 namespace Entity {
+	/**
+	 * @fn
+	 * コンストラクタ
+	 */
 	TerrainEffectDisplay::TerrainEffectDisplay() 
 		: animation_{}
 	{
 		shape_.set(BATTLE_UI_AREA_MARGIN, BATTLE_UI_AREA_Y + BATTLE_UI_AREA_MARGIN, WIDTH, LINE_HEIGHT * LINE_COUNT);
 	}
+
 	/**
 	 * @fn
 	 * 描画
@@ -56,6 +61,7 @@ namespace Entity {
 	/**
 	 * @fn
 	 * アニメーション生成
+	 * @param (animationId) アニメーションの種類
 	 */
 	bool TerrainEffectDisplay::createAnimation(int animationId)
 	{
@@ -71,8 +77,9 @@ namespace Entity {
 	/**
 	 * @fn
 	 * 対象マス指定
+	 * @param (mass) 対称マス
 	 */
-	void TerrainEffectDisplay::setTargetMass(shared_ptr<Mass> mass, int realX)
+	void TerrainEffectDisplay::setTargetMass(shared_ptr<Mass> mass)
 	{
 		if (!mass || targetMass_ == mass) // 選択済みのマスの場合
 		{
