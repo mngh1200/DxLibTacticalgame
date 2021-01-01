@@ -153,8 +153,10 @@
   <ItemGroup>
     <ClCompile Include="src\Animation\Animation.cpp" />
     <ClCompile Include="src\Battle\BattleManager.cpp" />
+    <ClCompile Include="src\Battle\BattleUI.cpp" />
     <ClCompile Include="src\Entity\Battle\Map.cpp" />
     <ClCompile Include="src\Entity\Battle\Mass.cpp" />
+    <ClCompile Include="src\Entity\Battle\UnitStatusDisplay.cpp" />
     <ClCompile Include="src\Entity\Object.cpp" />
     <ClCompile Include="src\Entity\ObjectsControl.cpp" />
     <ClCompile Include="src\Entity\Shape.cpp" />
@@ -182,9 +184,11 @@
     <ClInclude Include="src\Animation\Animation.h" />
     <ClInclude Include="src\Animation\Easing.h" />
     <ClInclude Include="src\Battle\BattleManager.h" />
+    <ClInclude Include="src\Battle\BattleUI.h" />
     <ClInclude Include="src\Define.h" />
     <ClInclude Include="src\Entity\Battle\Map.h" />
     <ClInclude Include="src\Entity\Battle\Mass.h" />
+    <ClInclude Include="src\Entity\Battle\UnitStatusDisplay.h" />
     <ClInclude Include="src\Entity\Object.h" />
     <ClInclude Include="src\Entity\ObjectsControl.h" />
     <ClInclude Include="src\Entity\Shape.h" />

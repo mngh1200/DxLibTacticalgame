@@ -171,6 +171,12 @@
     <ClCompile Include="src\Entity\View\Battle\TerrainEffectDisplay.cpp">
       <Filter>ソース ファイル\Entity\View\Battle</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entity\Battle\UnitStatusDisplay.cpp">
+      <Filter>ソース ファイル\Entity\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Battle\BattleUI.cpp">
+      <Filter>ソース ファイル\Battle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -253,6 +259,12 @@
     </ClInclude>
     <ClInclude Include="src\Entity\View\Battle\TerrainEffectDisplay.h">
       <Filter>ヘッダー ファイル\Entity\View\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Battle\UnitStatusDisplay.h">
+      <Filter>ヘッダー ファイル\Entity\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\BattleUI.h">
+      <Filter>ヘッダー ファイル\Battle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

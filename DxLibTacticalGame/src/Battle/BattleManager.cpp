@@ -8,13 +8,7 @@ namespace Battle {
 	BattleManager::BattleManager(shared_ptr<Entity::Map> map, int uiLayerId) : BattleManager()
 	{
 		map_ = map;
-
-		FrameWork::Game& game = FrameWork::Game::getInstance();
-		Entity::ObjectsControl& objectsControl = game.objectsControl;
-
-		// 地形効果表示欄
-		terrainEffectDisplay_ = make_shared<TerrainEffectDisplay>();
-		objectsControl.addFigure(uiLayerId, BattleUi::TERRAIN_EFFECT_DISPLAY, terrainEffectDisplay_);
+		battleUI_.init(uiLayerId);
 	}
 
 	/**
@@ -36,6 +30,11 @@ namespace Battle {
 		return false;
 	}
 
+
+	/**
+	 * @fn
+	 * イベント処理
+	 */
 	void BattleManager::updateByEvents(shared_ptr<Object> hitObj, int x, int y, int button, int eventType)
 	{
 		if (eventType == MOUSE_INPUT_LOG_CLICK)
@@ -56,11 +55,11 @@ namespace Battle {
 			int massX = Map::getMassX(x);
 			int massY = Map::getMassY(y);
 
-			terrainEffectDisplay_->setTargetMass(map_->getMass(massX, massY));
+			battleUI_.setTargetMass(map_->getMass(massX, massY));
 		}
 		else
 		{
-			terrainEffectDisplay_->clear();
+			battleUI_.resetTargetMass();
 		}
 
 	}
@@ -223,6 +222,7 @@ namespace Battle {
 			if (unit && unit->select(true))
 			{
 				selectedUnit_ = unit;
+				battleUI_.setTargetUnit(selectedUnit_.lock());
 				displayMovableRange();
 			}
 		}
@@ -245,6 +245,7 @@ namespace Battle {
 			if (prevSelectedUnit->select(false))
 			{
 				selectedUnit_.reset();
+				battleUI_.resetTargetUnit();
 				map_->clearMassState();
 				return true;
 			}

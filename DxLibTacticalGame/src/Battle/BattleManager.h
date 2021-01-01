@@ -1,6 +1,7 @@
 #pragma once
 #include <climits>
 #include <map>
+#include "BattleUI.h"
 #include "Entity/Battle/Map.h"
 #include "Entity/Unit/Unit.h"
 #include "Entity/View/Battle/TerrainEffectDisplay.h"
@@ -18,7 +19,7 @@ namespace Battle
 	class BattleManager
 	{
 	public:
-		BattleManager() : phase_(Phase::NORMAL) {};
+		BattleManager() : phase_(Phase::NORMAL), battleUI_{} {};
 		BattleManager(shared_ptr<Entity::Map> map, int uiLayerId);
 		~BattleManager() {};
 
@@ -66,8 +67,8 @@ namespace Battle
 		//! マップ
 		shared_ptr<Entity::Map> map_;
 
-		//! 地形効果表示欄
-		shared_ptr<Entity::TerrainEffectDisplay> terrainEffectDisplay_;
+		//! バトルUI
+		BattleUI battleUI_;
 
 		//! フェーズ
 		int phase_;
