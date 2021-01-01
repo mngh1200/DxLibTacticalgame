@@ -8,7 +8,7 @@ namespace Entity {
 	TerrainEffectDisplay::TerrainEffectDisplay() 
 		: animation_{}
 	{
-		shape_.set(BATTLE_UI_AREA_MARGIN, BATTLE_UI_AREA_Y + BATTLE_UI_AREA_MARGIN, WIDTH, LINE_HEIGHT * LINE_COUNT);
+		shape_.set(BUI_PADDING, BATTLE_UI_AREA_Y + BUI_PADDING, WIDTH, BUI_LINE_HEIGHT * BUI_LINE_COUNT + BUI_LINE_MARGIN);
 	}
 
 	/**
@@ -25,23 +25,11 @@ namespace Entity {
 			// エリア
 			DxLib::DrawBox(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), rm.getColor(ColorType::MAIN_COLOR), TRUE);
 
-			// 各行の表示
-			for (int i = 0; i < LINE_COUNT; i++)
-			{
-				int y = shape_.y + LINE_HEIGHT * i;
-
-				if (i == 0)
-				{
-					DxLib::DrawBox(shape_.x + LINE_MARGIN, y + LINE_MARGIN, shape_.getX2() - LINE_MARGIN, y + LINE_HEIGHT - LINE_MARGIN, rm.getColor(ColorType::SUB_COLOR_LITE), TRUE);
-				}
-
-				string text = targetMass_->getText(i);
-				if (text != "")
-				{
-					const int space = LINE_MARGIN + LINE_PADDING;
-					DxLib::DrawStringToHandle(shape_.x + space, y + space, text.c_str(), rm.getColor(ColorType::SUB_COLOR), rm.getHdlFont(FontType::NORMAL_S18));
-				}
-			}
+			// ラベル
+			BUI::drawLabel(shape_.x, shape_.y, targetMass_->getText(0), shape_.w - (BUI_LINE_MARGIN + BUI_LINE_PADDING) * 2);
+			
+			// 説明文
+			BUI::drawValue(shape_.x, shape_.y + BUI_LINE_HEIGHT, targetMass_->getText(1), shape_.w);
 		}
 	}
 
@@ -53,7 +41,7 @@ namespace Entity {
 	{
 		if (animationId_ == AnimationKind::DISPLAY)
 		{
-			return animation_.update(&shape_.y, ANIMATION_Y0, BATTLE_UI_AREA_Y + BATTLE_UI_AREA_MARGIN);
+			return animation_.update(&shape_.y, ANIMATION_Y0, BATTLE_UI_AREA_Y + BUI_PADDING);
 		}
 		return false;
 	}

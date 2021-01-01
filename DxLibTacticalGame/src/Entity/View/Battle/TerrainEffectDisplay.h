@@ -7,6 +7,8 @@
 #include "Entity/Battle/Mass.h"
 #include "Animation/Animation.h"
 #include "DxLib.h"
+#include "Battle/BattleUIDefine.h"
+
 
 using namespace std;
 
@@ -35,11 +37,6 @@ namespace Entity
 		bool createAnimation(int animationId) override;
 
 	private:
-		constexpr static int LINE_MARGIN = 3;  //! 一行の余白
-		constexpr static int LINE_PADDING = 6; //! 一行の余白
-		constexpr static int LINE_HEIGHT = 18 + (LINE_MARGIN + LINE_PADDING) * 2; //! 一行当たりの高さ
-		constexpr static int LINE_COUNT = 2;   //! 何行あるか
-
 		constexpr static int ANIMATION_Y0 = WIN_H;  //! アニメーション開始位置
 
 		// アニメーション種類

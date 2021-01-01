@@ -21,6 +21,7 @@ namespace
 	};
 
 	enum ColorType : int {
+		WHITE,
 		MAIN_COLOR,
 		MAIN_COLOR_ON,
 		SUB_COLOR,

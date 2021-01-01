@@ -18,7 +18,7 @@ namespace Entity
 	{
 	public:
 		Unit() : x_(0), y_(0), baseX_(0), baseY_(0), targetRealX_(0), targetRealY_(0), 
-			kind_(0), imageId_(0), animation_{}, animationSub_{},
+			name_(""), kind_(0), imageId_(0), animation_{}, animationSub_{},
 			hp_(0), hpm_(0), atk_(0), def_(0), mov_(0), len_(0), range_(1), viewHp_(0), prevHp_(0),
 			alpha_(255), isEnemy_(false), state_(State::NORMAL) {};
 		~Unit() {};
@@ -57,7 +57,12 @@ namespace Entity
 		int getMassY() const { return y_; }; // y座標を返す
 		int getBaseX() const { return baseX_; }; // 移動元x座標を返す
 		int getBaseY() const { return baseY_; }; // 移動元y座標を返す
-		virtual int getAtk() const { return atk_; } ; // 攻撃力を返す
+		
+		string getName() const { return name_; } // ユニット名を返す
+		int getHpm() const { return hpm_; } // 最大HPを返す
+		int getHpv() const { return viewHp_; } // 見た目上のHPを返す
+		int getAtk() const { return atk_; } ; // 攻撃力を返す
+		int getDef() const { return def_; }; // 防御力を返す
 		int getMove() const { return mov_; }; // 移動力を返す
 		int getLen() const { return len_; }; // 射程を返す
 		int getRange() const { return range_; }; // 攻撃範囲を返す
@@ -105,6 +110,9 @@ namespace Entity
 
 		//! 攻撃先のy座標
 		int targetRealY_;
+
+		//! 名前
+		string name_;
 
 		//! 各種ステータス
 		int hp_;

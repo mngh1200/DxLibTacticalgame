@@ -30,25 +30,31 @@ namespace Entity {
 
 		if (kind == UnitKey::CAVALRY) // 騎兵
 		{
+			name_ = "騎兵";
 			hpm_ = 30;
 			atk_ = 5;
 			def_ = 1;
 			mov_ = 4;
+			len_ = 0;
 		}
 		else if (kind == UnitKey::GUNNER) // 銃兵
 		{
+			name_ = "銃兵";
 			hpm_ = 20;
 			atk_ = 6;
 			def_ = 0;
 			mov_ = 2;
+			len_ = 2;
 			
 		}
 		else // kind == UnitKey::LANCER の動作 // 槍兵
 		{
+			name_ = "槍兵";
 			hpm_ = 30;
 			atk_ = 3;
 			def_ = 2;
 			mov_ = 2;
+			len_ = 1;
 			kind_ = UnitKey::LANCER;
 		}
 
@@ -215,6 +221,23 @@ namespace Entity {
 		baseX_ = x_ = x;
 		baseY_ = y_ = y;
 		shape_.set(Map::getRealX(x_), Map::getRealY(y_), CHIP_SIZE, CHIP_SIZE);
+	}
+
+
+	/**
+	 * @fn
+	 * 射程のテキストを返す
+	 * @return テキスト
+	 */
+	string Unit::getLenText() const
+	{
+		try
+		{
+			return LEN_TEXT.at(getLen());
+		}
+		catch (out_of_range&) {}
+		
+		return "";
 	}
 
 

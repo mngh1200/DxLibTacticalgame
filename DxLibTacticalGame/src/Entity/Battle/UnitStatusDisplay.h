@@ -8,6 +8,7 @@
 #include "Entity/Unit/Unit.h"
 #include "Animation/Animation.h"
 #include "DxLib.h"
+#include "Battle/BattleUIDefine.h"
 
 using namespace std;
 
@@ -36,11 +37,6 @@ namespace Entity
 	private:
 		constexpr static int WIDTH = 450; //! 幅
 		constexpr static int X = TerrainEffectDisplay::WIDTH + 40; //! X座標
-		
-		constexpr static int LINE_MARGIN = 3;  //! 一行の余白
-		constexpr static int LINE_PADDING = 6; //! 一行の余白
-		constexpr static int LINE_HEIGHT = 18 + (LINE_MARGIN + LINE_PADDING) * 2; //! 一行当たりの高さ
-		constexpr static int LINE_COUNT = 2;   //! 何行あるか
 
 		constexpr static int ANIMATION_MS = 500;	//! アニメーション時間
 		constexpr static int ANIMATION_Y0 = WIN_H;  //! アニメーション開始位置

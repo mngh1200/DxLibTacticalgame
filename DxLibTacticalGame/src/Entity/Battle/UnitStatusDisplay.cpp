@@ -1,5 +1,6 @@
 #include "UnitStatusDisplay.h"
 
+
 namespace Entity {
 
 	/**
@@ -9,8 +10,9 @@ namespace Entity {
 	UnitStatusDisplay::UnitStatusDisplay() 
 		: animation_{}
 	{
-		shape_.set(X, BATTLE_UI_AREA_Y + BATTLE_UI_AREA_MARGIN, WIDTH, LINE_HEIGHT * LINE_COUNT);
+		shape_.set(X, BATTLE_UI_AREA_Y + BUI_PADDING, WIDTH, BUI_LINE_HEIGHT * BUI_LINE_COUNT + BUI_LINE_MARGIN);
 	}
+
 	/**
 	 * @fn
 	 * •`‰æ
@@ -24,8 +26,39 @@ namespace Entity {
 
 			// ƒGƒŠƒA
 			DxLib::DrawBox(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), rm.getColor(ColorType::MAIN_COLOR), TRUE);
+
+			/* ˆês–Ú ‚±‚±‚©‚ç */
+
+			// –¼‘O•\Ž¦
+			int nameColorType = targetUnit_->isEnemy() ? ColorType::ENEMY_COLOR : ColorType::PLAYER_COLOR;
+			BUI::drawLabel(shape_.x, shape_.y, targetUnit_->getName(), BUI::getZenW(3), nameColorType, ColorType::WHITE);
+
+			/* “ñs–Ú ‚±‚±‚©‚ç */
+
+			int x = shape_.x;
+			int y = shape_.y + BUI_LINE_HEIGHT;
+
+			// HP
+			x = BUI::drawLabel(x, y, "HP", BUI::getHanW(2));
+			x = BUI::drawValue(x, y, to_string(targetUnit_->getHpv()) + " / " + to_string(targetUnit_->getHpm()), BUI::getHanW(7));
+
+			// UŒ‚—Í
+			x = BUI::drawLabel(x, y, "U", BUI::getZenW(1));
+			x = BUI::drawValue(x, y, to_string(targetUnit_->getAtk()), BUI::getHanW(3));
+
+			// –hŒä
+			x = BUI::drawLabel(x, y, "–h", BUI::getZenW(1));
+			x = BUI::drawValue(x, y, to_string(targetUnit_->getDef()), BUI::getHanW(3));
+
+			// ŽË’ö
+			x = BUI::drawLabel(x, y, "ŽË’ö", BUI::getZenW(2));
+			x = BUI::drawValue(x, y, targetUnit_->getLenText(), BUI::getHanW(2));
 		}
 	}
+
+	
+
+
 
 	/**
 	 * @fn
@@ -35,7 +68,7 @@ namespace Entity {
 	{
 		if (animationId_ == AnimationKind::DISPLAY)
 		{
-			return animation_.update(&shape_.y, ANIMATION_Y0, BATTLE_UI_AREA_Y + BATTLE_UI_AREA_MARGIN);
+			return animation_.update(&shape_.y, ANIMATION_Y0, BATTLE_UI_AREA_Y + BUI_PADDING);
 		}
 		return false;
 	}
@@ -49,7 +82,7 @@ namespace Entity {
 		if (animationId == AnimationKind::DISPLAY)
 		{
 			shape_.y = ANIMATION_Y0;
-			animation_ = Animation(800, 0, 1, 0, Easing::InOutBounce<float>);
+			animation_ = Animation(500, 0, 1, 0, Easing::InOutBounce<float>);
 			return true;
 		}
 		return false;

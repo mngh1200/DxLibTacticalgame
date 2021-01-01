@@ -177,6 +177,9 @@
     <ClCompile Include="src\Battle\BattleUI.cpp">
       <Filter>ソース ファイル\Battle</Filter>
     </ClCompile>
+    <ClCompile Include="src\Battle\BattleUIDefine.cpp">
+      <Filter>ソース ファイル\Battle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -264,6 +267,9 @@
       <Filter>ヘッダー ファイル\Entity\Battle</Filter>
     </ClInclude>
     <ClInclude Include="src\Battle\BattleUI.h">
+      <Filter>ヘッダー ファイル\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\BattleUIDefine.h">
       <Filter>ヘッダー ファイル\Battle</Filter>
     </ClInclude>
   </ItemGroup>

@@ -164,6 +164,8 @@ namespace Utility {
 	{
 		int ret = 0;
 		// êFéÊìæ
+		colorType_[ColorType::WHITE] = DxLib::GetColor(255, 255, 255);
+
 		colorType_[ColorType::MAIN_COLOR] = DxLib::GetColor(250, 244, 232);
 		colorType_[ColorType::MAIN_COLOR_ON] = DxLib::GetColor(254, 213, 175);
 
