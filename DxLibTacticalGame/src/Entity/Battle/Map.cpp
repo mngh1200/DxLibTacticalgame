@@ -105,6 +105,170 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * 特定マスにユニット設置
+	 */
+	bool Map::setUnit(shared_ptr<Entity::Unit> unit)
+	{
+		int x = unit->getMassX();
+		int y = unit->getMassY();
+
+		if (isRange(x, y))
+		{
+			auto ret = units_.emplace(make_pair(x, y), unit); // 新規追加のみ
+			return ret.second;
+		}
+		return false;
+	}
+
+	/**
+	 * @fn
+	 * 特定マスのユニット取得
+	 */
+	shared_ptr<Unit> Map::getUnit(int massX, int massY)
+	{
+		pair<int, int> pos = make_pair(massX, massY);
+		if (units_.count(pos) > 0)
+		{
+			return units_.at(pos);
+		}
+
+		return nullptr;
+	}
+
+	/**
+	 * @fn
+	 * 対象ユニットを座標上から削除
+	 */
+	void Map::eraseUnit(shared_ptr<Unit> unit)
+	{
+		units_.erase(make_pair(unit->getMassX(), unit->getMassY()));
+	}
+
+	/**
+	 * @fn
+	 * ユニットのマス移動（移動確定時）
+	*/
+	void Map::confirmMove(shared_ptr<Unit> unit)
+	{
+		int baseX = unit->getBaseX();
+		int baseY = unit->getBaseY();
+		int massX = unit->getMassX();
+		int massY = unit->getMassY();
+
+		if (baseX != massX || baseY != massY) // 移動しているときのみ
+		{
+			unit->setPos(massX, massY);
+			units_.emplace(make_pair(massX, massY), unit);
+			units_.erase(make_pair(baseX, baseY));
+		}
+	}
+
+	/**
+	 * @fn
+	 * 移動可能範囲表示
+	*/
+	void Map::displayMovableRange(shared_ptr<Unit> unit)
+	{
+		if (unit)
+		{
+			int move = unit->getMove();
+			int x = unit->getMassX();
+			int y = unit->getMassY();
+			searchMovableMass(x, y, move);
+		}
+	}
+
+	/**
+	 * @fn
+	 * 移動可能範囲の探索
+	*/
+	void Map::searchMovableMass(int x, int y, int move, bool isInit)
+	{
+		shared_ptr<Mass> nowMass = getMass(x, y);
+
+		// マップ外
+		if (nowMass->getKind() == Mass::Kind::OUT_OF_MAP)
+		{
+			return;
+		}
+
+		shared_ptr<Unit> massUnit = getUnit(x, y);
+		bool isPlayerUnitOnMass = false; // プレイヤーユニットがマス上に存在するか
+
+		// 敵ユニットがいる場合
+		if (massUnit)
+		{
+			if (massUnit->isEnemy())
+			{
+				return;
+			}
+			isPlayerUnitOnMass = true && !isInit; // 自身の場合は無視
+		}
+
+		// movコスト消費(初回はコスト消費しない)
+		if (!isInit)
+		{
+			move = move - nowMass->getCost();
+		}
+
+		if (move > nowMass->passingMov)
+		{
+			if (!isPlayerUnitOnMass)
+			{
+				nowMass->state = Mass::State::MOVABLE;
+			}
+
+			// マス通過時のmovコストを保持
+			nowMass->passingMov = move;
+
+			searchMovableMass(x - 1, y, move, false);
+			searchMovableMass(x + 1, y, move, false);
+			searchMovableMass(x, y - 1, move, false);
+			searchMovableMass(x, y + 1, move, false);
+		}
+	}
+
+	/**
+	 * @fn
+	 * 攻撃範囲表示
+	*/
+	void Map::displayAtackRange(shared_ptr<Unit> unit)
+	{
+		if (unit)
+		{
+			int move = unit->getMove();
+			int x = unit->getMassX();
+			int y = unit->getMassY();
+			int range = unit->getRange();
+
+			for (int i = 1; i <= range; i++)
+			{
+				setAtackMass(x - i, y);
+				setAtackMass(x + i, y);
+				setAtackMass(x, y - i);
+				setAtackMass(x, y + i);
+			}
+		}
+	}
+
+	/**
+	 * @fn
+	 * 攻撃可能範囲の探索
+	*/
+	void Map::setAtackMass(int x, int y)
+	{
+		shared_ptr<Mass> nowMass = getMass(x, y);
+
+		// マップ外
+		if (nowMass->getKind() == Mass::Kind::OUT_OF_MAP)
+		{
+			return;
+		}
+		nowMass->state = Mass::ATK_ABLE;
+	}
+
+	/**
+	 * @fn
 	 * マスのポインタを返す
 	 * @param (x) マスのx座標
 	 * @param (y) マスのy座標
@@ -161,12 +325,6 @@ namespace Entity {
 	void Map::drawMoveableMass(int realX, int realY)
 	{
 		DxLib::DrawGraph(realX, realY, Utility::ResourceManager::getInstance().getImage(ImageType::IMAGE, ImageId::MASS_MOVE), TRUE);
-
-		//DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
-		//DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::PLAYER_COLOR), TRUE);
-		//DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-
-		//DxLib::DrawBox(realX, realY, realX + CHIP_SIZE, realY + CHIP_SIZE, rm.getColor(ColorType::PLAYER_COLOR), FALSE);
 	}
 
 	/**

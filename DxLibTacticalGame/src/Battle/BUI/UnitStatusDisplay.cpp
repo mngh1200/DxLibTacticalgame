@@ -40,7 +40,7 @@ namespace Entity {
 
 			// HP
 			x = BUI::drawLabel(x, y, "HP", BUI::getHanW(2));
-			x = BUI::drawValue(x, y, to_string(targetUnit_->getHpv()) + " / " + to_string(targetUnit_->getHpm()), BUI::getHanW(7));
+			x = BUI::drawValue(x, y, to_string(targetUnit_->getHp()) + " / " + to_string(targetUnit_->getHpm()), BUI::getHanW(7));
 
 			// UŒ‚—Í
 			x = BUI::drawLabel(x, y, "U", BUI::getZenW(1));

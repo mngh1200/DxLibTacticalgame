@@ -29,6 +29,18 @@ namespace Entity
 
 		void render() const override;
 
+		bool setUnit(shared_ptr<Entity::Unit> unit);
+		shared_ptr<Unit> getUnit(int massX, int massY);
+		void eraseUnit(shared_ptr<Unit> unit);
+
+		void confirmMove(shared_ptr<Unit> unit);
+
+		void displayMovableRange(shared_ptr<Unit> unit);
+		void searchMovableMass(int x, int y, int move, bool isInit = true);
+
+		void displayAtackRange(shared_ptr<Unit> unit);
+		void setAtackMass(int x, int y);
+
 		shared_ptr<Mass> getMass(int massX, int massY);
 		void clearMassState();
 
@@ -49,6 +61,9 @@ namespace Entity
 
 		//! マスのデータ
 		vector<vector<shared_ptr<Mass>>> mass_;
+
+		//! マスのXY座標を基準にしたユニットのマップ
+		map<pair<int, int>, shared_ptr<Entity::Unit>> units_;
 	};
 
 

@@ -157,6 +157,7 @@
     <ClCompile Include="src\Battle\BUI\BattleUIDefine.cpp" />
     <ClCompile Include="src\Battle\BUI\TerrainEffectDisplay.cpp" />
     <ClCompile Include="src\Battle\BUI\UnitStatusDisplay.cpp" />
+    <ClCompile Include="src\Battle\Fight.cpp" />
     <ClCompile Include="src\Entity\Battle\Map.cpp" />
     <ClCompile Include="src\Entity\Battle\Mass.cpp" />
     <ClCompile Include="src\Entity\Object.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="src\Battle\BUI\BattleUIDefine.h" />
     <ClInclude Include="src\Battle\BUI\TerrainEffectDisplay.h" />
     <ClInclude Include="src\Battle\BUI\UnitStatusDisplay.h" />
+    <ClInclude Include="src\Battle\Fight.h" />
     <ClInclude Include="src\Define.h" />
     <ClInclude Include="src\Entity\Battle\Map.h" />
     <ClInclude Include="src\Entity\Battle\Mass.h" />

@@ -60,7 +60,7 @@ namespace Entity
 		
 		string getName() const { return name_; } // ƒ†ƒjƒbƒg–¼‚ğ•Ô‚·
 		int getHpm() const { return hpm_; } // Å‘åHP‚ğ•Ô‚·
-		int getHpv() const { return viewHp_; } // Œ©‚½–Úã‚ÌHP‚ğ•Ô‚·
+		int getHp() const { return hp_; } // Œ©‚½–Úã‚ÌHP‚ğ•Ô‚·
 		int getAtk() const { return atk_; } ; // UŒ‚—Í‚ğ•Ô‚·
 		int getDef() const { return def_; }; // –hŒä—Í‚ğ•Ô‚·
 		int getMove() const { return mov_; }; // ˆÚ“®—Í‚ğ•Ô‚·
