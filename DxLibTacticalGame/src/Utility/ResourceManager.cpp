@@ -181,17 +181,20 @@ namespace Utility {
 	{
 		int ret = 0;
 		// Œø‰Ê‰¹Žæ“¾
-		sounds_[SoundKind::CLICK] = DxLib::LoadSoundMem("resource/sound/click.ogg");
+		//sounds_[SoundKind::CLICK] = DxLib::LoadSoundMem("resource/sound/click.ogg");
+		sounds_[SoundKind::CLICK] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(CLICK_OGG), MAKEINTRESOURCE(OGG));
 		DxLib::ChangeVolumeSoundMem(210, sounds_[SoundKind::CLICK]);
 
-		sounds_[SoundKind::CHECK] = DxLib::LoadSoundMem("resource/sound/check.ogg");
+		//sounds_[SoundKind::CHECK] = DxLib::LoadSoundMem("resource/sound/check.ogg");
+		sounds_[SoundKind::CHECK] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(CHECK_OGG), MAKEINTRESOURCE(OGG));
 		DxLib::ChangeVolumeSoundMem(220, sounds_[SoundKind::CHECK]);
 
 		// sounds_[SoundKind::BACK] = DxLib::LoadSoundMem("resource/sound/back.wav");
 		sounds_[SoundKind::BACK] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE (BACK_WAVE), MAKEINTRESOURCE (WAVE));
 		DxLib::ChangeVolumeSoundMem(180, sounds_[SoundKind::BACK]);
 
-		sounds_[SoundKind::BORN] = DxLib::LoadSoundMem("resource/sound/born.wav");
+		//sounds_[SoundKind::BORN] = DxLib::LoadSoundMem("resource/sound/born.wav");
+		sounds_[SoundKind::BORN] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(BORN_WAVE), MAKEINTRESOURCE(WAVE));
 		DxLib::ChangeVolumeSoundMem(190, sounds_[SoundKind::BORN]);
 
 		return ret;

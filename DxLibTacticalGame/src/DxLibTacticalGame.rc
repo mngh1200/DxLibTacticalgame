@@ -1,3 +1,9 @@
 #include "resource.h"
 
 BACK_WAVE	WAVE	"../resource/sound/back.wav"
+
+CLICK_OGG	OGG		"../resource/sound/click.ogg"
+
+CHECK_OGG	OGG		"../resource/sound/check.ogg"
+
+BORN_WAVE	WAVE	"../resource/sound/born.wav"
