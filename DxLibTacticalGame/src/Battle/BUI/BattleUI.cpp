@@ -18,6 +18,10 @@ namespace Battle {
 		// ステータス表示欄
 		unitStatusDisplay_ = make_shared<UnitStatusDisplay>();
 		objectsControl.addObject(uiLayerId, BattleUIid::UNIT_STATUS, unitStatusDisplay_);
+
+		// 戦闘予測欄
+		fightPredictDisplay_ = make_shared<FightPredictDisplay>();
+		objectsControl.addObject(uiLayerId, BattleUIid::FIGHT_PREDICT, fightPredictDisplay_);
 	}
 
 	/**
@@ -46,7 +50,7 @@ namespace Battle {
 	*/
 	void BattleUI::setTargetUnit(shared_ptr<Unit> unit)
 	{
-		if (mode_ == Mode::NORMAL)
+		if (unit && mode_ == Mode::NORMAL)
 		{
 			unitStatusDisplay_->setTargetUnit(unit);
 		}
@@ -67,7 +71,7 @@ namespace Battle {
 	*/
 	void BattleUI::setTargetMass(shared_ptr<Mass> mass)
 	{
-		if (mode_ == Mode::NORMAL)
+		if (mass && mode_ == Mode::NORMAL)
 		{
 			terrainEffectDisplay_->setTargetMass(mass);
 		}
@@ -83,5 +87,30 @@ namespace Battle {
 	}
 
 
+	/**
+	 * @fn
+	 * 戦闘予測表示時
+	*/
+	void BattleUI::setFightPredict(const Fight* fight)
+	{
+		fightPredictDisplay_->emplaceFight(fight);
 
+		if (mode_ == Mode::NORMAL)
+		{
+			mode_ = Mode::FIGHT_PREDICT;
+		}
+		
+		resetTargetUnit();
+		resetTargetMass();
+	}
+
+	/**
+	 * @fn
+	 * 戦闘予測リセット
+	*/
+	void BattleUI::resetFightPredict()
+	{
+		fightPredictDisplay_->reset();
+		mode_ = Mode::NORMAL;
+	}
 }

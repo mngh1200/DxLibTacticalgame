@@ -5,6 +5,7 @@
 #include "Entity/Battle/Mass.h"
 #include "UnitStatusDisplay.h"
 #include "TerrainEffectDisplay.h"
+#include "FightPredictDisplay.h"
 
 using namespace std;
 using namespace Entity;
@@ -27,8 +28,7 @@ namespace Battle
 		{
 			TERRAIN_EFFECT,
 			UNIT_STATUS,
-			BATTLE_PREDICT_PLAYER,
-			BATTLE_PREDICT_ENEMY,
+			FIGHT_PREDICT,
 			UIID_LEN
 		};
 
@@ -40,6 +40,9 @@ namespace Battle
 		void setTargetMass(shared_ptr<Mass> mass);
 		void resetTargetMass();
 
+		void setFightPredict(const Fight* fight);
+		void resetFightPredict();
+
 		void updateByEvents(shared_ptr<Object> hitObj, int x, int y, int button, int eventType);
 
 		void animationCheck();
@@ -49,7 +52,7 @@ namespace Battle
 		enum class Mode
 		{
 			NORMAL,
-			BATTLE_PREDICT,
+			FIGHT_PREDICT,
 			ENEMY_TURN
 		};
 
@@ -61,6 +64,9 @@ namespace Battle
 
 		//! ステータス表示欄
 		shared_ptr<UnitStatusDisplay> unitStatusDisplay_;
+
+		//! 戦闘予測欄
+		shared_ptr<FightPredictDisplay> fightPredictDisplay_;
 	};
 
 

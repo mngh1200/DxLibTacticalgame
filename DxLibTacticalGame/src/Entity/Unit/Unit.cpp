@@ -32,7 +32,7 @@ namespace Entity {
 		{
 			name_ = "ãRï∫";
 			hpm_ = 30;
-			atk_ = 5;
+			atk_ = 8;
 			def_ = 1;
 			mov_ = 4;
 			len_ = 0;
@@ -41,7 +41,7 @@ namespace Entity {
 		{
 			name_ = "èeï∫";
 			hpm_ = 20;
-			atk_ = 6;
+			atk_ = 9;
 			def_ = 0;
 			mov_ = 2;
 			len_ = 2;
@@ -51,7 +51,7 @@ namespace Entity {
 		{
 			name_ = "ëÑï∫";
 			hpm_ = 30;
-			atk_ = 3;
+			atk_ = 6;
 			def_ = 2;
 			mov_ = 2;
 			len_ = 1;

@@ -183,6 +183,9 @@
     <ClCompile Include="src\Battle\Fight.cpp">
       <Filter>ソース ファイル\Battle</Filter>
     </ClCompile>
+    <ClCompile Include="src\Battle\BUI\FightPredictDisplay.cpp">
+      <Filter>ソース ファイル\Battle\BUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -277,6 +280,9 @@
     </ClInclude>
     <ClInclude Include="src\Battle\Fight.h">
       <Filter>ヘッダー ファイル\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\BUI\FightPredictDisplay.h">
+      <Filter>ヘッダー ファイル\Battle\BUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

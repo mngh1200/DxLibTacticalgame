@@ -36,12 +36,17 @@ namespace Battle
 
 		void init(shared_ptr<Map> map);
 
-		void setPrepare(shared_ptr<Unit> actUnit, shared_ptr<Unit> psvUnit);
+		bool setPrepare(shared_ptr<Unit> actUnit, shared_ptr<Unit> psvUnit);
+		void reset();
 
 		void start();
 		bool checkUpdate();
 
-		void getFightData(const FightData* fightData, bool isPlayer);
+		FightData getFightData(bool isPlayer) const;
+
+		bool isPrepared() const;
+
+		bool isActSideFirst() const { return isActSideFirst_; }; // UŒ‚Às‘¤‚ªæU‚Å‚ ‚é‚©
 
 	private:
 		void makeFightData(FightData* fightData, shared_ptr<Unit> atkUnit, shared_ptr<Unit> defUnit, shared_ptr<Mass> mass, bool isAct);

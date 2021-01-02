@@ -18,7 +18,7 @@ namespace Battle {
 	 */
 	void BattleManager::updateByEvents(shared_ptr<Object> hitObj, int x, int y, int button, int eventType)
 	{
-		if (eventType == MOUSE_INPUT_LOG_CLICK)
+		if (eventType == MOUSE_INPUT_LOG_CLICK) // クリック
 		{
 			if (hitObj->getType() == Object::Type::UNIT)
 			{
@@ -35,12 +35,38 @@ namespace Battle {
 			// 1マップ上の要素をホバー
 			int massX = Map::getMassX(x);
 			int massY = Map::getMassY(y);
+			shared_ptr<Mass> mass = map_->getMass(massX, massY);
+			shared_ptr<Unit> unit = map_->getUnit(massX, massY);
 
-			battleUI_.setTargetMass(map_->getMass(massX, massY));
+			if (mass)
+			{
+				if (phase_ == Phase::SELECT_ACTION && unit && unit->isEnemy() && mass->state == Mass::ATK_ABLE)
+				{
+					// 戦闘予測表示
+					if (fight_.setPrepare(selectedUnit_.lock(), unit))
+					{
+						battleUI_.setFightPredict(&fight_);
+					}
+				}
+				else
+				{
+					if (phase_ != Phase::FIGHT)
+					{
+						fight_.reset();
+						battleUI_.resetFightPredict();
+					}
+
+					battleUI_.setTargetMass(mass);
+				}
+			}
 		}
 		else
 		{
-			battleUI_.resetTargetMass();
+			if (phase_ != Phase::FIGHT)
+			{
+				fight_.reset();
+				battleUI_.resetFightPredict();
+			}
 		}
 
 	}
@@ -243,7 +269,6 @@ namespace Battle {
 
 		if (atkUnit && defUnit)
 		{
-			fight_.setPrepare(atkUnit, defUnit);
 			fight_.start();
 			phase_ = Phase::FIGHT;
 		}
