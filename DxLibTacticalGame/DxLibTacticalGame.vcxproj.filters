@@ -85,11 +85,11 @@
     <Filter Include="ヘッダー ファイル\Entity\UI\Menu">
       <UniqueIdentifier>{7e2e727e-b131-4e1c-8330-bb2d8db42427}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Entity\View\Battle">
-      <UniqueIdentifier>{38b94c58-bd61-434d-92aa-1f5146771c66}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Battle\BUI">
+      <UniqueIdentifier>{e37dccb0-2bda-45e5-a52c-ba58ac232ab9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Entity\View\Battle">
-      <UniqueIdentifier>{2e2e4837-ad46-4e47-b50b-f9284d5a84a8}</UniqueIdentifier>
+    <Filter Include="ヘッダー ファイル\Battle\BUI">
+      <UniqueIdentifier>{1d603ddb-d1c8-403e-a9e5-ee1764fc5ff3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -168,17 +168,17 @@
     <ClCompile Include="src\Entity\UI\Menu\SelectActiveMenu.cpp">
       <Filter>ソース ファイル\Entity\UI\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="src\Entity\View\Battle\TerrainEffectDisplay.cpp">
-      <Filter>ソース ファイル\Entity\View\Battle</Filter>
+    <ClCompile Include="src\Battle\BUI\BattleUI.cpp">
+      <Filter>ソース ファイル\Battle\BUI</Filter>
     </ClCompile>
-    <ClCompile Include="src\Entity\Battle\UnitStatusDisplay.cpp">
-      <Filter>ソース ファイル\Entity\Battle</Filter>
+    <ClCompile Include="src\Battle\BUI\BattleUIDefine.cpp">
+      <Filter>ソース ファイル\Battle\BUI</Filter>
     </ClCompile>
-    <ClCompile Include="src\Battle\BattleUI.cpp">
-      <Filter>ソース ファイル\Battle</Filter>
+    <ClCompile Include="src\Battle\BUI\TerrainEffectDisplay.cpp">
+      <Filter>ソース ファイル\Battle\BUI</Filter>
     </ClCompile>
-    <ClCompile Include="src\Battle\BattleUIDefine.cpp">
-      <Filter>ソース ファイル\Battle</Filter>
+    <ClCompile Include="src\Battle\BUI\UnitStatusDisplay.cpp">
+      <Filter>ソース ファイル\Battle\BUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -260,17 +260,17 @@
     <ClInclude Include="src\Entity\UI\Menu\SelectActiveMenu.h">
       <Filter>ヘッダー ファイル\Entity\UI\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="src\Entity\View\Battle\TerrainEffectDisplay.h">
-      <Filter>ヘッダー ファイル\Entity\View\Battle</Filter>
+    <ClInclude Include="src\Battle\BUI\BattleUI.h">
+      <Filter>ヘッダー ファイル\Battle\BUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\Entity\Battle\UnitStatusDisplay.h">
-      <Filter>ヘッダー ファイル\Entity\Battle</Filter>
+    <ClInclude Include="src\Battle\BUI\BattleUIDefine.h">
+      <Filter>ヘッダー ファイル\Battle\BUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\Battle\BattleUI.h">
-      <Filter>ヘッダー ファイル\Battle</Filter>
+    <ClInclude Include="src\Battle\BUI\TerrainEffectDisplay.h">
+      <Filter>ヘッダー ファイル\Battle\BUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\Battle\BattleUIDefine.h">
-      <Filter>ヘッダー ファイル\Battle</Filter>
+    <ClInclude Include="src\Battle\BUI\UnitStatusDisplay.h">
+      <Filter>ヘッダー ファイル\Battle\BUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,42 +3,40 @@
 #include <string>
 #include <memory>
 #include "Utility/ResourceManager.h"
-#include "Entity/Object.h"
-#include "Entity/View/Battle/TerrainEffectDisplay.h"
-#include "Entity/Unit/Unit.h"
+#include "Entity/Figure.h"
+#include "Entity/Battle/Mass.h"
 #include "Animation/Animation.h"
 #include "DxLib.h"
-#include "Battle/BattleUIDefine.h"
+#include "BattleUIDefine.h"
+
 
 using namespace std;
 
 /**
- * @file UnitStatusDisplay.h
- * @brief ユニットステータス表示欄
+ * @file TerrainEffectDisplay.h
+ * @brief 地形効果表示欄
  */
 
 namespace Entity
 {
-	class UnitStatusDisplay : public Object
+	class TerrainEffectDisplay : public Figure
 	{
 	public:
-		UnitStatusDisplay();
-		~UnitStatusDisplay() {};
+		TerrainEffectDisplay();
+		~TerrainEffectDisplay() {};
+
+		constexpr static int WIDTH = 210; //! 幅
 
 		void render() const override;
 		bool animationUpdate() override;
 
-		void setTargetUnit(shared_ptr<Unit> unit);
+		void setTargetMass(shared_ptr<Mass> mass);
 		void clear();
 
 	protected:
 		bool createAnimation(int animationId) override;
 
 	private:
-		constexpr static int WIDTH = 450; //! 幅
-		constexpr static int X = TerrainEffectDisplay::WIDTH + 40; //! X座標
-
-		constexpr static int ANIMATION_MS = 500;	//! アニメーション時間
 		constexpr static int ANIMATION_Y0 = WIN_H;  //! アニメーション開始位置
 
 		// アニメーション種類
@@ -48,7 +46,7 @@ namespace Entity
 		};
 
 		//! 対象マス
-		shared_ptr<Unit> targetUnit_;
+		shared_ptr<Mass> targetMass_;
 
 		//! アニメーション用変数
 		Animation animation_;

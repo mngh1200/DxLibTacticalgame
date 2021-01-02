@@ -1,10 +1,10 @@
 #pragma once
 #include <climits>
 #include <map>
-#include "BattleUI.h"
+#include "BUI/BattleUI.h"
 #include "Entity/Battle/Map.h"
 #include "Entity/Unit/Unit.h"
-#include "Entity/View/Battle/TerrainEffectDisplay.h"
+#include "BUI/TerrainEffectDisplay.h"
 
 using namespace std;
 using namespace Entity;

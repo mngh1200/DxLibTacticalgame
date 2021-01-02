@@ -153,11 +153,12 @@
   <ItemGroup>
     <ClCompile Include="src\Animation\Animation.cpp" />
     <ClCompile Include="src\Battle\BattleManager.cpp" />
-    <ClCompile Include="src\Battle\BattleUI.cpp" />
-    <ClCompile Include="src\Battle\BattleUIDefine.cpp" />
+    <ClCompile Include="src\Battle\BUI\BattleUI.cpp" />
+    <ClCompile Include="src\Battle\BUI\BattleUIDefine.cpp" />
+    <ClCompile Include="src\Battle\BUI\TerrainEffectDisplay.cpp" />
+    <ClCompile Include="src\Battle\BUI\UnitStatusDisplay.cpp" />
     <ClCompile Include="src\Entity\Battle\Map.cpp" />
     <ClCompile Include="src\Entity\Battle\Mass.cpp" />
-    <ClCompile Include="src\Entity\Battle\UnitStatusDisplay.cpp" />
     <ClCompile Include="src\Entity\Object.cpp" />
     <ClCompile Include="src\Entity\ObjectsControl.cpp" />
     <ClCompile Include="src\Entity\Shape.cpp" />
@@ -169,7 +170,6 @@
     <ClCompile Include="src\Entity\UI\Menu\SelectActiveMenu.cpp" />
     <ClCompile Include="src\Entity\UI\Overlay.cpp" />
     <ClCompile Include="src\Entity\Unit\Unit.cpp" />
-    <ClCompile Include="src\Entity\View\Battle\TerrainEffectDisplay.cpp" />
     <ClCompile Include="src\Entity\View\Text.cpp" />
     <ClCompile Include="src\FrameWork\Controller.cpp" />
     <ClCompile Include="src\FrameWork\Game.cpp" />
@@ -185,12 +185,13 @@
     <ClInclude Include="src\Animation\Animation.h" />
     <ClInclude Include="src\Animation\Easing.h" />
     <ClInclude Include="src\Battle\BattleManager.h" />
-    <ClInclude Include="src\Battle\BattleUI.h" />
-    <ClInclude Include="src\Battle\BattleUIDefine.h" />
+    <ClInclude Include="src\Battle\BUI\BattleUI.h" />
+    <ClInclude Include="src\Battle\BUI\BattleUIDefine.h" />
+    <ClInclude Include="src\Battle\BUI\TerrainEffectDisplay.h" />
+    <ClInclude Include="src\Battle\BUI\UnitStatusDisplay.h" />
     <ClInclude Include="src\Define.h" />
     <ClInclude Include="src\Entity\Battle\Map.h" />
     <ClInclude Include="src\Entity\Battle\Mass.h" />
-    <ClInclude Include="src\Entity\Battle\UnitStatusDisplay.h" />
     <ClInclude Include="src\Entity\Object.h" />
     <ClInclude Include="src\Entity\ObjectsControl.h" />
     <ClInclude Include="src\Entity\Shape.h" />
@@ -202,7 +203,6 @@
     <ClInclude Include="src\Entity\UI\Menu\SelectActiveMenu.h" />
     <ClInclude Include="src\Entity\UI\Overlay.h" />
     <ClInclude Include="src\Entity\Unit\Unit.h" />
-    <ClInclude Include="src\Entity\View\Battle\TerrainEffectDisplay.h" />
     <ClInclude Include="src\Entity\View\Text.h" />
     <ClInclude Include="src\FrameWork\Controller.h" />
     <ClInclude Include="src\FrameWork\Game.h" />

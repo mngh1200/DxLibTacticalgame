@@ -3,8 +3,8 @@
 #include <map>
 #include "Entity/Unit/Unit.h"
 #include "Entity/Battle/Mass.h"
-#include "Entity/Battle/UnitStatusDisplay.h"
-#include "Entity/View/Battle/TerrainEffectDisplay.h"
+#include "UnitStatusDisplay.h"
+#include "TerrainEffectDisplay.h"
 
 using namespace std;
 using namespace Entity;
