@@ -104,37 +104,79 @@ namespace Utility {
 		THROWS_EX(*handle, resourcePath);
 	}
 
+	/**
+	 * @fn
+	 * マップチップ用の読み取り関数（リソースから）
+	 * @param (resourceName) リソース名
+	 * @param (resourceType) リソースタイプ
+	 * @param (handle) ID格納変数
+	 */
+	void ResourceManager::loadMapchip(const char* resourceName, const char* resourceType, int* handle) {
+		int ret = DxLib::LoadDivGraphToResource(resourceName, resourceType,
+			8, 4, 2, CHIP_SIZE, CHIP_SIZE, handle);
+		THROWS_EX(ret, resourceName);
+	}
+	/**
+	 * @fn
+	 * キャラチップ用の読み取り関数（リソースから）
+	 * @param (resourceName) リソース名
+	 * @param (resourceType) リソースタイプ
+	 * @param (handle) ID格納変数
+	 */
+	void ResourceManager::loadCharacterchip(const char* resourceName, const char* resourceType, int* handle) {
+		int ret = DxLib::LoadDivGraphToResource(resourceName, resourceType, 16, 4, 4, CHIP_SIZE, CHIP_SIZE, handle);
+		THROWS_EX(ret, resourceName);
+	}
+	/**
+	 * @fn
+	 * 1枚絵の読み取り関数（リソースから）
+	 * @param (resourceName) リソース名
+	 * @param (resourceType) リソースタイプ
+	 * @param (handle) ID格納変数
+	 */
+	void ResourceManager::loadImage(const char* resourceName, const char* resourceType, int* handle) {
+		*handle = DxLib::LoadGraphToResource(resourceName, resourceType);
+		THROWS_EX(*handle, resourceName);
+	}
+
 	int ResourceManager::loadImages()
 	{
 		int ret = 0;
 		image_.insert(std::make_pair(ImageType::IMAGE, vector<int*>()));
 		image_.at(ImageType::IMAGE).push_back(new int[IMAGE_ID_LEN]);
-		loadImage("resource/image/menu/background.jpg", image_.at(ImageType::IMAGE).at(0));
-
+		//loadImage("resource/image/menu/background.jpg", image_.at(ImageType::IMAGE).at(0));
+		loadImage(MAKEINTRESOURCE(BACKGROUND_IMAGE), MAKEINTRESOURCE(IMAGE_FILE) , image_.at(ImageType::IMAGE).at(0));
 
 		image_.insert(std::make_pair(ImageType::MAP, vector<int*>()));
 		image_.at(ImageType::MAP).push_back(new int[8]);
-		loadMapchip("resource/image/map/mapchip.png", image_.at(ImageType::MAP).at(0));
+		//loadMapchip("resource/image/map/mapchip.png", image_.at(ImageType::MAP).at(0));
+		loadMapchip(MAKEINTRESOURCE(MAP_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::MAP).at(0));
 		// プレイヤー画像の読み込み
 		image_.insert(std::make_pair(ImageType::PLAYER, vector<int*>()));
 		image_.at(ImageType::PLAYER).push_back(new int[16]);
-		loadCharacterchip("resource/image/unit/player/lancer.png", image_.at(ImageType::PLAYER).at(UnitKey::LANCER));
+		//loadCharacterchip("resource/image/unit/player/lancer.png", image_.at(ImageType::PLAYER).at(UnitKey::LANCER));
+		loadCharacterchip(MAKEINTRESOURCE(PLAYER_LANCER_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::PLAYER).at(UnitKey::LANCER));
 		image_.insert(std::make_pair(ImageType::PLAYER, vector<int*>()));
 		image_.at(ImageType::PLAYER).push_back(new int[16]);
-		loadCharacterchip("resource/image/unit/player/cavalry.png", image_.at(ImageType::PLAYER).at(UnitKey::CAVALRY));
+		//loadCharacterchip("resource/image/unit/player/cavalry.png", image_.at(ImageType::PLAYER).at(UnitKey::CAVALRY));
+		loadCharacterchip(MAKEINTRESOURCE(PLAYER_CAVALRY_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::PLAYER).at(UnitKey::CAVALRY));
 		image_.insert(std::make_pair(ImageType::PLAYER, vector<int*>()));
 		image_.at(ImageType::PLAYER).push_back(new int[16]);
-		loadCharacterchip("resource/image/unit/player/gunner.png", image_.at(ImageType::PLAYER).at(UnitKey::GUNNER));
+		//loadCharacterchip("resource/image/unit/player/gunner.png", image_.at(ImageType::PLAYER).at(UnitKey::GUNNER));
+		loadCharacterchip(MAKEINTRESOURCE(PLAYER_GUNNER_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::PLAYER).at(UnitKey::GUNNER));
 		// エネミー画像の読み込み
 		image_.insert(std::make_pair(ImageType::ENEMY, vector<int*>()));
 		image_.at(ImageType::ENEMY).push_back(new int[16]);
-		loadCharacterchip("resource/image/unit/enemy/lancer_enemy.png", image_.at(ImageType::ENEMY).at(UnitKey::LANCER));
+		//loadCharacterchip("resource/image/unit/enemy/lancer_enemy.png", image_.at(ImageType::ENEMY).at(UnitKey::LANCER));
+		loadCharacterchip(MAKEINTRESOURCE(ENEMY_LANCER_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::ENEMY).at(UnitKey::LANCER));
 		image_.insert(std::make_pair(ImageType::ENEMY, vector<int*>()));
 		image_.at(ImageType::ENEMY).push_back(new int[16]);
-		loadCharacterchip("resource/image/unit/enemy/cavalry_enemy.png", image_.at(ImageType::ENEMY).at(UnitKey::CAVALRY));
+		//loadCharacterchip("resource/image/unit/enemy/cavalry_enemy.png", image_.at(ImageType::ENEMY).at(UnitKey::CAVALRY));
+		loadCharacterchip(MAKEINTRESOURCE(ENEMY_CAVALRY_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::ENEMY).at(UnitKey::CAVALRY));
 		image_.insert(std::make_pair(ImageType::ENEMY, vector<int*>()));
 		image_.at(ImageType::ENEMY).push_back(new int[16]);
-		loadCharacterchip("resource/image/unit/enemy/gunner_enemy.png", image_.at(ImageType::ENEMY).at(UnitKey::GUNNER));
+		//loadCharacterchip("resource/image/unit/enemy/gunner_enemy.png", image_.at(ImageType::ENEMY).at(UnitKey::GUNNER));
+		loadCharacterchip(MAKEINTRESOURCE(ENEMY_GUNNER_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::ENEMY).at(UnitKey::GUNNER));
 
 		return ret;
 	}

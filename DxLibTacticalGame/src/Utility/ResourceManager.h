@@ -107,6 +107,10 @@ namespace Utility
 		void loadCharacterchip(const char* resourcePath, int* handle);
 		void loadImage(const char* resourcePath, int* handle);
 
+		void loadMapchip(const char* resourceName, const char* resourceType, int* handle);
+		void loadCharacterchip(const char* resourceName, const char* resourceType, int* handle);
+		void loadImage(const char* resourceName, const char* resourceType, int* handle);
+
 		map<int, std::vector<int*>> image_;
 
 		int loadImages();

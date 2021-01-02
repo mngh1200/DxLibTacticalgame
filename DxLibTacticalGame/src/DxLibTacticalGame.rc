@@ -1,5 +1,21 @@
 #include "resource.h"
 
+BACKGROUND_IMAGE	IMAGE_FILE	"../resource/image/menu/background.jpg"
+
+MAP_IMAGE	IMAGE_FILE	"../resource/image/map/mapchip.png"
+
+PLAYER_LANCER_IMAGE	IMAGE_FILE	"../resource/image/unit/player/lancer.png"
+
+PLAYER_CAVALRY_IMAGE	IMAGE_FILE	"../resource/image/unit/player/cavalry.png"
+
+PLAYER_GUNNER_IMAGE	IMAGE_FILE	"../resource/image/unit/player/gunner.png"
+
+ENEMY_LANCER_IMAGE	IMAGE_FILE	"../resource/image/unit/enemy/lancer_enemy.png"
+
+ENEMY_CAVALRY_IMAGE	IMAGE_FILE	"../resource/image/unit/enemy/cavalry_enemy.png"
+
+ENEMY_GUNNER_IMAGE	IMAGE_FILE	"../resource/image/unit/enemy/gunner_enemy.png"
+
 BACK_WAVE	WAVE	"../resource/sound/back.wav"
 
 CLICK_OGG	OGG		"../resource/sound/click.ogg"
