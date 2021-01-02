@@ -56,7 +56,7 @@ namespace Entity {
 		if (animationId == AnimationKind::DISPLAY)
 		{
 			shape_.y = ANIMATION_Y0;
-			animation_ = Animation(800, 0, 1, 0, Easing::InOutBounce<float>);
+			animation_ = Animation(500, 0, 1, 0, Easing::InOutBounce<float>);
 			return true;
 		}
 		return false;
