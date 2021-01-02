@@ -136,6 +136,7 @@ namespace Utility {
 		image_.at(ImageType::ENEMY).push_back(new int[16]);
 		loadCharacterchip("resource/image/unit/enemy/gunner_enemy.png", image_.at(ImageType::ENEMY).at(UnitKey::GUNNER));
 
+		loadFlag = true;
 		return ret;
 	}
 
@@ -215,6 +216,10 @@ namespace Utility {
 		else {
 			MessageBox(NULL, "remove failure", "", MB_OK);
 		}
+	}
+
+	boolean ResourceManager::isLoaded() const {
+		return loadFlag;
 	}
 
 }

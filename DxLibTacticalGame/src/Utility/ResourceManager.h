@@ -96,9 +96,11 @@ namespace Utility
 
 		static void playSound(int kind);
 
+		boolean isLoaded() const;
+
 	private:
 		ResourceManager()
-			:image_{}, hdlFont_{}, colorType_{}, sounds_{}
+			:image_{}, hdlFont_{}, colorType_{}, sounds_{}, loadFlag{ false }
 		{};
 		~ResourceManager();
 
@@ -119,5 +121,7 @@ namespace Utility
 		int hdlFont_[FontType::FONT_LEN];
 		int colorType_[ColorType::COLOR_LEN];
 		int sounds_[SoundKind::SOUNDS_LEN];
+
+		boolean loadFlag;
 	};
 }

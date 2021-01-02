@@ -144,6 +144,9 @@
     <ClCompile Include="src\Entity\Unit\Unit.cpp">
       <Filter>ソース ファイル\Entity\Unit</Filter>
     </ClCompile>
+    <ClCompile Include="src\Screen\LoadScreen.cpp">
+      <Filter>ソース ファイル\Screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -217,6 +220,9 @@
     </ClInclude>
     <ClInclude Include="src\Entity\Unit\Unit.h">
       <Filter>ヘッダー ファイル\Entity\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screen\LoadScreen.h">
+      <Filter>ヘッダー ファイル\Screen</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
