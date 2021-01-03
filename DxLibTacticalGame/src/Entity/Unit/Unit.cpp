@@ -45,7 +45,7 @@ namespace Entity {
 			def_ = 0;
 			mov_ = 2;
 			len_ = 2;
-			
+			range_ = 3;
 		}
 		else // kind == UnitKey::LANCER ‚Ì“®ì // ‘„•º
 		{
@@ -78,7 +78,7 @@ namespace Entity {
 
 		if (state_ == State::SELECTED) // ‘I‘ğ’†
 		{
-			Map::drawMoveableMass(shape_.x, shape_.y);
+			// Map::drawMoveableMass(shape_.x, shape_.y);
 			Map::drawSelectedMass(shape_.x, shape_.y);
 		}
 

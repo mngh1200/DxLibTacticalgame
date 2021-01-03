@@ -174,7 +174,7 @@ namespace Entity {
 			int move = unit->getMove();
 			int x = unit->getMassX();
 			int y = unit->getMassY();
-			searchMovableMass(x, y, move);
+			searchMovableMass(unit, x, y, move, true, unit->isEnemy()); // 敵ユニットの場合は攻撃範囲表示
 		}
 	}
 
@@ -182,7 +182,7 @@ namespace Entity {
 	 * @fn
 	 * 移動可能範囲の探索
 	*/
-	void Map::searchMovableMass(int x, int y, int move, bool isInit)
+	void Map::searchMovableMass(shared_ptr<Unit> unit, int x, int y, int move, bool isInit, bool isAtackAbleArea)
 	{
 		shared_ptr<Mass> nowMass = getMass(x, y);
 
@@ -193,38 +193,46 @@ namespace Entity {
 		}
 
 		shared_ptr<Unit> massUnit = getUnit(x, y);
-		bool isPlayerUnitOnMass = false; // プレイヤーユニットがマス上に存在するか
+		bool isOwnUnitOnMass = false; // 味方ユニットがマス上に存在するか
 
-		// 敵ユニットがいる場合
-		if (massUnit)
+		
+		if (!isInit) // 初回以外の処理
 		{
-			if (massUnit->isEnemy())
+			// マス上にユニットがいる場合(自身は無視)
+			if (massUnit)
 			{
-				return;
+				if (massUnit->isEnemy() != unit->isEnemy()) // 敵軍ユニットがいる場合は無視
+				{
+					return;
+				}
+				isOwnUnitOnMass = true;  // 味方ユニットがいる
 			}
-			isPlayerUnitOnMass = true && !isInit; // 自身の場合は無視
-		}
 
-		// movコスト消費(初回はコスト消費しない)
-		if (!isInit)
-		{
+			// movコスト消費(初回はコスト消費しない)
 			move = move - nowMass->getCost();
 		}
 
 		if (move > nowMass->passingMov)
 		{
-			if (!isPlayerUnitOnMass)
+			if (!isOwnUnitOnMass)
 			{
-				nowMass->state = Mass::State::MOVABLE;
+				if (isAtackAbleArea) 
+				{
+					displayAtackRange(unit, x, y); // 攻撃可能エリア表示
+				}
+				else
+				{
+					nowMass->state = Mass::State::MOVABLE; // 移動可能エリア表示
+				}
 			}
 
 			// マス通過時のmovコストを保持
 			nowMass->passingMov = move;
 
-			searchMovableMass(x - 1, y, move, false);
-			searchMovableMass(x + 1, y, move, false);
-			searchMovableMass(x, y - 1, move, false);
-			searchMovableMass(x, y + 1, move, false);
+			searchMovableMass(unit, x - 1, y, move, false, isAtackAbleArea);
+			searchMovableMass(unit, x + 1, y, move, false, isAtackAbleArea);
+			searchMovableMass(unit, x, y - 1, move, false, isAtackAbleArea);
+			searchMovableMass(unit, x, y + 1, move, false, isAtackAbleArea);
 		}
 	}
 
@@ -236,9 +244,18 @@ namespace Entity {
 	{
 		if (unit)
 		{
-			int move = unit->getMove();
-			int x = unit->getMassX();
-			int y = unit->getMassY();
+			displayAtackRange(unit, unit->getMassX(), unit->getMassY());
+		}
+	}
+
+	/**
+	 * @fn
+	 * 攻撃範囲表示
+	*/
+	void Map::displayAtackRange(shared_ptr<Unit> unit, int x, int y)
+	{
+		if (unit)
+		{
 			int range = unit->getRange();
 
 			for (int i = 1; i <= range; i++)

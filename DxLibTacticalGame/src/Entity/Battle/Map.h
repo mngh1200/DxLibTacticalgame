@@ -36,8 +36,6 @@ namespace Entity
 		void confirmMove(shared_ptr<Unit> unit);
 
 		void displayMovableRange(shared_ptr<Unit> unit);
-		void searchMovableMass(int x, int y, int move, bool isInit = true);
-
 		void displayAtackRange(shared_ptr<Unit> unit);
 		void setAtackMass(int x, int y);
 
@@ -57,6 +55,9 @@ namespace Entity
 		static int getMassY(int realY);
 
 	private:
+		void searchMovableMass(shared_ptr<Unit> unit, int x, int y, int move, bool isInit = true, bool isAtackAbleArea = false);
+		void displayAtackRange(shared_ptr<Unit> unit, int x, int y);
+
 		constexpr static int MASS_EFFECT_ALPHA = 50; //! マスの効果色の不透明度
 
 		//! マスのデータ

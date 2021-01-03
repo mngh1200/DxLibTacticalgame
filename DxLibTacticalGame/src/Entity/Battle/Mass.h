@@ -45,7 +45,7 @@ namespace Entity
 
 		string getText(int line) const;
 
-		bool isMovable() const { return passingMov >= 0; }
+		bool isMovable() const { return state == MOVABLE; }
 
 		//! ’Ê‰ßŽž‚Ìmov’l
 		int passingMov;

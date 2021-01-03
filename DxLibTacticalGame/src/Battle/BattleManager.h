@@ -34,7 +34,7 @@ namespace Battle
 		void animationCheck();
 
 	private:
-		void onClickUnit(int x, int y);
+		void onClickUnit(shared_ptr<Object> hitObj);
 		void onClickMass(int x, int y);
 
 		void startSelectActionPhase();
@@ -47,7 +47,7 @@ namespace Battle
 
 
 		//! 選択中のユニット
-		weak_ptr<Entity::Unit> selectedUnit_;
+		shared_ptr<Entity::Unit> selectedUnit_;
 
 		//! マップ
 		shared_ptr<Entity::Map> map_;

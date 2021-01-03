@@ -22,7 +22,7 @@ namespace Battle {
 		{
 			if (hitObj->getType() == Object::Type::UNIT)
 			{
-				onClickUnit(x, y);
+				onClickUnit(hitObj);
 			}
 			else if (hitObj->getType() == Object::Type::MAP)
 			{
@@ -43,7 +43,7 @@ namespace Battle {
 				if (phase_ == Phase::SELECT_ACTION && unit && unit->isEnemy() && mass->state == Mass::ATK_ABLE)
 				{
 					// 戦闘予測表示
-					if (fight_.setPrepare(selectedUnit_.lock(), unit))
+					if (fight_.setPrepare(selectedUnit_, unit))
 					{
 						battleUI_.setFightPredict(&fight_);
 					}
@@ -76,61 +76,43 @@ namespace Battle {
 	 * @fn
 	 * ユニット クリック時処理
 	 */
-	void BattleManager::onClickUnit(int x, int y)
+	void BattleManager::onClickUnit(shared_ptr<Object> hitObj)
 	{
-		int massX = Map::getMassX(x); // マスのX座標
-		int massY = Map::getMassY(y); // マスのY座標
-		shared_ptr<Entity::Unit> unit = map_->getUnit(massX, massY); // クリックしたユニット
-		bool isEnemy = false;
+		shared_ptr<Unit> unit = dynamic_pointer_cast<Unit>(hitObj);
+		bool isOwn = !unit->isEnemy(); // 味方ユニットであるか
 		
-		if (unit)
-		{
-			isEnemy = unit->isEnemy(); // 敵ユニットであるか
-		}
-		
-
 		if (phase_ == Phase::SELECT_ACTION) // 行動選択
 		{
-
-			if (unit && isEnemy && map_->getMass(massX, massY)->state == Mass::ATK_ABLE)
+			if (!isOwn && map_->getMass(unit->getMassX(), unit->getMassY())->state == Mass::ATK_ABLE) // 攻撃対象のユニットクリック
 			{
-				atackAction(selectedUnit_.lock(), unit); // 攻撃
+				atackAction(selectedUnit_, unit); // 攻撃
+				
+			}
+			else if (unit == selectedUnit_) // 選択中のユニットクリック
+			{
+				map_->confirmMove(selectedUnit_); // 待機
 			}
 			else
 			{
-				shared_ptr<Unit> selectedUnit = selectedUnit_.lock();
-				if (selectedUnit)
-				{
-					if (selectedUnit->getMassX() == massX && selectedUnit->getMassY() == massY) // 選択中のユニットクリック
-					{
-						map_->confirmMove(selectedUnit); // 待機
-					}
-				}
-				endSelectActionPhase(); // 行動選択終了
-			}
-			
-
-			if (!isEnemy && selectedUnit_.expired())
-			{
 				selectUnit(unit); // 他のユニット選択
 			}
+			endSelectActionPhase(); // 行動選択終了
 		}
-		else if (!isEnemy) // プレイヤーユニット
+		else
 		{
-			if (unit == selectedUnit_.lock()) // クリックしたユニットが 選択中のユニットだった場合
+			if (unit == selectedUnit_)
 			{
-				startSelectActionPhase(); // 行動選択フェイズ
+				if (isOwn)
+				{
+					// クリックしたユニットが 選択中のユニットだった場合、行動選択フェイズに移行
+					startSelectActionPhase();
+				}
 			}
 			else
 			{
 				selectUnit(unit); // ユニット選択
 			}
 		}
-		else // 敵ユニット
-		{
-
-		}
-
 	}
 
 	/**
@@ -142,20 +124,19 @@ namespace Battle {
 		int massX = Map::getMassX(x);
 		int massY = Map::getMassY(y);
 
-		shared_ptr<Entity::Unit> selectedUnitSp = selectedUnit_.lock();
-		if (selectedUnitSp)
+		if (selectedUnit_)
 		{
 
 			shared_ptr<Mass> targetMass = map_->getMass(massX, massY);
 			
 			if (phase_ == Phase::SELECT_ACTION) // 行動選択
 			{
-				selectedUnitSp->back(); // 移動キャンセル
+				selectedUnit_->back(); // 移動キャンセル
 				endSelectActionPhase(); // 行動選択終了
 			}
 			else if (targetMass->isMovable())
 			{
-				selectedUnitSp->move(massX, massY); // 移動
+				selectedUnit_->move(massX, massY); // 移動
 				phase_ = Phase::MOVE;
 				return;
 			}
@@ -174,8 +155,7 @@ namespace Battle {
 	{
 		if (phase_ == Phase::MOVE) // 移動
 		{
-			shared_ptr<Unit> selectedUnit = selectedUnit_.lock();
-			if (selectedUnit && !selectedUnit->isAnimation()) // 移動終了
+			if (selectedUnit_ && !selectedUnit_->isAnimation()) // 移動終了
 			{
 				startSelectActionPhase(); // 行動選択フェイズ
 			}
@@ -196,7 +176,7 @@ namespace Battle {
 	{
 		map_->clearMassState();
 		phase_ = Phase::SELECT_ACTION; // 行動選択 
-		map_->displayAtackRange(selectedUnit_.lock());
+		map_->displayAtackRange(selectedUnit_);
 	}
 
 	/**
@@ -222,7 +202,7 @@ namespace Battle {
 			if (unit && unit->select(true))
 			{
 				selectedUnit_ = unit;
-				battleUI_.setTargetUnit(selectedUnit_.lock());
+				battleUI_.setTargetUnit(selectedUnit_);
 				map_->displayMovableRange(unit);
 			}
 		}
@@ -235,14 +215,14 @@ namespace Battle {
 	*/
 	bool BattleManager::deselectUnit()
 	{
-		if (selectedUnit_.expired())
+		if (!selectedUnit_)
 		{
 			return true;
 		}
-		shared_ptr<Entity::Unit> prevSelectedUnit = selectedUnit_.lock();
-		if (prevSelectedUnit)
+
+		if (selectedUnit_)
 		{
-			if (prevSelectedUnit->select(false))
+			if (selectedUnit_->select(false))
 			{
 				selectedUnit_.reset();
 				battleUI_.resetTargetUnit();
