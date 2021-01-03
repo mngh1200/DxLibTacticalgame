@@ -126,12 +126,10 @@ public:
         max -= min;
         time /= totaltime;
 
-        if (time / _2<Ty> < _1<Ty>)
-            return max / _2<Ty> * time * time * time + min;
+        if (time + _1<Ty> / _2<Ty> < _1<Ty>)
+            return max * 4 * time * time * time + min;
 
-        time -= _2<Ty>;
-
-        return max / _2<Ty> * (time * time * time + _2<Ty>) + min;
+        return max - std::pow(-_2<Ty> * time + _2<Ty>, 3) * max + min;
     }
 
     template<typename Ty = float>
