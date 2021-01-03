@@ -43,6 +43,8 @@ namespace Entity
 
 		bool damage(int damage);
 
+		void avoid();
+
 		bool checkDead();
 
 		bool select(bool isSelect);
@@ -134,6 +136,7 @@ namespace Entity
 		{
 			MOVE,
 			DAMAGE,
+			AVOID,
 			ATACK,
 			FIRE,
 			DESTROY

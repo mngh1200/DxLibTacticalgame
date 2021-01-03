@@ -56,8 +56,17 @@ namespace Battle
 
 		if (fightData->isAtk) // UŒ‚‚·‚éê‡
 		{
-			fightData->damage = atkUnit->getAtk() - defUnit->getDef();
-			fightData->hitRate = 100;
+			fightData->damage = atkUnit->getAtk() - defUnit->getDef() - mass->getDef();
+			fightData->hitRate = 100 - mass->getAgl();
+
+			// ‹——£Œ¸Š
+			int distance = Map::getMassDistance(atkUnit->getMassX(), atkUnit->getMassY(), defUnit->getMassX(), defUnit->getMassY());
+			fightData->hitRate -= (distance - 1) * 20;
+
+			if (fightData->hitRate < 0)
+			{
+				fightData->hitRate = 0;
+			}
 		}
 		else // UŒ‚‚µ‚È‚¢ê‡
 		{
@@ -132,17 +141,28 @@ namespace Battle
 			defSide = actSide_;
 		}
 
+		// UŒ‚•s‰Â”»’è
 		if (!atkSide.isAtk || atkSide.unit->getHp() <= 0)
 		{
 			return false;
 		}
 
+		// UŒ‚ŽÀs
 		atkSide.unit->atack(defSide.unit->getX(), defSide.unit->getY());
 
-		if (defSide.unit->damage(atkSide.damage))
+		// –½’†”»’è
+		if (atkSide.hitRate > DxLib::GetRand(99))
 		{
-			// Ž€–SŽžˆ—
-			map_->eraseUnit(defSide.unit);
+			// ƒ_ƒ[ƒW
+			if (defSide.unit->damage(atkSide.damage))
+			{
+				// Ž€–SŽžˆ—
+				map_->eraseUnit(defSide.unit);
+			}
+		}
+		else
+		{
+			defSide.unit->avoid(); // ‰ñ”ð
 		}
 
 		return true;

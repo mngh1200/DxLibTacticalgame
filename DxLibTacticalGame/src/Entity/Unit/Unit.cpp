@@ -140,6 +140,12 @@ namespace Entity {
 				return !checkDead();
 			}
 		}
+		else if (animationId_ == AnimationKind::AVOID) // 回避
+		{
+			int baseX = Map::getRealX(x_);
+			int baseY = Map::getRealY(y_);
+			return animation_.update(&shape_.x, &shape_.y, baseX, baseY, baseX - shape_.w / 2 , baseY);
+		}
 		else if (animationId_ == AnimationKind::DESTROY) // 死亡
 		{
 			if (animation_.update(&alpha_, 255, 0))
@@ -171,13 +177,18 @@ namespace Entity {
 		}
 		else if (animationId == AnimationKind::DAMAGE) // ダメージ
 		{
-			animation_ = Animation(ANIME_DAMAGE_MS, 0, ANIME_DAMAGE_REPEAT, ANIME_ATACK_MS / 2);
+			animation_ = Animation(ANIME_DAMAGE_MS, 0, ANIME_DAMAGE_REPEAT, ANIME_ATACK_MS);
 			int baseX = Map::getRealX(x_);
 			animation_.adjustFrame(shape_.x, baseX - ANIME_DAMAGE_MOVE, baseX + ANIME_DAMAGE_MOVE);
 			animation_.adjustLastFrame(shape_.x, baseX - ANIME_DAMAGE_MOVE, baseX + ANIME_DAMAGE_MOVE);
 
 			// HPバーアニメーション
 			animationSub_ = Animation(ANIME_DAMAGE_MS * ANIME_DAMAGE_REPEAT);
+			return true;
+		}
+		else if (animationId == AnimationKind::AVOID) // 回避
+		{
+			animation_ = Animation(ANIME_DAMAGE_MS, Animation::Direction::AlTERNATE, 2, ANIME_ATACK_MS - 100);
 			return true;
 		}
 		else if (animationId == AnimationKind::DESTROY) // 死亡
@@ -259,6 +270,15 @@ namespace Entity {
 		}
 		
 		return false;
+	}
+
+	/**
+	 * @fn
+	 * 回避
+	 */
+	void Unit::avoid()
+	{
+		joinAnimationList(AnimationKind::AVOID);
 	}
 
 	/**

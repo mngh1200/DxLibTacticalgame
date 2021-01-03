@@ -417,4 +417,17 @@ namespace Entity {
 		return (realY - MAP_Y) / CHIP_SIZE;
 	}
 
+	/**
+	 * @fn
+	 * マス座標を基準にマス間の距離を取得
+	 * @param x0 基準地点のX座標
+	 * @param y0 基準地点のY座標
+	 * @param x1 対象地点のX座標
+	 * @param y1 対象地点のY座標
+	 */
+	int Map::getMassDistance(int x0, int y0, int x1, int y1)
+	{
+		return abs(x0 - x1) + abs(y0 - y1);
+	}
+
 }

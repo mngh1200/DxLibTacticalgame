@@ -54,6 +54,8 @@ namespace Entity
 		static int getMassX(int realX);
 		static int getMassY(int realY);
 
+		static int getMassDistance(int x0, int y0, int x1, int  y1);
+
 	private:
 		void searchMovableMass(shared_ptr<Unit> unit, int x, int y, int move, bool isInit = true, bool isAtackAbleArea = false);
 		void displayAtackRange(shared_ptr<Unit> unit, int x, int y);

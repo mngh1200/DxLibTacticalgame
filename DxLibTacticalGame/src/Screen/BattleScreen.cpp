@@ -45,6 +45,13 @@ namespace Screen
 		{
 			objectsControl.addObject(Layer::ENEMY_UNIT, 0, enemy);
 		}
+
+		shared_ptr<Entity::Unit> enemy2 = make_shared<Entity::Unit>();
+		enemy2->init(5, 7, UnitKey::LANCER, true);
+		if (map->setUnit(enemy2))
+		{
+			objectsControl.addObject(Layer::ENEMY_UNIT, 1, enemy2);
+		}
 		
 		
 
