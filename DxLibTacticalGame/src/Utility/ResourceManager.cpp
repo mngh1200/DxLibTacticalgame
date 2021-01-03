@@ -16,9 +16,9 @@ namespace Utility {
 
 	/**
 	 * @fn
-     * ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½Ìƒï¿½ï¿½[ï¿½h
-     * @return ï¿½Iï¿½ï¿½ï¿½tï¿½ï¿½ï¿½Oï¿½i0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½j
-     */
+	 * ƒŠƒ\[ƒX‚Ìƒ[ƒh
+	 * @return I—¹ƒtƒ‰ƒOi0‚ª³íj
+	 */
 	int ResourceManager::load()
 	{
 		int ret = 0;
@@ -26,29 +26,29 @@ namespace Utility {
 		loadFonts();
 		loadColors();
 		loadSounds();
-		
+
 		return ret;
 	}
 
 	/**
 	 * @fn
-	 * ï¿½wï¿½è‚³ï¿½ê‚½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½æ“¾(1ï¿½ï¿½ï¿½Gï¿½p)
-	 * @param (type) ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½^ï¿½Cï¿½v
-	 * @param (kind) ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½Ìï¿½ï¿½
-	 * @return ï¿½ÎÛƒï¿½ï¿½\ï¿½[ï¿½Xï¿½ï¿½ID
+	 * w’è‚³‚ê‚½ƒIƒuƒWƒFƒNƒgæ“¾(1–ˆŠG—p)
+	 * @param (type) ƒŠƒ\[ƒXƒ^ƒCƒv
+	 * @param (kind) ƒŠƒ\[ƒX‚Ìí—Ş
+	 * @return ‘ÎÛƒŠƒ\[ƒX‚ÌID
 	 */
-	int ResourceManager::getImage(int type, int imageId) const
+	int ResourceManager::getImage(int type, int kind) const
 	{
-		return image_.at(type).at(imageId)[0];
+		return image_.at(type).at(kind)[0];
 	}
 	/**
-     * @fn
-     * ï¿½wï¿½è‚³ï¿½ê‚½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½æ“¾
-     * @param (type) ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½^ï¿½Cï¿½v
-     * @param (kind) ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½Ìï¿½ï¿½
-	 * @param (pos) ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½ÌˆÊ’u
-     * @return ï¿½ÎÛƒï¿½ï¿½\ï¿½[ï¿½Xï¿½ï¿½ID
-     */
+	 * @fn
+	 * w’è‚³‚ê‚½ƒIƒuƒWƒFƒNƒgæ“¾
+	 * @param (type) ƒŠƒ\[ƒXƒ^ƒCƒv
+	 * @param (kind) ƒŠƒ\[ƒX‚Ìí—Ş
+	 * @param (pos) ƒŠƒ\[ƒX‚ÌˆÊ’u
+	 * @return ‘ÎÛƒŠƒ\[ƒX‚ÌID
+	 */
 	int ResourceManager::getImage(int type, int kind, int pos) const
 	{
 		return image_.at(type).at(kind)[pos];
@@ -74,9 +74,9 @@ namespace Utility {
 
 	/**
 	 * @fn
-	 * ï¿½}ï¿½bï¿½vï¿½`ï¿½bï¿½vï¿½pï¿½Ì“Ç‚İï¿½ï¿½Öï¿½
-	 * @param (resourcePath) ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½pï¿½X
-	 * @param (handle) IDï¿½iï¿½[ï¿½Ïï¿½
+	 * ƒ}ƒbƒvƒ`ƒbƒv—p‚Ì“Ç‚İæ‚èŠÖ”
+	 * @param (resourcePath) ƒŠƒ\[ƒXƒpƒX
+	 * @param (handle) IDŠi”[•Ï”
 	 */
 	void ResourceManager::loadMapchip(const char* resourcePath, int* handle) {
 		int ret = DxLib::LoadDivGraph(resourcePath,
@@ -85,9 +85,9 @@ namespace Utility {
 	}
 	/**
 	 * @fn
-	 * ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½`ï¿½bï¿½vï¿½pï¿½Ì“Ç‚İï¿½ï¿½Öï¿½
-	 * @param (resourcePath) ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½pï¿½X
-	 * @param (handle) IDï¿½iï¿½[ï¿½Ïï¿½
+	 * ƒLƒƒƒ‰ƒ`ƒbƒv—p‚Ì“Ç‚İæ‚èŠÖ”
+	 * @param (resourcePath) ƒŠƒ\[ƒXƒpƒX
+	 * @param (handle) IDŠi”[•Ï”
 	 */
 	void ResourceManager::loadCharacterchip(const char* resourcePath, int* handle) {
 		int ret = DxLib::LoadDivGraph(resourcePath, 16, 4, 4, CHIP_SIZE, CHIP_SIZE, handle);
@@ -95,9 +95,9 @@ namespace Utility {
 	}
 	/**
 	 * @fn
-	 * 1ï¿½ï¿½ï¿½Gï¿½Ì“Ç‚İï¿½ï¿½Öï¿½
-	 * @param (resourcePath) ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½pï¿½X
-	 * @param (handle) IDï¿½iï¿½[ï¿½Ïï¿½
+	 * 1–‡ŠG‚Ì“Ç‚İæ‚èŠÖ”
+	 * @param (resourcePath) ƒŠƒ\[ƒXƒpƒX
+	 * @param (handle) IDŠi”[•Ï”
 	 */
 	void ResourceManager::loadImage(const char* resourcePath, int* handle) {
 		*handle = DxLib::LoadGraph(resourcePath);
@@ -106,10 +106,10 @@ namespace Utility {
 
 	/**
 	 * @fn
-	 * ï¿½}ï¿½bï¿½vï¿½`ï¿½bï¿½vï¿½pï¿½Ì“Ç‚İï¿½ï¿½Öï¿½ï¿½iï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½ï¿½ï¿½ï¿½j
-	 * @param (resourceName) ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½ï¿½
-	 * @param (resourceType) ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½^ï¿½Cï¿½v
-	 * @param (handle) IDï¿½iï¿½[ï¿½Ïï¿½
+	 * ƒ}ƒbƒvƒ`ƒbƒv—p‚Ì“Ç‚İæ‚èŠÖ”iƒŠƒ\[ƒX‚©‚çj
+	 * @param (resourceName) ƒŠƒ\[ƒX–¼
+	 * @param (resourceType) ƒŠƒ\[ƒXƒ^ƒCƒv
+	 * @param (handle) IDŠi”[•Ï”
 	 */
 	void ResourceManager::loadMapchip(const char* resourceName, const char* resourceType, int* handle) {
 		int ret = DxLib::LoadDivGraphToResource(resourceName, resourceType,
@@ -118,10 +118,10 @@ namespace Utility {
 	}
 	/**
 	 * @fn
-	 * ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½`ï¿½bï¿½vï¿½pï¿½Ì“Ç‚İï¿½ï¿½Öï¿½ï¿½iï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½ï¿½ï¿½ï¿½j
-	 * @param (resourceName) ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½ï¿½
-	 * @param (resourceType) ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½^ï¿½Cï¿½v
-	 * @param (handle) IDï¿½iï¿½[ï¿½Ïï¿½
+	 * ƒLƒƒƒ‰ƒ`ƒbƒv—p‚Ì“Ç‚İæ‚èŠÖ”iƒŠƒ\[ƒX‚©‚çj
+	 * @param (resourceName) ƒŠƒ\[ƒX–¼
+	 * @param (resourceType) ƒŠƒ\[ƒXƒ^ƒCƒv
+	 * @param (handle) IDŠi”[•Ï”
 	 */
 	void ResourceManager::loadCharacterchip(const char* resourceName, const char* resourceType, int* handle) {
 		int ret = DxLib::LoadDivGraphToResource(resourceName, resourceType, 16, 4, 4, CHIP_SIZE, CHIP_SIZE, handle);
@@ -129,10 +129,10 @@ namespace Utility {
 	}
 	/**
 	 * @fn
-	 * 1ï¿½ï¿½ï¿½Gï¿½Ì“Ç‚İï¿½ï¿½Öï¿½ï¿½iï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½ï¿½ï¿½ï¿½j
-	 * @param (resourceName) ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½ï¿½
-	 * @param (resourceType) ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½^ï¿½Cï¿½v
-	 * @param (handle) IDï¿½iï¿½[ï¿½Ïï¿½
+	 * 1–‡ŠG‚Ì“Ç‚İæ‚èŠÖ”iƒŠƒ\[ƒX‚©‚çj
+	 * @param (resourceName) ƒŠƒ\[ƒX–¼
+	 * @param (resourceType) ƒŠƒ\[ƒXƒ^ƒCƒv
+	 * @param (handle) IDŠi”[•Ï”
 	 */
 	void ResourceManager::loadImage(const char* resourceName, const char* resourceType, int* handle) {
 		*handle = DxLib::LoadGraphToResource(resourceName, resourceType);
@@ -143,12 +143,12 @@ namespace Utility {
 	{
 		int ret = 0;
 		image_.insert(std::make_pair(ImageType::IMAGE, vector<int*>()));
-		
+
 		for (int i = 0; i < ImageId::IMAGE_ID_LEN; i++)
 		{
 			image_.at(ImageType::IMAGE).push_back(new int[1]);
 		}
-		loadImage(MAKEINTRESOURCE(BACKGROUND_IMAGE), MAKEINTRESOURCE(IMAGE_FILE) , image_.at(ImageType::IMAGE).at(ImageId::BACKGROUND_MENU));
+		loadImage(MAKEINTRESOURCE(BACKGROUND_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::IMAGE).at(ImageId::BACKGROUND_MENU));
 
 		loadImage("resource/image/map/state-atack.png", image_.at(ImageType::IMAGE).at(ImageId::MASS_ATACK));
 		loadImage("resource/image/map/state-movable.png", image_.at(ImageType::IMAGE).at(ImageId::MASS_MOVE));
@@ -157,7 +157,7 @@ namespace Utility {
 		image_.at(ImageType::MAP).push_back(new int[8]);
 		//loadMapchip("resource/image/map/mapchip.png", image_.at(ImageType::MAP).at(0));
 		loadMapchip(MAKEINTRESOURCE(MAP_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::MAP).at(0));
-		// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½æ‘œï¿½Ì“Ç‚İï¿½ï¿½ï¿½
+		// ƒvƒŒƒCƒ„[‰æ‘œ‚Ì“Ç‚İ‚İ
 		image_.insert(std::make_pair(ImageType::PLAYER, vector<int*>()));
 		image_.at(ImageType::PLAYER).push_back(new int[16]);
 		//loadCharacterchip("resource/image/unit/player/lancer.png", image_.at(ImageType::PLAYER).at(UnitKey::LANCER));
@@ -170,7 +170,7 @@ namespace Utility {
 		image_.at(ImageType::PLAYER).push_back(new int[16]);
 		//loadCharacterchip("resource/image/unit/player/gunner.png", image_.at(ImageType::PLAYER).at(UnitKey::GUNNER));
 		loadCharacterchip(MAKEINTRESOURCE(PLAYER_GUNNER_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::PLAYER).at(UnitKey::GUNNER));
-		// ï¿½Gï¿½lï¿½~ï¿½[ï¿½æ‘œï¿½Ì“Ç‚İï¿½ï¿½ï¿½
+		// ƒGƒlƒ~[‰æ‘œ‚Ì“Ç‚İ‚İ
 		image_.insert(std::make_pair(ImageType::ENEMY, vector<int*>()));
 		image_.at(ImageType::ENEMY).push_back(new int[16]);
 		//loadCharacterchip("resource/image/unit/enemy/lancer_enemy.png", image_.at(ImageType::ENEMY).at(UnitKey::LANCER));
@@ -205,7 +205,7 @@ namespace Utility {
 	int ResourceManager::loadColors()
 	{
 		int ret = 0;
-		// ï¿½Fï¿½æ“¾
+		// Fæ“¾
 		colorType_[ColorType::WHITE] = DxLib::GetColor(255, 255, 255);
 
 		colorType_[ColorType::MAIN_COLOR] = DxLib::GetColor(250, 244, 232);
@@ -236,7 +236,7 @@ namespace Utility {
 	int ResourceManager::loadSounds()
 	{
 		int ret = 0;
-		// ï¿½ï¿½ï¿½Ê‰ï¿½ï¿½æ“¾
+		// Œø‰Ê‰¹æ“¾
 		//sounds_[SoundKind::CLICK] = DxLib::LoadSoundMem("resource/sound/click.ogg");
 		sounds_[SoundKind::CLICK] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(CLICK_OGG), MAKEINTRESOURCE(OGG));
 		DxLib::ChangeVolumeSoundMem(210, sounds_[SoundKind::CLICK]);
@@ -246,7 +246,7 @@ namespace Utility {
 		DxLib::ChangeVolumeSoundMem(220, sounds_[SoundKind::CHECK]);
 
 		// sounds_[SoundKind::BACK] = DxLib::LoadSoundMem("resource/sound/back.wav");
-		sounds_[SoundKind::BACK] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE (BACK_WAVE), MAKEINTRESOURCE (WAVE));
+		sounds_[SoundKind::BACK] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(BACK_WAVE), MAKEINTRESOURCE(WAVE));
 		DxLib::ChangeVolumeSoundMem(180, sounds_[SoundKind::BACK]);
 
 		//sounds_[SoundKind::BORN] = DxLib::LoadSoundMem("resource/sound/born.wav");
@@ -262,8 +262,8 @@ namespace Utility {
 			PostMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0);
 		}
 		else {
-			// ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Çï¿½ï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½
-			MessageBox(NULL, "ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Çï¿½ï¿½ï¿½ï¿½s", "", MB_OK);
+			// ƒtƒHƒ“ƒg“ÇƒGƒ‰[ˆ—
+			MessageBox(NULL, "ƒtƒHƒ“ƒg“Ç¸”s", "", MB_OK);
 		}
 	}
 
