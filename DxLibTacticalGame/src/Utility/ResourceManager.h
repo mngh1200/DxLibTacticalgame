@@ -1,6 +1,7 @@
 #pragma once
 #include "Define.h"
 #include "DxLib.h"
+#include "resource.h"
 #include <map>
 #include <vector>
 using namespace std;
@@ -108,6 +109,10 @@ namespace Utility
 		void loadMapchip(const char* resourcePath, int* handle);
 		void loadCharacterchip(const char* resourcePath, int* handle);
 		void loadImage(const char* resourcePath, int* handle);
+
+		void loadMapchip(const char* resourceName, const char* resourceType, int* handle);
+		void loadCharacterchip(const char* resourceName, const char* resourceType, int* handle);
+		void loadImage(const char* resourceName, const char* resourceType, int* handle);
 
 		map<int, std::vector<int*>> image_;
 
