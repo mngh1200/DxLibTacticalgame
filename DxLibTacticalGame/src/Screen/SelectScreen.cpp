@@ -62,7 +62,7 @@ namespace Screen
 		objectsControl.addObject(Layer::UI, UIid::START_BTN, startBtn);
 
 		// –ß‚éƒ{ƒ^ƒ“
-		shared_ptr<Entity::TextButton> backBtn = make_shared<Entity::TextButton>(NULL, ColorType::SUB_COLOR);
+		shared_ptr<Entity::TextButton> backBtn = make_shared<Entity::TextButton>(ColorType::MAIN_COLOR, ColorType::SUB_COLOR);
 		backBtn->setShape(WIN_W - BACK_SIZE, 0, BACK_SIZE, BACK_SIZE);
 		backBtn->setColor(ColorType::SUB_COLOR, ColorType::MAIN_COLOR, Entity::TextButton::State::MOUSE_OVER);
 		backBtn->setColor(ColorType::SUB_COLOR, ColorType::MAIN_COLOR, Entity::TextButton::State::MOUSE_DOWN);
