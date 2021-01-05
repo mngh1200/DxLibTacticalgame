@@ -186,6 +186,9 @@
     <ClCompile Include="src\Battle\BUI\FightPredictDisplay.cpp">
       <Filter>ソース ファイル\Battle\BUI</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entity\UI\Menu\ContextMenu.cpp">
+      <Filter>ソース ファイル\Entity\UI\Menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -286,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="src\resource.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\UI\Menu\ContextMenu.h">
+      <Filter>ヘッダー ファイル\Entity\UI\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -169,6 +169,7 @@
     <ClCompile Include="src\Entity\UI\Button\CourseButton.cpp" />
     <ClCompile Include="src\Entity\UI\Button\MenuScreenButton.cpp" />
     <ClCompile Include="src\Entity\UI\Button\TextButton.cpp" />
+    <ClCompile Include="src\Entity\UI\Menu\ContextMenu.cpp" />
     <ClCompile Include="src\Entity\UI\Menu\SelectActiveMenu.cpp" />
     <ClCompile Include="src\Entity\UI\Overlay.cpp" />
     <ClCompile Include="src\Entity\Unit\Unit.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="src\Entity\UI\Button\CourseButton.h" />
     <ClInclude Include="src\Entity\UI\Button\MenuScreenButton.h" />
     <ClInclude Include="src\Entity\UI\Button\TextButton.h" />
+    <ClInclude Include="src\Entity\UI\Menu\ContextMenu.h" />
     <ClInclude Include="src\Entity\UI\Menu\SelectActiveMenu.h" />
     <ClInclude Include="src\Entity\UI\Overlay.h" />
     <ClInclude Include="src\Entity\Unit\Unit.h" />
