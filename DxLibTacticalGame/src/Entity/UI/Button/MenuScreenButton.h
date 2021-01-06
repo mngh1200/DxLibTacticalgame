@@ -23,9 +23,9 @@ namespace Entity
 
 		bool animationUpdate() override;
 
-		void onMouseLeftDown() override;
-		void onMouseLeftUp() override;
-		void onMouseOut() override;
+		void onMouseLeftDown(int x, int y) override;
+		void onMouseLeftUp(int x, int y) override;
+		void onMouseOut(int x, int y) override;
 
 	protected:
 		bool createAnimation(int animationId);

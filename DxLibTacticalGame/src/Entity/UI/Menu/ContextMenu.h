@@ -41,7 +41,7 @@ namespace Entity
 
 		void render() const override;
 
-		void onMouseClick() override;
+		void onMouseClick(int x, int y) override;
 
 	private:
 		MenuButton* getHitMenuButton(int x, int y);

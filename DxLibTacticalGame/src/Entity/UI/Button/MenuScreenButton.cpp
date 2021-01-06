@@ -79,7 +79,7 @@ namespace Entity {
 	 * @fn
 	 * マウスが左ボタンで押下された瞬間の処理
 	 */
-	void MenuScreenButton::onMouseLeftDown()
+	void MenuScreenButton::onMouseLeftDown(int x, int y)
 	{
 		joinAnimationList(EXPANSION); // 拡大
 		
@@ -91,7 +91,7 @@ namespace Entity {
 	 * @fn
 	 * マウスの左ボタンが押し上げられた瞬間の処理
 	 */
-	void MenuScreenButton::onMouseLeftUp()
+	void MenuScreenButton::onMouseLeftUp(int x, int y)
 	{
 		joinAnimationList(SHRINK); // 縮小
 	}
@@ -100,7 +100,7 @@ namespace Entity {
 	 * @fn
 	 * マウスがホバー状態から離れたときの処理
 	 */
-	void MenuScreenButton::onMouseOut()
+	void MenuScreenButton::onMouseOut(int x, int y)
 	{
 		if (isMouseDown_)
 		{

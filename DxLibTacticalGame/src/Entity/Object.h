@@ -27,49 +27,49 @@ namespace Entity
 		 * @fn
 		 * マウスが左ボタンで押下された瞬間の処理
 		 */
-		virtual void onMouseLeftDown() {};
+		virtual void onMouseLeftDown(int x, int y) {};
 		/**
 		 * @fn
 		 * マウスの左ボタンが押し上げられた瞬間の処理
 		 */
-		virtual void onMouseLeftUp() {};
+		virtual void onMouseLeftUp(int x, int y) {};
 		/**
 		 * @fn
 		 * クリックされた瞬間の処理
 		 */
-		virtual void onMouseClick() {};
+		virtual void onMouseClick(int x, int y) {};
 		/**
 		 * @fn
 		 * マウスにホバーされた瞬間の処理
 		 */
-		virtual void onMouseOver() {};
+		virtual void onMouseOver(int x, int y) {};
 		/**
 		 * @fn
 		 * マウスがホバー状態から離れたときの処理
 		 */
-		virtual void onMouseOut() {};
+		virtual void onMouseOut(int x, int y) {};
 
 		/**
 		 * @fn
 		 * マウスが右ボタンで押下された瞬間の処理
 		 */
-		virtual void onMouseRightDown() {};
+		virtual void onMouseRightDown(int x, int y) {};
 		/**
 		 * @fn
 		 * マウスの右ボタンが押し上げられた瞬間の処理
 		 */
-		virtual void onMouseRightUp() {};
+		virtual void onMouseRightUp(int x, int y) {};
 
 		/**
 		 * @fn
 		 * マウスがホイールボタンで押下された瞬間の処理
 		 */
-		virtual void onMouseWheelDown() {};
+		virtual void onMouseWheelDown(int x, int y) {};
 		/**
 		 * @fn
 		 * マウスのホイールボタンが押し上げられた瞬間の処理
 		 */
-		virtual void onMouseWheelUp() {};
+		virtual void onMouseWheelUp(int x, int y) {};
 
 		//! マウスに左ボタンで押下されているか（とりあえず左ボタンだけ）
 		bool isMouseDown_;

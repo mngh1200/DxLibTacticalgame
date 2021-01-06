@@ -27,9 +27,9 @@ namespace Entity
 
 		bool animationUpdate() override;
 
-		void onMouseClick() override;
-		void onMouseOver() override;
-		void onMouseOut() override;
+		void onMouseClick(int x, int y) override;
+		void onMouseOver(int x, int y) override;
+		void onMouseOut(int x, int y) override;
 
 		void setSelected(bool isSelected);
 

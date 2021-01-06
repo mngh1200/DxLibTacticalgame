@@ -166,7 +166,7 @@ namespace Entity {
 	 * @fn
 	 * マウスがクリックした瞬間の処理
 	 */
-	void CourseButton::onMouseClick()
+	void CourseButton::onMouseClick(int x, int y)
 	{
 		// サウンド
 		Utility::ResourceManager::playSound(SoundKind::CHECK);
@@ -176,7 +176,7 @@ namespace Entity {
 	 * @fn
 	 * マウスがホバーした瞬間
 	 */
-	void CourseButton::onMouseOver()
+	void CourseButton::onMouseOver(int x, int y)
 	{
 		joinAnimationList(EXPANSION); // 拡大
 	}
@@ -185,7 +185,7 @@ namespace Entity {
 	 * @fn
 	 * マウスがホバー状態から離れたときの処理
 	 */
-	void CourseButton::onMouseOut()
+	void CourseButton::onMouseOut(int x, int y)
 	{
 		joinAnimationList(SHRINK); // 縮小
 	}
