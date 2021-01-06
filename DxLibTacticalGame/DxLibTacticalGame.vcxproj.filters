@@ -165,9 +165,6 @@
     <ClCompile Include="src\Battle\BattleManager.cpp">
       <Filter>ソース ファイル\Battle</Filter>
     </ClCompile>
-    <ClCompile Include="src\Entity\UI\Menu\SelectActiveMenu.cpp">
-      <Filter>ソース ファイル\Entity\UI\Menu</Filter>
-    </ClCompile>
     <ClCompile Include="src\Battle\BUI\BattleUI.cpp">
       <Filter>ソース ファイル\Battle\BUI</Filter>
     </ClCompile>
@@ -265,9 +262,6 @@
     </ClInclude>
     <ClInclude Include="src\Battle\BattleManager.h">
       <Filter>ヘッダー ファイル\Battle</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Entity\UI\Menu\SelectActiveMenu.h">
-      <Filter>ヘッダー ファイル\Entity\UI\Menu</Filter>
     </ClInclude>
     <ClInclude Include="src\Battle\BUI\BattleUI.h">
       <Filter>ヘッダー ファイル\Battle\BUI</Filter>

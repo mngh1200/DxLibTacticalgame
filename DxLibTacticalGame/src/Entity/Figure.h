@@ -32,6 +32,7 @@ namespace Entity
 			UNIT,
 			MAP,
 			TEXT,
+			CONTEXT_MENU,
 			OVERLAY
 		};
 

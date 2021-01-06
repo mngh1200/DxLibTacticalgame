@@ -5,7 +5,8 @@
 #include "Fight.h"
 #include "Entity/Battle/Map.h"
 #include "Entity/Unit/Unit.h"
-#include "BUI/TerrainEffectDisplay.h"
+#include "BUI/BattleUI.h"
+#include "Entity/UI/Menu/ContextMenu.h"
 
 using namespace std;
 using namespace Entity;
@@ -52,11 +53,15 @@ namespace Battle
 		//! マップ
 		shared_ptr<Entity::Map> map_;
 
+		//! システムメニュー
+		shared_ptr<Entity::ContextMenu> systemMenu_;
+
 		//! バトルUI
 		BattleUI battleUI_;
 
 		//! 個人戦闘管理用
 		Fight fight_;
+		
 
 		//! フェーズ
 		int phase_;
