@@ -26,7 +26,8 @@ namespace Entity
 			direction_(NORMAL),
 			isNormalOrder_(true),
 			repeat_(1),
-			repeatMax_(repeat_)
+			repeatMax_(repeat_),
+			isGodDelayFinishLog_(false)
 		{};
 
 		Animation(int timeMs, int direction = NORMAL, int repeat = 1, int delayMs = 0, function<float(float, float, float, float)> func = Easing::Linear<float>);
@@ -54,6 +55,8 @@ namespace Entity
 		bool update(int* nowX, int* nowY, int x0, int y0, int x1, int y1, bool isIncreaseFrame = true);
 		bool update(Shape* nowShape, Shape baseShape, float scale, bool isIncreaseFrame = true);
 		bool update(int* nowColor, int r0, int g0, int b0, int r1, int g1, int b1, bool isIncreaseFrame = true);
+
+		bool getDelayFinishLog_();
 
 		enum Direction
 		{
@@ -94,5 +97,8 @@ namespace Entity
 
 		//! リピート回数（最大値=初期値）
 		int repeatMax_;
+
+		//! 遅延開始終了判定が取得済みであるか
+		bool isGodDelayFinishLog_;
 	};
 }

@@ -12,7 +12,7 @@ namespace Entity {
 	 */
 	Animation::Animation(int timeMs, int direction, int repeat, int delayMs,
 		function<float(float, float, float, float)> func)
-		: isNormalOrder_(true), repeatMax_(repeat), repeat_(repeat), frameCount_(0)
+		: isNormalOrder_(true), repeatMax_(repeat), repeat_(repeat), frameCount_(0), isGodDelayFinishLog_(false)
 	{
 		delayFrame_ = (delayMs - ONE_FRAME_MS + 1) / ONE_FRAME_MS;
 		frameMax_ = (float)((timeMs - ONE_FRAME_MS + 1) / ONE_FRAME_MS);
@@ -270,6 +270,24 @@ namespace Entity {
 			*nowColor = DxLib::GetColor(r, g, b);
 		}
 		return isFin;
+	}
+
+	/**
+	 * @fn
+	 * 遅延開始時間が終了しているかを取得する（1度だけ取得可能）
+	 * @return 遅延開始時間が終了した場合(かつ、１回目の取得時のみ): true
+	 */
+	bool Animation::getDelayFinishLog_()
+	{
+		if (!isGodDelayFinishLog_) // ログ未取得
+		{
+			if (delayFrame_ <= 0)
+			{
+				isGodDelayFinishLog_ = true;
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
