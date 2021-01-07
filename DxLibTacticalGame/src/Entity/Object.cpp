@@ -7,8 +7,8 @@ namespace Entity {
 	 * @param (x) マウスのx座標
 	 * @param (y) マウスのy座標
 	 * @param (button) ボタンの種類
-	 * @param (eventType)
-	 * @param (isOtherHit) マウスのy座標
+	 * @param (eventType) イベントの種類（マウスダウン or マウスアップ or マウスクリック）
+	 * @param (isOtherHit) 他の要素に接触済みであるか
 	 * @return マウスが接触しているときにtrue
 	 */
 	bool Object::checkMouseEvent(int x, int y, int button, int* eventType, bool isOtherHit)

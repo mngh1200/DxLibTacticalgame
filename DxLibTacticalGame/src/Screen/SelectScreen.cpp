@@ -77,6 +77,11 @@ namespace Screen
 	/**
 	 * @fn
 	 * イベント取得後のスクリーン更新処理
+	 * @param (hitObjWp) 接触オブジェクトの弱参照
+	 * @param (x) マウスのx座標
+	 * @param (y) マウスのy座標
+	 * @param (button) ボタンの種類
+	 * @param (eventType) イベントの種類（マウスダウン or マウスアップ or マウスクリック）
 	*/
 	void SelectScreen::updateByEvents(weak_ptr<Entity::Object> hitObjWp, int x, int y, int button, int eventType)
 	{

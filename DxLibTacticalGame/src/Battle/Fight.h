@@ -42,7 +42,7 @@ namespace Battle
 		void start();
 		bool checkUpdate();
 
-		FightData getFightData(bool isPlayer) const;
+		FightData getFightData(bool isAct) const;
 
 		bool isPrepared() const;
 

@@ -2,7 +2,11 @@
 
 namespace Battle
 {
-
+	/**
+	 * @fn
+	 * 初期処理
+	 * @param (map) マップのポインタを取得
+	 */
 	void Fight::init(shared_ptr<Map> map)
 	{
 		map_ = map;
@@ -11,6 +15,8 @@ namespace Battle
 	/**
 	 * @fn
 	 * 戦闘予測
+	 * @param (actUnit) 攻撃を仕掛けた側のユニット
+	 * @param (psvUnit) 攻撃を仕掛けられた側のユニット
 	 * @return 内容が更新された場合はtrueを返す
 	 */
 	bool Fight::setPrepare(shared_ptr<Unit> actUnit, shared_ptr<Unit> psvUnit)
@@ -48,6 +54,11 @@ namespace Battle
 	/**
 	 * @fn
 	 * FightData生成
+	 * @param (fightData) 生成したFightData取得用
+	 * @param (actUnit) 攻撃を仕掛けた側のユニット
+	 * @param (psvUnit) 攻撃を仕掛けられた側のユニット
+	 * @param (mass) 攻撃を仕掛けられた側のいるマス
+	 * @param (isAct) 攻撃可能か
 	 */
 	void Fight::makeFightData(FightData* fightData, shared_ptr<Unit> atkUnit, shared_ptr<Unit> defUnit, shared_ptr<Mass> mass, bool isAct)
 	{
@@ -128,6 +139,7 @@ namespace Battle
 	/**
 	 * @fn
 	 * 攻撃実行
+	 * @param (isActSideAtack) 防御側の攻撃であるか
 	 * @return 攻撃実行有無
 	 */
 	bool Fight::atack(bool isActSideAtack)
@@ -172,10 +184,12 @@ namespace Battle
 	/**
 	 * @fn
 	 * FightData取得
+	 * @param (isAct) true: 攻撃を仕掛けた側、false: 攻撃を仕掛けられた側
+	 * @return FightData
 	 */
-	FightData Fight::getFightData(bool isAtk) const
+	FightData Fight::getFightData(bool isAct) const
 	{
-		if (isAtk)
+		if (isAct)
 		{
 			return actSide_;
 		}
