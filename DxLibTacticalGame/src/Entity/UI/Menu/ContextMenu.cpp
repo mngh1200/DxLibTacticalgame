@@ -9,7 +9,7 @@ namespace Entity {
 	ContextMenu::ContextMenu() : width_(0), menuBtns_{}, displayArea_{ Shape(0, 0, WIN_W, WIN_H) }
 	{
 		type_ = CONTEXT_MENU;
-		shape_.disabledHit = false;
+		shape_.disabledHit = true;
 	}
 
 	/**
