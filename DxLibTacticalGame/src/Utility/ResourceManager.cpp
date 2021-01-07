@@ -181,6 +181,7 @@ namespace Utility {
 		image_.at(ImageType::EFFECT).push_back(new int[1]);
 		loadImage("resource/image/effect/miss.png", image_.at(ImageType::EFFECT).at(EffectId::MISS));
 
+		loadFlag = true;
 		return ret;
 	}
 
@@ -272,6 +273,10 @@ namespace Utility {
 		else {
 			MessageBox(NULL, "remove failure", "", MB_OK);
 		}
+	}
+
+	boolean ResourceManager::isLoaded() const {
+		return loadFlag;
 	}
 
 }

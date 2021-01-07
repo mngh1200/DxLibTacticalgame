@@ -195,6 +195,9 @@
     <ClCompile Include="src\Entity\Effect\DamageEffect.cpp">
       <Filter>ソース ファイル\Entity\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="src\Screen\LoadScreen.cpp">
+      <Filter>ソース ファイル\Screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -298,6 +301,9 @@
     </ClInclude>
     <ClInclude Include="src\Entity\Effect\DamageEffect.h">
       <Filter>ヘッダー ファイル\Entity\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screen\LoadScreen.h">
+      <Filter>ヘッダー ファイル\Screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 #include "FrameWork/Game.h"
 #include "Utility/ResourceManager.h"
-#include "Screen/StartScreen.h"
+#include "Screen/LoadScreen.h"
 
 /**
  * @file Main.cpp
@@ -34,13 +34,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		FrameWork::Game& game = FrameWork::Game::getInstance();
 
 		// スタート画面セット
-		game.setScreen(new Screen::StartScreen());
+		game.setScreen(new Screen::LoadScreen());
 
 		// リソース管理クラス
-		Utility::ResourceManager& resourceManager = Utility::ResourceManager::getInstance();
+		//Utility::ResourceManager& resourceManager = Utility::ResourceManager::getInstance();
 
 		// リソースロード
-		resourceManager.load();
+		//resourceManager.load();
 
 		while (DxLib::ProcessMessage() == 0
 			&& DxLib::ClearDrawScreen() == 0)
