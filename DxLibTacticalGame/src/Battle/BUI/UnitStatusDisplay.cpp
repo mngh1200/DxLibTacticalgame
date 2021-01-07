@@ -76,6 +76,7 @@ namespace Entity {
 	/**
 	 * @fn
 	 * アニメーション生成
+	 * @param (animationId) アニメーションの種類
 	 */
 	bool UnitStatusDisplay::createAnimation(int animationId)
 	{
@@ -91,6 +92,7 @@ namespace Entity {
 	/**
 	 * @fn
 	 * 対象ユニット指定
+	 * @param (unit) 対象ユニット
 	 */
 	void UnitStatusDisplay:: setTargetUnit(shared_ptr<Unit> unit)
 	{

@@ -6,11 +6,12 @@ namespace Entity {
 	const vector<int> Mass::COST = { 1, 2, 2, INT_MAX };
 	const vector<int> Mass::AGL_UP = { 0, 20, -20, 0 };
 	const vector<int> Mass::DEF_UP = { 0,  3,  -3, 0 };
-	const vector<string> Mass::TEXT1 = {"草原", "森", "川:", "山"};
+	const vector<string> Mass::TEXT1 = {"草原", "森", "川", "山"};
 
 	/**
 	 * @fn
 	 * コンストラクタ
+	 * @param (kindId) マスの種類
 	 */
 	Mass::Mass(int kindId) : kindId_(kindId), state(State::NORMAL), passingMov(-1)
 	{
@@ -25,6 +26,7 @@ namespace Entity {
 	/**
 	 * @fn
 	 * 移動コスト取得
+	 * @return 移動コスト
 	 */
 	int Mass::getCost() const
 	{
@@ -40,6 +42,7 @@ namespace Entity {
 	/**
 	 * @fn
 	 * 回避UP取得
+	 * @return 回避UP
 	 */
 	int Mass::getAgl() const
 	{
@@ -55,6 +58,7 @@ namespace Entity {
 	/**
 	 * @fn
 	 * 守備UP取得
+	 * @return 守備UP
 	 */
 	int Mass::getDef() const
 	{
@@ -71,6 +75,7 @@ namespace Entity {
 	/**
 	 * @fn
 	 * マスの種類を返す
+	 * @return マスの種類
 	 */
 	int Mass::getKind() const
 	{
@@ -80,6 +85,7 @@ namespace Entity {
 	/**
 	 * @fn
 	 * 画像のIDを返す
+	 * @return 画像ID
 	 */
 	int Mass::getImageId() const
 	{
@@ -89,7 +95,8 @@ namespace Entity {
 	/**
 	 * @fn
 	 * 地形効果説明文を返す
-	 * @param (kindId) 画像の種類
+	 * @param (line) 何行目の説明文を取得するか
+	 * @return 説明文
 	 */
 	string Mass::getText(int line) const
 	{

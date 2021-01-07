@@ -5,7 +5,12 @@ namespace BUI
 	/**
 	 * @fn
 	 * ラベル描画
-	 * @param (x0) 
+	 * @param (x0) x座標
+	 * @param (y0) y座標
+	 * @param (text) 表示テキスト
+	 * @param (w) 表示幅
+	 * @param (backgroundColorType) 背景色
+	 * @param (textColorType) テキスト色
 	 * @return 右端のx座標を返す
 	 */
 	int drawLabel(int x0, int y0, string text, int w, int backgroundColorType, int textColorType)
@@ -26,6 +31,11 @@ namespace BUI
 	/**
 	 * @fn
 	 * 値描画
+	 * @param (x0) x座標
+	 * @param (y0) y座標
+	 * @param (text) 表示テキスト
+	 * @param (w) 表示幅
+	 * @param (textColorType) テキスト色
 	 * @return 右端のx座標を返す
 	 */
 	int drawValue(int x0, int y0, string text, int w, int textColorType)

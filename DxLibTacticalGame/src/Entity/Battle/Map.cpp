@@ -106,6 +106,7 @@ namespace Entity {
 	/**
 	 * @fn
 	 * 特定マスにユニット設置
+	 * @param (unit) ユニット
 	 */
 	bool Map::setUnit(shared_ptr<Entity::Unit> unit)
 	{
@@ -123,6 +124,8 @@ namespace Entity {
 	/**
 	 * @fn
 	 * 特定マスのユニット取得
+	 * @param (massX) マス座標X
+	 * @param (massY) マス座標Y
 	 */
 	shared_ptr<Unit> Map::getUnit(int massX, int massY)
 	{
@@ -138,6 +141,7 @@ namespace Entity {
 	/**
 	 * @fn
 	 * 対象ユニットを座標上から削除
+	 * @param (unit) 対象ユニット
 	 */
 	void Map::eraseUnit(shared_ptr<Unit> unit)
 	{
@@ -147,6 +151,7 @@ namespace Entity {
 	/**
 	 * @fn
 	 * ユニットのマス移動（移動確定時）
+	 * @param (unit) 対象ユニット
 	*/
 	void Map::confirmMove(shared_ptr<Unit> unit)
 	{
@@ -166,6 +171,7 @@ namespace Entity {
 	/**
 	 * @fn
 	 * 移動可能範囲表示
+	 * @param (unit) 対象ユニット
 	*/
 	void Map::displayMovableRange(shared_ptr<Unit> unit)
 	{
@@ -181,6 +187,12 @@ namespace Entity {
 	/**
 	 * @fn
 	 * 移動可能範囲の探索
+	 * @param (unit) 対象ユニット
+	 * @param (x) マス座標X
+	 * @param (y) マス座標Y
+	 * @param (move) 残移動コスト
+	 * @param (isInit) 最初の探索であるか
+	 * @param (isAtackAbleArea) 攻撃可能範囲の探索であるか
 	*/
 	void Map::searchMovableMass(shared_ptr<Unit> unit, int x, int y, int move, bool isInit, bool isAtackAbleArea)
 	{
@@ -238,7 +250,8 @@ namespace Entity {
 
 	/**
 	 * @fn
-	 * 攻撃範囲表示
+	 * 現在地の攻撃可能範囲表示
+	 * @param (unit) 対象ユニット
 	*/
 	void Map::displayAtackRange(shared_ptr<Unit> unit)
 	{
@@ -250,7 +263,10 @@ namespace Entity {
 
 	/**
 	 * @fn
-	 * 攻撃範囲表示
+	 * 対象マス座標からの攻撃可能範囲表示
+	 * @param (unit) 対象ユニット
+	 * @param (x) マス座標X
+	 * @param (y) マス座標Y
 	*/
 	void Map::displayAtackRange(shared_ptr<Unit> unit, int x, int y)
 	{
@@ -270,7 +286,9 @@ namespace Entity {
 
 	/**
 	 * @fn
-	 * 攻撃可能範囲の探索
+	 * 対象マスを攻撃可能マスにセット
+	 * @param (x) マス座標X
+	 * @param (y) マス座標Y
 	*/
 	void Map::setAtackMass(int x, int y)
 	{
@@ -384,6 +402,7 @@ namespace Entity {
 	/**
 	 * @fn
 	 * マスの座標から正味の座標を取得(x座標)
+	 * @param (massX) マス座標X
 	 */
 	int Map::getRealX(int massX)
 	{
@@ -393,6 +412,7 @@ namespace Entity {
 	/**
 	 * @fn
 	 * マスの座標から正味の座標を取得(y座標)
+	 * @param (massY) マス座標Y
 	 */
 	int Map::getRealY(int massY)
 	{
@@ -402,6 +422,7 @@ namespace Entity {
 	/**
 	 * @fn
 	 * 正味の座標からマスの座標を取得(x座標)
+	 * @param (realX) 正味のX座標
 	 */
 	int Map::getMassX(int realX)
 	{
@@ -411,6 +432,7 @@ namespace Entity {
 	/**
 	 * @fn
 	 * 正味の座標からマスの座標を取得(y座標)
+	 * @param (realY) 正味のY座標
 	 */
 	int Map::getMassY(int realY)
 	{
@@ -424,6 +446,7 @@ namespace Entity {
 	 * @param y0 基準地点のY座標
 	 * @param x1 対象地点のX座標
 	 * @param y1 対象地点のY座標
+	 * @return マス座標基準の距離
 	 */
 	int Map::getMassDistance(int x0, int y0, int x1, int y1)
 	{

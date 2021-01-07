@@ -61,6 +61,9 @@ namespace Entity {
 	/**
 	 * @fn
 	 * 片方のユニットの戦闘予測欄描画
+	 * @param (areaX) 表示エリアのx座標
+	 * @param (fightData) 戦闘情報
+	 * @param (isPlayer) プレイヤー側のユニットであるか
 	 */
 	void FightPredictDisplay::drawFightPredict(int areaX, Battle::FightData& fightData, bool isPlayer) const
 	{
@@ -106,6 +109,8 @@ namespace Entity {
 	/**
 	 * @fn
 	 * 攻撃方向の描画
+	 * @param (y) y座標
+	 * @param (isPlayer) プレイヤー側のユニットであるか
 	 */
 	void FightPredictDisplay::drawAtackDirection(int y, bool isPlayer) const
 	{
@@ -146,6 +151,7 @@ namespace Entity {
 	/**
 	 * @fn
 	 * アニメーション生成
+	 * @param (animationId) アニメーションの種類
 	 */
 	bool FightPredictDisplay::createAnimation(int animationId)
 	{
