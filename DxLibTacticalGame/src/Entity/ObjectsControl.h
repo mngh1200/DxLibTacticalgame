@@ -31,6 +31,8 @@ namespace Entity
 		weak_ptr<Figure> getFigureWp(int layerId, int objectId) const;
 		void addObject(int layerId, int objectId, shared_ptr<Object> objSp);
 		void addFigure(int layerId, int objectId, shared_ptr<Figure> viewObjSp);
+		void addObject(int layerId, shared_ptr<Object> objSp);
+		void addFigure(int layerId, shared_ptr<Figure> viewObjSp);
 		void removeObject(int layerId, int objectId);
 		void removeFigure(int layerId, int objectId);
 
@@ -42,6 +44,8 @@ namespace Entity
 		void clearAnimation();
 
 	private:
+		constexpr static int MAX_AUTO_OBJECT_ID = 10000; //! 自動採番するオブジェクトIDの最大値
+
 		//! マウスイベント対象のオブジェクト群を格納
 		vector<map<int, shared_ptr<Object>>> layerObjList_;
 

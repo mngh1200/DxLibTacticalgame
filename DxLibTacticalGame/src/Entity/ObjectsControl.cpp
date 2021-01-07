@@ -106,6 +106,60 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * オブジェクト追加（オブジェクトIDは自動採番）
+	 * @param (layaerId) レイヤーのID
+	 * @param (objSp)    追加オブジェクト
+	 */
+	void ObjectsControl::addObject(int layerId, shared_ptr<Object> objSp)
+	{
+		if (0 <= layerId && (unsigned int)layerId < layerObjList_.size()) // 存在するレイヤーであるかチェック
+		{
+			int autoObjectId = 0;
+			auto mapItr = layerObjList_.begin() + layerId;
+
+			// 重複しないオブジェクトIDを探索
+			for (int i = 0; i < MAX_AUTO_OBJECT_ID; ++i)
+			{
+				if (!mapItr->count(autoObjectId))
+				{
+					break;
+				}
+				++autoObjectId;
+			}
+
+			addObject(layerId, autoObjectId, objSp);
+		}
+	}
+
+	/**
+	 * @fn
+	 * Viewオブジェクト追加（オブジェクトIDは自動採番）
+	 * @param (layaerId) レイヤーのID
+	 * @param (objSp)    追加Viewオブジェクト
+	 */
+	void ObjectsControl::addFigure(int layerId, shared_ptr<Figure> viewObjSp)
+	{
+		if (0 <= layerId && (unsigned int)layerId < layerViewObjList_.size()) // 存在するレイヤーであるかチェック
+		{
+			int autoObjectId = 0;
+			auto mapItr = layerViewObjList_.begin() + layerId;
+
+			// 重複しないオブジェクトIDを探索
+			for (int i = 0; i < MAX_AUTO_OBJECT_ID; ++i)
+			{
+				if (!mapItr->count(autoObjectId))
+				{
+					break;
+				}
+				++autoObjectId;
+			}
+
+			addFigure(layerId, autoObjectId, viewObjSp);
+		}
+	}
+
+	/**
+	 * @fn
 	 * オブジェクト削除
 	 * @param (layaerId) 対象レイヤーのID
 	 * @param (objectId) 対象オブジェクトのID
@@ -218,7 +272,7 @@ namespace Entity {
 
 				if (obj->isDelete()) // 削除
 				{
-					targetLayer.erase((*objMapItr).first);
+					(*layerViewItr).erase((*objMapItr).first);
 				}
 				else // 描画
 				{
