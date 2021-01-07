@@ -28,6 +28,20 @@ namespace Screen
 		BattleScreen() : btlMng{}, openScreen_(-1) {};
 		~BattleScreen() {};
 
+		// レイヤー
+		enum Layer
+		{
+			MASK,
+			CONTEXT_MENU,
+			EFFECT,
+			UI,
+			PLAYER_UNIT,
+			ENEMY_UNIT,
+			MAP,
+			BACK,
+			LEN
+		};
+
 		void init();
 		void updateByEvents(weak_ptr < Entity::Object> hitObjWp, int x, int y, int button, int eventType);
 		void updateByAnimation();
@@ -39,19 +53,6 @@ namespace Screen
 		int openScreen_;
 
 		shared_ptr<Entity::ContextMenu> systemMenu_;
-
-		// レイヤー
-		enum Layer
-		{
-			MASK,
-			CONTEXT_MENU,
-			UI,
-			PLAYER_UNIT,
-			ENEMY_UNIT,
-			MAP,
-			BACK,
-			LEN
-		};
 
 		// シーン
 		enum Scene

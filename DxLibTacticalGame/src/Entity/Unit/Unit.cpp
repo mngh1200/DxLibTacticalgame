@@ -136,6 +136,7 @@ namespace Entity {
 
 			if (animation_.update(&shape_.x, baseX - ANIME_DAMAGE_MOVE, baseX + ANIME_DAMAGE_MOVE))
 			{
+				viewHp_ = hp_;
 				animationSub_.forceFinish();
 				return !checkDead();
 			}
@@ -177,18 +178,19 @@ namespace Entity {
 		}
 		else if (animationId == AnimationKind::DAMAGE) // ダメージ
 		{
-			animation_ = Animation(ANIME_DAMAGE_MS, 0, ANIME_DAMAGE_REPEAT, ANIME_ATACK_MS);
+			animation_ = Animation(ANIME_DAMAGE_MS / ANIME_DAMAGE_REPEAT, 0, ANIME_DAMAGE_REPEAT, ANIME_ATACK_MS);
 			int baseX = Map::getRealX(x_);
 			animation_.adjustFrame(shape_.x, baseX - ANIME_DAMAGE_MOVE, baseX + ANIME_DAMAGE_MOVE);
 			animation_.adjustLastFrame(shape_.x, baseX - ANIME_DAMAGE_MOVE, baseX + ANIME_DAMAGE_MOVE);
 
 			// HPバーアニメーション
-			animationSub_ = Animation(ANIME_DAMAGE_MS * ANIME_DAMAGE_REPEAT);
+			animationSub_ = Animation(ANIME_DAMAGE_MS, 0, 1, ANIME_ATACK_MS);
+
 			return true;
 		}
 		else if (animationId == AnimationKind::AVOID) // 回避
 		{
-			animation_ = Animation(ANIME_DAMAGE_MS, Animation::Direction::AlTERNATE, 2, ANIME_ATACK_MS - 100);
+			animation_ = Animation(ANIME_DAMAGE_MS / 2, Animation::Direction::AlTERNATE, 2, ANIME_ATACK_MS - 100);
 			return true;
 		}
 		else if (animationId == AnimationKind::DESTROY) // 死亡
@@ -262,6 +264,9 @@ namespace Entity {
 		prevHp_ = hp_;
 		hp_ -= damage;
 		joinAnimationList(AnimationKind::DAMAGE);
+
+		// ダメージエフェクト
+		DamageEffect::makeDamageEffect(shape_.x, shape_.y, damage);
 		
 		if (hp_ <= 0)
 		{
@@ -279,6 +284,7 @@ namespace Entity {
 	void Unit::avoid()
 	{
 		joinAnimationList(AnimationKind::AVOID);
+		DamageEffect::makeDamageEffect(shape_.x, shape_.y, DamageEffect::MISS);
 	}
 
 	/**

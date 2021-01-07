@@ -4,6 +4,7 @@
 #include "Utility/ResourceManager.h"
 #include "Animation/Animation.h"
 #include "Entity/Battle/Map.h"
+#include "Entity/Effect/DamageEffect.h"
 
 using namespace std;
 
@@ -82,10 +83,9 @@ namespace Entity
 
 		const static vector<string> LEN_TEXT; //! 射程を示すテキスト
 
-		constexpr static int ANIME_ATACK_MS = 400;					//! 攻撃アニメーションの時間
-		constexpr static int ANIME_DAMAGE_MS = ANIME_ATACK_MS / 2;	//! ダメージアニメションの時間
-		constexpr static int ANIME_DAMAGE_MOVE = 10;				//! ダメージアニメションの動作範囲
-		constexpr static int ANIME_DAMAGE_REPEAT = 4;				//! ダメージアニメションのリピート回数
+		constexpr static int ANIME_ATACK_MS = 400;	  //! 攻撃アニメーションの時間
+		constexpr static int ANIME_DAMAGE_MOVE = 10;  //! ダメージアニメションの動作範囲
+		constexpr static int ANIME_DAMAGE_REPEAT = 4; //! ダメージアニメションのリピート回数
 
 		void setKind(int kind);
 
@@ -153,6 +153,9 @@ namespace Entity
 
 		//! アニメーションクラス（複数必要だった場合のサブ）
 		Animation animationSub_;
+
+	public:
+		constexpr static int ANIME_DAMAGE_MS = 400;	//! ダメージアニメションの時間
 	};
 
 

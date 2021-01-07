@@ -29,18 +29,6 @@ namespace Utility {
 
 		return ret;
 	}
-
-	/**
-	 * @fn
-	 * 指定されたオブジェクト取得(1毎絵用)
-	 * @param (type) リソースタイプ
-	 * @param (kind) リソースの種類
-	 * @return 対象リソースのID
-	 */
-	int ResourceManager::getImage(int type, int kind) const
-	{
-		return image_.at(type).at(kind)[0];
-	}
 	/**
 	 * @fn
 	 * 指定されたオブジェクト取得
@@ -183,6 +171,15 @@ namespace Utility {
 		image_.at(ImageType::ENEMY).push_back(new int[16]);
 		//loadCharacterchip("resource/image/unit/enemy/gunner_enemy.png", image_.at(ImageType::ENEMY).at(UnitKey::GUNNER));
 		loadCharacterchip(MAKEINTRESOURCE(ENEMY_GUNNER_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::ENEMY).at(UnitKey::GUNNER));
+
+
+		// ダメージエフェクト
+		image_.insert(std::make_pair(ImageType::EFFECT, vector<int*>()));
+		image_.at(ImageType::EFFECT).push_back(new int[10]);
+		ret = DxLib::LoadDivGraph("resource/image/effect/damage.png", 10, 10, 1, 26, 32, image_.at(ImageType::EFFECT).at(EffectId::DAMAGE));
+		
+		image_.at(ImageType::EFFECT).push_back(new int[1]);
+		loadImage("resource/image/effect/miss.png", image_.at(ImageType::EFFECT).at(EffectId::MISS));
 
 		return ret;
 	}

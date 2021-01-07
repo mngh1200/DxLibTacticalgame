@@ -91,6 +91,12 @@
     <Filter Include="ヘッダー ファイル\Battle\BUI">
       <UniqueIdentifier>{1d603ddb-d1c8-403e-a9e5-ee1764fc5ff3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Entity\Effect">
+      <UniqueIdentifier>{0b266338-38bf-4bf3-b074-8816c9a41f35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entity\Effect">
+      <UniqueIdentifier>{708df3c8-aab4-47be-9d5a-e8ebd829fc00}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -185,6 +191,9 @@
     </ClCompile>
     <ClCompile Include="src\Entity\UI\Menu\ContextMenu.cpp">
       <Filter>ソース ファイル\Entity\UI\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Effect\DamageEffect.cpp">
+      <Filter>ソース ファイル\Entity\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -286,6 +295,9 @@
     </ClInclude>
     <ClInclude Include="src\Entity\UI\Menu\ContextMenu.h">
       <Filter>ヘッダー ファイル\Entity\UI\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Effect\DamageEffect.h">
+      <Filter>ヘッダー ファイル\Entity\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

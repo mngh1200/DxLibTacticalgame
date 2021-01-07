@@ -53,7 +53,14 @@ namespace
 		PLAYER,
 		ENEMY,
 		MAP,
+		EFFECT,
 		IMAGE
+	};
+
+	enum EffectId
+	{
+		DAMAGE,
+		MISS
 	};
 
 	// PLAYER、ENEMYのアニメーション開始位置(仮)
@@ -89,8 +96,7 @@ namespace Utility
 
 		int load();
 
-		int getImage(int type, int kind) const;
-		int getImage(int type, int kind, int pos) const;
+		int getImage(int type, int kind, int pos = 0) const;
 
 		int getHdlFont(int kind) const;
 
