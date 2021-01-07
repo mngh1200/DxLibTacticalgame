@@ -5,10 +5,10 @@ namespace Battle {
 	 * @fn
 	 * コンストラクタ
 	 */
-	BattleManager::BattleManager(shared_ptr<Entity::Map> map, int uiLayerId) : BattleManager()
+	BattleManager::BattleManager(shared_ptr<Entity::Map> map) : BattleManager()
 	{
 		map_ = map;
-		battleUI_.init(uiLayerId);
+		battleUI_.init();
 		fight_.init(map);
 	}
 

@@ -30,7 +30,7 @@ namespace Screen
 		objectsControl.addObject(Layer::MAP, 0, map);
 		
 		// バトル管理クラス
-		btlMng = Battle::BattleManager(map, Layer::UI);
+		btlMng = Battle::BattleManager(map);
 
 		// ユニット設置(テスト)
 		shared_ptr<Entity::Unit> playerUnit = make_shared<Entity::Unit>();
@@ -70,6 +70,11 @@ namespace Screen
 	/**
 	 * @fn
 	 * イベント取得後のスクリーン更新処理
+	 * @param (hitObjWp) 接触オブジェクトの弱参照
+	 * @param (x) マウスのx座標
+	 * @param (y) マウスのy座標
+	 * @param (button) ボタンの種類
+	 * @param (eventType) イベントの種類（マウスダウン or マウスアップ or マウスクリック）
 	*/
 	void BattleScreen::updateByEvents(weak_ptr<Entity::Object> hitObjWp, int x, int y, int button, int eventType)
 	{

@@ -1,4 +1,5 @@
 #include "BattleUI.h"
+#include "Screen/BattleScreen.h"
 
 namespace Battle {
 
@@ -6,10 +7,12 @@ namespace Battle {
 	 * @fn
 	 * 初期処理
 	*/
-	void BattleUI::init(int uiLayerId)
+	void BattleUI::init()
 	{
 		FrameWork::Game& game = FrameWork::Game::getInstance();
 		Entity::ObjectsControl& objectsControl = game.objectsControl;
+
+		int uiLayerId = Screen::BattleScreen::Layer::UI;
 
 		// 地形効果表示欄
 		terrainEffectDisplay_ = make_shared<TerrainEffectDisplay>();
@@ -27,6 +30,11 @@ namespace Battle {
 	/**
 	 * @fn
 	 * イベントチェック
+	 * @param (hitObjWp) 接触オブジェクトの弱参照
+	 * @param (x) マウスのx座標
+	 * @param (y) マウスのy座標
+	 * @param (button) ボタンの種類
+	 * @param (eventType) イベントの種類（マウスダウン or マウスアップ or マウスクリック）
 	*/
 	void BattleUI::updateByEvents(shared_ptr<Object> hitObj, int x, int y, int button, int eventType)
 	{
@@ -47,6 +55,7 @@ namespace Battle {
 	/**
 	 * @fn
 	 * ユニット選択時処理
+	 * @param (unit) 選択ユニット
 	*/
 	void BattleUI::setTargetUnit(shared_ptr<Unit> unit)
 	{
@@ -68,6 +77,7 @@ namespace Battle {
 	/**
 	 * @fn
 	 * マス選択時処理
+	 * @param (mass) 選択マス
 	*/
 	void BattleUI::setTargetMass(shared_ptr<Mass> mass)
 	{
@@ -90,6 +100,7 @@ namespace Battle {
 	/**
 	 * @fn
 	 * 戦闘予測表示時
+	 * @param (fight) 対象の戦闘情報
 	*/
 	void BattleUI::setFightPredict(const Fight* fight)
 	{

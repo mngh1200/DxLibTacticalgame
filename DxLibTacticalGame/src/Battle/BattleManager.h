@@ -22,7 +22,7 @@ namespace Battle
 	{
 	public:
 		BattleManager() : phase_(Phase::NORMAL), battleUI_{} {};
-		BattleManager(shared_ptr<Entity::Map> map, int uiLayerId);
+		BattleManager(shared_ptr<Entity::Map> map);
 		~BattleManager() {};
 
 		enum BattleUi

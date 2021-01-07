@@ -5,6 +5,7 @@ namespace BUI
 	/**
 	 * @fn
 	 * ラベル描画
+	 * @param (x0) 
 	 * @return 右端のx座標を返す
 	 */
 	int drawLabel(int x0, int y0, string text, int w, int backgroundColorType, int textColorType)

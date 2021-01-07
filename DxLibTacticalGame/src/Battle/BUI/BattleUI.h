@@ -32,7 +32,7 @@ namespace Battle
 			UIID_LEN
 		};
 
-		void init(int uiLayerId);
+		void init();
 
 		void setTargetUnit(shared_ptr<Unit> unit);
 		void resetTargetUnit();
