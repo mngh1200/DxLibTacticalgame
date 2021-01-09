@@ -15,13 +15,30 @@ using namespace std;
 
 namespace Entity
 {
+	struct UnitInfo
+	{
+		//! 名前
+		string name = "";
+
+		//! ユニット種類
+		int kind = UnitKey::LANCER;
+
+		//! 各種ステータス
+		int hp = 0;
+		int hpm = 0;
+		int atk = 0;
+		int def = 0;
+		int mov = 0;
+		int len = 0;
+		int range = 1;
+	};
+
 	class Unit : public Object
 	{
 	public:
 		Unit() : x_(0), y_(0), baseX_(0), baseY_(0), targetRealX_(0), targetRealY_(0), 
-			name_(""), kind_(0), imageId_(0), animation_{}, animationSub_{},
-			hp_(0), hpm_(0), atk_(0), def_(0), mov_(0), len_(0), range_(1), viewHp_(0), prevHp_(0),
-			alpha_(255), isEnemy_(false), state_(State::NORMAL) {};
+			imageId_(0), isEnemy_(false), state_(State::NORMAL), isActed_(false),
+			animation_{}, animationSub_{}, viewHp_(0), prevHp_(0), alpha_(255)  {};
 		~Unit() {};
 
 		// 状況の種類
@@ -29,8 +46,7 @@ namespace Entity
 		{
 			NORMAL,
 			MOVE,
-			SELECTED,
-			ACTED
+			SELECTED
 		};
 
 		void init(int x, int y, int kind, bool isEnemy = false);
@@ -40,6 +56,8 @@ namespace Entity
 
 		void move(int x, int y);
 
+		void setPos(int x, int y);
+
 		void back();
 
 		bool damage(int damage);
@@ -48,11 +66,13 @@ namespace Entity
 
 		bool checkDead();
 
+		void atack(int targetRealX, int targetRealY);
+
 		bool select(bool isSelect);
 
-		int atack(int targetRealX, int targetRealY);
+		void turnEnd();
 
-		void setPos(int x, int y);
+		void endAction();
 
 		string getLenText() const;
 
@@ -61,17 +81,12 @@ namespace Entity
 		int getBaseX() const { return baseX_; }; // 移動元x座標を返す
 		int getBaseY() const { return baseY_; }; // 移動元y座標を返す
 		
-		string getName() const { return name_; } // ユニット名を返す
-		int getHpm() const { return hpm_; } // 最大HPを返す
-		int getHp() const { return hp_; } // 見た目上のHPを返す
-		int getAtk() const { return atk_; } ; // 攻撃力を返す
-		int getDef() const { return def_; }; // 防御力を返す
-		int getMove() const { return mov_; }; // 移動力を返す
-		int getLen() const { return len_; }; // 射程を返す
-		int getRange() const { return range_; }; // 攻撃範囲を返す
+		
+		UnitInfo getInfo() const { return info_; } // ユニット名やステータスの情報を返す
 
-		bool isHorse() const { return kind_ == UnitKey::CAVALRY; } // 騎兵であればtrueを返す
+		bool isHorse() const { return info_.kind == UnitKey::CAVALRY; } // 騎兵であればtrueを返す
 		bool isEnemy() const { return isEnemy_; } // 敵ユニットであるかを返す
+		bool isActed() const { return isActed_; } // 行動終了済みであるか
 
 	protected:
 		bool createAnimation(int animationId);
@@ -88,9 +103,6 @@ namespace Entity
 		constexpr static int ANIME_DAMAGE_REPEAT = 4; //! ダメージアニメションのリピート回数
 
 		void setKind(int kind);
-
-		//! ユニットの種類
-		int kind_;
 
 		//! 画像
 		int imageId_;
@@ -113,20 +125,17 @@ namespace Entity
 		//! 攻撃先のy座標
 		int targetRealY_;
 
-		//! 名前
-		string name_;
-
-		//! 各種ステータス
-		int hp_;
-		int hpm_;
-		int atk_;
-		int def_;
-		int mov_;
-		int len_;
-		int range_;
+		// ユニットの情報
+		UnitInfo info_;
 
 		//! 状況
 		State state_;
+
+		//! 行動終了済みであるか
+		bool isActed_;
+
+		//! 敵かどうか
+		bool isEnemy_;
 
 		//! アニメーションクラス
 		Animation animation_;
@@ -142,17 +151,11 @@ namespace Entity
 			DESTROY
 		};
 
-		//! アニメーション用
-		int viewHp_, prevHp_;
-
-		//! アニメーション用 不透明度
-		int alpha_;
-
-		//! 敵かどうか
-		bool isEnemy_;
-
 		//! アニメーションクラス（複数必要だった場合のサブ）
 		Animation animationSub_;
+
+		//! アニメーション用変数
+		int viewHp_, prevHp_, alpha_;
 
 	public:
 		constexpr static int ANIME_DAMAGE_MS = 400;	//! ダメージアニメションの時間

@@ -34,6 +34,8 @@ namespace Battle
 		void updateByEvents(shared_ptr<Object> hitObj, int x, int y, int button, int eventType);
 		void animationCheck();
 
+		void onStartTurn(bool isPlayer);
+
 	private:
 		void onClickUnit(shared_ptr<Object> hitObj);
 		void onClickMass(int x, int y);
@@ -44,7 +46,8 @@ namespace Battle
 		void selectUnit(shared_ptr<Unit> unit);
 		bool deselectUnit();
 
-		void atackAction(shared_ptr<Unit> atkUnit, shared_ptr<Unit> defUnit);
+		void atackAction();
+		void waitAction();
 
 
 		//! 選択中のユニット
@@ -53,15 +56,11 @@ namespace Battle
 		//! マップ
 		shared_ptr<Entity::Map> map_;
 
-		//! システムメニュー
-		shared_ptr<Entity::ContextMenu> systemMenu_;
-
 		//! バトルUI
 		BattleUI battleUI_;
 
 		//! 個人戦闘管理用
 		Fight fight_;
-		
 
 		//! フェーズ
 		int phase_;

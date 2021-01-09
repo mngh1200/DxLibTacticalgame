@@ -150,6 +150,24 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * ユニットリストのイテレータの始点を返す
+	*/
+	map<pair<int, int>, shared_ptr<Unit>>::iterator Map::unitsBegin()
+	{
+		return units_.begin();
+	}
+
+	/**
+	 * @fn
+	 * ユニットリストのイテレータの終点を返す
+	*/
+	map<pair<int, int>, shared_ptr<Unit>>::iterator Map::unitsEnd()
+	{
+		return units_.end();
+	}
+
+	/**
+	 * @fn
 	 * ユニットのマス移動（移動確定時）
 	 * @param (unit) 対象ユニット
 	*/
@@ -177,7 +195,7 @@ namespace Entity {
 	{
 		if (unit)
 		{
-			int move = unit->getMove();
+			int move = unit->getInfo().mov;
 			int x = unit->getMassX();
 			int y = unit->getMassY();
 			searchMovableMass(unit, x, y, move, true, unit->isEnemy()); // 敵ユニットの場合は攻撃範囲表示
@@ -272,7 +290,7 @@ namespace Entity {
 	{
 		if (unit)
 		{
-			int range = unit->getRange();
+			int range = unit->getInfo().range;
 
 			for (int i = 1; i <= range; i++)
 			{

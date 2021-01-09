@@ -33,6 +33,9 @@ namespace Entity
 		shared_ptr<Unit> getUnit(int massX, int massY);
 		void eraseUnit(shared_ptr<Unit> unit);
 
+		map<pair<int, int>, shared_ptr<Unit>>::iterator unitsBegin();
+		map<pair<int, int>, shared_ptr<Unit>>::iterator unitsEnd();
+
 		void confirmMove(shared_ptr<Unit> unit);
 
 		void displayMovableRange(shared_ptr<Unit> unit);

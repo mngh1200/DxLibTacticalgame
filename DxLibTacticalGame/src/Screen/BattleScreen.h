@@ -45,21 +45,18 @@ namespace Screen
 		void init();
 		void updateByEvents(weak_ptr < Entity::Object> hitObjWp, int x, int y, int button, int eventType);
 		void updateByAnimation();
+
 	private:
+		void turnEnd();
+
 		// バトル管理クラス
 		Battle::BattleManager btlMng;
 
 		//! 表示対象スクリーン
 		int openScreen_;
 
+		//! システムメニュー
 		shared_ptr<Entity::ContextMenu> systemMenu_;
-
-		// シーン
-		enum Scene
-		{
-			PLAYER_TURN,
-			ENEMY_TURN
-		};
 
 		// システムメニューのキー
 		enum SystemMenuKey
@@ -67,6 +64,13 @@ namespace Screen
 			TURN_END,
 			BACK_SELECT_SCREEN,
 			BACK_MENU_SCREEN
+		};
+
+		// シーンの種類
+		enum Scene
+		{
+			PLAYER_TURN,
+			ENEMY_TURN
 		};
 	};
 }

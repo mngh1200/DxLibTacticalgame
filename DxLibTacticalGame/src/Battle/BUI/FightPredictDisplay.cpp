@@ -78,10 +78,11 @@ namespace Entity {
 		/* 一行目 ここから */
 
 		int x = areaX;
+		UnitInfo info = fightData.unit->getInfo();
 
 		// 名前表示
 		int nameColorType = isPlayer ? ColorType::PLAYER_COLOR : ColorType::ENEMY_COLOR;
-		x = BUI::drawLabel(x, shape_.y, fightData.unit->getName(), BUI::getZenW(3), nameColorType, ColorType::WHITE);
+		x = BUI::drawLabel(x, shape_.y, info.name, BUI::getZenW(3), nameColorType, ColorType::WHITE);
 
 
 
@@ -92,7 +93,7 @@ namespace Entity {
 
 		// HP
 		x = BUI::drawLabel(x, y, "HP", BUI::getHanW(2));
-		x = BUI::drawValue(x, y, to_string(fightData.unit->getHp()) + " / " + to_string(fightData.unit->getHpm()), BUI::getHanW(7));
+		x = BUI::drawValue(x, y, to_string(info.hp) + " / " + to_string(info.hpm), BUI::getHanW(7));
 
 		// 与ダメージ
 		string value = !fightData.isAtk ? "-" : to_string(fightData.damage);

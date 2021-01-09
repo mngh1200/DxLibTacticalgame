@@ -93,6 +93,7 @@ namespace Screen
 				if (systemMenuKey == SystemMenuKey::TURN_END)
 				{
 					// ターンエンド処理
+					turnEnd();
 					systemMenu_->hide();
 				}
 				else if (systemMenuKey == SystemMenuKey::BACK_SELECT_SCREEN || systemMenuKey == SystemMenuKey::BACK_MENU_SCREEN)
@@ -140,6 +141,27 @@ namespace Screen
 				// セレクト画面に戻る
 				FrameWork::Game::getInstance().setScreen(new SelectScreen());
 			}
+		}
+	}
+
+	/**
+	 * @fn
+	 * ターン終了時（別ターンに切替時）
+	*/
+	void BattleScreen::turnEnd()
+	{
+		if (nowScene_ == Scene::PLAYER_TURN) // プレイヤーターン終了
+		{
+			nowScene_ = Scene::ENEMY_TURN;
+			btlMng.onStartTurn(false);
+
+			// テスト処理
+			turnEnd();
+		}
+		else if (nowScene_ == Scene::ENEMY_TURN) // 敵ターン終了
+		{
+			nowScene_ = Scene::PLAYER_TURN;
+			btlMng.onStartTurn(true);
 		}
 	}
 }

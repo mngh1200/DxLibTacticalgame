@@ -24,43 +24,43 @@ namespace Entity {
 	 */
 	void Unit::setKind(int kind)
 	{
-		kind_ = kind;
+		info_.kind = kind;
 
 		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
 
 		if (kind == UnitKey::CAVALRY) // 騎兵
 		{
-			name_ = "騎兵";
-			hpm_ = 30;
-			atk_ = 8;
-			def_ = 1;
-			mov_ = 4;
-			len_ = 0;
+			info_.name = "騎兵";
+			info_.hpm = 30;
+			info_.atk = 8;
+			info_.def = 1;
+			info_.mov = 4;
+			info_.len = 0;
 		}
 		else if (kind == UnitKey::GUNNER) // 銃兵
 		{
-			name_ = "銃兵";
-			hpm_ = 20;
-			atk_ = 9;
-			def_ = 0;
-			mov_ = 2;
-			len_ = 2;
-			range_ = 3;
+			info_.name = "銃兵";
+			info_.hpm = 20;
+			info_.atk = 9;
+			info_.def = 0;
+			info_.mov = 2;
+			info_.len = 2;
+			info_.range = 3;
 		}
 		else // kind == UnitKey::LANCER の動作 // 槍兵
 		{
-			name_ = "槍兵";
-			hpm_ = 30;
-			atk_ = 6;
-			def_ = 2;
-			mov_ = 2;
-			len_ = 1;
-			kind_ = UnitKey::LANCER;
+			info_.name = "槍兵";
+			info_.hpm = 30;
+			info_.atk = 6;
+			info_.def = 2;
+			info_.mov = 2;
+			info_.len = 1;
+			info_.kind = UnitKey::LANCER;
 		}
 
-		viewHp_ = hp_ = hpm_;
+		viewHp_ = info_.hp = info_.hpm;
 
-		imageId_ = rm.getImage(ImageType::PLAYER, kind_, isEnemy_ ? 0 : 2);
+		imageId_ = rm.getImage(ImageType::PLAYER, info_.kind, isEnemy_ ? 0 : 2);
 	}
 
 	/**
@@ -70,11 +70,6 @@ namespace Entity {
 	void Unit::render() const
 	{
 		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
-
-		if (alpha_ != 255) // 不透明度
-		{
-			DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha_);
-		}
 
 		if (state_ == State::SELECTED) // 選択中
 		{
@@ -87,6 +82,11 @@ namespace Entity {
 			Map::drawHoverMass(shape_.x, shape_.y);
 		}
 
+		if (alpha_ != 255) // 不透明度
+		{
+			DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha_);
+		}
+
 		DxLib::DrawGraph(shape_.x, shape_.y, imageId_, TRUE);
 
 		// HPバー
@@ -95,12 +95,12 @@ namespace Entity {
 		int hpx2 = shape_.getX2() - HP_PADDING;
 		int hpy2 = hpy1 + HP_H;
 
-		int hpw = (int)((float)(CHIP_SIZE - HP_PADDING * 2) * ((float)viewHp_ / (float)hpm_));
+		int hpw = (int)((float)(CHIP_SIZE - HP_PADDING * 2) * ((float)viewHp_ / (float)info_.hpm));
 
 		DxLib::DrawBox(hpx1, hpy1, hpx2, hpy2, rm.getColor(ColorType::NEGATIVE_COLOR), TRUE);
 		DxLib::DrawBox(hpx1, hpy1, hpx1 + hpw, hpy2, rm.getColor(ColorType::POSITIVE_LITE_COLOR), TRUE);
 
-		if (alpha_ != 255) // 不透明度
+		if (alpha_ != 255) // 描画モードを標準に戻す
 		{
 			DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		}
@@ -130,13 +130,13 @@ namespace Entity {
 		}
 		else if (animationId_ == AnimationKind::DAMAGE) // ダメージ
 		{
-			animationSub_.update(&viewHp_, prevHp_, hp_);
+			animationSub_.update(&viewHp_, prevHp_, info_.hp);
 
 			int baseX = Map::getRealX(x_);
 
 			if (animation_.update(&shape_.x, baseX - ANIME_DAMAGE_MOVE, baseX + ANIME_DAMAGE_MOVE))
 			{
-				viewHp_ = hp_;
+				viewHp_ = info_.hp;
 				animationSub_.forceFinish();
 				return !checkDead();
 			}
@@ -246,7 +246,7 @@ namespace Entity {
 	{
 		try
 		{
-			return LEN_TEXT.at(getLen());
+			return LEN_TEXT.at(info_.len);
 		}
 		catch (out_of_range&) {}
 		
@@ -261,16 +261,16 @@ namespace Entity {
 	 */
 	bool Unit::damage(int damage)
 	{
-		prevHp_ = hp_;
-		hp_ -= damage;
+		prevHp_ = info_.hp;
+		info_.hp -= damage;
 		joinAnimationList(AnimationKind::DAMAGE);
 
 		// ダメージエフェクト
 		DamageEffect::makeDamageEffect(shape_.x, shape_.y, damage);
 		
-		if (hp_ <= 0)
+		if (info_.hp <= 0)
 		{
-			hp_ = 0;
+			info_.hp = 0;
 			return true;
 		}
 		
@@ -294,7 +294,7 @@ namespace Entity {
 	 */
 	bool Unit::checkDead()
 	{
-		if (hp_ <= 0)
+		if (info_.hp <= 0)
 		{
 			changeAnimation(AnimationKind::DESTROY); // 死亡、アニメーション継続
 			return true;
@@ -336,14 +336,34 @@ namespace Entity {
 
 	/**
 	 * @fn
-	 * 攻撃
-	 * @return 攻撃力
+	 * ターン終了時の処理
 	 */
-	int Unit::atack(int targetRealX, int targetRealY)
+	void Unit::turnEnd()
+	{
+		isActed_ = false;
+		alpha_ = 255; // テスト処理
+	}
+
+	/**
+	 * @fn
+	 * 行動終了
+	 */
+	void Unit::endAction()
+	{
+		isActed_ = true;
+		alpha_ = 100; // テスト処理
+	}
+
+	/**
+	 * @fn
+	 * 攻撃
+	 * @param (targetRealX) 攻撃対象のX座標
+	 * @param (targetRealY) 攻撃対象のY座標
+	 */
+	void Unit::atack(int targetRealX, int targetRealY)
 	{
 		targetRealX_ = shape_.x + (targetRealX - shape_.x) / 2;
 		targetRealY_ = shape_.y + (targetRealY - shape_.y) / 2;
 		joinAnimationList(AnimationKind::ATACK);
-		return getAtk();
 	}
 }

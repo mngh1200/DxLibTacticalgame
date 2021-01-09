@@ -1,4 +1,5 @@
 #include "BattleManager.h"
+#include "Screen/BattleScreen.h"
 
 namespace Battle {
 	/**
@@ -85,18 +86,18 @@ namespace Battle {
 		{
 			if (!isOwn && map_->getMass(unit->getMassX(), unit->getMassY())->state == Mass::ATK_ABLE) // 攻撃対象のユニットクリック
 			{
-				atackAction(selectedUnit_, unit); // 攻撃
+				atackAction(); // 攻撃アクション
 				
 			}
 			else if (unit == selectedUnit_) // 選択中のユニットクリック
 			{
-				map_->confirmMove(selectedUnit_); // 待機
+				waitAction(); // 待機アクション
 			}
 			else
 			{
+				endSelectActionPhase(); // 行動選択終了
 				selectUnit(unit); // 他のユニット選択
 			}
-			endSelectActionPhase(); // 行動選択終了
 		}
 		else
 		{
@@ -170,13 +171,30 @@ namespace Battle {
 
 	/**
 	 * @fn
+	 * ターンスタート時処理
+	*/
+	void BattleManager::onStartTurn(bool isPlayer)
+	{
+		FrameWork::Game& game = FrameWork::Game::getInstance();
+
+		for (auto itr = map_->unitsBegin(); itr != map_->unitsEnd(); ++itr)
+		{
+			itr->second->turnEnd();
+		}
+	}
+
+	/**
+	 * @fn
 	 * 行動選択フェイズ開始
 	*/
 	void BattleManager::startSelectActionPhase()
 	{
-		map_->clearMassState();
-		phase_ = Phase::SELECT_ACTION; // 行動選択 
-		map_->displayAtackRange(selectedUnit_);
+		if (!selectedUnit_->isEnemy() && !selectedUnit_->isActed())
+		{
+			map_->clearMassState();
+			phase_ = Phase::SELECT_ACTION; // 行動選択 
+			map_->displayAtackRange(selectedUnit_);
+		}
 	}
 
 	/**
@@ -203,7 +221,11 @@ namespace Battle {
 			{
 				selectedUnit_ = unit;
 				battleUI_.setTargetUnit(selectedUnit_);
-				map_->displayMovableRange(unit);
+
+				if (!unit->isActed())
+				{
+					map_->displayMovableRange(unit);
+				}
 			}
 		}
 	}
@@ -237,21 +259,28 @@ namespace Battle {
 	}
 
 
+
+
 	/**
 	 * @fn
 	 * 攻撃
 	*/
-	void BattleManager::atackAction(shared_ptr<Unit> atkUnit, shared_ptr<Unit> defUnit)
+	void BattleManager::atackAction()
 	{
-		map_->confirmMove(atkUnit);
-		map_->clearMassState();
-		deselectUnit();
-
-		if (atkUnit && defUnit)
-		{
-			fight_.start();
-			phase_ = Phase::FIGHT;
-		}
+		map_->confirmMove(selectedUnit_);
+		fight_.start();
+		endSelectActionPhase();
+		phase_ = Phase::FIGHT;
 	}
 
+	/**
+	 * @fn
+	 * 待機アクション
+	*/
+	void BattleManager::waitAction()
+	{
+		map_->confirmMove(selectedUnit_);
+		selectedUnit_->endAction();
+		endSelectActionPhase();
+	}
 }

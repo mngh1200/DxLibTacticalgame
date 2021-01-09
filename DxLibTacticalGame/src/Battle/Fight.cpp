@@ -67,7 +67,10 @@ namespace Battle
 
 		if (fightData->isAtk) // UŒ‚‚·‚éê‡
 		{
-			fightData->damage = atkUnit->getAtk() - defUnit->getDef() - mass->getDef();
+			UnitInfo atkInfo = atkUnit->getInfo();
+			UnitInfo defInfo = defUnit->getInfo();
+
+			fightData->damage = atkInfo.atk - defInfo.def - mass->getDef();
 			fightData->hitRate = 100 - mass->getAgl();
 
 			// ‹——£Œ¸Š
@@ -132,6 +135,7 @@ namespace Battle
 		}
 
 		// í“¬I—¹
+		actSide_.unit->endAction();
 		reset();
 		return true;
 	}
@@ -144,37 +148,42 @@ namespace Battle
 	 */
 	bool Fight::atack(bool isActSideAtack)
 	{
-		FightData& atkSide = actSide_;
-		FightData& defSide = psvSide_;
+		FightData* atkSide;
+		FightData* defSide;
 
-		if (!isActSideAtack) // –hŒä‘¤‚ÌUŒ‚
+		if (isActSideAtack) // UŒ‚ŽdŠ|‚¯‚½‘¤‚ÌUŒ‚
 		{
-			atkSide = psvSide_;
-			defSide = actSide_;
+			atkSide = &actSide_;
+			defSide = &psvSide_;
+		}
+		else // UŒ‚ŽdŠ|‚¯‚ç‚ê‚½‘¤‚ÌUŒ‚
+		{
+			atkSide = &psvSide_;
+			defSide = &actSide_;
 		}
 
 		// UŒ‚•s‰Â”»’è
-		if (!atkSide.isAtk || atkSide.unit->getHp() <= 0)
+		if (!atkSide->isAtk || atkSide->unit->getInfo().hp <= 0)
 		{
 			return false;
 		}
 
 		// UŒ‚ŽÀs
-		atkSide.unit->atack(defSide.unit->getX(), defSide.unit->getY());
+		atkSide->unit->atack(defSide->unit->getX(), defSide->unit->getY());
 
 		// –½’†”»’è
-		if (atkSide.hitRate > DxLib::GetRand(99))
+		if (atkSide->hitRate > DxLib::GetRand(99))
 		{
 			// ƒ_ƒ[ƒW
-			if (defSide.unit->damage(atkSide.damage))
+			if (defSide->unit->damage(atkSide->damage))
 			{
 				// Ž€–SŽžˆ—
-				map_->eraseUnit(defSide.unit);
+				map_->eraseUnit(defSide->unit);
 			}
 		}
 		else
 		{
-			defSide.unit->avoid(); // ‰ñ”ð
+			defSide->unit->avoid(); // ‰ñ”ð
 		}
 
 		return true;

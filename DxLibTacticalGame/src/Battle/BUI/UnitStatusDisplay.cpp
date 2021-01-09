@@ -29,9 +29,11 @@ namespace Entity {
 
 			/* ˆês–Ú ‚±‚±‚©‚ç */
 
+			UnitInfo info = targetUnit_->getInfo();
+
 			// –¼‘O•\Ž¦
 			int nameColorType = targetUnit_->isEnemy() ? ColorType::ENEMY_COLOR : ColorType::PLAYER_COLOR;
-			BUI::drawLabel(shape_.x, shape_.y, targetUnit_->getName(), BUI::getZenW(3), nameColorType, ColorType::WHITE);
+			BUI::drawLabel(shape_.x, shape_.y, info.name, BUI::getZenW(3), nameColorType, ColorType::WHITE);
 
 			/* “ñs–Ú ‚±‚±‚©‚ç */
 
@@ -40,15 +42,15 @@ namespace Entity {
 
 			// HP
 			x = BUI::drawLabel(x, y, "HP", BUI::getHanW(2));
-			x = BUI::drawValue(x, y, to_string(targetUnit_->getHp()) + " / " + to_string(targetUnit_->getHpm()), BUI::getHanW(7));
+			x = BUI::drawValue(x, y, to_string(info.hp) + " / " + to_string(info.hpm), BUI::getHanW(7));
 
 			// UŒ‚—Í
 			x = BUI::drawLabel(x, y, "U", BUI::getZenW(1));
-			x = BUI::drawValue(x, y, to_string(targetUnit_->getAtk()), BUI::getHanW(3));
+			x = BUI::drawValue(x, y, to_string(info.atk), BUI::getHanW(3));
 
 			// –hŒä
 			x = BUI::drawLabel(x, y, "–h", BUI::getZenW(1));
-			x = BUI::drawValue(x, y, to_string(targetUnit_->getDef()), BUI::getHanW(3));
+			x = BUI::drawValue(x, y, to_string(info.def), BUI::getHanW(3));
 
 			// ŽË’ö
 			x = BUI::drawLabel(x, y, "ŽË’ö", BUI::getZenW(2));
