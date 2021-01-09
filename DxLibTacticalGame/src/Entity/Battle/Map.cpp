@@ -195,10 +195,19 @@ namespace Entity {
 	{
 		if (unit)
 		{
+			bool isOwnUnit = !unit->isEnemy(); // 自軍ユニットであるか
+
 			int move = unit->getInfo().mov;
 			int x = unit->getMassX();
 			int y = unit->getMassY();
-			searchMovableMass(unit, x, y, move, true, unit->isEnemy()); // 敵ユニットの場合は攻撃範囲表示
+
+			if (isOwnUnit)
+			{
+				// 初期位置からの攻撃範囲表示
+				displayAtackRange(unit, true);
+			}
+
+			searchMovableMass(unit, x, y, move, true, !isOwnUnit); // 敵ユニットの場合は攻撃範囲表示
 		}
 	}
 
@@ -271,11 +280,11 @@ namespace Entity {
 	 * 現在地の攻撃可能範囲表示
 	 * @param (unit) 対象ユニット
 	*/
-	void Map::displayAtackRange(shared_ptr<Unit> unit)
+	void Map::displayAtackRange(shared_ptr<Unit> unit, bool isExistEnemyOnly)
 	{
 		if (unit)
 		{
-			displayAtackRange(unit, unit->getMassX(), unit->getMassY());
+			displayAtackRange(unit, unit->getMassX(), unit->getMassY(), isExistEnemyOnly);
 		}
 	}
 
@@ -286,7 +295,7 @@ namespace Entity {
 	 * @param (x) マス座標X
 	 * @param (y) マス座標Y
 	*/
-	void Map::displayAtackRange(shared_ptr<Unit> unit, int x, int y)
+	void Map::displayAtackRange(shared_ptr<Unit> unit, int x, int y, bool isExistEnemyOnly)
 	{
 		if (unit)
 		{
@@ -294,10 +303,10 @@ namespace Entity {
 
 			for (int i = 1; i <= range; i++)
 			{
-				setAtackMass(x - i, y);
-				setAtackMass(x + i, y);
-				setAtackMass(x, y - i);
-				setAtackMass(x, y + i);
+				setAtackMass(x - i, y, isExistEnemyOnly);
+				setAtackMass(x + i, y, isExistEnemyOnly);
+				setAtackMass(x, y - i, isExistEnemyOnly);
+				setAtackMass(x, y + i, isExistEnemyOnly);
 			}
 		}
 	}
@@ -307,8 +316,9 @@ namespace Entity {
 	 * 対象マスを攻撃可能マスにセット
 	 * @param (x) マス座標X
 	 * @param (y) マス座標Y
+	 * @param (isExistEnemyOnly) trueの場合、敵ユニットが存在する時のみ攻撃可能にする
 	*/
-	void Map::setAtackMass(int x, int y)
+	void Map::setAtackMass(int x, int y, bool isExistEnemyOnly)
 	{
 		shared_ptr<Mass> nowMass = getMass(x, y);
 
@@ -317,7 +327,20 @@ namespace Entity {
 		{
 			return;
 		}
-		nowMass->state = Mass::ATK_ABLE;
+
+		if (!isExistEnemyOnly)
+		{
+			nowMass->state = Mass::ATK_ABLE;
+		}
+		else
+		{
+			// 敵ユニットが存在する場合のみ攻撃可能にする
+			shared_ptr<Unit> unit = getUnit(x, y);
+			if (unit && unit->isEnemy())
+			{
+				nowMass->state = Mass::ATK_ABLE;
+			}
+		}
 	}
 
 	/**

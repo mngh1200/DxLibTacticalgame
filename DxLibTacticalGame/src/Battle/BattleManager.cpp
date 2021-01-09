@@ -41,7 +41,7 @@ namespace Battle {
 
 			if (mass)
 			{
-				if (phase_ == Phase::SELECT_ACTION && unit && unit->isEnemy() && mass->state == Mass::ATK_ABLE)
+				if (isAtackAble(unit))
 				{
 					// 戦闘予測表示
 					if (fight_.setPrepare(selectedUnit_, unit))
@@ -82,14 +82,15 @@ namespace Battle {
 		shared_ptr<Unit> unit = dynamic_pointer_cast<Unit>(hitObj);
 		bool isOwn = !unit->isEnemy(); // 味方ユニットであるか
 		
-		if (phase_ == Phase::SELECT_ACTION) // 行動選択
+
+		if (isAtackAble(unit)) // 攻撃対象のユニットクリック
 		{
-			if (!isOwn && map_->getMass(unit->getMassX(), unit->getMassY())->state == Mass::ATK_ABLE) // 攻撃対象のユニットクリック
-			{
-				atackAction(); // 攻撃アクション
-				
-			}
-			else if (unit == selectedUnit_) // 選択中のユニットクリック
+			atackAction(); // 攻撃アクション
+
+		}
+		else if (phase_ == Phase::SELECT_ACTION) // 行動選択
+		{
+			if (unit == selectedUnit_) // 選択中のユニットクリック
 			{
 				waitAction(); // 待機アクション
 			}
@@ -282,5 +283,39 @@ namespace Battle {
 		map_->confirmMove(selectedUnit_);
 		selectedUnit_->endAction();
 		endSelectActionPhase();
+	}
+
+	/**
+	 * @fn
+	 * 対象ユニットに攻撃可能化
+	 * @param (targetUnit) 攻撃対象ユニット
+	*/
+	bool BattleManager::isAtackAble(shared_ptr<Unit> targetUnit) const
+	{
+		if (targetUnit)
+		{
+			shared_ptr<Mass> mass = map_->getMass(targetUnit->getMassX(), targetUnit->getMassY());
+			return isSelectedUnitActive() && targetUnit->isEnemy() && mass->state == Mass::ATK_ABLE;
+		}
+		return false;
+	}
+
+	/**
+	 * @fn
+	 * 選択中のユニットが行動可能であるか
+	*/
+	bool BattleManager::isSelectedUnitActive() const
+	{
+		return selectedUnit_ && !selectedUnit_->isEnemy() && !selectedUnit_->isActed();
+	}
+
+	/**
+	 * @fn
+	 * 選択中のユニットであるか判定
+	 * @param (unit) 判定対象ユニット
+	*/
+	bool BattleManager::isSelectedUnit(shared_ptr<Unit> unit) const
+	{
+		return selectedUnit_ == unit;
 	}
 }

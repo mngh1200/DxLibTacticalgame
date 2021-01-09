@@ -49,6 +49,10 @@ namespace Battle
 		void atackAction();
 		void waitAction();
 
+		bool isAtackAble(shared_ptr<Unit> targetUnit) const;
+		bool isSelectedUnitActive() const;
+		bool isSelectedUnit(shared_ptr<Unit> unit) const;
+
 
 		//! 選択中のユニット
 		shared_ptr<Entity::Unit> selectedUnit_;
