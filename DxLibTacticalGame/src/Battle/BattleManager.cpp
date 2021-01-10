@@ -182,6 +182,8 @@ namespace Battle {
 		{
 			itr->second->turnEnd();
 		}
+
+		battleUI_.onStartTurn(isPlayer);
 	}
 
 	/**

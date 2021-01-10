@@ -25,6 +25,32 @@ namespace Battle {
 		// 戦闘予測欄
 		fightPredictDisplay_ = make_shared<FightPredictDisplay>();
 		objectsControl.addObject(uiLayerId, BattleUIid::FIGHT_PREDICT, fightPredictDisplay_);
+
+		// ターン終了ボタン
+		turnEndButton_ = make_shared<TurnEndButton>();
+		objectsControl.addObject(uiLayerId, BattleUIid::TURN_END_BUTTON, turnEndButton_);
+
+		// 敵ターンスピード調整ボタン
+		enemySpeedController_ = make_shared<EnemySpeedController>();
+		objectsControl.addObject(uiLayerId, BattleUIid::ENEMY_SPEED_CONTROLLER, enemySpeedController_);
+	}
+
+	/**
+	 * @fn
+	 * ターン開始時処理
+	*/
+	void BattleUI::onStartTurn(bool isPlayer)
+	{
+		if (isPlayer)
+		{
+			turnEndButton_->show();
+			enemySpeedController_->hide();
+		}
+		else
+		{
+			turnEndButton_->hide();
+			enemySpeedController_->show();
+		}
 	}
 
 	/**
@@ -38,7 +64,6 @@ namespace Battle {
 	*/
 	void BattleUI::updateByEvents(shared_ptr<Object> hitObj, int x, int y, int button, int eventType)
 	{
-
 	}
 
 

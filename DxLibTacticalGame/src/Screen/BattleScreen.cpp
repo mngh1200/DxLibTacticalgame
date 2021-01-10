@@ -102,14 +102,23 @@ namespace Screen
 					openScreen_ = systemMenuKey;
 					createOverlay(false);
 				}
-
-				if (eventType == MOUSE_INPUT_LOG_UP || (eventType == MOUSE_INPUT_LOG_CLICK && hitObjSp != systemMenu_))
+				else if (eventType == MOUSE_INPUT_LOG_UP || (eventType == MOUSE_INPUT_LOG_CLICK && hitObjSp != systemMenu_))
 				{
 					systemMenu_->hide();
 
 					if (button == MOUSE_INPUT_RIGHT) // 右マウスダウン
 					{
 						systemMenu_->show(x, y);
+					}
+				}
+				
+				
+				if (eventType == MOUSE_INPUT_LOG_CLICK)
+				{
+					// ターン終了ボタン
+					if (hitObjSp->getLayerId() == Layer::UI && hitObjSp->getObjectId() == Battle::BattleUI::BattleUIid::TURN_END_BUTTON)
+					{
+						turnEnd();
 					}
 				}
 			}

@@ -25,6 +25,7 @@ namespace
 		WHITE,
 		MAIN_COLOR,
 		MAIN_COLOR_ON,
+		MAIN_COLOR_ON_DARK,
 		SUB_COLOR,
 		SUB_COLOR_LITE,
 		SUB_COLOR_DARK,
@@ -54,9 +55,17 @@ namespace
 		ENEMY,
 		MAP,
 		EFFECT,
+		BUI,
 		IMAGE
 	};
 
+	// バトルUI用の画像の種類
+	enum BUI_ImageKind
+	{
+		SPEED
+	};
+
+	// エフェクト画像の種類
 	enum EffectId
 	{
 		DAMAGE,

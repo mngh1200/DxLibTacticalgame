@@ -172,6 +172,12 @@ namespace Utility {
 		//loadCharacterchip("resource/image/unit/enemy/gunner_enemy.png", image_.at(ImageType::ENEMY).at(UnitKey::GUNNER));
 		loadCharacterchip(MAKEINTRESOURCE(ENEMY_GUNNER_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::ENEMY).at(UnitKey::GUNNER));
 
+		// スピード調節ボタン
+		/*
+		image_.insert(std::make_pair(ImageType::BUI, vector<int*>()));
+		image_.at(ImageType::BUI).push_back(new int[9]);
+		ret = DxLib::LoadDivGraph("resource/image/bui/speed.png", 9, 3, 3, CHIP_SIZE, CHIP_SIZE, image_.at(ImageType::BUI).at(BUI_ImageKind::SPEED));
+		*/
 
 		// ダメージエフェクト
 		image_.insert(std::make_pair(ImageType::EFFECT, vector<int*>()));
@@ -208,6 +214,7 @@ namespace Utility {
 
 		colorType_[ColorType::MAIN_COLOR] = DxLib::GetColor(250, 244, 232);
 		colorType_[ColorType::MAIN_COLOR_ON] = DxLib::GetColor(254, 213, 175);
+		colorType_[ColorType::MAIN_COLOR_ON_DARK] = 0xFB8B24;
 
 		colorType_[ColorType::SUB_COLOR] = DxLib::GetColor(124, 104, 95);
 		colorType_[ColorType::SUB_COLOR_LITE] = DxLib::GetColor(224, 215, 204);

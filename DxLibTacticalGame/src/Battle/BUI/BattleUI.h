@@ -6,6 +6,8 @@
 #include "UnitStatusDisplay.h"
 #include "TerrainEffectDisplay.h"
 #include "FightPredictDisplay.h"
+#include "EnemySpeedController.h"
+#include "Entity/UI/Button/TurnEndButton.h"
 
 using namespace std;
 using namespace Entity;
@@ -29,10 +31,13 @@ namespace Battle
 			TERRAIN_EFFECT,
 			UNIT_STATUS,
 			FIGHT_PREDICT,
+			TURN_END_BUTTON,
+			ENEMY_SPEED_CONTROLLER,
 			UIID_LEN
 		};
 
 		void init();
+		void onStartTurn(bool isPlayer);
 
 		void setTargetUnit(shared_ptr<Unit> unit);
 		void resetTargetUnit();
@@ -67,6 +72,12 @@ namespace Battle
 
 		//! 戦闘予測欄
 		shared_ptr<FightPredictDisplay> fightPredictDisplay_;
+
+		//! ターン終了ボタン
+		shared_ptr<TurnEndButton> turnEndButton_;
+
+		//! 敵ターンスピード調整ボタン
+		shared_ptr<EnemySpeedController> enemySpeedController_;
 	};
 
 
