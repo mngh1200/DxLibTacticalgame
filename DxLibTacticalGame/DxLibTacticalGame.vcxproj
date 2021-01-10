@@ -155,6 +155,7 @@
     <ClCompile Include="src\Battle\BattleManager.cpp" />
     <ClCompile Include="src\Battle\BUI\BattleUI.cpp" />
     <ClCompile Include="src\Battle\BUI\BattleUIDefine.cpp" />
+    <ClCompile Include="src\Battle\BUI\EnemySpeedController.cpp" />
     <ClCompile Include="src\Battle\BUI\FightPredictDisplay.cpp" />
     <ClCompile Include="src\Battle\BUI\TerrainEffectDisplay.cpp" />
     <ClCompile Include="src\Battle\BUI\UnitStatusDisplay.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="src\Entity\UI\Button\CourseButton.cpp" />
     <ClCompile Include="src\Entity\UI\Button\MenuScreenButton.cpp" />
     <ClCompile Include="src\Entity\UI\Button\TextButton.cpp" />
+    <ClCompile Include="src\Entity\UI\Button\TurnEndButton.cpp" />
     <ClCompile Include="src\Entity\UI\Menu\ContextMenu.cpp" />
     <ClCompile Include="src\Entity\UI\Overlay.cpp" />
     <ClCompile Include="src\Entity\Unit\Unit.cpp" />
@@ -191,6 +193,7 @@
     <ClInclude Include="src\Battle\BattleManager.h" />
     <ClInclude Include="src\Battle\BUI\BattleUI.h" />
     <ClInclude Include="src\Battle\BUI\BattleUIDefine.h" />
+    <ClInclude Include="src\Battle\BUI\EnemySpeedController.h" />
     <ClInclude Include="src\Battle\BUI\FightPredictDisplay.h" />
     <ClInclude Include="src\Battle\BUI\TerrainEffectDisplay.h" />
     <ClInclude Include="src\Battle\BUI\UnitStatusDisplay.h" />
@@ -207,6 +210,7 @@
     <ClInclude Include="src\Entity\UI\Button\CourseButton.h" />
     <ClInclude Include="src\Entity\UI\Button\MenuScreenButton.h" />
     <ClInclude Include="src\Entity\UI\Button\TextButton.h" />
+    <ClInclude Include="src\Entity\UI\Button\TurnEndButton.h" />
     <ClInclude Include="src\Entity\UI\Menu\ContextMenu.h" />
     <ClInclude Include="src\Entity\UI\Overlay.h" />
     <ClInclude Include="src\Entity\Unit\Unit.h" />
