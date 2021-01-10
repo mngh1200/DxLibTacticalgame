@@ -26,7 +26,7 @@ namespace Screen
 		systemMenu_->addMenuButton(SystemMenuKey::BACK_MENU_SCREEN, "メニュー画面に戻る");
 
 		// マップ（マス）
-		shared_ptr<Entity::Map> map = make_shared<Entity::Map>();
+		shared_ptr<Entity::Map> map = make_shared<Entity::Map>(MapId::STAGE1);
 		objectsControl.addObject(Layer::MAP, 0, map);
 		
 		// バトル管理クラス

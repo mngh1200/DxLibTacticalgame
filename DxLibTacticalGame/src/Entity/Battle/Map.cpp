@@ -49,6 +49,41 @@ namespace Entity {
 	}
 
 	/**
+     * @fn
+     * コンストラクタ
+     */
+	Map::Map(int mapId)
+	{
+		type_ = Object::Type::MAP;
+
+		weak_ptr<Unit> tmpUnit;
+
+		if (tmpUnit.expired()) {
+			int a = 10;
+		}
+
+		shape_.set(0, MAP_Y, MAP_MASS_W * CHIP_SIZE, MAP_MASS_H * CHIP_SIZE);
+
+		mass_.reserve(MAP_MASS_H); // メモリ確保
+
+		// マップデータ生成
+		for (int y = 0; y < MAP_MASS_H; y++)
+		{
+			mass_.push_back(vector<shared_ptr<Mass>>());
+			mass_[y].reserve(MAP_MASS_W); // メモリ確保
+
+			for (int x = 0; x < MAP_MASS_W; x++)
+			{
+				int kind = Utility::ResourceManager::getInstance().getMapMass(mapId, x, y);
+				if (kind >= Mass::Kind::LEN) {
+					kind = Mass::Kind::OUT_OF_MAP;
+				}
+				mass_[y].push_back(make_shared<Mass>(kind));
+			}
+		}
+	}
+
+	/**
 	 * @fn
 	 * 描画
 	 */

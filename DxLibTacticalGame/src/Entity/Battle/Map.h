@@ -25,6 +25,7 @@ namespace Entity
 	{
 	public:
 		Map();
+		Map(int);
 		~Map() {};
 
 		void render() const override;
