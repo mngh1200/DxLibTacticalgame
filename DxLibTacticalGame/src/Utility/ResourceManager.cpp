@@ -27,6 +27,8 @@ namespace Utility {
 		loadColors();
 		loadSounds();
 
+		mapList_[MapId::STAGE1] = loadMapCsv("resource/map/stage1.csv");
+
 		return ret;
 	}
 	/**
@@ -54,6 +56,11 @@ namespace Utility {
 	int ResourceManager::getSound(int kind) const
 	{
 		return sounds_[kind];
+	}
+
+	int ResourceManager::getMapMass(int mapId, int w, int h) const
+	{
+		return mapList_[mapId][h][w];
 	}
 
 	void ResourceManager::playSound(int kind) {
@@ -280,6 +287,40 @@ namespace Utility {
 		else {
 			MessageBox(NULL, "remove failure", "", MB_OK);
 		}
+	}
+
+	std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H > ResourceManager::loadMapCsv(const LPCSTR csvFilePath)
+	{
+		std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H > ret = {};
+		std::string str_buf;
+		std::string str_conma_buf;
+		for (int i = 0; i < MAP_MASS_H; i++) {
+			for (int j = 0; j < MAP_MASS_W; j++) {
+				ret[i][j] = -1;
+			}
+
+		}
+
+
+		// 読み込むcsvファイルを開く(std::ifstreamのコンストラクタで開く)
+		std::ifstream ifs_csv_file(csvFilePath);
+		int lineCount = 0;
+		// getline関数で1行ずつ読み込む(読み込んだ内容はstr_bufに格納)
+		while (getline(ifs_csv_file, str_buf) && lineCount < MAP_MASS_H) {
+			// 「,」区切りごとにデータを読み込むためにistringstream型にする
+			std::istringstream i_stream(str_buf);
+			int colCount = 0;
+			// 「,」区切りごとにデータを読み込む
+			while (getline(i_stream, str_conma_buf, ',') && colCount < MAP_MASS_W) {
+				// csvファイルに書き込む
+				ret[lineCount][colCount] = stoi(str_conma_buf);
+				colCount++;
+			}
+			lineCount++;
+		}
+
+
+		return ret;
 	}
 
 	boolean ResourceManager::isLoaded() const {

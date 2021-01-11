@@ -4,6 +4,10 @@
 #include "resource.h"
 #include <map>
 #include <vector>
+#include <array>
+#include <string>
+#include <fstream>
+#include <sstream>
 using namespace std;
 
 /**
@@ -87,6 +91,12 @@ namespace
 		MASS_MOVE,
 		IMAGE_ID_LEN
 	};
+
+	enum MapId {
+		STAGE1,
+		STAGE2,
+		MAP_ID_LEN
+	};
 }
 
 namespace Utility
@@ -113,13 +123,15 @@ namespace Utility
 
 		int getSound(int kind) const;
 
+		int getMapMass(int mapId, int w, int h) const;
+
 		static void playSound(int kind);
 
 		boolean isLoaded() const;
 
 	private:
 		ResourceManager()
-			:image_{}, hdlFont_{}, colorType_{}, sounds_{}, loadFlag{ false }
+			:image_{}, hdlFont_{}, colorType_{}, sounds_{}, loadFlag{ false }, mapList_{}
 		{};
 		~ResourceManager();
 
@@ -141,9 +153,12 @@ namespace Utility
 		void loadFont(const LPCSTR fontFilePath);
 		void unloadFont(const LPCSTR fontFilePath);
 
+		std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H > loadMapCsv(const LPCSTR csvFilePath);
+
 		int hdlFont_[FontType::FONT_LEN];
 		int colorType_[ColorType::COLOR_LEN];
 		int sounds_[SoundKind::SOUNDS_LEN];
+		std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H > mapList_[MapId::MAP_ID_LEN];
 
 		boolean loadFlag;
 	};
