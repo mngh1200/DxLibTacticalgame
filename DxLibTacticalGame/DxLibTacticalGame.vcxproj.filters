@@ -204,6 +204,9 @@
     <ClCompile Include="src\Battle\BUI\EnemySpeedController.cpp">
       <Filter>ソース ファイル\Battle\BUI</Filter>
     </ClCompile>
+    <ClCompile Include="src\Battle\PlayerBattleController.cpp">
+      <Filter>ソース ファイル\Battle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -316,6 +319,9 @@
     </ClInclude>
     <ClInclude Include="src\Battle\BUI\EnemySpeedController.h">
       <Filter>ヘッダー ファイル\Battle\BUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\PlayerBattleController.h">
+      <Filter>ヘッダー ファイル\Battle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

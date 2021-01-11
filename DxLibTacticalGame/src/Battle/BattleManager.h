@@ -6,7 +6,6 @@
 #include "Entity/Battle/Map.h"
 #include "Entity/Unit/Unit.h"
 #include "BUI/BattleUI.h"
-#include "Entity/UI/Menu/ContextMenu.h"
 
 using namespace std;
 using namespace Entity;
@@ -21,24 +20,23 @@ namespace Battle
 	class BattleManager
 	{
 	public:
-		BattleManager() : phase_(Phase::NORMAL), battleUI_{} {};
-		BattleManager(shared_ptr<Entity::Map> map);
+		BattleManager() : phase_(Phase::NORMAL), battleUI{} {};
 		~BattleManager() {};
 
-		enum BattleUi
+		// 状態遷移状況
+		enum Phase
 		{
-			TERRAIN_EFFECT_DISPLAY,
-			UIID_LEN
+			NORMAL,
+			MOVE,
+			SELECT_ACTION,
+			FIGHT
 		};
 
-		void updateByEvents(shared_ptr<Object> hitObj, int x, int y, int button, int eventType);
+		void init(shared_ptr<Map> map);
+
 		void animationCheck();
 
 		void onStartTurn(bool isPlayer);
-
-	private:
-		void onClickUnit(shared_ptr<Object> hitObj);
-		void onClickMass(int x, int y);
 
 		void startSelectActionPhase();
 		void endSelectActionPhase();
@@ -48,34 +46,32 @@ namespace Battle
 
 		void atackAction();
 		void waitAction();
+		void moveAction(int massX, int massY);
+		void moveCancel();
 
+		void setFightPredict(shared_ptr<Unit> targetUnit);
+		void resetFightPredict();
+
+		int getPhase() const { return phase_; }; // 状況を返す
 		bool isAtackAble(shared_ptr<Unit> targetUnit) const;
 		bool isSelectedUnitActive() const;
 		bool isSelectedUnit(shared_ptr<Unit> unit) const;
 
+		//! バトルUI
+		BattleUI battleUI;
 
+	private:
 		//! 選択中のユニット
 		shared_ptr<Entity::Unit> selectedUnit_;
 
 		//! マップ
 		shared_ptr<Entity::Map> map_;
 
-		//! バトルUI
-		BattleUI battleUI_;
-
 		//! 個人戦闘管理用
 		Fight fight_;
 
 		//! フェーズ
 		int phase_;
-
-		enum Phase
-		{
-			NORMAL,
-			MOVE,
-			SELECT_ACTION,
-			FIGHT
-		};
 	};
 
 

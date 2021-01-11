@@ -29,8 +29,9 @@ namespace Screen
 		shared_ptr<Entity::Map> map = make_shared<Entity::Map>(MapId::STAGE1);
 		objectsControl.addObject(Layer::MAP, 0, map);
 		
-		// バトル管理クラス
-		btlMng = Battle::BattleManager(map);
+		// バトル管理用クラスの初期処理
+		btlMng_.init(map);
+		playerBtlCont_.init(map);
 
 		// ユニット設置(テスト)
 		shared_ptr<Entity::Unit> playerUnit = make_shared<Entity::Unit>();
@@ -85,7 +86,7 @@ namespace Screen
 
 			if (nowScene_ == Scene::PLAYER_TURN) // プレイヤーターン
 			{
-				btlMng.updateByEvents(hitObjSp, x, y, button, eventType);
+				playerBtlCont_.updateByEvents(&btlMng_, hitObjSp, x, y, button, eventType);
 
 				// システムメニュー関連イベント
 				int systemMenuKey = systemMenu_->checkRunButton(x, y, eventType);
@@ -131,7 +132,7 @@ namespace Screen
 	*/
 	void BattleScreen::updateByAnimation()
 	{
-		btlMng.animationCheck(); // バトル管理系の処理
+		btlMng_.animationCheck(); // バトル管理系の処理
 
 		if (isOpenOverlayEnded()) // オーバーレイ開く
 		{
@@ -162,7 +163,7 @@ namespace Screen
 		if (nowScene_ == Scene::PLAYER_TURN) // プレイヤーターン終了
 		{
 			nowScene_ = Scene::ENEMY_TURN;
-			btlMng.onStartTurn(false);
+			btlMng_.onStartTurn(false);
 
 			// テスト処理
 			turnEnd();
@@ -170,7 +171,7 @@ namespace Screen
 		else if (nowScene_ == Scene::ENEMY_TURN) // 敵ターン終了
 		{
 			nowScene_ = Scene::PLAYER_TURN;
-			btlMng.onStartTurn(true);
+			btlMng_.onStartTurn(true);
 		}
 	}
 }

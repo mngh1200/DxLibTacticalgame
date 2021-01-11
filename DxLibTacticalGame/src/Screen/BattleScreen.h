@@ -9,6 +9,7 @@
 #include "Utility/ResourceManager.h"
 #include "Entity/UI/Back.h"
 #include "Battle/BattleManager.h"
+#include "Battle/PlayerBattleController.h"
 #include "Entity/Battle/Map.h"
 #include "Entity/Unit/Unit.h"
 #include "Entity/UI/Menu/ContextMenu.h"
@@ -25,7 +26,7 @@ namespace Screen
 	class BattleScreen : public ScreenBase
 	{
 	public:
-		BattleScreen() : btlMng{}, openScreen_(-1) {};
+		BattleScreen() : btlMng_{}, playerBtlCont_{},  openScreen_(-1) {};
 		~BattleScreen() {};
 
 		// レイヤー
@@ -50,7 +51,10 @@ namespace Screen
 		void turnEnd();
 
 		// バトル管理クラス
-		Battle::BattleManager btlMng;
+		Battle::BattleManager btlMng_;
+
+		// バトル画面上のプレイヤー操作管理クラス
+		Battle::PlayerBattleController playerBtlCont_;
 
 		//! 表示対象スクリーン
 		int openScreen_;

@@ -4,149 +4,14 @@
 namespace Battle {
 	/**
 	 * @fn
-	 * コンストラクタ
+	 * 初期処理
+	 * @param (map) マップのポインタ
 	 */
-	BattleManager::BattleManager(shared_ptr<Entity::Map> map) : BattleManager()
+	void BattleManager::init(shared_ptr<Entity::Map> map)
 	{
 		map_ = map;
-		battleUI_.init();
-		fight_.init(map);
-	}
-
-	/**
-	 * @fn
-	 * イベント処理
-	 */
-	void BattleManager::updateByEvents(shared_ptr<Object> hitObj, int x, int y, int button, int eventType)
-	{
-		if (eventType == MOUSE_INPUT_LOG_CLICK) // クリック
-		{
-			if (hitObj->getType() == Object::Type::UNIT)
-			{
-				onClickUnit(hitObj);
-			}
-			else if (hitObj->getType() == Object::Type::MAP)
-			{
-				onClickMass(x, y);
-			}
-		}
-
-		if (hitObj->getType() == Object::Type::UNIT || hitObj->getType() == Object::Type::MAP)
-		{
-			// 1マップ上の要素をホバー
-			int massX = Map::getMassX(x);
-			int massY = Map::getMassY(y);
-			shared_ptr<Mass> mass = map_->getMass(massX, massY);
-			shared_ptr<Unit> unit = map_->getUnit(massX, massY);
-
-			if (mass)
-			{
-				if (isAtackAble(unit))
-				{
-					// 戦闘予測表示
-					if (fight_.setPrepare(selectedUnit_, unit))
-					{
-						battleUI_.setFightPredict(&fight_);
-					}
-				}
-				else
-				{
-					if (phase_ != Phase::FIGHT)
-					{
-						fight_.reset();
-						battleUI_.resetFightPredict();
-					}
-
-					battleUI_.setTargetMass(mass);
-				}
-			}
-		}
-		else
-		{
-			if (phase_ != Phase::FIGHT)
-			{
-				fight_.reset();
-				battleUI_.resetFightPredict();
-			}
-		}
-
-	}
-
-
-	/**
-	 * @fn
-	 * ユニット クリック時処理
-	 */
-	void BattleManager::onClickUnit(shared_ptr<Object> hitObj)
-	{
-		shared_ptr<Unit> unit = dynamic_pointer_cast<Unit>(hitObj);
-		bool isOwn = !unit->isEnemy(); // 味方ユニットであるか
-		
-
-		if (isAtackAble(unit)) // 攻撃対象のユニットクリック
-		{
-			atackAction(); // 攻撃アクション
-
-		}
-		else if (phase_ == Phase::SELECT_ACTION) // 行動選択
-		{
-			if (unit == selectedUnit_) // 選択中のユニットクリック
-			{
-				waitAction(); // 待機アクション
-			}
-			else
-			{
-				endSelectActionPhase(); // 行動選択終了
-				selectUnit(unit); // 他のユニット選択
-			}
-		}
-		else
-		{
-			if (unit == selectedUnit_)
-			{
-				if (isOwn)
-				{
-					// クリックしたユニットが 選択中のユニットだった場合、行動選択フェイズに移行
-					startSelectActionPhase();
-				}
-			}
-			else
-			{
-				selectUnit(unit); // ユニット選択
-			}
-		}
-	}
-
-	/**
-	 * @fn
-	 * マス クリック時処理
-	 */
-	void BattleManager::onClickMass(int x, int y)
-	{
-		int massX = Map::getMassX(x);
-		int massY = Map::getMassY(y);
-
-		if (selectedUnit_)
-		{
-
-			shared_ptr<Mass> targetMass = map_->getMass(massX, massY);
-			
-			if (phase_ == Phase::SELECT_ACTION) // 行動選択
-			{
-				selectedUnit_->back(); // 移動キャンセル
-				endSelectActionPhase(); // 行動選択終了
-			}
-			else if (targetMass->isMovable())
-			{
-				selectedUnit_->move(massX, massY); // 移動
-				phase_ = Phase::MOVE;
-				return;
-			}
-			else
-			{
-				deselectUnit(); // 選択解除
-			}
-		}
+		battleUI.init();
+		fight_.init(map_);
 	}
 
 	/**
@@ -183,7 +48,7 @@ namespace Battle {
 			itr->second->turnEnd();
 		}
 
-		battleUI_.onStartTurn(isPlayer);
+		battleUI.onStartTurn(isPlayer);
 	}
 
 	/**
@@ -223,7 +88,7 @@ namespace Battle {
 			if (unit && unit->select(true))
 			{
 				selectedUnit_ = unit;
-				battleUI_.setTargetUnit(selectedUnit_);
+				battleUI.setTargetUnit(selectedUnit_);
 
 				if (!unit->isActed())
 				{
@@ -250,7 +115,7 @@ namespace Battle {
 			if (selectedUnit_->select(false))
 			{
 				selectedUnit_.reset();
-				battleUI_.resetTargetUnit();
+				battleUI.resetTargetUnit();
 				map_->clearMassState();
 				return true;
 			}
@@ -270,10 +135,13 @@ namespace Battle {
 	*/
 	void BattleManager::atackAction()
 	{
-		map_->confirmMove(selectedUnit_);
-		fight_.start();
-		endSelectActionPhase();
-		phase_ = Phase::FIGHT;
+		if (isSelectedUnitActive())
+		{
+			map_->confirmMove(selectedUnit_);
+			fight_.start();
+			endSelectActionPhase();
+			phase_ = Phase::FIGHT;
+		}
 	}
 
 	/**
@@ -282,9 +150,63 @@ namespace Battle {
 	*/
 	void BattleManager::waitAction()
 	{
-		map_->confirmMove(selectedUnit_);
-		selectedUnit_->endAction();
-		endSelectActionPhase();
+		if (isSelectedUnitActive())
+		{
+			map_->confirmMove(selectedUnit_);
+			selectedUnit_->endAction();
+			endSelectActionPhase();
+		}
+	}
+
+	/**
+	 * @fn
+	 * ユニット移動アクション
+	 * @param (massX) マス座標X
+	 * @param (massY) マス座標Y
+	*/
+	void BattleManager::moveAction(int massX, int massY)
+	{
+		selectedUnit_->move(massX, massY); // 移動
+		phase_ = Phase::MOVE;
+	}
+
+	/**
+	 * @fn
+	 * 移動キャンセル
+	*/
+	void BattleManager::moveCancel()
+	{
+		selectedUnit_->back(); // 移動キャンセル
+		endSelectActionPhase(); // 行動選択終了
+	}
+
+
+	/**
+	 * @fn
+	 * 戦闘予測を生成
+	*/
+	void BattleManager::setFightPredict(shared_ptr<Unit> targetUnit)
+	{
+		if (isSelectedUnitActive())
+		{
+			if (fight_.setPrepare(selectedUnit_, targetUnit))
+			{
+				battleUI.setFightPredict(&fight_);
+			}
+		}
+	}
+
+	/**
+	 * @fn
+	 * 戦闘予測をクリア
+	*/
+	void BattleManager::resetFightPredict()
+	{
+		if (phase_ != Phase::FIGHT)
+		{
+			fight_.reset();
+			battleUI.resetFightPredict();
+		}
 	}
 
 	/**
