@@ -239,10 +239,27 @@ namespace Entity {
 			if (isOwnUnit)
 			{
 				// 初期位置からの攻撃範囲表示
-				displayAtackRange(unit, true);
+				displayAtackAbleRange(unit, x, y, true);
 			}
 
-			searchMovableMass(unit, x, y, move, true, !isOwnUnit); // 敵ユニットの場合は攻撃範囲表示
+			vector<pair<int, int>> posList;
+			getMovableMasses(unit, x, y, move, posList, true);
+
+			if (isOwnUnit) // 自軍ユニット
+			{
+				for (auto itr = posList.begin(); itr != posList.end(); ++itr)
+				{
+					getMass(itr->first, itr->second)->state = Mass::State::MOVABLE; // 移動可能エリア表示
+				}
+			}
+			else // 敵軍ユニットの場合
+			{
+				for (auto itr = posList.begin(); itr != posList.end(); ++itr)
+				{
+					displayAtackAbleRange(unit, itr->first, itr->second); // 攻撃可能エリア表示
+				}
+			}
+			
 		}
 	}
 
@@ -256,7 +273,7 @@ namespace Entity {
 	 * @param (isInit) 最初の探索であるか
 	 * @param (isAtackAbleArea) 攻撃可能範囲の探索であるか
 	*/
-	void Map::searchMovableMass(shared_ptr<Unit> unit, int x, int y, int move, bool isInit, bool isAtackAbleArea)
+	void Map::getMovableMasses(shared_ptr<Unit> unit, int x, int y, int move, vector<pair<int, int>> &posList,  bool isInit)
 	{
 		shared_ptr<Mass> nowMass = getMass(x, y);
 
@@ -288,25 +305,16 @@ namespace Entity {
 
 		if (move > nowMass->passingMov)
 		{
-			if (!isOwnUnitOnMass)
-			{
-				if (isAtackAbleArea) 
-				{
-					displayAtackRange(unit, x, y); // 攻撃可能エリア表示
-				}
-				else
-				{
-					nowMass->state = Mass::State::MOVABLE; // 移動可能エリア表示
-				}
-			}
+			// 対象マス座標を追加
+			posList.push_back(make_pair(x, y));
 
 			// マス通過時のmovコストを保持
 			nowMass->passingMov = move;
 
-			searchMovableMass(unit, x - 1, y, move, false, isAtackAbleArea);
-			searchMovableMass(unit, x + 1, y, move, false, isAtackAbleArea);
-			searchMovableMass(unit, x, y - 1, move, false, isAtackAbleArea);
-			searchMovableMass(unit, x, y + 1, move, false, isAtackAbleArea);
+			getMovableMasses(unit, x - 1, y, move, posList, false);
+			getMovableMasses(unit, x + 1, y, move, posList, false);
+			getMovableMasses(unit, x, y - 1, move, posList, false);
+			getMovableMasses(unit, x, y + 1, move, posList, false);
 		}
 	}
 
@@ -315,22 +323,26 @@ namespace Entity {
 	 * 現在地の攻撃可能範囲表示
 	 * @param (unit) 対象ユニット
 	*/
-	void Map::displayAtackRange(shared_ptr<Unit> unit, bool isExistEnemyOnly)
+	void Map::displayAtackAbleRange(shared_ptr<Unit> unit, int x, int y, bool isExistEnemyOnly)
 	{
-		if (unit)
+		// 攻撃可能のマスのリストを取得
+		vector<pair<int, int>> posList;
+		getAtackAbleMasses(unit, x, y, posList, isExistEnemyOnly);
+
+		for (auto itr = posList.begin(); itr != posList.end(); ++itr)
 		{
-			displayAtackRange(unit, unit->getMassX(), unit->getMassY(), isExistEnemyOnly);
+			getMass(itr->first, itr->second)->state = Mass::State::ATK_ABLE; // 攻撃可能エリア表示
 		}
 	}
 
 	/**
 	 * @fn
-	 * 対象マス座標からの攻撃可能範囲表示
-	 * @param (unit) 対象ユニット
+	 * 攻撃対象マスを取得
 	 * @param (x) マス座標X
 	 * @param (y) マス座標Y
+	 * @param (isExistEnemyOnly) trueの場合、敵ユニットが存在する時のみ攻撃可能にする
 	*/
-	void Map::displayAtackRange(shared_ptr<Unit> unit, int x, int y, bool isExistEnemyOnly)
+	void Map::getAtackAbleMasses(shared_ptr<Unit> unit, int x, int y, vector<pair<int, int>>& posList, bool isExistEnemyOnly)
 	{
 		if (unit)
 		{
@@ -338,22 +350,22 @@ namespace Entity {
 
 			for (int i = 1; i <= range; i++)
 			{
-				setAtackMass(x - i, y, isExistEnemyOnly);
-				setAtackMass(x + i, y, isExistEnemyOnly);
-				setAtackMass(x, y - i, isExistEnemyOnly);
-				setAtackMass(x, y + i, isExistEnemyOnly);
+				getAtackAbleMass(unit, x - i, y, posList, isExistEnemyOnly);
+				getAtackAbleMass(unit, x + i, y, posList, isExistEnemyOnly);
+				getAtackAbleMass(unit, x, y - i, posList, isExistEnemyOnly);
+				getAtackAbleMass(unit, x, y + i, posList, isExistEnemyOnly);
 			}
 		}
 	}
 
 	/**
 	 * @fn
-	 * 対象マスを攻撃可能マスにセット
+	 * 攻撃可能マスであるか判定
 	 * @param (x) マス座標X
 	 * @param (y) マス座標Y
 	 * @param (isExistEnemyOnly) trueの場合、敵ユニットが存在する時のみ攻撃可能にする
 	*/
-	void Map::setAtackMass(int x, int y, bool isExistEnemyOnly)
+	void Map::getAtackAbleMass(shared_ptr<Unit> unit, int x, int y, vector<pair<int, int>>& posList, bool isExistEnemyOnly)
 	{
 		shared_ptr<Mass> nowMass = getMass(x, y);
 
@@ -365,15 +377,15 @@ namespace Entity {
 
 		if (!isExistEnemyOnly)
 		{
-			nowMass->state = Mass::ATK_ABLE;
+			posList.push_back(make_pair(x, y));
 		}
 		else
 		{
 			// 敵ユニットが存在する場合のみ攻撃可能にする
-			shared_ptr<Unit> unit = getUnit(x, y);
-			if (unit && unit->isEnemy())
+			shared_ptr<Unit> targetUnit = getUnit(x, y);
+			if (targetUnit && targetUnit->isEnemy() != unit->isEnemy())
 			{
-				nowMass->state = Mass::ATK_ABLE;
+				posList.push_back(make_pair(x, y));
 			}
 		}
 	}
@@ -528,5 +540,7 @@ namespace Entity {
 	{
 		return abs(x0 - x1) + abs(y0 - y1);
 	}
+
+
 
 }

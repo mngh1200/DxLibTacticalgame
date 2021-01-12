@@ -61,7 +61,7 @@ namespace Battle {
 		{
 			map_->clearMassState();
 			phase_ = Phase::SELECT_ACTION; // s“®‘I‘ğ 
-			map_->displayAtackRange(selectedUnit_);
+			map_->displayAtackAbleRange(selectedUnit_, selectedUnit_->getMassX(), selectedUnit_->getMassY());
 		}
 	}
 
