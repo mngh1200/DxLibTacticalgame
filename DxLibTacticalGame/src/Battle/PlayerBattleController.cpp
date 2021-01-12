@@ -138,7 +138,7 @@ namespace Battle {
 
 			shared_ptr<Mass> targetMass = map_->getMass(massX, massY);
 			
-			if (bm->getPhase() == BattleManager::Phase::SELECT_ACTION) // 行動選択
+			if (bm->getPhase() == BattleManager::Phase::SELECT_ACTION ) // 行動選択
 			{
 				bm->moveCancel(); // 移動キャンセル
 			}
@@ -150,6 +150,10 @@ namespace Battle {
 			{
 				bm->deselectUnit(); // 選択解除
 			}
+		}
+		else
+		{
+			bm->deselectUnit(); // 選択解除
 		}
 	}
 }
