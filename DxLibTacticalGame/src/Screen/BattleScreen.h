@@ -10,6 +10,7 @@
 #include "Entity/UI/Back.h"
 #include "Battle/BattleManager.h"
 #include "Battle/PlayerBattleController.h"
+#include "Battle/EnemyBattleController.h"
 #include "Entity/Battle/Map.h"
 #include "Entity/Unit/Unit.h"
 #include "Entity/UI/Menu/ContextMenu.h"
@@ -55,6 +56,9 @@ namespace Screen
 
 		// バトル画面上のプレイヤー操作管理クラス
 		Battle::PlayerBattleController playerBtlCont_;
+
+		// 敵ユニット操作クラス
+		Battle::EnemyBattleController enemyBtlCont_;
 
 		//! 表示対象スクリーン
 		int openScreen_;

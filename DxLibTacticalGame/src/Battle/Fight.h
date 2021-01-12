@@ -37,6 +37,7 @@ namespace Battle
 		void init(shared_ptr<Map> map);
 
 		bool setPrepare(shared_ptr<Unit> actUnit, shared_ptr<Unit> psvUnit);
+		bool setPrepare(shared_ptr<Unit> actUnit, int actMassX, int actMassY, shared_ptr<Unit> psvUnit);
 		void reset();
 
 		void start();

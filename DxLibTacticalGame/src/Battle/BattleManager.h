@@ -20,7 +20,7 @@ namespace Battle
 	class BattleManager
 	{
 	public:
-		BattleManager() : phase_(Phase::NORMAL), battleUI{} {};
+		BattleManager() : isPlayerTurn_(false), phase_(Phase::NORMAL), battleUI{} {};
 		~BattleManager() {};
 
 		// 状態遷移状況
@@ -72,6 +72,9 @@ namespace Battle
 
 		//! フェーズ
 		int phase_;
+
+		//! 敵ターンであるか判定
+		bool isPlayerTurn_;
 	};
 
 

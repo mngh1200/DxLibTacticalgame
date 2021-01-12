@@ -41,7 +41,7 @@ namespace Battle {
 	*/
 	void BattleManager::onStartTurn(bool isPlayer)
 	{
-		FrameWork::Game& game = FrameWork::Game::getInstance();
+		isPlayerTurn_ = isPlayer;
 
 		for (auto itr = map_->unitsBegin(); itr != map_->unitsEnd(); ++itr)
 		{
@@ -57,7 +57,7 @@ namespace Battle {
 	*/
 	void BattleManager::startSelectActionPhase()
 	{
-		if (!selectedUnit_->isEnemy() && !selectedUnit_->isActed())
+		if (isSelectedUnitActive())
 		{
 			map_->clearMassState();
 			phase_ = Phase::SELECT_ACTION; // s“®‘I‘ğ 
@@ -219,7 +219,7 @@ namespace Battle {
 		if (targetUnit)
 		{
 			shared_ptr<Mass> mass = map_->getMass(targetUnit->getMassX(), targetUnit->getMassY());
-			return isSelectedUnitActive() && targetUnit->isEnemy() && mass->state == Mass::ATK_ABLE;
+			return isSelectedUnitActive() && targetUnit->isEnemy() == isPlayerTurn_ && mass->state == Mass::ATK_ABLE;
 		}
 		return false;
 	}
@@ -230,7 +230,7 @@ namespace Battle {
 	*/
 	bool BattleManager::isSelectedUnitActive() const
 	{
-		return selectedUnit_ && !selectedUnit_->isEnemy() && !selectedUnit_->isActed();
+		return selectedUnit_ && !selectedUnit_->isEnemy() == isPlayerTurn_ && !selectedUnit_->isActed();
 	}
 
 	/**

@@ -21,6 +21,20 @@ namespace Battle
 	 */
 	bool Fight::setPrepare(shared_ptr<Unit> actUnit, shared_ptr<Unit> psvUnit)
 	{
+		return setPrepare(actUnit, actUnit->getMassX(), actUnit->getMassY(), psvUnit);
+	}
+
+	/**
+	 * @fn
+	 * 戦闘予測
+	 * @param (actUnit) 攻撃を仕掛けた側のユニット
+	 * @param (actMassX) 攻撃を仕掛けるマス座標X
+	 * @param (actMassY) 攻撃を仕掛けるマス座標Y
+	 * @param (psvUnit) 攻撃を仕掛けられた側のユニット
+	 * @return 内容が更新された場合はtrueを返す
+	 */
+	bool Fight::setPrepare(shared_ptr<Unit> actUnit, int actMassX, int actMassY, shared_ptr<Unit> psvUnit)
+	{
 		if (actUnit && psvUnit)
 		{
 			if (actUnit == actSide_.unit && psvSide_.unit == psvUnit)

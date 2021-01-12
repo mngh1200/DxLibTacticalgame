@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Animation\Animation.cpp" />
+    <ClCompile Include="src\Battle\AI\EnemyAI.cpp" />
     <ClCompile Include="src\Battle\BattleManager.cpp" />
     <ClCompile Include="src\Battle\BUI\BattleUI.cpp" />
     <ClCompile Include="src\Battle\BUI\BattleUIDefine.cpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="src\Battle\BUI\FightPredictDisplay.cpp" />
     <ClCompile Include="src\Battle\BUI\TerrainEffectDisplay.cpp" />
     <ClCompile Include="src\Battle\BUI\UnitStatusDisplay.cpp" />
+    <ClCompile Include="src\Battle\EnemyBattleController.cpp" />
     <ClCompile Include="src\Battle\Fight.cpp" />
     <ClCompile Include="src\Battle\PlayerBattleController.cpp" />
     <ClCompile Include="src\Entity\Battle\Map.cpp" />
@@ -191,6 +193,7 @@
   <ItemGroup>
     <ClInclude Include="src\Animation\Animation.h" />
     <ClInclude Include="src\Animation\Easing.h" />
+    <ClInclude Include="src\Battle\AI\EnemyAI.h" />
     <ClInclude Include="src\Battle\BattleManager.h" />
     <ClInclude Include="src\Battle\BUI\BattleUI.h" />
     <ClInclude Include="src\Battle\BUI\BattleUIDefine.h" />
@@ -198,6 +201,7 @@
     <ClInclude Include="src\Battle\BUI\FightPredictDisplay.h" />
     <ClInclude Include="src\Battle\BUI\TerrainEffectDisplay.h" />
     <ClInclude Include="src\Battle\BUI\UnitStatusDisplay.h" />
+    <ClInclude Include="src\Battle\EnemyBattleController.h" />
     <ClInclude Include="src\Battle\Fight.h" />
     <ClInclude Include="src\Battle\PlayerBattleController.h" />
     <ClInclude Include="src\Define.h" />

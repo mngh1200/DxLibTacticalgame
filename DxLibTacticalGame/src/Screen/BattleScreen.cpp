@@ -32,6 +32,7 @@ namespace Screen
 		// バトル管理用クラスの初期処理
 		btlMng_.init(map);
 		playerBtlCont_.init(map);
+		enemyBtlCont_.init(map);
 
 		// ユニット設置(テスト)
 		shared_ptr<Entity::Unit> playerUnit = make_shared<Entity::Unit>();
@@ -134,6 +135,15 @@ namespace Screen
 	{
 		btlMng_.animationCheck(); // バトル管理系の処理
 
+		if (nowScene_ == Scene::ENEMY_TURN) // 敵ターン
+		{
+			if (enemyBtlCont_.update(&btlMng_))
+			{
+				turnEnd();
+			}
+		}
+
+
 		if (isOpenOverlayEnded()) // オーバーレイ開く
 		{
 			nowScene_ = Scene::PLAYER_TURN;
@@ -164,9 +174,6 @@ namespace Screen
 		{
 			nowScene_ = Scene::ENEMY_TURN;
 			btlMng_.onStartTurn(false);
-
-			// テスト処理
-			turnEnd();
 		}
 		else if (nowScene_ == Scene::ENEMY_TURN) // 敵ターン終了
 		{

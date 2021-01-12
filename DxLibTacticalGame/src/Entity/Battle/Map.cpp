@@ -305,8 +305,11 @@ namespace Entity {
 
 		if (move > nowMass->passingMov)
 		{
-			// 対象マス座標を追加
-			posList.push_back(make_pair(x, y));
+			// 自軍の別ユニットが既にいる場合は、移動対象マスにしない
+			if (!isOwnUnitOnMass)
+			{
+				posList.push_back(make_pair(x, y));
+			}
 
 			// マス通過時のmovコストを保持
 			nowMass->passingMov = move;
@@ -322,6 +325,9 @@ namespace Entity {
 	 * @fn
 	 * 現在地の攻撃可能範囲表示
 	 * @param (unit) 対象ユニット
+	 * @param (x) 攻撃起点マス座標X
+	 * @param (y) 攻撃起点マス座標Y
+	 * @param (isExistEnemyOnly) trueの場合、攻撃対象ユニットがいる場合のみ表示
 	*/
 	void Map::displayAtackAbleRange(shared_ptr<Unit> unit, int x, int y, bool isExistEnemyOnly)
 	{
@@ -338,9 +344,11 @@ namespace Entity {
 	/**
 	 * @fn
 	 * 攻撃対象マスを取得
-	 * @param (x) マス座標X
-	 * @param (y) マス座標Y
-	 * @param (isExistEnemyOnly) trueの場合、敵ユニットが存在する時のみ攻撃可能にする
+	 * @param (unit) 対象ユニット
+	 * @param (x) 攻撃起点マス座標X
+	 * @param (y) 攻撃起点マス座標Y
+	 * @param (posList) 対象マスのリストを返すための参照
+	 * @param (isExistEnemyOnly) trueの場合、攻撃対象ユニットがいる場合のみ表示
 	*/
 	void Map::getAtackAbleMasses(shared_ptr<Unit> unit, int x, int y, vector<pair<int, int>>& posList, bool isExistEnemyOnly)
 	{
@@ -361,9 +369,11 @@ namespace Entity {
 	/**
 	 * @fn
 	 * 攻撃可能マスであるか判定
-	 * @param (x) マス座標X
-	 * @param (y) マス座標Y
-	 * @param (isExistEnemyOnly) trueの場合、敵ユニットが存在する時のみ攻撃可能にする
+	 * @param (unit) 対象ユニット
+	 * @param (x) 攻撃起点マス座標X
+	 * @param (y) 攻撃起点マス座標Y
+	 * @param (posList) 対象マスのリストを返すための参照
+	 * @param (isExistEnemyOnly) trueの場合、攻撃対象ユニットがいる場合のみ表示
 	*/
 	void Map::getAtackAbleMass(shared_ptr<Unit> unit, int x, int y, vector<pair<int, int>>& posList, bool isExistEnemyOnly)
 	{

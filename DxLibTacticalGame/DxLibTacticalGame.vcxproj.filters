@@ -97,6 +97,12 @@
     <Filter Include="ヘッダー ファイル\Entity\Effect">
       <UniqueIdentifier>{708df3c8-aab4-47be-9d5a-e8ebd829fc00}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Battle\AI">
+      <UniqueIdentifier>{ebd60c86-affb-4d53-a5b9-019003fc1711}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Battle\AI">
+      <UniqueIdentifier>{aca65fa3-a292-4fb8-85a7-e1e054018a44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -206,6 +212,12 @@
     </ClCompile>
     <ClCompile Include="src\Battle\PlayerBattleController.cpp">
       <Filter>ソース ファイル\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Battle\EnemyBattleController.cpp">
+      <Filter>ソース ファイル\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Battle\AI\EnemyAI.cpp">
+      <Filter>ソース ファイル\Battle\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -322,6 +334,12 @@
     </ClInclude>
     <ClInclude Include="src\Battle\PlayerBattleController.h">
       <Filter>ヘッダー ファイル\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\EnemyBattleController.h">
+      <Filter>ヘッダー ファイル\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\AI\EnemyAI.h">
+      <Filter>ヘッダー ファイル\Battle\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
