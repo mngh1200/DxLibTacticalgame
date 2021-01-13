@@ -1,6 +1,7 @@
 #pragma once
 #include <climits>
 #include <cmath>
+#include "Entity/Unit/Unit.h"
 #include "Entity/UI/Button/TurnEndButton.h"
 #include "Utility/ResourceManager.h"
 #include "Battle/BUI/BattleUIDefine.h"
@@ -48,8 +49,12 @@ namespace Entity
 		//! 進行速度
 		int speed_;
 
+		//! 敵ターン終了時に進行速度を保持しておく
+		int cacheSpeed_;
+
 		void changeSpeed(int speed);
 
+		//! 各ボタンの座標とサイズ
 		Shape buttonsShape_[Speed::LEN];
 	};
 

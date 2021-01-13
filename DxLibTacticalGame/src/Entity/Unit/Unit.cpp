@@ -2,6 +2,7 @@
 
 namespace Entity {
 	const vector<string> Unit::LEN_TEXT = {"短", "中", "長"};
+	float Unit::animatinTimeRate = 1.0f;
 
 	/**
 	 * @fn
@@ -160,6 +161,17 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * 指定の倍率で計算したアニメーション時間を返す
+	 * @param (baseMs) 基準のミリ秒
+	 * @return アニメーション時間（ms）
+	 */
+	static int getAnimationMS(int baseMs)
+	{
+		return (int)(Unit::animatinTimeRate * baseMs);
+	}
+
+	/**
+	 * @fn
 	 * アニメーション作成
 	 * @param (animationId) アニメーションの種類
 	 */
@@ -167,35 +179,35 @@ namespace Entity {
 	{
 		if (animationId == AnimationKind::MOVE) // 移動
 		{
-			animation_ = Animation(100);
+			animation_ = Animation(getAnimationMS(100));
 			shape_.disabledHit = true; // イベント無効
 			return true;
 		}
 		else if (animationId == AnimationKind::ATACK) // 攻撃
 		{
-			animation_ = Animation(ANIME_ATACK_MS, Animation::Direction::AlTERNATE, 2);
+			animation_ = Animation(getAnimationMS(ANIME_ATACK_MS), Animation::Direction::AlTERNATE, 2);
 			return true;
 		}
 		else if (animationId == AnimationKind::DAMAGE) // ダメージ
 		{
-			animation_ = Animation(ANIME_DAMAGE_MS / ANIME_DAMAGE_REPEAT, 0, ANIME_DAMAGE_REPEAT, ANIME_ATACK_MS);
+			animation_ = Animation(getAnimationMS(ANIME_DAMAGE_MS / ANIME_DAMAGE_REPEAT), 0, ANIME_DAMAGE_REPEAT, getAnimationMS(ANIME_ATACK_MS));
 			int baseX = Map::getRealX(x_);
 			animation_.adjustFrame(shape_.x, baseX - ANIME_DAMAGE_MOVE, baseX + ANIME_DAMAGE_MOVE);
 			animation_.adjustLastFrame(shape_.x, baseX - ANIME_DAMAGE_MOVE, baseX + ANIME_DAMAGE_MOVE);
 
 			// HPバーアニメーション
-			animationSub_ = Animation(ANIME_DAMAGE_MS, 0, 1, ANIME_ATACK_MS);
+			animationSub_ = Animation(getAnimationMS(ANIME_DAMAGE_MS), 0, 1, getAnimationMS(ANIME_ATACK_MS));
 
 			return true;
 		}
 		else if (animationId == AnimationKind::AVOID) // 回避
 		{
-			animation_ = Animation(ANIME_DAMAGE_MS / 2, Animation::Direction::AlTERNATE, 2, ANIME_ATACK_MS - 100);
+			animation_ = Animation(getAnimationMS(ANIME_DAMAGE_MS / 2), Animation::Direction::AlTERNATE, 2, getAnimationMS(ANIME_ATACK_MS - 100));
 			return true;
 		}
 		else if (animationId == AnimationKind::DESTROY) // 死亡
 		{
-			animation_ = Animation(600);
+			animation_ = Animation(getAnimationMS(600));
 			return true;
 		}
 		return false;

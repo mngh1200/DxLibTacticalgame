@@ -41,6 +41,9 @@ namespace Entity
 			animation_{}, animationSub_{}, viewHp_(0), prevHp_(0), alpha_(255)  {};
 		~Unit() {};
 
+		//! アニメーションスピードの倍率
+		static float animatinTimeRate;
+
 		// 状況の種類
 		enum class State
 		{

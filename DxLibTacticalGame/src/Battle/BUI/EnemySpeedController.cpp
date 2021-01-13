@@ -7,7 +7,7 @@ namespace Entity {
 	 * @fn
 	 * コンストラクタ
 	 */
-	EnemySpeedController::EnemySpeedController() : speed_(Speed::NORMAL)
+	EnemySpeedController::EnemySpeedController() : speed_(Speed::NORMAL), cacheSpeed_(Speed::NORMAL)
 	{
 		shape_.set(WIN_W - TurnEndButton::WIDTH - TurnEndButton::MARGIN, BATTLE_UI_AREA_Y + TurnEndButton::MARGIN);
 		shape_.setSize(TurnEndButton::WIDTH, BATTLE_UI_AREA_H - TurnEndButton::MARGIN * 2);
@@ -109,6 +109,19 @@ namespace Entity {
 		{
 			speed_ = speed;
 		}
+
+		if (speed_ == Speed::FAST)
+		{
+			Unit::animatinTimeRate = 0.5f;
+		}
+		else if (speed_ == Speed::NORMAL)
+		{
+			Unit::animatinTimeRate = 1.0f;
+		}
+		else if (speed_ == Speed::SLOW)
+		{
+			Unit::animatinTimeRate = 2.0f;
+		}
 	}
 
 	/**
@@ -118,6 +131,7 @@ namespace Entity {
 	void EnemySpeedController::show()
 	{
 		shape_.disabledHit = false;
+		changeSpeed(cacheSpeed_);
 	}
 
 	/**
@@ -126,6 +140,7 @@ namespace Entity {
 	 */
 	void EnemySpeedController::hide()
 	{
+		cacheSpeed_ = speed_;
 		shape_.disabledHit = true;
 		changeSpeed(Speed::NORMAL);
 	}
