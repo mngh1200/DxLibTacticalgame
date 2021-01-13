@@ -182,7 +182,7 @@ namespace Entity {
 	 */
 	void ObjectsControl::removeFigure(int layerId, int objectId)
 	{
-		if (0 <= layerId && (unsigned int)layerId < layerObjList_.size()) // 存在するレイヤーであるかチェック
+		if (0 <= layerId && (unsigned int)layerId < layerViewObjList_.size()) // 存在するレイヤーであるかチェック
 		{
 			auto mapItr = layerViewObjList_.begin() + layerId;
 			(*mapItr).erase(objectId);
@@ -191,7 +191,32 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * 対象レイヤーの階層を入れ替える（描画順等が変わる）
+	 * @param (layerId1) 対象レイヤーのID
+	 * @param (layerId2) 対象レイヤーのID
+	 */
+	void ObjectsControl::swapLayer(int layerId1, int layerId2)
+	{
+		if (0 <= layerId1 && (unsigned int)layerId1 < layerObjList_.size() &&
+			0 <= layerId2 && (unsigned int)layerId2 < layerObjList_.size())
+		{
+			iter_swap(layerObjList_.begin() + layerId1, layerObjList_.begin() + layerId2);
+		}
+
+		if (0 <= layerId1 && (unsigned int)layerId1 < layerViewObjList_.size() &&
+			0 <= layerId2 && (unsigned int)layerId2 < layerViewObjList_.size())
+		{
+			iter_swap(layerViewObjList_.begin() + layerId1, layerViewObjList_.begin() + layerId2);
+		}
+	}
+
+	/**
+	 * @fn
 	 * 全オブジェクトのマウスイベント
+	 * @param (x) マウスのx座標の参照
+	 * @param (y) マウスのy座標の参照
+	 * @param (button) どのボタンが対象か返すための参照
+	 * @param (eventType) イベントタイプを返すための参照
 	 * @return 終了判定のとき -1 を返す
 	 */
 	weak_ptr<Object> ObjectsControl::checkMouseEvent(int* x, int* y, int* button, int* eventType)
