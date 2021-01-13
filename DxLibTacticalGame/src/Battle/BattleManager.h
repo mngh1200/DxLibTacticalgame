@@ -20,7 +20,7 @@ namespace Battle
 	class BattleManager
 	{
 	public:
-		BattleManager() : isPlayerTurn_(false), phase_(Phase::NORMAL), battleUI{} {};
+		BattleManager() : isPlayerTurn_(true), phase_(Phase::NORMAL), battleUI{} {};
 		~BattleManager() {};
 
 		// ó‘Ô‘JˆÚó‹µ
