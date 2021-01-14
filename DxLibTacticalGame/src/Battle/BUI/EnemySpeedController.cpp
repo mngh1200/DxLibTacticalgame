@@ -1,4 +1,5 @@
 ﻿#include "EnemySpeedController.h"
+#include "Battle/EnemyBattleController.h"
 
 namespace Entity {
 	const float EnemySpeedController::PLAYMARK_W = (float)BUTTON_H * sqrt(3) / 2.0f;
@@ -110,18 +111,24 @@ namespace Entity {
 			speed_ = speed;
 		}
 
+		float rate = 1.0f; // 倍率
+
 		if (speed_ == Speed::FAST)
 		{
-			Unit::animatinTimeRate = 0.5f;
+			 rate = 0.5f;
 		}
 		else if (speed_ == Speed::NORMAL)
 		{
-			Unit::animatinTimeRate = 1.0f;
+			
 		}
 		else if (speed_ == Speed::SLOW)
 		{
-			Unit::animatinTimeRate = 2.0f;
+			rate = 2.0f;
 		}
+
+		// ユニットアニメーションと敵操作のタイマーの時間調整
+		Unit::animatinTimeRate = rate;
+		Battle::EnemyBattleController::timerRate = rate;
 	}
 
 	/**

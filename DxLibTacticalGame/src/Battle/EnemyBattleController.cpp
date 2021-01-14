@@ -1,7 +1,8 @@
 #include "EnemyBattleController.h"
 
 namespace Battle {
-	
+	float EnemyBattleController::timerRate = 1.0f;
+
 	/**
 	 * @fn
 	 * 初期処理
@@ -29,6 +30,22 @@ namespace Battle {
 			return false;
 		}
 
+		// タイマーイベントチェック
+		if (timerEvent_ != TimerEvent::NONE)
+		{
+			if (timer_.checkAndCountTimer())
+			{
+				if (timerEvent_ == TimerEvent::ATACK) // 攻撃
+				{
+					bm->atackAction();
+				}
+				timerEvent_ = TimerEvent::NONE;
+			}
+			return false; // タイマーイベント中は操作命令の進行はしない
+		}
+
+
+		// 操作命令チェック
 		Order order = ai_->getNextOrder(); // 次の操作命令を取得
 
 		if (order.kind == Order::Kind::NONE) // 命令なしの場合
@@ -51,7 +68,8 @@ namespace Battle {
 		else if (order.kind == Order::Kind::ATACK) // 攻撃
 		{
 			bm->setFightPredict(map_->getUnit(order.massX, order.massY));
-			bm->atackAction();
+			setTimerEvent(1500, TimerEvent::ATACK); // 戦闘予測出してから一定時間後に攻撃実行
+			
 		}
 		else if (order.kind == Order::Kind::WAIT) // 待機
 		{
@@ -59,5 +77,17 @@ namespace Battle {
 		}
 
 		return false;
+	}
+
+	/**
+	 * @fn
+	 * タイマーイベント追加
+	 * @param (ms) セット時間(ms)
+	 * @param (kind) イベントの種類
+	 */
+	void EnemyBattleController::setTimerEvent(int ms, TimerEvent kind)
+	{
+		timer_.setTimer((int)(ms * timerRate));
+		timerEvent_ = kind;
 	}
 }

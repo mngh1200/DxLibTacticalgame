@@ -8,6 +8,11 @@
 
 using namespace std;
 
+namespace Battle
+{
+	class EnemyBattleController;
+}
+
 /**
  * @file EnemySpeedController.h
  * @brief 敵ターン進行速度調整ボタン
