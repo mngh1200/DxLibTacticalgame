@@ -43,7 +43,7 @@ namespace Entity
 		constexpr static int ANIMATION_MS = 500;	//! アニメーション時間
 		constexpr static int ANIMATION_Y0 = WIN_H;  //! アニメーション開始位置
 
-		void drawFightPredict(int x, Battle::FightData& fightData, bool isEnemy) const;
+		void drawFightPredict(int x, const Battle::FightData* fightData, bool isEnemy) const;
 		void drawAtackDirection(int y, bool isPlayer) const;
 
 		// アニメーション種類

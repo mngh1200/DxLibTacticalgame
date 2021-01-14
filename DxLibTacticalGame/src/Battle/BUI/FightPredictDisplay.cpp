@@ -26,17 +26,31 @@ namespace Entity {
 			Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
 
 			// 戦闘予測データ取得
-			Battle::FightData playerFightData = fight_->getFightData(true);
-			Battle::FightData enemyFightData = fight_->getFightData(false);
+			const Battle::FightData* playerFightData; 
+			const Battle::FightData* enemyFightData;
+
+			Battle::FightData actFightData = fight_->getFightData(true);
+			Battle::FightData psvFightData = fight_->getFightData(false);
+
+			if (!actFightData.unit->isEnemy())
+			{
+				playerFightData = &actFightData;
+				enemyFightData = &psvFightData;
+			}
+			else
+			{
+				playerFightData = &psvFightData;
+				enemyFightData = &actFightData;
+			}
 
 			// 戦闘予測データ描画
 			drawFightPredict(shape_.x, enemyFightData, false); // 敵側
 			drawFightPredict(shape_.x + PLAYER_X, playerFightData, true); // プレイヤー側
 
 			// 攻撃方向描画
-			if (playerFightData.isAtk)
+			if (playerFightData->isAtk)
 			{
-				if (!enemyFightData.isAtk)
+				if (!enemyFightData->isAtk)
 				{
 					drawAtackDirection(shape_.y + shape_.h / 4, true); // 攻撃側だけ
 				}
@@ -51,7 +65,7 @@ namespace Entity {
 					drawAtackDirection(shape_.y + shape_.h / 2, true);
 				}
 			}
-			else if (enemyFightData.isAtk)
+			else if (enemyFightData->isAtk)
 			{
 				drawAtackDirection(shape_.y + shape_.h / 4, false); // 防御側だけ
 			}
@@ -65,7 +79,7 @@ namespace Entity {
 	 * @param (fightData) 戦闘情報
 	 * @param (isPlayer) プレイヤー側のユニットであるか
 	 */
-	void FightPredictDisplay::drawFightPredict(int areaX, Battle::FightData& fightData, bool isPlayer) const
+	void FightPredictDisplay::drawFightPredict(int areaX, const Battle::FightData* fightData, bool isPlayer) const
 	{
 		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
 		
@@ -78,7 +92,7 @@ namespace Entity {
 		/* 一行目 ここから */
 
 		int x = areaX;
-		UnitInfo info = fightData.unit->getInfo();
+		UnitInfo info = fightData->unit->getInfo();
 
 		// 名前表示
 		int nameColorType = isPlayer ? ColorType::PLAYER_COLOR : ColorType::ENEMY_COLOR;
@@ -96,13 +110,13 @@ namespace Entity {
 		x = BUI::drawValue(x, y, to_string(info.hp) + " / " + to_string(info.hpm), BUI::getHanW(7));
 
 		// 与ダメージ
-		string value = !fightData.isAtk ? "-" : to_string(fightData.damage);
+		string value = !fightData->isAtk ? "-" : to_string(fightData->damage);
 
 		x = BUI::drawLabel(x, y, "ダメージ", BUI::getZenW(4));
 		x = BUI::drawValue(x, y, value, BUI::getHanW(3));
 
 		// 命中率
-		value = !fightData.isAtk ? "-" : to_string(fightData.hitRate) + "%";
+		value = !fightData->isAtk ? "-" : to_string(fightData->hitRate) + "%";
 		x = BUI::drawLabel(x, y, "命中率", BUI::getZenW(3));
 		x = BUI::drawValue(x, y, value, BUI::getHanW(4));
 	}
@@ -126,7 +140,7 @@ namespace Entity {
 		{
 			float tmp = backX;
 			backX = forwardX;
-			forwardX = backX;
+			forwardX = tmp;
 		}
 
 		int color = isPlayer ? rm.getColor(ColorType::PLAYER_COLOR_LITE) : rm.getColor(ColorType::ENEMY_COLOR_LITE);
