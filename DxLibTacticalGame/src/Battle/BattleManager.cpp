@@ -184,6 +184,7 @@ namespace Battle {
 	/**
 	 * @fn
 	 * í“¬—\‘ª‚ğ¶¬
+	 * @param (targetUnit) UŒ‚‘ÎÛƒ}ƒX
 	*/
 	void BattleManager::setFightPredict(shared_ptr<Unit> targetUnit)
 	{
@@ -192,6 +193,17 @@ namespace Battle {
 			if (fight_.setPrepare(selectedUnit_, targetUnit))
 			{
 				battleUI.setFightPredict(&fight_);
+
+				if (!isPlayerTurn_)
+				{
+					// “GŒR‚Ì‘€ì‚Ìê‡AUŒ‚‰Â”\ƒGƒŠƒA‚Ì•\¦‚ğUŒ‚‘ÎÛ‚Ì‚İ‚É‚·‚é
+					map_->clearMassState();
+					shared_ptr<Mass> mass = map_->getMass(targetUnit->getMassX(), targetUnit->getMassY());
+					if (mass)
+					{
+						mass->state = Mass::ATK_ABLE;
+					}
+				}
 			}
 		}
 	}
