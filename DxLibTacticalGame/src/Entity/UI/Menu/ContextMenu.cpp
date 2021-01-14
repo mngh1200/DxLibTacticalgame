@@ -97,6 +97,11 @@ namespace Entity {
 
 		for (auto itr = menuBtns_.begin(); itr != menuBtns_.end(); ++itr)
 		{
+			if (itr->isDisabled) // 無効の場合は無視
+			{
+				continue;
+			}
+
 			if (eventType == MOUSE_INPUT_LOG_CLICK && itr->shape.isHit(x, y)) // クリック判定
 			{
 				return itr->key;
@@ -137,7 +142,11 @@ namespace Entity {
 			int textColor = rm.getColor(ColorType::SUB_COLOR);
 			int backgroundColor = rm.getColor(ColorType::MAIN_COLOR);
 
-			if (isMouseDown_ && itr->shape.isHit(x, y))
+			if (itr->isDisabled)
+			{
+				textColor = rm.getColor(ColorType::NEGATIVE_COLOR);
+			}
+			else if (isMouseDown_ && itr->shape.isHit(x, y))
 			{
 				textColor = rm.getColor(ColorType::MAIN_COLOR);
 				backgroundColor = rm.getColor(ColorType::SUB_COLOR);
@@ -186,6 +195,24 @@ namespace Entity {
 	{
 		menuBtns_.clear();
 		width_ = 0;
+	}
+
+	/**
+	 * @fn
+	 * 特定のボタンを無効状態の切り替え
+	 * @param (key) 対象ボタンのキー
+	 * @param (isDisabled) true: 無効化 false: 有効化
+	 */
+	void ContextMenu::setDisabledMenuButton(int key, bool isDisabled)
+	{
+		for (auto itr = menuBtns_.begin(); itr != menuBtns_.end(); ++itr)
+		{
+			if (itr->key == key)
+			{
+				itr->isDisabled = isDisabled;
+				return;
+			}
+		}
 	}
 
 	/**

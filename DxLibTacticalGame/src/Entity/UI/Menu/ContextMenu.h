@@ -21,6 +21,7 @@ namespace Entity
 		string text; //! ボタンのテキスト
 		int keyCode; //! 入力キーコード (-1は対象なし)
 		Shape shape; //! ボタンの矩形座標
+		bool isDisabled = false; //! 無効状態になっているか
 	};
 
 	class ContextMenu : public Object
@@ -33,6 +34,8 @@ namespace Entity
 
 		void addMenuButton(int key, string text, int keyCode = -1);
 		void clearMenuButton();
+
+		void setDisabledMenuButton(int key, bool isDisabled);
 
 		void setDisplayArea(Shape displayArea);
 
