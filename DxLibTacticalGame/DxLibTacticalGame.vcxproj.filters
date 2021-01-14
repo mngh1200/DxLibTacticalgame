@@ -219,6 +219,9 @@
     <ClCompile Include="src\Battle\AI\EnemyAI.cpp">
       <Filter>ソース ファイル\Battle\AI</Filter>
     </ClCompile>
+    <ClCompile Include="src\Utility\Timer.cpp">
+      <Filter>ソース ファイル\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -340,6 +343,9 @@
     </ClInclude>
     <ClInclude Include="src\Battle\AI\EnemyAI.h">
       <Filter>ヘッダー ファイル\Battle\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\Timer.h">
+      <Filter>ヘッダー ファイル\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
