@@ -85,7 +85,7 @@ namespace Entity
 		int getBaseY() const { return baseY_; }; // 移動元y座標を返す
 		
 		
-		UnitInfo getInfo() const { return info_; } // ユニット名やステータスの情報を返す
+		const UnitInfo& getInfo() const { return info_; } // ユニット名やステータスの情報を返す
 
 		bool isHorse() const { return info_.kind == UnitKey::CAVALRY; } // 騎兵であればtrueを返す
 		bool isEnemy() const { return isEnemy_; } // 敵ユニットであるかを返す
