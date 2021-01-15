@@ -222,6 +222,9 @@
     <ClCompile Include="src\Utility\Timer.cpp">
       <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entity\Unit\Ability.cpp">
+      <Filter>ソース ファイル\Entity\Unit</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -346,6 +349,9 @@
     </ClInclude>
     <ClInclude Include="src\Utility\Timer.h">
       <Filter>ヘッダー ファイル\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Unit\Ability.h">
+      <Filter>ヘッダー ファイル\Entity\Unit</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

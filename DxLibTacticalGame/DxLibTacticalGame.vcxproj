@@ -177,6 +177,7 @@
     <ClCompile Include="src\Entity\UI\Button\TurnEndButton.cpp" />
     <ClCompile Include="src\Entity\UI\Menu\ContextMenu.cpp" />
     <ClCompile Include="src\Entity\UI\Overlay.cpp" />
+    <ClCompile Include="src\Entity\Unit\Ability.cpp" />
     <ClCompile Include="src\Entity\Unit\Unit.cpp" />
     <ClCompile Include="src\Entity\View\Text.cpp" />
     <ClCompile Include="src\FrameWork\Controller.cpp" />
@@ -220,6 +221,7 @@
     <ClInclude Include="src\Entity\UI\Button\TurnEndButton.h" />
     <ClInclude Include="src\Entity\UI\Menu\ContextMenu.h" />
     <ClInclude Include="src\Entity\UI\Overlay.h" />
+    <ClInclude Include="src\Entity\Unit\Ability.h" />
     <ClInclude Include="src\Entity\Unit\Unit.h" />
     <ClInclude Include="src\Entity\View\Text.h" />
     <ClInclude Include="src\FrameWork\Controller.h" />
