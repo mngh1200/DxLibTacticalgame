@@ -2,7 +2,7 @@
 #include "Battle/EnemyBattleController.h"
 
 namespace Entity {
-	const float EnemySpeedController::PLAYMARK_W = (float)BUTTON_H * sqrt(3) / 2.0f;
+	const float EnemySpeedController::PLAYMARK_W = (float)BUTTON_H * (float)sqrt(3) / 2.0f;
 
 	/**
 	 * @fn
