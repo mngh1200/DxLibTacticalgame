@@ -79,13 +79,40 @@ namespace Battle
 		fightData->unit = atkUnit;
 		fightData->isAtk = isAct;
 
+		UnitInfo atkInfo = atkUnit->getInfo();
+		UnitInfo defInfo = defUnit->getInfo();
+
+		// 迎撃スキル判定
+		if (!isAct && atkInfo.ability.kind == Ability::Kind::AMBUSH)
+		{
+			if (atkInfo.len > defInfo.len)
+			{
+				fightData->isAtk = true;
+				isActSideFirst_ = false;
+			}
+		}
+
 		if (fightData->isAtk) // 攻撃する場合
 		{
-			UnitInfo atkInfo = atkUnit->getInfo();
-			UnitInfo defInfo = defUnit->getInfo();
+			int def = defInfo.def + mass->getDef();
 
-			fightData->damage = atkInfo.atk - defInfo.def - mass->getDef();
+			// 貫通スキル
+			if (atkInfo.ability.kind == Ability::Kind::THROUGH)
+			{
+				def = 0;
+			}
+
+			fightData->damage = atkInfo.atk - def;
 			fightData->hitRate = 100 - mass->getAgl();
+
+			// 突撃スキル
+			if (atkInfo.ability.kind == Ability::Kind::RUSH)
+			{
+				if (isActSideFirst_ && mass->getKind() == Mass::PLAIN)
+				{
+					fightData->damage += 5;
+				}
+			}
 
 			// 距離減衰
 			int distance = Map::getMassDistance(atkUnit->getMassX(), atkUnit->getMassY(), defUnit->getMassX(), defUnit->getMassY());

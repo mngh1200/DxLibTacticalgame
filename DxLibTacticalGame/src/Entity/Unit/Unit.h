@@ -1,6 +1,7 @@
 #pragma once
 #include <climits>
 #include "Entity/Object.h"
+#include "Ability.h"
 #include "Utility/ResourceManager.h"
 #include "Animation/Animation.h"
 #include "Entity/Battle/Map.h"
@@ -24,13 +25,16 @@ namespace Entity
 		int kind = UnitKey::LANCER;
 
 		//! 各種ステータス
-		int hp = 0;
-		int hpm = 0;
-		int atk = 0;
-		int def = 0;
-		int mov = 0;
-		int len = 0;
-		int range = 1;
+		int hp = 0;  //! 現在HP
+		int hpm = 0; //! 最大HP
+		int atk = 0; //! 攻撃
+		int def = 0; //! 防御
+		int mov = 0; //! 移動
+		int len = 0; //! 射程
+		int range = 1; //! マップ上の攻撃範囲
+
+		//! スキル
+		Ability ability = Ability::Kind::NONE;
 	};
 
 	class Unit : public Object

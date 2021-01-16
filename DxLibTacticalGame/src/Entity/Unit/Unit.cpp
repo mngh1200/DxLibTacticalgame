@@ -37,6 +37,7 @@ namespace Entity {
 			info_.def = 1;
 			info_.mov = 4;
 			info_.len = 0;
+			info_.ability = Ability::Kind::RUSH;
 		}
 		else if (kind == UnitKey::GUNNER) // èeï∫
 		{
@@ -47,6 +48,7 @@ namespace Entity {
 			info_.mov = 2;
 			info_.len = 2;
 			info_.range = 3;
+			info_.ability = Ability::Kind::THROUGH;
 		}
 		else // kind == UnitKey::LANCER ÇÃìÆçÏ // ëÑï∫
 		{
@@ -57,6 +59,7 @@ namespace Entity {
 			info_.mov = 2;
 			info_.len = 1;
 			info_.kind = UnitKey::LANCER;
+			info_.ability = Ability::Kind::AMBUSH;
 		}
 
 		viewHp_ = info_.hp = info_.hpm;
