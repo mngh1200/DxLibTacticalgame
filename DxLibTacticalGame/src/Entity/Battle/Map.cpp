@@ -1,5 +1,6 @@
 #include "Map.h"
 #include "Entity/Unit/Unit.h"
+#include "Screen/BattleScreen.h"
 
 namespace Entity {
 	/**
@@ -141,19 +142,33 @@ namespace Entity {
 	/**
 	 * @fn
 	 * 特定マスにユニット設置
-	 * @param (unit) ユニット
+	 * @param (massX) マス座標x
+	 * @param (massY) マス座標y
+	 * @param (kind) ユニット種類
+	 * @param (isEnemy) false: プレイヤーユニット, true: 敵ユニット
 	 */
-	bool Map::setUnit(shared_ptr<Entity::Unit> unit)
+	void Map::setUnit(int massX, int massY, int kind, bool isEnemy)
 	{
-		int x = unit->getMassX();
-		int y = unit->getMassY();
 
-		if (isRange(x, y))
+		if (isRange(massX, massY))
 		{
-			auto ret = units_.emplace(make_pair(x, y), unit); // 新規追加のみ
-			return ret.second;
+			FrameWork::Game& game = FrameWork::Game::getInstance();
+			Entity::ObjectsControl& objectsControl = game.objectsControl;
+
+			shared_ptr<Entity::Unit> unit = make_shared<Entity::Unit>();
+			unit->init(massX, massY, kind, isEnemy);
+
+			units_.emplace(make_pair(massX, massY), unit); // 新規追加のみ
+
+			if (!isEnemy)
+			{
+				objectsControl.addObject(Screen::BattleScreen::Layer::PLAYER_UNIT, unit);
+			}
+			else
+			{
+				objectsControl.addObject(Screen::BattleScreen::Layer::ENEMY_UNIT, unit);
+			}
 		}
-		return false;
 	}
 
 	/**

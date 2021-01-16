@@ -35,35 +35,12 @@ namespace Screen
 		enemyBtlCont_.init(map);
 
 		// ユニット設置(テスト)
-		shared_ptr<Entity::Unit> playerUnit = make_shared<Entity::Unit>();
-		playerUnit->init(4, 9, UnitKey::LANCER);
-		if (map->setUnit(playerUnit))
-		{
-			objectsControl.addObject(Layer::PLAYER_UNIT, 0, playerUnit);
-		}
-
-		shared_ptr<Entity::Unit> playerUnit2 = make_shared<Entity::Unit>();
-		playerUnit2->init(5, 9, UnitKey::GUNNER);
-		if (map->setUnit(playerUnit2))
-		{
-			objectsControl.addObject(Layer::PLAYER_UNIT, 1, playerUnit2);
-		}
-
-		shared_ptr<Entity::Unit> enemy = make_shared<Entity::Unit>();
-		enemy->init(4, 7, UnitKey::LANCER, true);
-		if (map->setUnit(enemy))
-		{
-			objectsControl.addObject(Layer::ENEMY_UNIT, 0, enemy);
-		}
-
-		shared_ptr<Entity::Unit> enemy2 = make_shared<Entity::Unit>();
-		enemy2->init(5, 7, UnitKey::LANCER, true);
-		if (map->setUnit(enemy2))
-		{
-			objectsControl.addObject(Layer::ENEMY_UNIT, 1, enemy2);
-		}
-		
-		
+		map->setUnit(4, 9, UnitKey::LANCER);
+		map->setUnit(5, 9, UnitKey::GUNNER);
+		map->setUnit(3, 9, UnitKey::CAVALRY);
+		map->setUnit(4, 7, UnitKey::LANCER, true);
+		map->setUnit(5, 7, UnitKey::GUNNER, true);
+		map->setUnit(3, 7, UnitKey::CAVALRY, true);
 
 		// オーバーレイセット
 		createOverlay(true);

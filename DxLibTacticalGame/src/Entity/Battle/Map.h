@@ -30,7 +30,7 @@ namespace Entity
 
 		void render() const override;
 
-		bool setUnit(shared_ptr<Entity::Unit> unit);
+		void setUnit(int massX, int massY, int kind, bool isEnemy = false);
 		shared_ptr<Unit> getUnit(int massX, int massY);
 		void eraseUnit(shared_ptr<Unit> unit);
 
