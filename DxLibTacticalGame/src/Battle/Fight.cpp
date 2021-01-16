@@ -210,7 +210,7 @@ namespace Battle
 	 * @param (isAct) true: UŒ‚‚ğdŠ|‚¯‚½‘¤Afalse: UŒ‚‚ğdŠ|‚¯‚ç‚ê‚½‘¤
 	 * @return FightData
 	 */
-	FightData Fight::getFightData(bool isAct) const
+	const FightData& Fight::getFightData(bool isAct) const
 	{
 		if (isAct)
 		{
