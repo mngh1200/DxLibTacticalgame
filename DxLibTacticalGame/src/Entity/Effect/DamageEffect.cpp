@@ -47,7 +47,7 @@ namespace Entity {
 
 			shape_.w = size * DAMAGE_W;
 
-			for (int i = size - 1; i >= 0 ; --i)
+			for (int i = 0; i < size; ++i )
 			{
 				// “Á’è‚ÌŒ…‚Ì”’lŽæ“¾
 				char s = damageStr.at(i);
