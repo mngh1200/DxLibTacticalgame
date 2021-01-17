@@ -83,6 +83,8 @@ namespace Entity
 
 		string getLenText() const;
 
+		void getExtraStatusList(vector<pair<string, string>>& list) const;
+
 		int getMassX() const { return x_; }; // xÀ•W‚ğ•Ô‚·
 		int getMassY() const { return y_; }; // yÀ•W‚ğ•Ô‚·
 		int getBaseX() const { return baseX_; }; // ˆÚ“®Œ³xÀ•W‚ğ•Ô‚·

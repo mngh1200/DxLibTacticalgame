@@ -64,6 +64,7 @@ namespace Battle {
 	*/
 	void BattleUI::updateByEvents(shared_ptr<Object> hitObj, int x, int y, int button, int eventType)
 	{
+		unitStatusDisplay_->updateByEvents(x, y);
 	}
 
 

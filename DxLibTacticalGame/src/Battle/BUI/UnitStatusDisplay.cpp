@@ -8,7 +8,7 @@ namespace Entity {
 	 * コンストラクタ
 	 */
 	UnitStatusDisplay::UnitStatusDisplay() 
-		: animation_{}
+		: animation_{}, extraStatusHoverId_ (EXTRA_STATUS_ID_NONE)
 	{
 		shape_.set(X, BATTLE_UI_AREA_Y + BUI_PADDING, WIDTH, BUI_LINE_HEIGHT * BUI_LINE_COUNT + BUI_LINE_MARGIN);
 	}
@@ -33,7 +33,24 @@ namespace Entity {
 
 			// 名前表示
 			int nameColorType = targetUnit_->isEnemy() ? ColorType::ENEMY_COLOR : ColorType::PLAYER_COLOR;
-			BUI::drawLabel(shape_.x, shape_.y, info.name, BUI::getZenW(3), nameColorType, ColorType::WHITE);
+			BUI::drawLabel(shape_.x, shape_.y, info.name, NAME_W, nameColorType, ColorType::WHITE);
+
+			// 特殊ステータス
+			int count = 0;
+			for (auto itr = extraStatusList_.begin(); itr != extraStatusList_.end(); ++itr)
+			{
+				BUI::drawLabel(itr->shape.x, shape_.y, itr->label, itr->shape.w - BUI_LINE_PADDING * 2);
+
+				// ホバーしている特殊ステータスのツールチップ表示
+				if (count == extraStatusHoverId_)
+				{
+					int w = BUI::getZenW(itr->description.size() / 2);
+					int h = BUI_LINE_HEIGHT;
+					int y = shape_.y - h - BUI_PADDING;
+					BUI::drawLabel(shape_.x, y, itr->description, w, ColorType::MAIN_COLOR);
+				}
+				++count;
+			}
 
 			/* 二行目 ここから */
 
@@ -58,7 +75,37 @@ namespace Entity {
 		}
 	}
 
-	
+	/**
+	 * @fn
+	 * マウスイベントによる更新処理
+	 */
+	void UnitStatusDisplay::updateByEvents(int x, int y)
+	{
+		// 特殊ステータスのツールチップの表示/非表示判定
+		bool isHoverExtraStatus = false;
+		if (isMouseOver_)
+		{
+			int count = 0;
+			for (auto itr = extraStatusList_.begin(); itr != extraStatusList_.end(); ++itr)
+			{
+				if (itr->shape.isHit(x, y))
+				{
+					isHoverExtraStatus = true;
+					if (extraStatusHoverId_ != count)
+					{
+						extraStatusHoverId_ = count; // ツールチップ表示
+					}
+					break;
+				}
+				++count;
+			}
+		}
+
+		if (!isHoverExtraStatus)
+		{
+			extraStatusHoverId_ = EXTRA_STATUS_ID_NONE;
+		}
+	}
 
 
 
@@ -96,7 +143,7 @@ namespace Entity {
 	 * 対象ユニット指定
 	 * @param (unit) 対象ユニット
 	 */
-	void UnitStatusDisplay:: setTargetUnit(shared_ptr<Unit> unit)
+	void UnitStatusDisplay::setTargetUnit(shared_ptr<Unit> unit)
 	{
 		if (!unit || targetUnit_ == unit) // 選択済みのユニットの場合
 		{
@@ -104,6 +151,24 @@ namespace Entity {
 		}
 
 		targetUnit_ = unit;
+
+		// 特殊ステータスの表示データ生成
+		extraStatusList_.clear();
+
+		vector<pair<string, string>> extraStatusTexts;
+		unit->getExtraStatusList(extraStatusTexts);
+
+		int x = shape_.x + NAME_W + BUI_LINE_PADDING * 2 + BUI_LINE_MARGIN + EXTRA_STATUS_MARGIN;
+		const int y = shape_.y + BUI_LINE_MARGIN;
+		const int h = BUI_FONT_SIZE + BUI_LINE_PADDING * 2;
+
+		for (auto itr = extraStatusTexts.begin(); itr != extraStatusTexts.end(); ++itr)
+		{
+			int w = BUI::getZenW((itr->first).size() / 2) + BUI_LINE_PADDING * 2;
+			extraStatusList_.push_back(ExtraStatus{ itr->first, itr->second, Shape(x, y ,w ,h)});
+			x = x + w + EXTRA_STATUS_MARGIN;
+		}
+
 		changeAnimation(AnimationKind::DISPLAY);
 	}
 

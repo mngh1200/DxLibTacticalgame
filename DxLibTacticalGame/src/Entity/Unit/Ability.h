@@ -35,9 +35,9 @@ namespace Entity
 		//! ƒXƒLƒ‹‚ÌŽí—Þ
 		int kind;
 
-		string getLabel();
+		string getLabel() const;
 
-		string getDescription();
+		string getDescription() const;
 
 	private:
 	};

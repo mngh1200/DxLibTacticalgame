@@ -41,6 +41,8 @@ namespace Battle {
 			bm->resetFightPredict();
 		}
 
+		bm->battleUI.updateByEvents(hitObj, x, y, button, eventType);
+
 	}
 
 	/**

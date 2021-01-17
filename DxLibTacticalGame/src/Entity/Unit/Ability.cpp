@@ -22,7 +22,7 @@ namespace Entity {
 	 * スキル名（ラベル）を返す
 	 * @return スキル名
 	 */
-	string Ability::getLabel()
+	string Ability::getLabel() const
 	{
 		try
 		{
@@ -38,7 +38,7 @@ namespace Entity {
 	 * スキルの説明文を返す
 	 * @return スキルの説明文
 	 */
-	string Ability::getDescription()
+	string Ability::getDescription() const
 	{
 		try
 		{

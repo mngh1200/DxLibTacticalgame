@@ -271,6 +271,24 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * 特殊ステータスのラベルと説明文を返す
+	 * @param (list) 参照渡し用の変数 <ラベル, 説明文>
+	 */
+	void Unit::getExtraStatusList(vector<pair<string, string>>& list) const
+	{
+		// スキル
+		list.push_back(make_pair(info_.ability.getLabel(), info_.ability.getDescription()));
+
+		// 騎馬ユニットであるか
+		if (isHorse())
+		{
+			list.push_back(make_pair("騎馬", "森林での移動力 -1"));
+		}
+	}
+
+
+	/**
+	 * @fn
 	 * ダメージ値
 	 * @return 死亡時 trueを返す
 	 */
