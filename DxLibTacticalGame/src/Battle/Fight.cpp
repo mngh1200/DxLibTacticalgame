@@ -47,6 +47,18 @@ namespace Battle
 
 			makeFightData(&actSide_, actUnit, psvUnit, mass, true);  // UŒ‚‘¤ŒvZ
 			makeFightData(&psvSide_, psvUnit, actUnit, mass, false); // –hŒä‘¤ŒvZ
+
+			if (isActSideFirst_)
+			{
+				// “ËŒ‚ƒXƒLƒ‹
+				if (actSide_.unit->getInfo().ability.kind == Ability::Kind::RUSH)
+				{
+					if (isActSideFirst_ && mass->getKind() == Mass::PLAIN)
+					{
+						actSide_.damage += 5;
+					}
+				}
+			}
 			return true;
 		}
 		return false;
@@ -104,15 +116,6 @@ namespace Battle
 
 			fightData->damage = atkInfo.atk - def;
 			fightData->hitRate = 100 - mass->getAgl();
-
-			// “ËŒ‚ƒXƒLƒ‹
-			if (atkInfo.ability.kind == Ability::Kind::RUSH)
-			{
-				if (isActSideFirst_ && mass->getKind() == Mass::PLAIN)
-				{
-					fightData->damage += 5;
-				}
-			}
 
 			// ‹——£Œ¸Š
 			int distance = Map::getMassDistance(atkUnit->getMassX(), atkUnit->getMassY(), defUnit->getMassX(), defUnit->getMassY());
