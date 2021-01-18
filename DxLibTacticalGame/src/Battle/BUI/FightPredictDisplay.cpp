@@ -98,6 +98,14 @@ namespace Entity {
 		int nameColorType = isPlayer ? ColorType::PLAYER_COLOR : ColorType::ENEMY_COLOR;
 		x = BUI::drawLabel(x, shape_.y, info.name, BUI::getZenW(3), nameColorType, ColorType::WHITE);
 
+		// ì¡éÍå¯â 
+		for (auto itr = fightData->extraEffects.begin(); itr != fightData->extraEffects.end(); ++itr)
+		{
+			x += EXTRA_EFFECT_MARGIN;
+			int len = (*itr).size() / 2;
+			x = BUI::drawLabel(x, shape_.y, (*itr), BUI::getZenW(len), ColorType::MAIN_COLOR_ON, ColorType::SUB_COLOR);
+		}
+
 
 
 		/* ìÒçsñ⁄ Ç±Ç±Ç©ÇÁ */

@@ -55,6 +55,7 @@ namespace Battle
 				{
 					if (isActSideFirst_ && mass->getKind() == Mass::PLAIN)
 					{
+						actSide_.extraEffects.push_back(actSide_.unit->getInfo().ability.getLabel());
 						actSide_.damage += 5;
 					}
 				}
@@ -99,6 +100,7 @@ namespace Battle
 		{
 			if (atkInfo.len > defInfo.len)
 			{
+				fightData->extraEffects.push_back(atkInfo.ability.getLabel());
 				fightData->isAtk = true;
 				isActSideFirst_ = false;
 			}
@@ -112,6 +114,7 @@ namespace Battle
 			if (atkInfo.ability.kind == Ability::Kind::THROUGH)
 			{
 				def = 0;
+				fightData->extraEffects.push_back(atkInfo.ability.getLabel());
 			}
 
 			fightData->damage = atkInfo.atk - def;

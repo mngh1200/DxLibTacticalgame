@@ -21,6 +21,7 @@ namespace Battle
 		int damage;				//! 与ダメージ
 		int hitRate;			//! 命中率
 		bool isAtk;				//! 攻撃するか
+		vector<string> extraEffects; //! 特殊効果（アビリティや連携等）
 	};
 
 	class Fight

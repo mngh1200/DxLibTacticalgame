@@ -38,6 +38,8 @@ namespace Entity
 		constexpr static int CENTER_PADDING = 10; //! 中央部の余白
 		constexpr static int DIRECTION_W = CENTER_WIDTH - CENTER_PADDING * 2; // 攻撃方向の幅
 
+		constexpr static int EXTRA_EFFECT_MARGIN = 10 - BUI_LINE_MARGIN; // BUI::drawLabeのマージン分は引いておく
+
 		constexpr static int PLAYER_X = AREA_WIDTH + CENTER_WIDTH;
 
 		constexpr static int ANIMATION_MS = 500;	//! アニメーション時間
