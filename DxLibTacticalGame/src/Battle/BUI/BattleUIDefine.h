@@ -18,6 +18,8 @@ constexpr int BUI_LINE_PADDING = 6; //! 一行の余白
 constexpr int BUI_LINE_HEIGHT = BUI_FONT_SIZE + BUI_LINE_MARGIN + BUI_LINE_PADDING * 2; //! 一行当たりの高さ
 constexpr int BUI_LINE_COUNT = 2;   //! 何行あるか
 
+constexpr int BUI_FONT_TYPE = FontType::NORMAL_S18; //! バトルUI用のフォントタイプ
+
 namespace BUI
 {
 	int drawLabel(int x0, int y0, string text, int w, int backgroundColorType = ColorType::SUB_COLOR_LITE, int textColorType = ColorType::SUB_COLOR);
