@@ -36,20 +36,9 @@ namespace Entity {
 			BUI::drawLabel(shape_.x, shape_.y, info.name, NAME_W, nameColorType, ColorType::WHITE);
 
 			// 特殊ステータス
-			int count = 0;
 			for (auto itr = extraStatusList_.begin(); itr != extraStatusList_.end(); ++itr)
 			{
 				BUI::drawLabel(itr->shape.x, shape_.y, itr->label, itr->shape.w - BUI_LINE_PADDING * 2);
-
-				// ホバーしている特殊ステータスのツールチップ表示
-				if (count == extraStatusHoverId_)
-				{
-					int w = BUI::getZenW(itr->description.size() / 2);
-					int h = BUI_LINE_HEIGHT;
-					int y = shape_.y - h - BUI_PADDING;
-					BUI::drawLabel(shape_.x, y, itr->description, w, ColorType::MAIN_COLOR);
-				}
-				++count;
 			}
 
 			/* 二行目 ここから */
@@ -93,7 +82,20 @@ namespace Entity {
 					isHoverExtraStatus = true;
 					if (extraStatusHoverId_ != count)
 					{
-						extraStatusHoverId_ = count; // ツールチップ表示
+						// ツールチップ表示
+						extraStatusHoverId_ = count;
+
+						if (!tooltip_)
+						{
+							// ツールチップオブジェクト追加
+							FrameWork::Game& game = FrameWork::Game::getInstance();
+							Entity::ObjectsControl& objectsControl = game.objectsControl;
+
+							tooltip_ = make_shared<Tooltip>();
+							objectsControl.addFigure(getLayerId(), tooltip_);
+						}
+
+						tooltip_->show(shape_.x, shape_.y - BUI_PADDING - 5, itr->description);
 					}
 					break;
 				}
@@ -103,7 +105,12 @@ namespace Entity {
 
 		if (!isHoverExtraStatus)
 		{
+			// ツールチップ非表示
 			extraStatusHoverId_ = EXTRA_STATUS_ID_NONE;
+			if (tooltip_)
+			{
+				tooltip_->hide();
+			}
 		}
 	}
 

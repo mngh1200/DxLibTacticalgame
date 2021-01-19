@@ -6,6 +6,7 @@
 #include "Entity/Object.h"
 #include "TerrainEffectDisplay.h"
 #include "Entity/Unit/Unit.h"
+#include "Entity/View/Tooltip.h"
 #include "Animation/Animation.h"
 #include "DxLib.h"
 #include "BattleUIDefine.h"
@@ -70,6 +71,9 @@ namespace Entity
 
 		//! 特殊ステータスのリスト
 		vector<ExtraStatus> extraStatusList_;
+
+		//! ツールチップ追加
+		shared_ptr<Tooltip> tooltip_;
 
 		//! ホバー中の特殊ステータス
 		int extraStatusHoverId_;
