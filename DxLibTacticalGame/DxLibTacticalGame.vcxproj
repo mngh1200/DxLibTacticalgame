@@ -180,6 +180,7 @@
     <ClCompile Include="src\Entity\Unit\Ability.cpp" />
     <ClCompile Include="src\Entity\Unit\Unit.cpp" />
     <ClCompile Include="src\Entity\View\Text.cpp" />
+    <ClCompile Include="src\Entity\View\Tooltip.cpp" />
     <ClCompile Include="src\FrameWork\Controller.cpp" />
     <ClCompile Include="src\FrameWork\Game.cpp" />
     <ClCompile Include="src\Main.cpp" />
@@ -224,6 +225,7 @@
     <ClInclude Include="src\Entity\Unit\Ability.h" />
     <ClInclude Include="src\Entity\Unit\Unit.h" />
     <ClInclude Include="src\Entity\View\Text.h" />
+    <ClInclude Include="src\Entity\View\Tooltip.h" />
     <ClInclude Include="src\FrameWork\Controller.h" />
     <ClInclude Include="src\FrameWork\Game.h" />
     <ClInclude Include="src\resource.h" />

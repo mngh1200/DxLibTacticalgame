@@ -225,6 +225,9 @@
     <ClCompile Include="src\Entity\Unit\Ability.cpp">
       <Filter>ソース ファイル\Entity\Unit</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entity\View\Tooltip.cpp">
+      <Filter>ソース ファイル\Entity\View</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -352,6 +355,9 @@
     </ClInclude>
     <ClInclude Include="src\Entity\Unit\Ability.h">
       <Filter>ヘッダー ファイル\Entity\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\View\Tooltip.h">
+      <Filter>ヘッダー ファイル\Entity\View</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
