@@ -128,7 +128,7 @@ namespace Utility {
 	 * @param (handle) ID格納変数
 	 */
 	void ResourceManager::loadCharacterchip(const char* resourceName, const char* resourceType, int* handle) {
-		int ret = DxLib::LoadDivGraphToResource(resourceName, resourceType, 6, 3, 2, CHIP_SIZE, CHIP_SIZE, handle);
+		int ret = DxLib::LoadDivGraphToResource(resourceName, resourceType, UNIT_KIND_LEN * 2, UNIT_KIND_LEN, 2, CHIP_SIZE, CHIP_SIZE, handle);
 		THROWS_EX(ret, resourceName);
 	}
 	/**
@@ -152,10 +152,12 @@ namespace Utility {
 		{
 			image_.at(ImageType::IMAGE).push_back(new int[1]);
 		}
+		// 背景
 		loadImage(MAKEINTRESOURCE(BACKGROUND_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::IMAGE).at(ImageId::BACKGROUND_MENU));
 
-		loadImage("resource/image/map/state-atack.png", image_.at(ImageType::IMAGE).at(ImageId::MASS_ATACK));
-		loadImage("resource/image/map/state-movable.png", image_.at(ImageType::IMAGE).at(ImageId::MASS_MOVE));
+		// マス効果
+		loadImage(MAKEINTRESOURCE(MASS_ATACKABLE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::IMAGE).at(ImageId::MASS_ATACK));
+		loadImage(MAKEINTRESOURCE(MASS_MOVABLE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::IMAGE).at(ImageId::MASS_MOVE));
 
 		image_.insert(std::make_pair(ImageType::MAP, vector<int*>()));
 		image_.at(ImageType::MAP).push_back(new int[8]);
@@ -164,10 +166,10 @@ namespace Utility {
 
 		// プレイヤー画像の読み込み
 		image_.insert(std::make_pair(ImageType::UNIT, vector<int*>()));
-		image_.at(ImageType::UNIT).push_back(new int[6]);
+		image_.at(ImageType::UNIT).push_back(new int[UNIT_KIND_LEN * 2]);
 		loadCharacterchip(MAKEINTRESOURCE(UNIT_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::UNIT).at(UnitImageKind::NORMAL));
 		image_.insert(std::make_pair(ImageType::UNIT, vector<int*>()));
-		image_.at(ImageType::UNIT).push_back(new int[6]);
+		image_.at(ImageType::UNIT).push_back(new int[UNIT_KIND_LEN * 2]);
 		loadCharacterchip(MAKEINTRESOURCE(UNIT_ACTED_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::UNIT).at(UnitImageKind::ACTED));
 
 		// ダメージエフェクト
@@ -176,7 +178,7 @@ namespace Utility {
 		ret = DxLib::LoadDivGraph("resource/image/effect/damage.png", 10, 10, 1, 26, 32, image_.at(ImageType::EFFECT).at(EffectId::DAMAGE));
 		
 		image_.at(ImageType::EFFECT).push_back(new int[1]);
-		loadImage("resource/image/effect/miss.png", image_.at(ImageType::EFFECT).at(EffectId::MISS));
+		loadImage(MAKEINTRESOURCE(EFFECT_MISS), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::EFFECT).at(EffectId::MISS));
 
 		loadFlag = true;
 		return ret;

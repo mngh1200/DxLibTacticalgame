@@ -381,6 +381,12 @@
     <Image Include="resource\image\effect\miss.png">
       <Filter>リソース ファイル</Filter>
     </Image>
+    <Image Include="resource\image\map\state-movable.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="resource\image\map\state-atack.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="resource\image\unit\player\default1.bin">

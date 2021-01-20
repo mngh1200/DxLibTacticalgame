@@ -245,6 +245,8 @@
     <Image Include="resource\image\effect\damage.png" />
     <Image Include="resource\image\effect\miss.png" />
     <Image Include="resource\image\map\mapchip.png" />
+    <Image Include="resource\image\map\state-atack.png" />
+    <Image Include="resource\image\map\state-movable.png" />
     <Image Include="resource\image\menu\background.jpg" />
     <Image Include="resource\image\unit\unit.png" />
   </ItemGroup>
