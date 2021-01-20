@@ -64,7 +64,18 @@ namespace Entity {
 
 		viewHp_ = info_.hp = info_.hpm;
 
-		imageId_ = rm.getImage(ImageType::PLAYER, info_.kind, isEnemy_ ? 0 : 2);
+		setImage(UnitImageKind::NORMAL);
+	}
+
+	/**
+	 * @fn
+	 * ユニットの状態を元に画像セット
+	 * @param (state) 状態
+	 */
+	void Unit::setImage(int state)
+	{
+		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
+		imageId_ = rm.getImage(ImageType::UNIT, state, !isEnemy_ ? info_.kind : info_.kind + UnitKey::UNIT_KIND_LEN);
 	}
 
 	/**
@@ -374,7 +385,7 @@ namespace Entity {
 	void Unit::turnEnd()
 	{
 		isActed_ = false;
-		alpha_ = 255; // テスト処理
+		setImage(UnitImageKind::NORMAL);
 	}
 
 	/**
@@ -384,7 +395,7 @@ namespace Entity {
 	void Unit::endAction()
 	{
 		isActed_ = true;
-		alpha_ = 100; // テスト処理
+		setImage(UnitImageKind::ACTED);
 	}
 
 	/**

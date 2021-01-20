@@ -55,33 +55,24 @@ namespace
 
 	// イメージタイプ
 	enum ImageType {
-		PLAYER,
-		ENEMY,
+		UNIT,
 		MAP,
 		EFFECT,
-		BUI,
 		IMAGE
-	};
-
-	// バトルUI用の画像の種類
-	enum BUI_ImageKind
-	{
-		SPEED
 	};
 
 	// エフェクト画像の種類
 	enum EffectId
 	{
 		DAMAGE,
-		MISS
+		MISS,
+		BULLET
 	};
 
-	// PLAYER、ENEMYのアニメーション開始位置(仮)
-	enum UnitStartPos {
-		TOP,
-		LEFT = 4,
-		RIGHT = 8,
-		DOWN = 12
+	// ユニットのImageType (状態)
+	enum UnitImageKind {
+		NORMAL, // 通常
+		ACTED   // 行動済み
 	};
 
 	// ImageのID
@@ -90,6 +81,14 @@ namespace
 		MASS_ATACK,
 		MASS_MOVE,
 		IMAGE_ID_LEN
+	};
+
+	// 弾薬画像のpos
+	enum BulletPos
+	{
+		BULLET_BODY,
+		UNLOADED, // 未装填
+		BULLET_POS_LEN
 	};
 
 	enum MapId {

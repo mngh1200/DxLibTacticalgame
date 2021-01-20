@@ -241,6 +241,22 @@
   <ItemGroup>
     <ResourceCompile Include="src\DxLibTacticalGame.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="resource\image\effect\damage.png" />
+    <Image Include="resource\image\effect\miss.png" />
+    <Image Include="resource\image\map\mapchip.png" />
+    <Image Include="resource\image\menu\background.jpg" />
+    <Image Include="resource\image\unit\unit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\image\unit\player\default1.bin" />
+    <None Include="resource\sound\check.ogg" />
+    <None Include="resource\sound\click.ogg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="resource\sound\back.wav" />
+    <Media Include="resource\sound\born.wav" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

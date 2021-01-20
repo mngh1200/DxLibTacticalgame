@@ -112,6 +112,7 @@ namespace Entity
 		constexpr static int ANIME_DAMAGE_REPEAT = 4; //! ダメージアニメションのリピート回数
 
 		void setKind(int kind);
+		void setImage(int state);
 
 		//! 画像
 		int imageId_;

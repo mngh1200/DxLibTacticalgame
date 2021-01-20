@@ -12,6 +12,15 @@ namespace Utility {
 	{
 		unloadFont("resource/font/rounded-mplus/rounded-mplus-1p-regular.ttf");
 		unloadFont("resource/font/rounded-mplus/rounded-mplus-1p-black.ttf");
+
+		for (auto&& mItr = image_.begin(); mItr != image_.end(); ++mItr)
+		{
+			vector<int*> vec = mItr->second;
+			for (auto itr = vec.begin(); itr != vec.end(); ++itr)
+			{
+				delete* itr;
+			}
+		}
 	}
 
 	/**
@@ -119,7 +128,7 @@ namespace Utility {
 	 * @param (handle) ID格納変数
 	 */
 	void ResourceManager::loadCharacterchip(const char* resourceName, const char* resourceType, int* handle) {
-		int ret = DxLib::LoadDivGraphToResource(resourceName, resourceType, 16, 4, 4, CHIP_SIZE, CHIP_SIZE, handle);
+		int ret = DxLib::LoadDivGraphToResource(resourceName, resourceType, 6, 3, 2, CHIP_SIZE, CHIP_SIZE, handle);
 		THROWS_EX(ret, resourceName);
 	}
 	/**
@@ -152,39 +161,14 @@ namespace Utility {
 		image_.at(ImageType::MAP).push_back(new int[8]);
 		//loadMapchip("resource/image/map/mapchip.png", image_.at(ImageType::MAP).at(0));
 		loadMapchip(MAKEINTRESOURCE(MAP_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::MAP).at(0));
-		// プレイヤー画像の読み込み
-		image_.insert(std::make_pair(ImageType::PLAYER, vector<int*>()));
-		image_.at(ImageType::PLAYER).push_back(new int[16]);
-		//loadCharacterchip("resource/image/unit/player/lancer.png", image_.at(ImageType::PLAYER).at(UnitKey::LANCER));
-		loadCharacterchip(MAKEINTRESOURCE(PLAYER_LANCER_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::PLAYER).at(UnitKey::LANCER));
-		image_.insert(std::make_pair(ImageType::PLAYER, vector<int*>()));
-		image_.at(ImageType::PLAYER).push_back(new int[16]);
-		//loadCharacterchip("resource/image/unit/player/cavalry.png", image_.at(ImageType::PLAYER).at(UnitKey::CAVALRY));
-		loadCharacterchip(MAKEINTRESOURCE(PLAYER_CAVALRY_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::PLAYER).at(UnitKey::CAVALRY));
-		image_.insert(std::make_pair(ImageType::PLAYER, vector<int*>()));
-		image_.at(ImageType::PLAYER).push_back(new int[16]);
-		//loadCharacterchip("resource/image/unit/player/gunner.png", image_.at(ImageType::PLAYER).at(UnitKey::GUNNER));
-		loadCharacterchip(MAKEINTRESOURCE(PLAYER_GUNNER_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::PLAYER).at(UnitKey::GUNNER));
-		// エネミー画像の読み込み
-		image_.insert(std::make_pair(ImageType::ENEMY, vector<int*>()));
-		image_.at(ImageType::ENEMY).push_back(new int[16]);
-		//loadCharacterchip("resource/image/unit/enemy/lancer_enemy.png", image_.at(ImageType::ENEMY).at(UnitKey::LANCER));
-		loadCharacterchip(MAKEINTRESOURCE(ENEMY_LANCER_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::ENEMY).at(UnitKey::LANCER));
-		image_.insert(std::make_pair(ImageType::ENEMY, vector<int*>()));
-		image_.at(ImageType::ENEMY).push_back(new int[16]);
-		//loadCharacterchip("resource/image/unit/enemy/cavalry_enemy.png", image_.at(ImageType::ENEMY).at(UnitKey::CAVALRY));
-		loadCharacterchip(MAKEINTRESOURCE(ENEMY_CAVALRY_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::ENEMY).at(UnitKey::CAVALRY));
-		image_.insert(std::make_pair(ImageType::ENEMY, vector<int*>()));
-		image_.at(ImageType::ENEMY).push_back(new int[16]);
-		//loadCharacterchip("resource/image/unit/enemy/gunner_enemy.png", image_.at(ImageType::ENEMY).at(UnitKey::GUNNER));
-		loadCharacterchip(MAKEINTRESOURCE(ENEMY_GUNNER_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::ENEMY).at(UnitKey::GUNNER));
 
-		// スピード調節ボタン
-		/*
-		image_.insert(std::make_pair(ImageType::BUI, vector<int*>()));
-		image_.at(ImageType::BUI).push_back(new int[9]);
-		ret = DxLib::LoadDivGraph("resource/image/bui/speed.png", 9, 3, 3, CHIP_SIZE, CHIP_SIZE, image_.at(ImageType::BUI).at(BUI_ImageKind::SPEED));
-		*/
+		// プレイヤー画像の読み込み
+		image_.insert(std::make_pair(ImageType::UNIT, vector<int*>()));
+		image_.at(ImageType::UNIT).push_back(new int[6]);
+		loadCharacterchip(MAKEINTRESOURCE(UNIT_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::UNIT).at(UnitImageKind::NORMAL));
+		image_.insert(std::make_pair(ImageType::UNIT, vector<int*>()));
+		image_.at(ImageType::UNIT).push_back(new int[6]);
+		loadCharacterchip(MAKEINTRESOURCE(UNIT_ACTED_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::UNIT).at(UnitImageKind::ACTED));
 
 		// ダメージエフェクト
 		image_.insert(std::make_pair(ImageType::EFFECT, vector<int*>()));

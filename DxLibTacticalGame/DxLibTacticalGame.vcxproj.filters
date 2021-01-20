@@ -365,4 +365,36 @@
       <Filter>リソース ファイル</Filter>
     </ResourceCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="resource\image\unit\unit.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="resource\image\menu\background.jpg">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="resource\image\map\mapchip.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="resource\image\effect\damage.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="resource\image\effect\miss.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\image\unit\player\default1.bin">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="resource\sound\click.ogg" />
+    <None Include="resource\sound\check.ogg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="resource\sound\back.wav">
+      <Filter>リソース ファイル</Filter>
+    </Media>
+    <Media Include="resource\sound\born.wav">
+      <Filter>リソース ファイル</Filter>
+    </Media>
+  </ItemGroup>
 </Project>

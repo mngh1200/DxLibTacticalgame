@@ -4,17 +4,23 @@ BACKGROUND_IMAGE	IMAGE_FILE	"../resource/image/menu/background.jpg"
 
 MAP_IMAGE	IMAGE_FILE	"../resource/image/map/mapchip.png"
 
-PLAYER_LANCER_IMAGE	IMAGE_FILE	"../resource/image/unit/player/lancer.png"
+MASS_MOVABLE	IMAGE_FILE	"../resource/image/map/state-movable.png"
 
-PLAYER_CAVALRY_IMAGE	IMAGE_FILE	"../resource/image/unit/player/cavalry.png"
+MASS_ATACKABLE	IMAGE_FILE	"../resource/image/map/state-atack.png"
 
-PLAYER_GUNNER_IMAGE	IMAGE_FILE	"../resource/image/unit/player/gunner.png"
 
-ENEMY_LANCER_IMAGE	IMAGE_FILE	"../resource/image/unit/enemy/lancer_enemy.png"
+UNIT_IMAGE		IMAGE_FILE	"../resource/image/unit/unit.png"
 
-ENEMY_CAVALRY_IMAGE	IMAGE_FILE	"../resource/image/unit/enemy/cavalry_enemy.png"
+UNIT_ACTED_IMAGE	IMAGE_FILE	"../resource/image/unit/unit-acted.png"
 
-ENEMY_GUNNER_IMAGE	IMAGE_FILE	"../resource/image/unit/enemy/gunner_enemy.png"
+
+BULLET_IMAGE		IMAGE_FILE	"../resource/image/unit/bullet.png"
+
+EFFECT_DAMAGE	IMAGE_FILE	"../resource/image/effect/damage.png"
+
+EFFECT_MISS	IMAGE_FILE	"../resource/image/effect/miss.png"
+
+
 
 BACK_WAVE	WAVE	"../resource/sound/back.wav"
 

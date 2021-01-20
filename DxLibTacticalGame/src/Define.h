@@ -37,7 +37,8 @@ namespace
 	enum UnitKey {
 		LANCER,
 		CAVALRY,
-		GUNNER
+		GUNNER,
+		UNIT_KIND_LEN
 	};
 }
 
