@@ -1,5 +1,5 @@
 #include "Map.h"
-#include "Entity/Unit/Unit.h"
+#include "Entity/Unit/Gunner.h"
 #include "Screen/BattleScreen.h"
 
 namespace Entity {
@@ -155,7 +155,17 @@ namespace Entity {
 			FrameWork::Game& game = FrameWork::Game::getInstance();
 			Entity::ObjectsControl& objectsControl = game.objectsControl;
 
-			shared_ptr<Entity::Unit> unit = make_shared<Entity::Unit>();
+			shared_ptr<Entity::Unit> unit;
+			
+			if (kind == UnitKey::GUNNER)
+			{
+				unit = make_shared<Entity::Gunner>();
+			}
+			else
+			{
+				unit = make_shared<Entity::Unit>();
+			}
+
 			unit->init(massX, massY, kind, isEnemy);
 
 			units_.emplace(make_pair(massX, massY), unit); // 新規追加のみ
@@ -369,6 +379,11 @@ namespace Entity {
 	{
 		if (unit)
 		{
+			if (!unit->isAtackable()) // ユニットが攻撃不可の状態
+			{
+				return;
+			}
+
 			int range = unit->getInfo().range;
 
 			for (int i = 1; i <= range; i++)

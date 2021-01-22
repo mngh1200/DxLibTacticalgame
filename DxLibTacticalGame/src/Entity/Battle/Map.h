@@ -12,6 +12,7 @@ using namespace std;
 namespace Entity
 {
 	class Unit;
+	class Gunner;
 }
 
 /**

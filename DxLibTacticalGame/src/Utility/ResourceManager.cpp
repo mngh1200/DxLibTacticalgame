@@ -143,6 +143,24 @@ namespace Utility {
 		THROWS_EX(*handle, resourceName);
 	}
 
+	/**
+	 * @fn
+	 * 複数枚絵の読み取り関数（リソースから）
+	 * @param (resourceName) リソース名
+	 * @param (resourceType) リソースタイプ
+	 * @param (allNum) 画像数
+	 * @param (xNum) 画像列数
+	 * @param (yNum) 画像行数
+	 * @param (w) 画像１枚あたりの幅
+	 * @param (h) 画像１枚あたりの高さ
+	 * @param (handle) ID格納変数
+	 */
+	void ResourceManager::loadDivImage(const char* resourceName, const char* resourceType, int allNum, int xNum, int yNum, int w, int h, int* handle)
+	{
+		int ret = DxLib::LoadDivGraphToResource(resourceName, resourceType, allNum, xNum, yNum, w, h, handle);
+		THROWS_EX(ret, resourceName);
+	}
+
 	int ResourceManager::loadImages()
 	{
 		int ret = 0;
@@ -179,6 +197,12 @@ namespace Utility {
 		
 		image_.at(ImageType::EFFECT).push_back(new int[1]);
 		loadImage(MAKEINTRESOURCE(EFFECT_MISS), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::EFFECT).at(EffectId::MISS));
+
+		// 弾丸
+		image_.at(ImageType::EFFECT).push_back(new int[BULLET_POS_LEN]);
+		loadDivImage(MAKEINTRESOURCE(BULLET_IMAGE), MAKEINTRESOURCE(IMAGE_FILE),
+			BULLET_POS_LEN, BULLET_POS_LEN, 1, CHIP_SIZE / 4, CHIP_SIZE /4,
+			image_.at(ImageType::EFFECT).at(EffectId::BULLET));
 
 		loadFlag = true;
 		return ret;

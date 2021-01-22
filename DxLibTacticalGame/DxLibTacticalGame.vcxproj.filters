@@ -228,6 +228,12 @@
     <ClCompile Include="src\Entity\View\Tooltip.cpp">
       <Filter>ソース ファイル\Entity\View</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entity\Unit\Gunner.cpp">
+      <Filter>ソース ファイル\Entity\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Unit\UnitInfo.cpp">
+      <Filter>ソース ファイル\Entity\Unit</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -359,6 +365,12 @@
     <ClInclude Include="src\Entity\View\Tooltip.h">
       <Filter>ヘッダー ファイル\Entity\View</Filter>
     </ClInclude>
+    <ClInclude Include="src\Entity\Unit\Gunner.h">
+      <Filter>ヘッダー ファイル\Entity\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Unit\UnitInfo.h">
+      <Filter>ヘッダー ファイル\Entity\Unit</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="src\DxLibTacticalGame.rc">
@@ -385,6 +397,9 @@
       <Filter>リソース ファイル</Filter>
     </Image>
     <Image Include="resource\image\map\state-atack.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="resource\image\unit\bullet.png">
       <Filter>リソース ファイル</Filter>
     </Image>
   </ItemGroup>

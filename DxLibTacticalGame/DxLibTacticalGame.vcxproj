@@ -178,7 +178,9 @@
     <ClCompile Include="src\Entity\UI\Menu\ContextMenu.cpp" />
     <ClCompile Include="src\Entity\UI\Overlay.cpp" />
     <ClCompile Include="src\Entity\Unit\Ability.cpp" />
+    <ClCompile Include="src\Entity\Unit\Gunner.cpp" />
     <ClCompile Include="src\Entity\Unit\Unit.cpp" />
+    <ClCompile Include="src\Entity\Unit\UnitInfo.cpp" />
     <ClCompile Include="src\Entity\View\Text.cpp" />
     <ClCompile Include="src\Entity\View\Tooltip.cpp" />
     <ClCompile Include="src\FrameWork\Controller.cpp" />
@@ -223,7 +225,9 @@
     <ClInclude Include="src\Entity\UI\Menu\ContextMenu.h" />
     <ClInclude Include="src\Entity\UI\Overlay.h" />
     <ClInclude Include="src\Entity\Unit\Ability.h" />
+    <ClInclude Include="src\Entity\Unit\Gunner.h" />
     <ClInclude Include="src\Entity\Unit\Unit.h" />
+    <ClInclude Include="src\Entity\Unit\UnitInfo.h" />
     <ClInclude Include="src\Entity\View\Text.h" />
     <ClInclude Include="src\Entity\View\Tooltip.h" />
     <ClInclude Include="src\FrameWork\Controller.h" />
@@ -248,6 +252,7 @@
     <Image Include="resource\image\map\state-atack.png" />
     <Image Include="resource\image\map\state-movable.png" />
     <Image Include="resource\image\menu\background.jpg" />
+    <Image Include="resource\image\unit\bullet.png" />
     <Image Include="resource\image\unit\unit.png" />
   </ItemGroup>
   <ItemGroup>

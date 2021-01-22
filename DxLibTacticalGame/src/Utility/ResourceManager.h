@@ -141,6 +141,7 @@ namespace Utility
 		void loadMapchip(const char* resourceName, const char* resourceType, int* handle);
 		void loadCharacterchip(const char* resourceName, const char* resourceType, int* handle);
 		void loadImage(const char* resourceName, const char* resourceType, int* handle);
+		void loadDivImage(const char* resourceName, const char* resourceType, int allNum, int xNum, int yNum, int w, int h, int* handle);
 
 		map<int, std::vector<int*>> image_;
 

@@ -45,10 +45,12 @@ namespace Battle {
 
 		for (auto itr = map_->unitsBegin(); itr != map_->unitsEnd(); ++itr)
 		{
-			itr->second->turnEnd();
+			itr->second->turnEnd(itr->second->isEnemy() == isPlayer);
 		}
 
 		battleUI.onStartTurn(isPlayer);
+
+		phase_ = Phase::NORMAL;
 	}
 
 	/**
