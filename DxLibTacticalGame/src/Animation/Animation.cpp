@@ -41,7 +41,11 @@ namespace Entity {
 			// 無限ループの場合は終了判定しない
 			if (repeat_ != REPEAT_INFINITE)
 			{
-				--repeat_; // リピート回数消化
+				if (repeat_ != 0)
+				{
+					--repeat_; // リピート回数消化
+				}
+				
 				if (repeat_ == 0) // リピート回数が0になった時点で終了
 				{
 					// 終了判定
