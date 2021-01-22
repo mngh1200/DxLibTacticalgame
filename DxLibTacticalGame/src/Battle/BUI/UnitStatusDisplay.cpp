@@ -60,7 +60,7 @@ namespace Entity {
 
 			// ŽË’ö
 			x = BUI::drawLabel(x, y, "ŽË’ö", BUI::getZenW(2));
-			x = BUI::drawValue(x, y, targetUnit_->getLenText(), BUI::getHanW(2));
+			x = BUI::drawValue(x, y, info.getLenText(), BUI::getHanW(2));
 		}
 	}
 

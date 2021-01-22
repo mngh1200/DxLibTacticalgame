@@ -1,7 +1,7 @@
 #pragma once
 #include <climits>
 #include "Entity/Object.h"
-#include "Ability.h"
+#include "UnitInfo.h"
 #include "Utility/ResourceManager.h"
 #include "Animation/Animation.h"
 #include "Entity/Battle/Map.h"
@@ -11,39 +11,18 @@ using namespace std;
 
 /**
  * @file Unit.h
- * @brief ユニットのインターフェースクラス
+ * @brief ユニットクラス
  */
 
 namespace Entity
 {
-	struct UnitInfo
-	{
-		//! 名前
-		string name = "";
-
-		//! ユニット種類
-		int kind = UnitKey::LANCER;
-
-		//! 各種ステータス
-		int hp = 0;  //! 現在HP
-		int hpm = 0; //! 最大HP
-		int atk = 0; //! 攻撃
-		int def = 0; //! 防御
-		int mov = 0; //! 移動
-		int len = 0; //! 射程
-		int range = 1; //! マップ上の攻撃範囲
-
-		//! スキル
-		Ability ability = Ability::Kind::NONE;
-	};
-
 	class Unit : public Object
 	{
 	public:
 		Unit() : x_(0), y_(0), baseX_(0), baseY_(0), targetRealX_(0), targetRealY_(0), 
 			imageId_(0), isEnemy_(false), state_(State::NORMAL), isActed_(false),
 			animation_{}, animationSub_{}, viewHp_(0), prevHp_(0), alpha_(255)  {};
-		~Unit() {};
+		virtual ~Unit() {};
 
 		//! アニメーションスピードの倍率
 		static float animatinTimeRate;
@@ -77,11 +56,9 @@ namespace Entity
 
 		bool select(bool isSelect);
 
-		void turnEnd();
+		void turnEnd(bool isOwnEnd);
 
 		void endAction();
-
-		string getLenText() const;
 
 		void getExtraStatusList(vector<pair<string, string>>& list) const;
 
@@ -93,47 +70,49 @@ namespace Entity
 		
 		const UnitInfo& getInfo() const { return info_; } // ユニット名やステータスの情報を返す
 
+		virtual bool isAtackable() const { return true; }; // 攻撃可能であるか
 		bool isHorse() const { return info_.kind == UnitKey::CAVALRY; } // 騎兵であればtrueを返す
 		bool isEnemy() const { return isEnemy_; } // 敵ユニットであるかを返す
 		bool isActed() const { return isActed_; } // 行動終了済みであるか
 
 	protected:
-		bool createAnimation(int animationId);
-	
-	private:
 		constexpr static int HP_PADDING = 5; //! HPバーの余白
 		constexpr static int HP_Y = 55; //! HPバーの相対位置y
 		constexpr static int HP_H = 5;  //! HPバーの高さ
-
-		const static vector<string> LEN_TEXT; //! 射程を示すテキスト
 
 		constexpr static int ANIME_ATACK_MS = 400;	  //! 攻撃アニメーションの時間
 		constexpr static int ANIME_DAMAGE_MOVE = 10;  //! ダメージアニメションの動作範囲
 		constexpr static int ANIME_DAMAGE_REPEAT = 4; //! ダメージアニメションのリピート回数
 
+		static int getAnimationMS(int baseMs);
+
+		bool createAnimation(int animationId) override;
+		virtual void createAtackAnimation();
+		virtual bool updateAtackAnimation();
+
+		virtual void renderExtra() const {}; // 下位クラスで追加する描画処理
+		virtual void turnEndExtra(bool isOwnEnd) {};      // 下位クラス用のターンエンド処理
+
+		//! マス座標
+		int x_, y_;
+
+		//! 攻撃先の正味の座標
+		int targetRealX_, targetRealY_;
+
+		//! アニメーションクラス
+		Animation animation_;
+	
+	private:
 		void setKind(int kind);
 		void setImage(int state);
 
 		//! 画像
 		int imageId_;
 
-		//! 位置x
-		int x_;
+		//! 移動元マス座標
+		int baseX_, baseY_;
 
-		//! 移動元x
-		int baseX_;
 
-		//! 位置y
-		int y_;
-
-		//! 移動元y
-		int baseY_;
-
-		//! 攻撃先のx座標
-		int targetRealX_;
-
-		//! 攻撃先のy座標
-		int targetRealY_;
 
 		// ユニットの情報
 		UnitInfo info_;
@@ -146,9 +125,6 @@ namespace Entity
 
 		//! 敵かどうか
 		bool isEnemy_;
-
-		//! アニメーションクラス
-		Animation animation_;
 
 		// アニメーションの種類
 		enum AnimationKind

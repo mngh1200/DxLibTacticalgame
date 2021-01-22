@@ -1,7 +1,6 @@
 #include "Unit.h"
 
 namespace Entity {
-	const vector<string> Unit::LEN_TEXT = {"短", "中", "長"};
 	float Unit::animatinTimeRate = 1.0f;
 
 	/**
@@ -119,6 +118,8 @@ namespace Entity {
 		{
 			DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		}
+
+		renderExtra();
 	}
 
 	/**
@@ -139,9 +140,7 @@ namespace Entity {
 		}
 		else if (animationId_ == AnimationKind::ATACK) // 攻撃
 		{
-			int baseX = Map::getRealX(x_);
-			int baseY = Map::getRealY(y_);
-			return animation_.update(&shape_.x, &shape_.y, baseX, baseY, targetRealX_, targetRealY_);
+			return updateAtackAnimation();
 		}
 		else if (animationId_ == AnimationKind::DAMAGE) // ダメージ
 		{
@@ -175,11 +174,25 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * 攻撃アニメーションの更新処理
+	 * @return アニメーション時間（ms）
+	 */
+	bool Unit::updateAtackAnimation()
+	{
+		int baseX = Map::getRealX(x_);
+		int baseY = Map::getRealY(y_);
+		int targetRealX = baseX + (targetRealX_ - baseX) / 2;
+		int targetRealY = baseY + (targetRealY_ - baseY) / 2;
+		return animation_.update(&shape_.x, &shape_.y, baseX, baseY, targetRealX, targetRealY);
+	}
+
+	/**
+	 * @fn
 	 * 指定の倍率で計算したアニメーション時間を返す
 	 * @param (baseMs) 基準のミリ秒
 	 * @return アニメーション時間（ms）
 	 */
-	static int getAnimationMS(int baseMs)
+	int Unit::getAnimationMS(int baseMs)
 	{
 		return (int)(Unit::animatinTimeRate * baseMs);
 	}
@@ -199,7 +212,7 @@ namespace Entity {
 		}
 		else if (animationId == AnimationKind::ATACK) // 攻撃
 		{
-			animation_ = Animation(getAnimationMS(ANIME_ATACK_MS), Animation::Direction::AlTERNATE, 2);
+			createAtackAnimation();
 			return true;
 		}
 		else if (animationId == AnimationKind::DAMAGE) // ダメージ
@@ -225,6 +238,15 @@ namespace Entity {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * @fn
+	 * 攻撃時アニメーション作成
+	 */
+	void Unit::createAtackAnimation()
+	{
+		animation_ = Animation(getAnimationMS(ANIME_ATACK_MS), Animation::Direction::AlTERNATE, 2);
 	}
 
 	/**
@@ -261,24 +283,6 @@ namespace Entity {
 		baseY_ = y_ = y;
 		shape_.set(Map::getRealX(x_), Map::getRealY(y_), CHIP_SIZE, CHIP_SIZE);
 	}
-
-
-	/**
-	 * @fn
-	 * 射程のテキストを返す
-	 * @return テキスト
-	 */
-	string Unit::getLenText() const
-	{
-		try
-		{
-			return LEN_TEXT.at(info_.len);
-		}
-		catch (out_of_range&) {}
-		
-		return "";
-	}
-
 
 	/**
 	 * @fn
@@ -381,11 +385,13 @@ namespace Entity {
 	/**
 	 * @fn
 	 * ターン終了時の処理
+	 * @param (isOwnEnd) ターンエンドした側のユニットの場合true
 	 */
-	void Unit::turnEnd()
+	void Unit::turnEnd(bool isOwnEnd)
 	{
 		isActed_ = false;
 		setImage(UnitImageKind::NORMAL);
+		turnEndExtra(isOwnEnd);
 	}
 
 	/**
@@ -406,8 +412,8 @@ namespace Entity {
 	 */
 	void Unit::atack(int targetRealX, int targetRealY)
 	{
-		targetRealX_ = shape_.x + (targetRealX - shape_.x) / 2;
-		targetRealY_ = shape_.y + (targetRealY - shape_.y) / 2;
+		targetRealX_ = targetRealX;
+		targetRealY_ = targetRealY;
 		joinAnimationList(AnimationKind::ATACK);
 	}
 }
