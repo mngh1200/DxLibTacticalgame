@@ -18,7 +18,7 @@ namespace Battle {
 	 */
 	void PlayerBattleController::updateByEvents(BattleManager* bm, shared_ptr<Object> hitObj, int x, int y, int button, int eventType)
 	{
-		if (eventType == MOUSE_INPUT_LOG_CLICK) // クリック
+		if (eventType == MOUSE_INPUT_LOG_CLICK && !bm->isAnimation()) // クリック かつ　アニメーション中ではない
 		{
 			if (hitObj->getType() == Object::Type::UNIT)
 			{

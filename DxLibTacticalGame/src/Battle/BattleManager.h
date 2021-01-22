@@ -53,6 +53,7 @@ namespace Battle
 		void resetFightPredict();
 
 		int getPhase() const { return phase_; }; // 状況を返す
+		bool isAnimation() const { return phase_ == Phase::FIGHT || phase_ == Phase::MOVE; }; // アニメーション中であるかを返す
 		bool isAtackAble(shared_ptr<Unit> targetUnit) const;
 		bool isSelectedUnitActive() const;
 		bool isSelectedUnit(shared_ptr<Unit> unit) const;
