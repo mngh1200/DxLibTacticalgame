@@ -21,6 +21,8 @@ namespace Battle
 		int damage;				//! 与ダメージ
 		int hitRate;			//! 命中率
 		bool isAtk;				//! 攻撃するか
+		bool isCloseAttack;		//! 近接攻撃であるか
+		int direction = Direction::NONE; //! 攻撃方向
 		vector<string> extraEffects; //! 特殊効果（アビリティや連携等）
 	};
 
@@ -51,7 +53,8 @@ namespace Battle
 		bool isActSideFirst() const { return isActSideFirst_; }; // 攻撃実行側が先攻であるか
 
 	private:
-		void makeFightData(FightData* fightData, shared_ptr<Unit> atkUnit, shared_ptr<Unit> defUnit, shared_ptr<Mass> mass, bool isAct);
+		int getCoordinatedAttack(int atkDirection, int atkedLogs);
+		void makeFightData(FightData* fightData, shared_ptr<Unit> atkUnit, shared_ptr<Unit> defUnit, shared_ptr<Mass> mass, bool isAct, int coordinatedAttack);
 		bool atack(bool isActSideAtack);
 
 		//! マップの参照
@@ -76,5 +79,13 @@ namespace Battle
 
 		//! フェイズ
 		Phase phase_;
+
+		// 連携、挟撃判定用
+		enum CoordinatedAttack
+		{
+			NONE,
+			COORDINATED,// 連携
+			PINCHING	// 挟撃
+		};
 	};
 }

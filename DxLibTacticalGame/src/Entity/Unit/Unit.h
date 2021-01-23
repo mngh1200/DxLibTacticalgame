@@ -20,7 +20,7 @@ namespace Entity
 	{
 	public:
 		Unit() : x_(0), y_(0), baseX_(0), baseY_(0), targetRealX_(0), targetRealY_(0), 
-			imageId_(0), isEnemy_(false), state_(State::NORMAL), isActed_(false),
+			imageId_(0), isEnemy_(false), state_(State::NORMAL), isActed_(false), closeAttackedLogs_(Direction::NONE),
 			animation_{}, animationSub_{}, viewHp_(0), prevHp_(0), alpha_(255)  {};
 		virtual ~Unit() {};
 
@@ -46,7 +46,7 @@ namespace Entity
 
 		void back();
 
-		bool damage(int damage);
+		bool damage(int damage, int direction, bool isCloseAtack);
 
 		void avoid();
 
@@ -71,6 +71,7 @@ namespace Entity
 		const UnitInfo& getInfo() const { return info_; } // ユニット名やステータスの情報を返す
 
 		virtual bool isAtackable() const { return true; }; // 攻撃可能であるか
+		int getCloseAttackLogs() const { return closeAttackedLogs_; } // 近接攻撃された履歴を返す
 		bool isHorse() const { return info_.kind == UnitKey::CAVALRY; } // 騎兵であればtrueを返す
 		bool isEnemy() const { return isEnemy_; } // 敵ユニットであるかを返す
 		bool isActed() const { return isActed_; } // 行動終了済みであるか
@@ -112,8 +113,6 @@ namespace Entity
 		//! 移動元マス座標
 		int baseX_, baseY_;
 
-
-
 		// ユニットの情報
 		UnitInfo info_;
 
@@ -125,6 +124,9 @@ namespace Entity
 
 		//! 敵かどうか
 		bool isEnemy_;
+
+		//! このターン中に近接攻撃を受けた方向のログ
+		int closeAttackedLogs_;
 
 		// アニメーションの種類
 		enum AnimationKind

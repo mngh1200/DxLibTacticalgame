@@ -29,6 +29,9 @@ namespace Entity
 		int len = 0; //! 射程
 		int range = 1; //! マップ上の攻撃範囲
 
+		//! 近接攻撃をするか
+		bool isCloseAtack = true;
+
 		//! スキル
 		Ability ability = Ability::Kind::NONE;
 

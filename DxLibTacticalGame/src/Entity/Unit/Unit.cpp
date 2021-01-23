@@ -47,6 +47,7 @@ namespace Entity {
 			info_.mov = 2;
 			info_.len = 2;
 			info_.range = 3;
+			info_.isCloseAtack = false;
 			info_.ability = Ability::Kind::THROUGH;
 		}
 		else // kind == UnitKey::LANCER の動作 // 槍兵
@@ -301,17 +302,28 @@ namespace Entity {
 		}
 	}
 
-
 	/**
 	 * @fn
 	 * ダメージ値
+	 * @param (damage) ダメージ量
+	 * @param (direction) 攻撃された方向
+	 * @param (isCloseAttack) 近接攻撃であるか
 	 * @return 死亡時 trueを返す
 	 */
-	bool Unit::damage(int damage)
+	bool Unit::damage(int damage, int direction, bool isCloseAtack)
 	{
 		prevHp_ = info_.hp;
 		info_.hp -= damage;
 		joinAnimationList(AnimationKind::DAMAGE);
+
+		// 攻撃された方向をログに残す
+		if (isCloseAtack)
+		{
+			if (!(closeAttackedLogs_ & direction)) // 既に追加されている場合は追加しない
+			{
+				closeAttackedLogs_ += direction;
+			}
+		}
 
 		// ダメージエフェクト
 		DamageEffect::makeDamageEffect(shape_.x, shape_.y, damage);
@@ -392,6 +404,7 @@ namespace Entity {
 		isActed_ = false;
 		setImage(UnitImageKind::NORMAL);
 		turnEndExtra(isOwnEnd);
+		closeAttackedLogs_ = Direction::NONE;
 	}
 
 	/**
