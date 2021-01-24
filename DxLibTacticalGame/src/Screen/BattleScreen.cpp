@@ -79,6 +79,7 @@ namespace Screen
 				{
 					// 特定画面に戻る
 					openScreen_ = systemMenuKey;
+					// Utility::ResourceManager::playSound(SoundKind::BACK);
 					createOverlay(false);
 				}
 				else if (eventType == MOUSE_INPUT_LOG_UP || (eventType == MOUSE_INPUT_LOG_CLICK && hitObjSp != systemMenu_))
@@ -147,6 +148,8 @@ namespace Screen
 	*/
 	void BattleScreen::turnEnd()
 	{
+		Utility::ResourceManager::playSound(SoundKind::CLICK);
+
 		if (nowScene_ == Scene::PLAYER_TURN) // プレイヤーターン終了
 		{
 			nowScene_ = Scene::ENEMY_TURN;

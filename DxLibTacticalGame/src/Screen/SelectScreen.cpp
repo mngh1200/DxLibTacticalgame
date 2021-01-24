@@ -128,7 +128,7 @@ namespace Screen
 					createOverlay(false);
 
 					// ƒTƒEƒ“ƒh
-					Utility::ResourceManager::playSound(SoundKind::BACK);
+					// Utility::ResourceManager::playSound(SoundKind::BACK);
 				}
 
 			}

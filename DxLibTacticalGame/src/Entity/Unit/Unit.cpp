@@ -209,6 +209,12 @@ namespace Entity {
 		{
 			animation_ = Animation(getAnimationMS(100));
 			shape_.disabledHit = true; // ÉCÉxÉìÉgñ≥å¯
+
+			if (x_ != baseX_ || y_ != baseY_)
+			{
+				Utility::ResourceManager::playSound(SoundKind::MOVE);
+			}
+
 			return true;
 		}
 		else if (animationId == AnimationKind::ATACK) // çUåÇ
@@ -247,6 +253,7 @@ namespace Entity {
 	 */
 	void Unit::createAtackAnimation()
 	{
+		Utility::ResourceManager::playSound(SoundKind::ATTACK_CLOSE);
 		animation_ = Animation(getAnimationMS(ANIME_ATACK_MS), Animation::Direction::AlTERNATE, 2);
 	}
 

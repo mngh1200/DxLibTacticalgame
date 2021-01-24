@@ -50,6 +50,11 @@ namespace
 		CHECK,
 		BACK,
 		BORN,
+		ATTACK_CLOSE,	//! 近接攻撃
+		ATTACK_FIRE,	//! 射撃
+		MOVE,			//! 移動
+		WAIT,			//! 待機
+		SELECT_UNIT,	//! ユニット選択
 		SOUNDS_LEN
 	};
 

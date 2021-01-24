@@ -262,21 +262,32 @@ namespace Utility {
 	{
 		int ret = 0;
 		// Œø‰Ê‰¹Žæ“¾
-		//sounds_[SoundKind::CLICK] = DxLib::LoadSoundMem("resource/sound/click.ogg");
 		sounds_[SoundKind::CLICK] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(CLICK_OGG), MAKEINTRESOURCE(OGG));
 		DxLib::ChangeVolumeSoundMem(210, sounds_[SoundKind::CLICK]);
 
-		//sounds_[SoundKind::CHECK] = DxLib::LoadSoundMem("resource/sound/check.ogg");
 		sounds_[SoundKind::CHECK] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(CHECK_OGG), MAKEINTRESOURCE(OGG));
 		DxLib::ChangeVolumeSoundMem(220, sounds_[SoundKind::CHECK]);
 
-		// sounds_[SoundKind::BACK] = DxLib::LoadSoundMem("resource/sound/back.wav");
 		sounds_[SoundKind::BACK] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(BACK_WAVE), MAKEINTRESOURCE(WAVE));
-		DxLib::ChangeVolumeSoundMem(180, sounds_[SoundKind::BACK]);
+		DxLib::ChangeVolumeSoundMem(160, sounds_[SoundKind::BACK]);
 
-		//sounds_[SoundKind::BORN] = DxLib::LoadSoundMem("resource/sound/born.wav");
 		sounds_[SoundKind::BORN] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(BORN_WAVE), MAKEINTRESOURCE(WAVE));
-		DxLib::ChangeVolumeSoundMem(190, sounds_[SoundKind::BORN]);
+		DxLib::ChangeVolumeSoundMem(170, sounds_[SoundKind::BORN]);
+
+		sounds_[SoundKind::ATTACK_CLOSE] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(ATTACK_CLOSE_WAVE), MAKEINTRESOURCE(WAVE));
+		DxLib::ChangeVolumeSoundMem(140, sounds_[SoundKind::ATTACK_CLOSE]);
+
+		sounds_[SoundKind::ATTACK_FIRE] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(ATTACK_FIRE_OGG), MAKEINTRESOURCE(OGG));
+		DxLib::ChangeVolumeSoundMem(150, sounds_[SoundKind::ATTACK_FIRE]);
+
+		sounds_[SoundKind::MOVE] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(MOVE_WAVE), MAKEINTRESOURCE(WAVE));
+		DxLib::ChangeVolumeSoundMem(130, sounds_[SoundKind::MOVE]);
+
+		sounds_[SoundKind::WAIT] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(WAIT_WAVE), MAKEINTRESOURCE(WAVE));
+		DxLib::ChangeVolumeSoundMem(160, sounds_[SoundKind::WAIT]);
+
+		sounds_[SoundKind::SELECT_UNIT] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(SELECT_UNIT_WAVE), MAKEINTRESOURCE(WAVE));
+		DxLib::ChangeVolumeSoundMem(120, sounds_[SoundKind::SELECT_UNIT]);
 
 		return ret;
 	}

@@ -102,6 +102,7 @@ namespace Battle {
 			if (bm->isSelectedUnit(unit)) // 選択中のユニットクリック
 			{
 				bm->waitAction(); // 待機アクション
+				Utility::ResourceManager::playSound(SoundKind::WAIT);
 			}
 			else
 			{
@@ -122,6 +123,7 @@ namespace Battle {
 			else
 			{
 				bm->selectUnit(unit); // ユニット選択
+				Utility::ResourceManager::playSound(SoundKind::SELECT_UNIT);
 			}
 		}
 	}

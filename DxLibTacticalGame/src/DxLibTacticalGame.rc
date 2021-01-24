@@ -29,3 +29,13 @@ CLICK_OGG	OGG		"../resource/sound/click.ogg"
 CHECK_OGG	OGG		"../resource/sound/check.ogg"
 
 BORN_WAVE	WAVE	"../resource/sound/born.wav"
+
+ATTACK_CLOSE_WAVE	WAVE	"../resource/sound/attack-close.wav"
+
+MOV_WAVEE	WAVE	"../resource/sound/move.wav"
+
+SELECT_UNIT_WAVE	WAVE	"../resource/sound/select-unit.wav"
+
+WAIT_WAVE	WAVE	"../resource/sound/wait.wav"
+
+ATTACK_FIRE_OGG	OGG	"../resource/sound/attack-fire.ogg"

@@ -91,11 +91,19 @@ namespace Entity {
 	 */
 	void EnemySpeedController::onMouseClick(int x, int y)
 	{
+		int oldSpeed = speed_;
 		for (int i = 0; i < Speed::LEN; ++i)
 		{
 			if (buttonsShape_[i].isHit(x, y))
 			{
 				changeSpeed(i);
+
+				if (oldSpeed != speed_) // スピードが変更されていれば効果音
+				{
+					Utility::ResourceManager::playSound(SoundKind::CHECK);
+				}
+
+				break;
 			}
 		}
 	}

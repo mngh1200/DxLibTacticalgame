@@ -17,6 +17,11 @@
 #define WAVE 200
 #define BACK_WAVE 201
 #define BORN_WAVE 202
+#define ATTACK_CLOSE_WAVE 203
+#define MOVE_WAVE 204
+#define SELECT_UNIT_WAVE 205
+#define WAIT_WAVE 206
 #define OGG 300
 #define CLICK_OGG 301
 #define CHECK_OGG 302
+#define ATTACK_FIRE_OGG 303
