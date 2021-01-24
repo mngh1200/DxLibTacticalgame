@@ -106,4 +106,16 @@ namespace Entity {
 		}
 		isAtacked_ = false;
 	}
+
+	void Gunner::getExtraStatusListExtra(vector<pair<string, string>>& list) const
+	{
+		if (isLoaded_)
+		{
+			list.push_back(make_pair("‘•“UÏ", "UŒ‚‰Â”\"));
+		}
+		else
+		{
+			list.push_back(make_pair("–¢‘•“U", "UŒ‚•s‰Â\n¦Ÿƒ^[ƒ“UŒ‚‰Â”\"));
+		}
+	}
 }

@@ -93,6 +93,7 @@ namespace Entity
 
 		virtual void renderExtra() const {}; // 下位クラスで追加する描画処理
 		virtual void turnEndExtra(bool isOwnEnd) {};      // 下位クラス用のターンエンド処理
+		virtual void getExtraStatusListExtra(vector<pair<string, string>>& list) const {}; // 
 
 		//! マス座標
 		int x_, y_;

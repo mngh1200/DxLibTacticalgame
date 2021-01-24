@@ -307,6 +307,8 @@ namespace Entity {
 		{
 			list.push_back(make_pair("‹R”n", "X—Ñ‚Å‚ÌˆÚ“®—Í -1"));
 		}
+
+		getExtraStatusListExtra(list);
 	}
 
 	/**

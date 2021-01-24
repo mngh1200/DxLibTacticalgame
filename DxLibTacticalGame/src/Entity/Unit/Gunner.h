@@ -33,6 +33,7 @@ namespace Entity
 
 		void renderExtra() const override;
 		void turnEndExtra(bool isOwnEnd) override;
+		void getExtraStatusListExtra(vector<pair<string, string>>& list) const override;
 
 	private:
 		constexpr static int UNLOADED_MARGIN_BOTTOM = 3; //! –¢‘•“U•`‰æ‚Ì—]”’
