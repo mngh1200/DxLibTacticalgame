@@ -31,6 +31,9 @@ constexpr int BATTLE_UI_AREA_H = WIN_H - BATTLE_UI_AREA_Y;
 //! マップ表示位置
 constexpr int MAP_Y = 0;
 
+//! ステージ数
+constexpr int MAX_STAGE = 10;
+
 namespace
 {
 	// 兵種管理
@@ -48,6 +51,18 @@ namespace
 		RIGHT	= 0b0010,
 		BOTTOM	= 0b0100,
 		LEFT	= 0b1000
+	};
+
+	enum StageRank : int {
+		LOCK,  // 未開放ステージ
+		NEW,   // 新規ステージ
+		NONE,  // ランクなし
+		D,
+		C,
+		B,
+		A,
+		S,
+		RANK_LEN
 	};
 }
 

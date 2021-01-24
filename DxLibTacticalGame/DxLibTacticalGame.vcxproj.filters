@@ -234,6 +234,9 @@
     <ClCompile Include="src\Entity\Unit\UnitInfo.cpp">
       <Filter>ソース ファイル\Entity\Unit</Filter>
     </ClCompile>
+    <ClCompile Include="src\Utility\SaveManager.cpp">
+      <Filter>ソース ファイル\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -370,6 +373,9 @@
     </ClInclude>
     <ClInclude Include="src\Entity\Unit\UnitInfo.h">
       <Filter>ヘッダー ファイル\Entity\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\SaveManager.h">
+      <Filter>ヘッダー ファイル\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

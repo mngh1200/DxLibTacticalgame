@@ -194,6 +194,7 @@
     <ClCompile Include="src\Screen\StartScreen.cpp" />
     <ClCompile Include="src\Utility\ResourceManager.cpp" />
     <ClCompile Include="src\Utility\Timer.cpp" />
+    <ClCompile Include="src\Utility\SaveManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Animation\Animation.h" />
@@ -241,6 +242,7 @@
     <ClInclude Include="src\Screen\StartScreen.h" />
     <ClInclude Include="src\Utility\ResourceManager.h" />
     <ClInclude Include="src\Utility\Timer.h" />
+    <ClInclude Include="src\Utility\SaveManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="src\DxLibTacticalGame.rc" />
