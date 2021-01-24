@@ -41,6 +41,12 @@ namespace Battle {
 	*/
 	void BattleManager::onStartTurn(bool isPlayer)
 	{
+		// 行動未終了ユニットがいた場合、待機アクションさせる
+		if (phase_ == Phase::SELECT_ACTION)
+		{
+			waitAction();
+		}
+
 		isPlayerTurn_ = isPlayer;
 
 		for (auto itr = map_->unitsBegin(); itr != map_->unitsEnd(); ++itr)
