@@ -46,7 +46,7 @@ namespace
 
 	// •ûŒü (•¡”•ûŒü‚Ì”»’è‚ð‰Â”\‚É‚·‚é‚½‚ß‚Qi”‚Å’è‹`)
 	enum Direction {
-		NONE	= 0b0000,
+		NONE_DIRECTION	= 0b0000,
 		TOP		= 0b0001,
 		RIGHT	= 0b0010,
 		BOTTOM	= 0b0100,

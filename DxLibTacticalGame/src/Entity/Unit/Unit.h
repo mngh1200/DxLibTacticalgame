@@ -20,7 +20,7 @@ namespace Entity
 	{
 	public:
 		Unit() : x_(0), y_(0), baseX_(0), baseY_(0), targetRealX_(0), targetRealY_(0), 
-			imageId_(0), isEnemy_(false), state_(State::NORMAL), isActed_(false), closeAttackedLogs_(Direction::NONE),
+			imageId_(0), isEnemy_(false), state_(State::NORMAL), isActed_(false), closeAttackedLogs_(Direction::NONE_DIRECTION),
 			animation_{}, animationSub_{}, viewHp_(0), prevHp_(0), alpha_(255)  {};
 		virtual ~Unit() {};
 

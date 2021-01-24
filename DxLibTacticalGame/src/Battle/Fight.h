@@ -22,7 +22,7 @@ namespace Battle
 		int hitRate;			//! 命中率
 		bool isAtk;				//! 攻撃するか
 		bool isCloseAttack;		//! 近接攻撃であるか
-		int direction = Direction::NONE; //! 攻撃方向
+		int direction = Direction::NONE_DIRECTION; //! 攻撃方向
 		vector<string> extraEffects; //! 特殊効果（アビリティや連携等）
 	};
 

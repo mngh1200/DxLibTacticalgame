@@ -404,7 +404,7 @@ namespace Entity {
 		isActed_ = false;
 		setImage(UnitImageKind::NORMAL);
 		turnEndExtra(isOwnEnd);
-		closeAttackedLogs_ = Direction::NONE;
+		closeAttackedLogs_ = Direction::NONE_DIRECTION;
 	}
 
 	/**

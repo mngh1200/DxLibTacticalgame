@@ -21,7 +21,7 @@ namespace Battle
 	 */
 	int getAtkDirection(shared_ptr<Unit> defUnit, int atkUnitX, int atkUnitY)
 	{
-		int atkDirection = Direction::NONE; // UŒ‚‚³‚ê‚½•ûŒü
+		int atkDirection = Direction::NONE_DIRECTION; // UŒ‚‚³‚ê‚½•ûŒü
 
 		int defUnitX = defUnit->getMassX();
 		int defUnitY = defUnit->getMassY();
