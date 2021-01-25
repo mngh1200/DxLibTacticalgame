@@ -27,6 +27,7 @@ namespace Entity
 
 		
 		void setLayer(int size);
+		void clear();
 		weak_ptr<Object> getObjectWp(int layerId, int objectId) const;
 		weak_ptr<Figure> getFigureWp(int layerId, int objectId) const;
 		void addObject(int layerId, int objectId, shared_ptr<Object> objSp);
