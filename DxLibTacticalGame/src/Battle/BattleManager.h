@@ -3,6 +3,7 @@
 #include <map>
 #include "BUI/BattleUI.h"
 #include "Fight.h"
+#include "CheckWin.h"
 #include "Entity/Battle/Map.h"
 #include "Entity/Unit/Unit.h"
 #include "BUI/BattleUI.h"
@@ -20,7 +21,9 @@ namespace Battle
 	class BattleManager
 	{
 	public:
-		BattleManager() : isPlayerTurn_(true), phase_(Phase::NORMAL), battleUI{} {};
+		BattleManager() : 
+			isPlayerTurn_(true), phase_(Phase::NORMAL), 
+			checkWin_{}, battleUI{} {};
 		~BattleManager() {};
 
 		// ó‘Ô‘JˆÚó‹µ
@@ -35,6 +38,7 @@ namespace Battle
 		void init(shared_ptr<Map> map);
 
 		void animationCheck();
+		bool checkEnd();
 
 		void onStartTurn(bool isPlayer);
 
@@ -76,6 +80,17 @@ namespace Battle
 
 		//! “Gƒ^[ƒ“‚Å‚ ‚é‚©”»’è
 		bool isPlayerTurn_;
+
+		//! ŸÒ
+		CheckWin checkWin_;
+
+		// ŸÒ‚Ì’l
+		enum Winner
+		{
+			UNDECIDED,
+			PLAYER,
+			ENEMY
+		};
 	};
 
 

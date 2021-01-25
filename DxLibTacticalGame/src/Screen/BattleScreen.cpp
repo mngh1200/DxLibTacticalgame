@@ -35,11 +35,11 @@ namespace Screen
 		enemyBtlCont_.init(map);
 
 		// ユニット設置(テスト)
-		map->setUnit(4, 9, UnitKey::LANCER);
-		map->setUnit(5, 9, UnitKey::GUNNER);
+		//map->setUnit(4, 9, UnitKey::LANCER);
+		//map->setUnit(5, 9, UnitKey::GUNNER);
 		map->setUnit(3, 9, UnitKey::CAVALRY);
-		map->setUnit(4, 7, UnitKey::LANCER, true);
-		map->setUnit(5, 7, UnitKey::GUNNER, true);
+		//map->setUnit(4, 7, UnitKey::LANCER, true);
+		//map->setUnit(5, 7, UnitKey::GUNNER, true);
 		map->setUnit(3, 7, UnitKey::CAVALRY, true);
 
 		// オーバーレイセット
@@ -102,6 +102,12 @@ namespace Screen
 					}
 				}
 			}
+			else if (nowScene_ == Scene::RESULT && eventType == MOUSE_INPUT_LOG_CLICK)
+			{
+				// 勝敗画面時は、クリックすることでセレクト画面に遷移
+				openScreen_ = SystemMenuKey::BACK_SELECT_SCREEN;
+				createOverlay(false);
+			}
 		}
 	}
 
@@ -121,6 +127,11 @@ namespace Screen
 			}
 		}
 
+		// 勝敗判定
+		if (btlMng_.checkEnd() && (nowScene_ == Scene::ENEMY_TURN || nowScene_ == Scene::PLAYER_TURN))
+		{
+			nowScene_ = Scene::RESULT;
+		}
 
 		if (isOpenOverlayEnded()) // オーバーレイ開く
 		{

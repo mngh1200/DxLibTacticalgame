@@ -8,16 +8,23 @@ namespace Entity {
 	 */
 	void ObjectsControl::setLayer(int size)
 	{
-		// すべてクリア
-		vector<map<int, shared_ptr<Object>>>().swap(layerObjList_);
-		vector<map<int, shared_ptr<Figure>>>().swap(layerViewObjList_);
-		clearAnimation();
 		// レイヤー追加
 		for (int i = 0; i < size; i++)
 		{
 			layerObjList_.push_back(map<int, shared_ptr<Entity::Object>>());
 			layerViewObjList_.push_back(map<int, shared_ptr<Entity::Figure>>());
 		}
+	}
+
+	/**
+	 * @fn
+	 * すべてクリア
+	 */
+	void ObjectsControl::clear()
+	{
+		vector<map<int, shared_ptr<Object>>>().swap(layerObjList_);
+		vector<map<int, shared_ptr<Figure>>>().swap(layerViewObjList_);
+		clearAnimation();
 	}
 
 	/**

@@ -160,6 +160,7 @@
     <ClCompile Include="src\Battle\BUI\FightPredictDisplay.cpp" />
     <ClCompile Include="src\Battle\BUI\TerrainEffectDisplay.cpp" />
     <ClCompile Include="src\Battle\BUI\UnitStatusDisplay.cpp" />
+    <ClCompile Include="src\Battle\CheckWin.cpp" />
     <ClCompile Include="src\Battle\EnemyBattleController.cpp" />
     <ClCompile Include="src\Battle\Fight.cpp" />
     <ClCompile Include="src\Battle\PlayerBattleController.cpp" />
@@ -207,6 +208,7 @@
     <ClInclude Include="src\Battle\BUI\FightPredictDisplay.h" />
     <ClInclude Include="src\Battle\BUI\TerrainEffectDisplay.h" />
     <ClInclude Include="src\Battle\BUI\UnitStatusDisplay.h" />
+    <ClInclude Include="src\Battle\CheckWin.h" />
     <ClInclude Include="src\Battle\EnemyBattleController.h" />
     <ClInclude Include="src\Battle\Fight.h" />
     <ClInclude Include="src\Battle\PlayerBattleController.h" />

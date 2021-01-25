@@ -31,13 +31,29 @@ namespace Battle {
 		{
 			// 攻撃終了
 			phase_ = Phase::NORMAL;
+			checkWin_.checkWin(map_);
 		}
 
 	}
 
 	/**
 	 * @fn
+	 * ゲーム終了判定
+	 * @return 終了時:true
+	*/
+	bool BattleManager::checkEnd()
+	{
+		if (checkWin_.getWinner() != Winner::UNDECIDED)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @fn
 	 * ターンスタート時処理
+	 * @param (isPlayer) プレイヤーターンを開始する場合 true
 	*/
 	void BattleManager::onStartTurn(bool isPlayer)
 	{
@@ -82,6 +98,7 @@ namespace Battle {
 		map_->clearMassState();
 		phase_ = Phase::NORMAL;
 		deselectUnit();
+		checkWin_.checkWin(map_);
 	}
 
 	/**

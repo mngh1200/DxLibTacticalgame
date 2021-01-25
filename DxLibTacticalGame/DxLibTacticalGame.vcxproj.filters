@@ -237,6 +237,9 @@
     <ClCompile Include="src\Utility\SaveManager.cpp">
       <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\Battle\CheckWin.cpp">
+      <Filter>ソース ファイル\Battle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -376,6 +379,9 @@
     </ClInclude>
     <ClInclude Include="src\Utility\SaveManager.h">
       <Filter>ヘッダー ファイル\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\CheckWin.h">
+      <Filter>ヘッダー ファイル\Battle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

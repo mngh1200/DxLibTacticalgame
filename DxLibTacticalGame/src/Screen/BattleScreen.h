@@ -78,7 +78,9 @@ namespace Screen
 		enum Scene
 		{
 			PLAYER_TURN,
-			ENEMY_TURN
+			ENEMY_TURN,
+			RESULT_ANIME,
+			RESULT
 		};
 	};
 }
