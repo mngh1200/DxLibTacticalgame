@@ -294,7 +294,7 @@ namespace Utility {
 		DxLib::ChangeVolumeSoundMem(180, sounds_[SoundKind::WIN]);
 
 		sounds_[SoundKind::LOSE] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(LOSE_OGG), MAKEINTRESOURCE(OGG));
-		DxLib::ChangeVolumeSoundMem(180, sounds_[SoundKind::LOSE]);
+		DxLib::ChangeVolumeSoundMem(160, sounds_[SoundKind::LOSE]);
 
 		return ret;
 	}
