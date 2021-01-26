@@ -38,7 +38,7 @@ namespace Battle
 		void init(shared_ptr<Map> map);
 
 		void animationCheck();
-		bool checkEnd();
+		int checkEnd();
 
 		void onStartTurn(bool isPlayer);
 

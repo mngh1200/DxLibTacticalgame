@@ -1,4 +1,3 @@
-#include "BattleManager.h"
 #include "CheckWin.h"
 
 namespace Battle {

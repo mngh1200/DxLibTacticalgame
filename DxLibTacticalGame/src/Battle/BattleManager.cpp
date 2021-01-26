@@ -41,13 +41,13 @@ namespace Battle {
 	 * ƒQ[ƒ€I—¹”»’è
 	 * @return I—¹:true
 	*/
-	bool BattleManager::checkEnd()
+	int BattleManager::checkEnd()
 	{
 		if (checkWin_.getWinner() != Winner::UNDECIDED)
 		{
-			return true;
+			return checkWin_.getWinner();
 		}
-		return false;
+		return Winner::UNDECIDED;
 	}
 
 	/**

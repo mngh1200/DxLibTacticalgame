@@ -219,6 +219,7 @@ namespace Utility {
 		hdlFont_[FontType::NORMAL_S24] = DxLib::CreateFontToHandle("Rounded M+ 1p regular", 24, 3, DX_FONTTYPE_ANTIALIASING_4X4);
 		hdlFont_[FontType::NORMAL_S32] = DxLib::CreateFontToHandle("Rounded M+ 1p regular", 32, 3, DX_FONTTYPE_ANTIALIASING_4X4);
 		hdlFont_[FontType::BLACK_S48] = DxLib::CreateFontToHandle("Rounded M+ 1p black", 48, 3, DX_FONTTYPE_ANTIALIASING_4X4);
+		hdlFont_[FontType::BLACK_S64] = DxLib::CreateFontToHandle("Rounded M+ 1p black", 64, 3, DX_FONTTYPE_ANTIALIASING_8X8);
 
 		// フォントの行間
 		DxLib::SetFontLineSpaceToHandle(24, hdlFont_[FontType::NORMAL_S18]);
@@ -288,6 +289,12 @@ namespace Utility {
 
 		sounds_[SoundKind::SELECT_UNIT] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(SELECT_UNIT_WAVE), MAKEINTRESOURCE(WAVE));
 		DxLib::ChangeVolumeSoundMem(120, sounds_[SoundKind::SELECT_UNIT]);
+
+		sounds_[SoundKind::WIN] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(WIN_OGG), MAKEINTRESOURCE(OGG));
+		DxLib::ChangeVolumeSoundMem(180, sounds_[SoundKind::WIN]);
+
+		sounds_[SoundKind::LOSE] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(LOSE_OGG), MAKEINTRESOURCE(OGG));
+		DxLib::ChangeVolumeSoundMem(180, sounds_[SoundKind::LOSE]);
 
 		return ret;
 	}

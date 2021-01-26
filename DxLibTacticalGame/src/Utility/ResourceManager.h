@@ -22,6 +22,7 @@ namespace
 		NORMAL_S24,
 		NORMAL_S32,
 		BLACK_S48,
+		BLACK_S64,
 		FONT_LEN
 	};
 
@@ -55,6 +56,8 @@ namespace
 		MOVE,			//! 移動
 		WAIT,			//! 待機
 		SELECT_UNIT,	//! ユニット選択
+		WIN,
+		LOSE,
 		SOUNDS_LEN
 	};
 

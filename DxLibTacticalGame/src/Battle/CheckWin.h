@@ -20,6 +20,14 @@ namespace Battle
 		CheckWin() : winner_(Winner::UNDECIDED) {};
 		~CheckWin() {};
 
+		// ŸÒ‚Ì’l
+		enum Winner
+		{
+			UNDECIDED,
+			PLAYER,
+			ENEMY
+		};
+
 		void checkWin(shared_ptr<Map> map);
 
 		int getWinner() const { return winner_; }; // ŸÒ‚ğ•Ô‚·
@@ -28,14 +36,6 @@ namespace Battle
 
 		//! ŸÒ
 		int winner_;
-
-		// ŸÒ‚Ì’l
-		enum Winner
-		{
-			UNDECIDED,
-			PLAYER,
-			ENEMY
-		};
 	};
 
 

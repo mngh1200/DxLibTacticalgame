@@ -39,3 +39,7 @@ SELECT_UNIT_WAVE	WAVE	"../resource/sound/select-unit.wav"
 WAIT_WAVE	WAVE	"../resource/sound/wait.wav"
 
 ATTACK_FIRE_OGG	OGG	"../resource/sound/attack-fire.ogg"
+
+WIN_OGG	OGG	"../resource/sound/win.ogg"
+
+LOSE_OGG	OGG	"../resource/sound/lose.ogg"

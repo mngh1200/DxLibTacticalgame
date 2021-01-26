@@ -33,6 +33,7 @@ namespace Entity
 			MAP,
 			TEXT,
 			CONTEXT_MENU,
+			RESULT_SCENE,
 			OVERLAY
 		};
 

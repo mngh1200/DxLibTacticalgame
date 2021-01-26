@@ -128,17 +128,30 @@ namespace Screen
 		}
 
 		// 勝敗判定
-		if (btlMng_.checkEnd() && (nowScene_ == Scene::ENEMY_TURN || nowScene_ == Scene::PLAYER_TURN))
+		int winner = btlMng_.checkEnd();
+		if (winner !=  Battle::CheckWin::Winner::UNDECIDED &&
+			(nowScene_ == Scene::ENEMY_TURN || nowScene_ == Scene::PLAYER_TURN))
 		{
-			nowScene_ = Scene::RESULT;
-		}
+			nowScene_ = Scene::RESULT_ANIME;
+			ResultScene::makeResultScene(winner == Battle::CheckWin::Winner::PLAYER);
+		} 
+		else if (nowScene_ == Scene::RESULT_ANIME) // 結果画面のアニメーション終了判定
+		{
+			FrameWork::Game& game = FrameWork::Game::getInstance();
+			Entity::ObjectsControl& objectsControl = game.objectsControl;
 
-		if (isOpenOverlayEnded()) // オーバーレイ開く
+			shared_ptr<Entity::Object> retScene = objectsControl.getObjectWp(Layer::TOP_UI, TopUiId::RESULT_SCENE).lock();
+
+			if (retScene && !retScene->isAnimation())
+			{
+				nowScene_ = Scene::RESULT;
+			}
+		}
+		else if (isOpenOverlayEnded()) // オーバーレイ開く
 		{
 			nowScene_ = Scene::PLAYER_TURN;
-		}
-		
-		if (isCloseOverlayEnded()) // オーバレイ閉じる
+		}	
+		else if (isCloseOverlayEnded()) // オーバレイ閉じる
 		{
 			if (openScreen_ == SystemMenuKey::BACK_MENU_SCREEN)
 			{

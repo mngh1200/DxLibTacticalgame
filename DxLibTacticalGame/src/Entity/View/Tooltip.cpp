@@ -17,7 +17,8 @@ namespace Entity {
 		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
 		int lineCount = 1;
 
-		DxLib::GetDrawStringSizeToHandle(&shape_.w, &shape_.h, &lineCount, text.c_str(), text.size(), rm.getHdlFont(FONT_TYPE));
+		DxLib::GetDrawStringSizeToHandle(&shape_.w, &shape_.h, &lineCount, text.c_str(), 
+			DxLib::GetStringLength(text.c_str()), rm.getHdlFont(FONT_TYPE));
 
 		shape_.w += PADDING * 2;
 		shape_.h += PADDING * 2;

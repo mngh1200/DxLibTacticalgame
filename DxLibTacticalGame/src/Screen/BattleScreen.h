@@ -8,6 +8,7 @@
 #include "FrameWork/Game.h"
 #include "Utility/ResourceManager.h"
 #include "Entity/UI/Back.h"
+#include "Entity/Battle/ResultScene.h"
 #include "Battle/BattleManager.h"
 #include "Battle/PlayerBattleController.h"
 #include "Battle/EnemyBattleController.h"
@@ -34,6 +35,7 @@ namespace Screen
 		enum Layer
 		{
 			MASK,
+			TOP_UI,
 			CONTEXT_MENU,
 			EFFECT,
 			UI,
@@ -42,6 +44,11 @@ namespace Screen
 			MAP,
 			BACK,
 			LEN
+		};
+
+		enum TopUiId
+		{
+			RESULT_SCENE
 		};
 
 		void init();
