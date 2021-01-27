@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "Utility/ResourceManager.h"
+#include "Battle/BattleDefine.h"
 
 /**
  * @file BattleUIDefine.h
@@ -19,6 +20,10 @@ constexpr int BUI_LINE_HEIGHT = BUI_FONT_SIZE + BUI_LINE_MARGIN + BUI_LINE_PADDI
 constexpr int BUI_LINE_COUNT = 2;   //! 何行あるか
 
 constexpr int BUI_FONT_TYPE = FontType::NORMAL_S18; //! バトルUI用のフォントタイプ
+
+//! マップ画面のUIエリア
+constexpr int BATTLE_UI_AREA_Y = MAP_MASS_H * CHIP_SIZE;
+constexpr int BATTLE_UI_AREA_H = WIN_H - BATTLE_UI_AREA_Y;
 
 namespace BUI
 {

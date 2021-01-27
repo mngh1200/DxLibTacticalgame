@@ -389,6 +389,9 @@
     <ClInclude Include="src\Battle\CheckWin.h">
       <Filter>ヘッダー ファイル\Battle</Filter>
     </ClInclude>
+    <ClInclude Include="src\Battle\BattleDefine.h">
+      <Filter>ヘッダー ファイル\Battle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="src\DxLibTacticalGame.rc">

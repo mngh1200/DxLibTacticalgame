@@ -2,6 +2,7 @@
 #include <climits>
 #include "Ability.h"
 #include "Define.h"
+#include "Battle/BattleDefine.h"
 
 using namespace std;
 

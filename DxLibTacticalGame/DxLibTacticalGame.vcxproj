@@ -202,6 +202,7 @@
     <ClInclude Include="src\Animation\Animation.h" />
     <ClInclude Include="src\Animation\Easing.h" />
     <ClInclude Include="src\Battle\AI\EnemyAI.h" />
+    <ClInclude Include="src\Battle\BattleDefine.h" />
     <ClInclude Include="src\Battle\BattleManager.h" />
     <ClInclude Include="src\Battle\BUI\BattleUI.h" />
     <ClInclude Include="src\Battle\BUI\BattleUIDefine.h" />
