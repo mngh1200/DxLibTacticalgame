@@ -32,12 +32,10 @@ namespace Entity {
 		if (isPlayerWin)
 		{
 			text = "WIN!";
-			Utility::ResourceManager::playSound(SoundKind::WIN);
 		}
 		else
 		{
 			text = "LOSE...";
-			Utility::ResourceManager::playSound(SoundKind::LOSE);
 		}
 		
 		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
@@ -89,6 +87,18 @@ namespace Entity {
 		{
 			bool isEnd = anim_.increaseFrame();
 
+			if (anim_.getDelayFinishLog_()) // アニメーション開始時、効果音
+			{
+				if (isPlayerWin_)
+				{
+					Utility::ResourceManager::playSound(SoundKind::WIN);
+				}
+				else
+				{
+					Utility::ResourceManager::playSound(SoundKind::LOSE);
+				}
+			}
+
 			anim_.update(&alpha_, 0, 160, false);
 			anim_.update(&textAlpha_, 0, 255, false);
 
@@ -107,7 +117,7 @@ namespace Entity {
 	{
 		if (animationId == AnimKind::DISPLAY) // 表示アニメーション
 		{
-			anim_ = Animation(1000);
+			anim_ = Animation(1000, Animation::Direction::NORMAL, 1, 300);
 			return true;
 		}
 		return false;

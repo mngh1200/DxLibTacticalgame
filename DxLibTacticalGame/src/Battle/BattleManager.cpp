@@ -12,6 +12,10 @@ namespace Battle {
 		map_ = map;
 		battleUI.init();
 		fight_.init(map_);
+
+		// checkWin_.setLimitTurn(2, false);
+		// checkWin_.setBaseDefense(true);
+		// checkWin_.setBaseDefense(false);
 	}
 
 	/**
@@ -73,6 +77,10 @@ namespace Battle {
 		battleUI.onStartTurn(isPlayer);
 
 		phase_ = Phase::NORMAL;
+
+		++turnNumEach_; // ƒ^[ƒ“Œo‰ß
+
+		checkWin_.checkWin(getNowTurn());
 	}
 
 	/**
@@ -164,7 +172,8 @@ namespace Battle {
 		{
 			map_->confirmMove(selectedUnit_);
 			fight_.start();
-			endSelectActionPhase();
+			map_->clearMassState();
+			deselectUnit();
 			phase_ = Phase::FIGHT;
 		}
 	}

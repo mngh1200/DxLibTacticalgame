@@ -25,7 +25,7 @@ namespace Entity
 	class Map : public Object
 	{
 	public:
-		Map();
+		Map() = delete;
 		Map(int);
 		~Map() {};
 
@@ -51,6 +51,8 @@ namespace Entity
 		void clearMassState();
 
 		bool isRange(int x, int y) const;
+		pair<int, int> getPlayerFortMass() const { return playerFortMass_; }; // プレイヤーの砦マスを返す
+		pair<int, int> getEnemyFortMass() const { return enemyFortMass_; }; // 敵軍の砦マスを返す
 
 		static void drawMoveableMass(int x, int y);
 		static void drawAtackMass(int x, int y);
@@ -74,6 +76,9 @@ namespace Entity
 
 		//! マスのXY座標を基準にしたユニットのマップ
 		map<pair<int, int>, shared_ptr<Entity::Unit>> units_;
+
+		//! 敵側、味方側の砦マスの座標
+		pair<int, int> playerFortMass_, enemyFortMass_;
 	};
 
 

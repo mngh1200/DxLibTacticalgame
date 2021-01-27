@@ -22,7 +22,7 @@ namespace Battle
 	{
 	public:
 		BattleManager() : 
-			isPlayerTurn_(true), phase_(Phase::NORMAL), 
+			isPlayerTurn_(true), phase_(Phase::NORMAL), turnNumEach_(0),
 			checkWin_{}, battleUI{} {};
 		~BattleManager() {};
 
@@ -61,11 +61,15 @@ namespace Battle
 		bool isAtackAble(shared_ptr<Unit> targetUnit) const;
 		bool isSelectedUnitActive() const;
 		bool isSelectedUnit(shared_ptr<Unit> unit) const;
+		int getNowTurn() const { return turnNumEach_ / 2 + 1; }; // 現在ターンを返す
 
 		//! バトルUI
 		BattleUI battleUI;
 
 	private:
+		//! 経過ターン数(プレイヤーターン、敵ターンでそれぞれ＋１にする、表示ターンの二倍で表示)
+		int turnNumEach_;
+
 		//! 選択中のユニット
 		shared_ptr<Entity::Unit> selectedUnit_;
 

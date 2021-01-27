@@ -28,12 +28,14 @@ namespace Entity
 		// マス種類
 		enum Kind
 		{
-			PLAIN,		// 草原
-			FOREST,		// 森
-			RIVER,		// 川
-			MOUNTAIN,	// 山
+			PLAIN,		//! 草原
+			FOREST,		//! 森
+			RIVER,		//! 川
+			MOUNTAIN,	//! 山
+			FORT_PLAYER,//! 砦（自軍）
+			FORT_ENEMY, //! 砦（敵軍）
 			LEN,
-			OUT_OF_MAP	// 範囲外
+			OUT_OF_MAP	//! 範囲外
 		};
 
 		int getCost() const;

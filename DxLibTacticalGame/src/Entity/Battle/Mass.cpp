@@ -3,10 +3,10 @@
 #include "Entity/Unit/Unit.h"
 
 namespace Entity {
-	const vector<int> Mass::COST = { 1, 2, 2, INT_MAX };
-	const vector<int> Mass::AGL_UP = { 0, 20, -20, 0 };
-	const vector<int> Mass::DEF_UP = { 0,  3,  -3, 0 };
-	const vector<string> Mass::TEXT1 = {"‘Œ´", "X", "ì", "R"};
+	const vector<int> Mass::COST = { 1, 2, 2, INT_MAX, 1, 1 };
+	const vector<int> Mass::AGL_UP = { 0, 20, -20, 0, 0, 0 };
+	const vector<int> Mass::DEF_UP = { 0,  2,  -2, 0, 3, 3 };
+	const vector<string> Mass::TEXT1 = {"‘Œ´", "X", "ì", "R", "Ôi©ŒRj", "Ôi“GŒRj"};
 
 	/**
 	 * @fn
@@ -114,11 +114,11 @@ namespace Entity {
 			int agl = getAgl();
 			int def = getDef();
 
-
 			if (getCost() == INT_MAX)
 			{
 				return "N“ü•s‰Â";
-			} if (agl == 0 && def == 0)
+			} 
+			else if (agl == 0 && def == 0)
 			{
 				return "“Á‚É‚È‚µ";
 			}
@@ -152,6 +152,14 @@ namespace Entity {
 		else if (kindId == Kind::RIVER) // ì
 		{
 			imageId_ = rm.getImage(ImageType::MAP, 0, 3);
+		}
+		else if (kindId == Kind::FORT_PLAYER) // Ôi©ŒRj
+		{
+			imageId_ = rm.getImage(ImageType::MAP, 0, 4);
+		}
+		else if (kindId == Kind::FORT_ENEMY) // Ôi“GŒRj
+		{
+			imageId_ = rm.getImage(ImageType::MAP, 0, 5);
 		}
 		else // •½Œ´
 		{
