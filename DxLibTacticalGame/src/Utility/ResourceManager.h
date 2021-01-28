@@ -1,6 +1,8 @@
 #pragma once
 #include "Define.h"
 #include "DxLib.h"
+#include "Battle/BattleDefine.h"
+#include "Battle/CheckWin.h"
 #include "resource.h"
 #include <map>
 #include <vector>
@@ -130,15 +132,15 @@ namespace Utility
 
 		int getSound(int kind) const;
 
-		int getMapMass(int mapId, int w, int h) const;
-
 		static void playSound(int kind);
+
+		static void loadStageData(const LPCSTR csvFilePath, std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H >* mapData, Battle::CheckWin* checkWin, tuple<int, int, int, int>* units);
 
 		boolean isLoaded() const;
 
 	private:
 		ResourceManager()
-			:image_{}, hdlFont_{}, colorType_{}, sounds_{}, loadFlag{ false }, mapList_{}
+			:image_{}, hdlFont_{}, colorType_{}, sounds_{}, loadFlag{ false }
 		{};
 		~ResourceManager();
 
@@ -161,12 +163,14 @@ namespace Utility
 		void loadFont(const LPCSTR fontFilePath);
 		void unloadFont(const LPCSTR fontFilePath);
 
-		std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H > loadMapCsv(const LPCSTR csvFilePath);
-
+		//! フォントデータ
 		int hdlFont_[FontType::FONT_LEN];
+
+		//! カラーデータ
 		int colorType_[ColorType::COLOR_LEN];
+
+		//! 音声データ
 		int sounds_[SoundKind::SOUNDS_LEN];
-		std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H > mapList_[MapId::MAP_ID_LEN];
 
 		boolean loadFlag;
 	};

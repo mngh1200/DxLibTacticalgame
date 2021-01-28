@@ -36,7 +36,7 @@ namespace Utility {
 		loadColors();
 		loadSounds();
 
-		mapList_[MapId::STAGE1] = loadMapCsv("resource/map/stage1.csv");
+		// mapList_[MapId::STAGE1] = loadMapCsv("resource/map/stage1.csv");
 
 		return ret;
 	}
@@ -65,11 +65,6 @@ namespace Utility {
 	int ResourceManager::getSound(int kind) const
 	{
 		return sounds_[kind];
-	}
-
-	int ResourceManager::getMapMass(int mapId, int w, int h) const
-	{
-		return mapList_[mapId][h][w];
 	}
 
 	void ResourceManager::playSound(int kind) {
@@ -320,16 +315,20 @@ namespace Utility {
 		}
 	}
 
-	std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H > ResourceManager::loadMapCsv(const LPCSTR csvFilePath)
+
+	/**
+	 * @fn
+	 * ステージデータのロード
+	 * @param (csvFilePath) ファイルパス
+	 */
+	void ResourceManager::loadStageData(const LPCSTR csvFilePath, std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H >* mapData, Battle::CheckWin* checkWin, tuple<int, int, int, int>* units)
 	{
-		std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H > ret = {};
 		std::string str_buf;
 		std::string str_conma_buf;
 		for (int i = 0; i < MAP_MASS_H; i++) {
 			for (int j = 0; j < MAP_MASS_W; j++) {
-				ret[i][j] = -1;
+				mapData[i][j] = -1;
 			}
-
 		}
 
 
@@ -344,14 +343,12 @@ namespace Utility {
 			// 「,」区切りごとにデータを読み込む
 			while (getline(i_stream, str_conma_buf, ',') && colCount < MAP_MASS_W) {
 				// csvファイルに書き込む
-				ret[lineCount][colCount] = stoi(str_conma_buf);
+				mapData[lineCount][colCount] = stoi(str_conma_buf);
 				colCount++;
 			}
 			lineCount++;
 		}
-
-
-		return ret;
+		ifs_csv_file.close();
 	}
 
 	boolean ResourceManager::isLoaded() const {
