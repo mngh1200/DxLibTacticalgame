@@ -13,6 +13,8 @@ namespace Screen
 		Entity::ObjectsControl& objectsControl = game.objectsControl;
 		objectsControl.setLayer(Layer::LEN);
 
+		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
+
 		// 背景
 		shared_ptr<Entity::Back> back = make_shared<Entity::Back>(Entity::Back::Screen::BATTLE);
 		objectsControl.addObject(Layer::BACK, 0, back);
@@ -26,21 +28,13 @@ namespace Screen
 		systemMenu_->addMenuButton(SystemMenuKey::BACK_MENU_SCREEN, "メニュー画面に戻る");
 
 		// マップ（マス）
-		shared_ptr<Entity::Map> map = make_shared<Entity::Map>(MapId::STAGE1);
+		shared_ptr<Entity::Map> map = make_shared<Entity::Map>();
 		objectsControl.addObject(Layer::MAP, 0, map);
 		
 		// バトル管理用クラスの初期処理
 		btlMng_.init(map);
 		playerBtlCont_.init(map);
 		enemyBtlCont_.init(map);
-
-		// ユニット設置(テスト)
-		//map->setUnit(4, 9, UnitKey::LANCER);
-		//map->setUnit(5, 9, UnitKey::GUNNER);
-		map->setUnit(3, 9, UnitKey::CAVALRY);
-		//map->setUnit(4, 7, UnitKey::LANCER, true);
-		//map->setUnit(5, 7, UnitKey::GUNNER, true);
-		map->setUnit(3, 7, UnitKey::CAVALRY, true);
 
 		// オーバーレイセット
 		createOverlay(true);

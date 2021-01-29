@@ -2,7 +2,6 @@
 #include "Define.h"
 #include "DxLib.h"
 #include "Battle/BattleDefine.h"
-#include "Battle/CheckWin.h"
 #include "resource.h"
 #include <map>
 #include <vector>
@@ -11,6 +10,11 @@
 #include <fstream>
 #include <sstream>
 using namespace std;
+
+namespace Battle
+{
+	class CheckWin;
+}
 
 /**
  * @file Resource Manager.h
@@ -134,7 +138,7 @@ namespace Utility
 
 		static void playSound(int kind);
 
-		static void loadStageData(const LPCSTR csvFilePath, std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H >* mapData, Battle::CheckWin* checkWin, tuple<int, int, int, int>* units);
+		static void loadStageData(const LPCSTR csvFilePath, std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H >* mapData, vector<int>* checkWinData, vector<vector<int>>* units);
 
 		boolean isLoaded() const;
 

@@ -34,6 +34,8 @@ namespace Battle
 			ENEMY
 		};
 
+		void loadData(vector<int>& data);
+
 		void setLimitTurn(int turnNum, bool isPlayerWinOverLimit);
 
 		void setBaseDefense(bool isPlayer);
@@ -60,6 +62,14 @@ namespace Battle
 
 		//! “G‘¤‚Ì–h‰q‹’“_‚ª‚ ‚é‚©
 		bool isEnemyBaseDefense_;
+
+		enum Rule
+		{
+			NORMAL,
+			DEFENSE,
+			ATTACK,
+			CONFRICT
+		};
 	};
 
 

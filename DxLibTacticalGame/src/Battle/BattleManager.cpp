@@ -13,9 +13,17 @@ namespace Battle {
 		battleUI.init();
 		fight_.init(map_);
 
-		// checkWin_.setLimitTurn(2, false);
-		// checkWin_.setBaseDefense(true);
-		// checkWin_.setBaseDefense(false);
+		// ステージデータ読み込み
+		std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H > mapData;
+		vector<vector<int>> units;
+		vector<int> checkWinData;
+		Utility::ResourceManager::loadStageData("resource/map/stage1.csv", &mapData, &checkWinData, &units);
+
+		map->loadStageData(mapData);
+		map->loadUnits(units);
+		checkWin_.loadData(checkWinData);
+
+
 	}
 
 	/**

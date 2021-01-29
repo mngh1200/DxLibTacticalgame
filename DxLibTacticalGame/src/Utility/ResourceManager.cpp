@@ -1,4 +1,5 @@
 #include "ResourceManager.h"
+#include "Battle/CheckWin.h"
 #define THROWS_EX(ret, msg) { if (ret == -1) { throw msg; } }
 
 namespace Utility {
@@ -321,33 +322,67 @@ namespace Utility {
 	 * ステージデータのロード
 	 * @param (csvFilePath) ファイルパス
 	 */
-	void ResourceManager::loadStageData(const LPCSTR csvFilePath, std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H >* mapData, Battle::CheckWin* checkWin, tuple<int, int, int, int>* units)
+	void ResourceManager::loadStageData(const LPCSTR csvFilePath, std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H >* mapData, vector<int>* checkWinData, vector<vector<int>>* units)
 	{
 		std::string str_buf;
 		std::string str_conma_buf;
 		for (int i = 0; i < MAP_MASS_H; i++) {
 			for (int j = 0; j < MAP_MASS_W; j++) {
-				mapData[i][j] = -1;
+				(*mapData)[i][j] = -1;
 			}
 		}
 
-
 		// 読み込むcsvファイルを開く(std::ifstreamのコンストラクタで開く)
 		std::ifstream ifs_csv_file(csvFilePath);
+
+		// 勝敗ルール読み込み
+		getline(ifs_csv_file, str_buf);
+		std::istringstream i_stream(str_buf);
+		while (getline(i_stream, str_conma_buf, ','))
+		{
+			(*checkWinData).push_back(stoi(str_conma_buf));
+		}
+
+		getline(ifs_csv_file, str_buf); // 空行を読み込む想定
+
+
 		int lineCount = 0;
 		// getline関数で1行ずつ読み込む(読み込んだ内容はstr_bufに格納)
-		while (getline(ifs_csv_file, str_buf) && lineCount < MAP_MASS_H) {
+		while (getline(ifs_csv_file, str_buf) && lineCount < MAP_MASS_H)
+		{
+			if (str_buf == "")
+			{
+				break; // 空行の場合終了
+			}
+
 			// 「,」区切りごとにデータを読み込むためにistringstream型にする
 			std::istringstream i_stream(str_buf);
 			int colCount = 0;
 			// 「,」区切りごとにデータを読み込む
-			while (getline(i_stream, str_conma_buf, ',') && colCount < MAP_MASS_W) {
+			while (getline(i_stream, str_conma_buf, ','))
+			{
 				// csvファイルに書き込む
-				mapData[lineCount][colCount] = stoi(str_conma_buf);
-				colCount++;
+				(*mapData)[lineCount][colCount] = stoi(str_conma_buf);
+				++colCount;
 			}
-			lineCount++;
+			++lineCount;
 		}
+
+		// 設置ユニットを読み込む
+		while (getline(ifs_csv_file, str_buf))
+		{
+			// 「,」区切りごとにデータを読み込むためにistringstream型にする
+			std::istringstream i_stream(str_buf);
+			vector<int> unitData;
+
+			// 「,」区切りごとにデータを読み込む
+			while (getline(i_stream, str_conma_buf, ','))
+			{
+				unitData.push_back(stoi(str_conma_buf));
+			}
+			units->push_back(unitData);
+		}
+
 		ifs_csv_file.close();
 	}
 

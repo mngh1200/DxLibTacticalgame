@@ -25,9 +25,11 @@ namespace Entity
 	class Map : public Object
 	{
 	public:
-		Map() = delete;
-		Map(int);
+		Map();
 		~Map() {};
+
+		void loadStageData(std::array<std::array<int, MAP_MASS_W>, MAP_MASS_H>& mapData);
+		void loadUnits(vector<vector<int>>& units);
 
 		void render() const override;
 

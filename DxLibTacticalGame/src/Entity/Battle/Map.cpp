@@ -7,41 +7,64 @@ namespace Entity {
      * @fn
      * コンストラクタ
      */
-	Map::Map(int mapId)
+	Map::Map()
 	{
 		type_ = Object::Type::MAP;
 
-		weak_ptr<Unit> tmpUnit;
-
-		if (tmpUnit.expired()) {
-			int a = 10;
-		}
-
 		shape_.set(0, MAP_Y, MAP_MASS_W * CHIP_SIZE, MAP_MASS_H * CHIP_SIZE);
+	}
 
+	/**
+	 * @fn
+	 * マップデータ読み込み
+	 */
+	void Map::loadStageData(std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H >& mapData)
+	{
 		mass_.reserve(MAP_MASS_H); // メモリ確保
 
-		// マップデータ生成
-		for (int y = 0; y < MAP_MASS_H; y++)
+		int y = 0;
+		int x = 0;
+		for (auto yItr = mapData.begin(); yItr != mapData.end(); ++yItr)
 		{
+			auto line = *yItr;
 			mass_.push_back(vector<shared_ptr<Mass>>());
-			mass_[y].reserve(MAP_MASS_W); // メモリ確保
-
-			for (int x = 0; x < MAP_MASS_W; x++)
+			mass_[y].reserve(MAP_MASS_W);
+			for (auto xItr = line.begin(); xItr != line.end(); ++xItr)
 			{
-				int kind = Utility::ResourceManager::getInstance().getMapMass(mapId, x, y);
-				if (kind >= Mass::Kind::LEN) {
-					kind = Mass::Kind::OUT_OF_MAP;
-				}
-				else if (kind == Mass::Kind::FORT_PLAYER) // 味方砦指定
-				{
-					playerFortMass_ = make_pair(x, y);
-				}
-				else if (kind == Mass::Kind::FORT_ENEMY) // 敵砦指定
-				{
-					enemyFortMass_ = make_pair(x, y);
-				}
-				mass_[y].push_back(make_shared<Mass>(kind));
+					int kind = *xItr;
+					if (kind >= Mass::Kind::LEN) {
+						kind = Mass::Kind::OUT_OF_MAP;
+					}
+					else if (kind == Mass::Kind::FORT_PLAYER) // 味方砦指定
+					{
+						playerFortMass_ = make_pair(x, y);
+					}
+					else if (kind == Mass::Kind::FORT_ENEMY) // 敵砦指定
+					{
+						enemyFortMass_ = make_pair(x, y);
+					}
+					mass_[y].push_back(make_shared<Mass>(kind));
+					++x;
+			}
+			++y;
+			x = 0;
+		}
+	}
+
+	/**
+	 * @fn
+	 * ユニットデータ群の読み込み（大元はステージデータ）
+	 * @param (units) ユニットデータ（x座標, y座標, 種類、味方(0)か敵か(1)）
+	 */
+	void Map::loadUnits(vector<vector<int>>& units)
+	{
+		for (auto itr = units.begin(); itr != units.end(); ++itr)
+		{
+			auto unit = *itr;
+
+			if (unit.size() > 3)
+			{
+				setUnit(unit[0], unit[1], unit[2], unit[3] == 1);
 			}
 		}
 	}

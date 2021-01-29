@@ -4,6 +4,32 @@ namespace Battle {
 
 	/**
 	 * @fn
+	 * ステージデータファイルから読み込んだテキストから勝敗ルールを生成
+	*/
+	void CheckWin::loadData(vector<int>& data)
+	{
+		if (data.size() > 1) // ターン制限
+		{
+			setLimitTurn(data.at(0), data.at(1) == 0);
+		}
+
+		if (data.size() > 2) // 防衛ルール
+		{
+			int rule = data.at(2);
+			if (rule == Rule::DEFENSE || rule == Rule::CONFRICT)
+			{
+				setBaseDefense(true);
+			}
+			
+			if (rule == Rule::ATTACK || rule == Rule::CONFRICT)
+			{
+				setBaseDefense(false);
+			}
+		}
+	}
+
+	/**
+	 * @fn
 	 * ターン制限による勝敗条件追加
 	 * @param (turnNum) ターン制限
 	 * @param (isPlayerWinOverLimit) ターン制限を超えたときにプレイヤー側が勝利の場合: true
