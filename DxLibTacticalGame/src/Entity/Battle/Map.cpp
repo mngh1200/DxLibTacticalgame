@@ -193,9 +193,31 @@ namespace Entity {
 		units_.erase(make_pair(unit->getMassX(), unit->getMassY()));
 	}
 
+
+	/**
+	 * @fn
+	 * マスのイテレータの始点を返す
+	 * @return マスのイテレータの始点
+	*/
+	vector<vector<shared_ptr<Mass>>>::iterator Map::massBegin()
+	{
+		return mass_.begin();
+	}
+
+	/**
+	 * @fn
+	 * マスのイテレータの終点を返す
+	 * @return マスのイテレータの終点
+	*/
+	vector<vector<shared_ptr<Mass>>>::iterator Map::massEnd()
+	{
+		return mass_.end();
+	}
+
 	/**
 	 * @fn
 	 * ユニットリストのイテレータの始点を返す
+	 * @return ユニットリストのイテレータの始点
 	*/
 	map<pair<int, int>, shared_ptr<Unit>>::iterator Map::unitsBegin()
 	{
@@ -205,6 +227,7 @@ namespace Entity {
 	/**
 	 * @fn
 	 * ユニットリストのイテレータの終点を返す
+	 * @return ユニットリストのイテレータの終点
 	*/
 	map<pair<int, int>, shared_ptr<Unit>>::iterator Map::unitsEnd()
 	{

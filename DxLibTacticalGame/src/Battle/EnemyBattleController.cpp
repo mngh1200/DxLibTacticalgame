@@ -12,6 +12,7 @@ namespace Battle {
 	{
 		map_ = map;
 		ai_ = make_unique<EnemyAI>();
+		ai_->init(map);
 	}
 
 	/**

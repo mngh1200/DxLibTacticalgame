@@ -1,6 +1,15 @@
 #include "EnemyAI.h"
 
 namespace Battle {
+	/**
+	 * @fn
+	 * 初期処理
+	 * @param (map) mapポインタ
+	 */
+	void EnemyAI::init(shared_ptr<Map> map)
+	{
+		setBaseScore(map);
+	}
 
 	/**
 	 * @fn
@@ -108,6 +117,12 @@ namespace Battle {
 			}
 		}
 
+		// 基本スコアを加算
+		if (massBaseScoreMap.count(make_pair(x, y)) != 0)
+		{
+			point += massBaseScoreMap.at(make_pair(x, y));
+		}
+
 		return point;
 	}
 
@@ -126,6 +141,38 @@ namespace Battle {
 			return order;
 		}
 		return Order();
+	}
+
+	/**
+	 * @fn
+	 * 各マス座標の基本スコアをセット
+	 * @param (map) mapポインタの参照
+	 */
+	void EnemyAI::setBaseScore(shared_ptr<Map> map)
+	{
+		int y = 0;
+		int x = 0;
+
+		for (auto yItr = map->massBegin(); yItr != map->massEnd(); ++yItr)
+		{
+			auto lineItr = *yItr;
+			for (auto xItr = lineItr.begin(); xItr != lineItr.end(); ++xItr)
+			{
+				int kind = (*xItr)->getKind();
+
+				if (kind == Mass::Kind::FORT_ENEMY) // AI側砦
+				{
+					massBaseScoreMap.emplace(make_pair(x, y), 100);
+				}
+				else if (kind == Mass::Kind::FORT_PLAYER) // プレイヤー砦
+				{
+					massBaseScoreMap.emplace(make_pair(x, y), 200);
+				}
+				++x;
+			}
+			++y;
+			x = 0;
+		}
 	}
 
 	/**

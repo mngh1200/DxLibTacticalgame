@@ -37,6 +37,8 @@ namespace Entity
 		shared_ptr<Unit> getUnit(int massX, int massY);
 		void eraseUnit(shared_ptr<Unit> unit);
 
+		vector<vector<shared_ptr<Mass>>>::iterator massBegin();
+		vector<vector<shared_ptr<Mass>>>::iterator massEnd();
 		map<pair<int, int>, shared_ptr<Unit>>::iterator unitsBegin();
 		map<pair<int, int>, shared_ptr<Unit>>::iterator unitsEnd();
 

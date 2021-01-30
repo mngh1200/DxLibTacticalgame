@@ -39,13 +39,16 @@ namespace Battle
 		EnemyAI() {};
 		~EnemyAI() {};
 
+		void init(shared_ptr<Map> map);
 		bool createOrders(shared_ptr<Map> map);
 		Order getNextOrder();
 
 	protected:
+		void setBaseScore(shared_ptr<Map> map);
 		shared_ptr<Unit> getNextUnit(shared_ptr<Map> map);
 		
 		deque<Order> orders_; //! 操作手順
+		map<pair<int, int>, int> massBaseScoreMap; //! 各マスの基本スコア
 
 	private:
 		int getMassPoint(shared_ptr<Map> map, shared_ptr<Unit> unit, int x, int y, shared_ptr<Unit>& targetUnit);
