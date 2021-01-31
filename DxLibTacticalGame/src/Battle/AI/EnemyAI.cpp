@@ -117,6 +117,27 @@ namespace Battle {
 			}
 		}
 
+		// 味方ユニットとの隣接ボーナス
+		if (map->getUnit(x, y + 1))
+		{
+			point += SCORE_BY_FRIEND;
+		}
+
+		if (map->getUnit(x, y - 1))
+		{
+			point += SCORE_BY_FRIEND;
+		}
+
+		if (map->getUnit(x + 1, y))
+		{
+			point += SCORE_BY_FRIEND;
+		}
+
+		if (map->getUnit(x - 1, y))
+		{
+			point += SCORE_BY_FRIEND;
+		}
+
 		// 基本スコアを加算
 		if (massBaseScoreMap.count(make_pair(x, y)) != 0)
 		{
@@ -205,7 +226,7 @@ namespace Battle {
 		{
 			return;
 		}
-		move = move - nowMass->getCost();
+		move = move - nowMass->getCost() * FORT_MOVE_SCORE_RATE;
 		
 		if (move > nowMass->passingMov)
 		{
