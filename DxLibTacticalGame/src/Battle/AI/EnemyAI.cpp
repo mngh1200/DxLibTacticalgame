@@ -160,18 +160,62 @@ namespace Battle {
 			{
 				int kind = (*xItr)->getKind();
 
-				if (kind == Mass::Kind::FORT_ENEMY) // AI側砦
+				if (kind == Mass::Kind::FORT_ENEMY || kind == Mass::Kind::FORT_PLAYER)
 				{
-					massBaseScoreMap.emplace(make_pair(x, y), 100);
+					std::map<pair<int, int>, int> tmpBaseScoreMap;
+					massBaseScoreMap[make_pair(x, y)] = 100;
+
+					setBaseScoreByFort(map, x, y, SCORE_BY_FORT, tmpBaseScoreMap);
+					map->clearMassState();
+
+					// 砦から波及する基本スコアをセット
+					for (auto mapItr = tmpBaseScoreMap.begin(); mapItr != tmpBaseScoreMap.end(); ++mapItr)
+					{
+						auto key = mapItr->first;
+						auto val = mapItr->second;
+						if (massBaseScoreMap.count(key) == 0) // 未指定の場合はセット
+						{
+							massBaseScoreMap.emplace(key, val);
+						}
+						else // すでにある場合は加算
+						{
+							massBaseScoreMap[key] += val;
+						}
+					}
 				}
-				else if (kind == Mass::Kind::FORT_PLAYER) // プレイヤー砦
-				{
-					massBaseScoreMap.emplace(make_pair(x, y), 200);
-				}
+
 				++x;
 			}
 			++y;
 			x = 0;
+		}
+	}
+
+	/**
+	 * @fn
+	 * 砦マスの周りに波及する基本スコアの上昇分を追加
+	 * @param (map) mapポインタの参照
+	 */
+	void EnemyAI::setBaseScoreByFort(shared_ptr<Map> map, int x, int y, int move, std::map<pair<int, int>, int>& tmpBaseScoreMap)
+	{
+		shared_ptr<Mass> nowMass = map->getMass(x, y);
+
+		// マップ外
+		if (nowMass->getKind() == Mass::Kind::OUT_OF_MAP)
+		{
+			return;
+		}
+		move = move - nowMass->getCost();
+		
+		if (move > nowMass->passingMov)
+		{
+			nowMass->passingMov = move;
+			tmpBaseScoreMap[make_pair(x, y)] =  move;
+
+			setBaseScoreByFort(map, x, y + 1, move, tmpBaseScoreMap);
+			setBaseScoreByFort(map, x, y - 1, move, tmpBaseScoreMap);
+			setBaseScoreByFort(map, x - 1, y, move, tmpBaseScoreMap);
+			setBaseScoreByFort(map, x + 1, y, move, tmpBaseScoreMap);
 		}
 	}
 

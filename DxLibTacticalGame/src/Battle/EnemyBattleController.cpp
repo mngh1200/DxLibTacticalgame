@@ -23,6 +23,20 @@ namespace Battle {
 	 */
 	bool EnemyBattleController::update(BattleManager* bm)
 	{
+		// テスト処理
+		/*
+		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
+		for (auto itr = ai_->massBaseScoreMap.begin(); itr != ai_->massBaseScoreMap.end(); ++itr)
+		{
+			int x = itr->first.first;
+			int y = itr->first.second;
+			int score = itr->second;
+
+			DxLib::DrawStringFToHandle(x * CHIP_SIZE, y * CHIP_SIZE, to_string(score).c_str(), 0xff0000, rm.getHdlFont(FontType::NORMAL_S32));
+		}
+		DxLib::ScreenFlip();
+		*/
+
 		int phase = bm->getPhase();
 
 		// アニメーション中

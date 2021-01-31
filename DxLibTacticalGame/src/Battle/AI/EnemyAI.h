@@ -43,12 +43,16 @@ namespace Battle
 		bool createOrders(shared_ptr<Map> map);
 		Order getNextOrder();
 
+		map<pair<int, int>, int> massBaseScoreMap; //! 各マスの基本スコア
+
 	protected:
+		constexpr static int SCORE_BY_FORT = MAP_MASS_W + MAP_MASS_H - 2; // 砦から波及する基本スコアの加算
+
 		void setBaseScore(shared_ptr<Map> map);
+		void setBaseScoreByFort(shared_ptr<Map> map, int x, int y, int move, std::map<pair<int, int>, int>& tmpBaseScoreMap);
 		shared_ptr<Unit> getNextUnit(shared_ptr<Map> map);
 		
 		deque<Order> orders_; //! 操作手順
-		map<pair<int, int>, int> massBaseScoreMap; //! 各マスの基本スコア
 
 	private:
 		int getMassPoint(shared_ptr<Map> map, shared_ptr<Unit> unit, int x, int y, shared_ptr<Unit>& targetUnit);
