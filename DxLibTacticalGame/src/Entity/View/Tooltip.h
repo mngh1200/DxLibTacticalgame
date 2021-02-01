@@ -22,8 +22,6 @@ namespace Entity
 		Tooltip() : text_(""), alpha_(0) {};
 		~Tooltip() {};
 
-		static void makeTooltip(int x, int y, string text, int layerId);
-
 		void show(int x, int y, string text);
 		void hide();
 
