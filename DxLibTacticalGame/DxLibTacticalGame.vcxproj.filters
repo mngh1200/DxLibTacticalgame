@@ -243,6 +243,9 @@
     <ClCompile Include="src\Battle\CheckWin.cpp">
       <Filter>ソース ファイル\Battle</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entity\UI\Message.cpp">
+      <Filter>ソース ファイル\Entity\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -392,6 +395,9 @@
     <ClInclude Include="src\Battle\BattleDefine.h">
       <Filter>ヘッダー ファイル\Battle</Filter>
     </ClInclude>
+    <ClInclude Include="src\Entity\UI\Message.h">
+      <Filter>ヘッダー ファイル\Entity\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="src\DxLibTacticalGame.rc">
@@ -428,8 +434,12 @@
     <None Include="resource\image\unit\player\default1.bin">
       <Filter>リソース ファイル</Filter>
     </None>
-    <None Include="resource\sound\click.ogg" />
-    <None Include="resource\sound\check.ogg" />
+    <None Include="resource\sound\check.ogg">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="resource\sound\click.ogg">
+      <Filter>リソース ファイル</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Media Include="resource\sound\back.wav">

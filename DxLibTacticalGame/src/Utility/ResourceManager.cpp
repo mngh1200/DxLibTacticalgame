@@ -292,6 +292,9 @@ namespace Utility {
 		sounds_[SoundKind::LOSE] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(LOSE_OGG), MAKEINTRESOURCE(OGG));
 		DxLib::ChangeVolumeSoundMem(160, sounds_[SoundKind::LOSE]);
 
+		sounds_[SoundKind::MESSAGE] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(MESSAGE_OGG), MAKEINTRESOURCE(OGG));
+		DxLib::ChangeVolumeSoundMem(160, sounds_[SoundKind::MESSAGE]);
+
 		return ret;
 	}
 

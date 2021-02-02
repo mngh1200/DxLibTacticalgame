@@ -27,3 +27,4 @@
 #define ATTACK_FIRE_OGG 303
 #define WIN_OGG 304
 #define LOSE_OGG 305
+#define MESSAGE_OGG 306

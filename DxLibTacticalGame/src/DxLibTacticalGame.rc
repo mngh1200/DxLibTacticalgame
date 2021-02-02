@@ -43,3 +43,5 @@ ATTACK_FIRE_OGG	OGG	"../resource/sound/attack-fire.ogg"
 WIN_OGG	OGG	"../resource/sound/win.ogg"
 
 LOSE_OGG	OGG	"../resource/sound/lose.ogg"
+
+MESSAGE_OGG	OGG	"../resource/sound/message.ogg"

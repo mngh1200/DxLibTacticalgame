@@ -53,17 +53,18 @@ namespace
 	};
 
 	enum SoundKind : int {
-		CLICK,
-		CHECK,
-		BACK,
-		BORN,
+		CLICK,			//! クリック
+		CHECK,			//! 選択
+		BACK,			//! 戻る
+		MESSAGE,		//! メッセージ
+		BORN,			//! 新コース
 		ATTACK_CLOSE,	//! 近接攻撃
 		ATTACK_FIRE,	//! 射撃
 		MOVE,			//! 移動
 		WAIT,			//! 待機
 		SELECT_UNIT,	//! ユニット選択
-		WIN,
-		LOSE,
+		WIN,			//! 勝利
+		LOSE,			//! 敗北
 		SOUNDS_LEN
 	};
 
