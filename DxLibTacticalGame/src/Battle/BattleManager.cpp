@@ -23,7 +23,10 @@ namespace Battle {
 		map->loadUnits(units);
 		checkWin_.loadData(checkWinData);
 
-
+		// メッセージ欄をオブジェクトとして追加
+		message = make_shared<Message>();
+		FrameWork::Game& game = FrameWork::Game::getInstance();
+		game.objectsControl.addObject(Screen::BattleScreen::Layer::TOP_UI, Screen::BattleScreen::TopUiId::MESSAGE, message);
 	}
 
 	/**
@@ -82,13 +85,23 @@ namespace Battle {
 			itr->second->turnEnd(itr->second->isEnemy() == isPlayer);
 		}
 
+		// バトルUI処理
 		battleUI.onStartTurn(isPlayer);
 
 		phase_ = Phase::NORMAL;
 
-		++turnNumEach_; // ターン経過
+		// ターン経過
+		++turnNumEach_;
 
+		// 勝敗判定
 		checkWin_.checkWin(getNowTurn());
+
+		// 残りターンメッセージ
+		if (isPlayerTurn_)
+		{
+			checkWin_.showRemainingTurnMessage(message, getNowTurn());
+		}
+		
 	}
 
 	/**

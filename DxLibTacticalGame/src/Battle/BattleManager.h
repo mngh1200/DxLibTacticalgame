@@ -7,6 +7,7 @@
 #include "Entity/Battle/Map.h"
 #include "Entity/Unit/Unit.h"
 #include "BUI/BattleUI.h"
+#include "Entity/UI/Message.h"
 
 using namespace std;
 using namespace Entity;
@@ -65,6 +66,9 @@ namespace Battle
 
 		//! バトルUI
 		BattleUI battleUI;
+
+		//! メッセージ
+		shared_ptr<Entity::Message> message;
 
 	private:
 		//! 経過ターン数(プレイヤーターン、敵ターンでそれぞれ＋１にする、表示ターンの二倍で表示)

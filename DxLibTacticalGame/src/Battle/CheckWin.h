@@ -3,6 +3,7 @@
 #include <map>
 #include "Entity/Battle/Map.h"
 #include "Entity/Unit/Unit.h"
+#include "Entity/UI/Message.h"
 
 using namespace std;
 using namespace Entity;
@@ -39,6 +40,8 @@ namespace Battle
 		void setLimitTurn(int turnNum, bool isPlayerWinOverLimit);
 
 		void setBaseDefense(bool isPlayer);
+
+		void showRemainingTurnMessage(shared_ptr<Message> message, int turnNum);
 
 		void checkWin(shared_ptr<Map> map);
 		void checkWin(int turnNum);

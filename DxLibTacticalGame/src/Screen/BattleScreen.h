@@ -48,6 +48,7 @@ namespace Screen
 
 		enum TopUiId
 		{
+			MESSAGE,
 			RESULT_SCENE
 		};
 

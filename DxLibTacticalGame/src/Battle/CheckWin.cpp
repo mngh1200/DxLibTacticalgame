@@ -59,6 +59,32 @@ namespace Battle {
 
 	/**
 	 * @fn
+	 * 残りターンメッセージ
+	 * @param (turnNum) 経過ターン
+	*/
+	void CheckWin::showRemainingTurnMessage(shared_ptr<Message> message, int turnNum)
+	{
+		if (limitTurn_ == 0)
+		{
+			return; // ターンの勝利条件がない場合はメッセージを表示しない
+		}
+
+		string text = "残り" + to_string(limitTurn_ - turnNum) + "ターンで";
+		
+		if (isPlayerWinOverLimit_)
+		{
+			text = text + "勝利";
+		}
+		else
+		{
+			text = text + "敗北";
+		}
+
+		message->show(text, false, 3000);
+	}
+
+	/**
+	 * @fn
 	 * 勝敗判定
 	 * @param (turnNum) 経過ターン
 	*/
