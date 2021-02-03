@@ -13,6 +13,9 @@ namespace Screen
 		Entity::ObjectsControl& objectsControl = game.objectsControl;
 
 		Utility::ResourceManager::getInstance().load();
+
+		Utility::SaveManager& saveManager = Utility::SaveManager::getInstance();
+		saveManager.load();
 	}
 
 	/**

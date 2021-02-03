@@ -9,8 +9,12 @@ namespace Screen
 	*/
 	void SelectScreen::init()
 	{
+
+
 		FrameWork::Game& game = FrameWork::Game::getInstance();
 		Entity::ObjectsControl& objectsControl = game.objectsControl;
+
+		Utility::SaveManager& saveManager = Utility::SaveManager::getInstance();
 
 		objectsControl.setLayer(Layer::LEN);
 		objectsControl.addObject(Layer::BACK, 0, make_shared<Entity::Back>(Entity::Back::Screen::SELECT));
@@ -20,34 +24,30 @@ namespace Screen
 		// 左上のテキスト
 		objectsControl.addFigure(Layer::UI, ++viewId, make_shared<Entity::Text>("コースセレクト", COURSE_MARGIN_X, PADDING_TOP, ::FontType::NORMAL_S24, ::ColorType::MAIN_COLOR));
 
+
+		
+
 		// コースタイトル テスト処理
 		objectsControl.addFigure(Layer::UI, UIid::COURSE_NAME, make_shared<Entity::Text>("チュートリアル1", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, COURSE_TOP, FontType::NORMAL_S32, ColorType::SUB_COLOR));
 
 		// コースボタン
-		for (int i = 0; i < 13; i++) // テスト処理
+
+		for (int i = 0; i < MAX_STAGE; i++) // テスト処理
 		{
 			// X座標
 			int x = (i % COURSE_COLUMN_NUM) * (Entity::CourseButton::SIZE + COURSE_MARGIN_X) + COURSE_MARGIN_X;
 			int y = (i / COURSE_COLUMN_NUM) * (Entity::CourseButton::SIZE + COURSE_MARGIN_Y) + COURSE_TOP;
-			int status = Entity::CourseButton::Status::B;
+			int status = saveManager.getRank(i);
 
-			// テスト処理
-			if (i == 2)
-			{
-				status = Entity::CourseButton::Status::S;
-			}
-			else if (i == 3)
-			{
-				status = Entity::CourseButton::Status::A;
-			}
-			else if (i == 5)
-			{
-				status = Entity::CourseButton::Status::C;
-			}
-			else if (i == 12)
+			if (status == StageRank::NEW) // 新コース
 			{
 				selectedCourseId_ = newCourseId_ = i;
-				status = Entity::CourseButton::Status::NO_CLEAR;
+				saveManager.updateRank(i, StageRank::NONE);
+				saveManager.save();
+			}
+			else if (status == StageRank::LOCK)
+			{
+				continue;
 			}
 
 			objectsControl.addObject(Layer::COURSE_BUTTON, i, make_shared<Entity::CourseButton>(x, y, status, i == newCourseId_));

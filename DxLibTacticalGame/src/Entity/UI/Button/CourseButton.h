@@ -20,7 +20,7 @@ namespace Entity
 	
 	public:
 		CourseButton();
-		CourseButton(int x, int y, char status, bool isNew = false);
+		CourseButton(int x, int y, int rank, bool isNew = false);
 		~CourseButton() {};
 
 		void render() const override;
@@ -32,16 +32,6 @@ namespace Entity
 		void onMouseOut(int x, int y) override;
 
 		void setSelected(bool isSelected);
-
-		// クリア状況
-		enum Status : char
-		{
-			S = 'S',
-			A = 'A',
-			B = 'B',
-			C = 'C',
-			NO_CLEAR = '!'
-		};
 
 		static const int SIZE = 100; //! 幅、高さ
 
@@ -75,7 +65,7 @@ namespace Entity
 		Shape baseShape_;
 
 		//! コースのクリア状況
-		char status_;
+		string text_;
 	};
 
 	

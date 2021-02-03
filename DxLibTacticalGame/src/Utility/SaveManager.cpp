@@ -22,7 +22,7 @@ namespace Utility {
 		FILE* fp;
 		errno_t error;
 		if ((error = fopen_s(&fp, filename, "rb")) != 0) {
-			DxLib::printfDx("セーブデータが存在しません。\n新規作成します。");
+			// DxLib::printfDx("セーブデータが存在しません。\n新規作成します。");
 			createSavefile();
 		}
 		else {
@@ -45,11 +45,17 @@ namespace Utility {
 		errno_t error;
 		// ステージランクの初期化
 		for (int i = 0; i < MAX_STAGE; i++) {
-			savedata.stageRanks[i] = 0;
+			savedata.stageRanks[i] = StageRank::LOCK;
 		}
 
+		// savedata.stageRanks[0] = StageRank::NONE;
+
+		// テスト処理
+		savedata.stageRanks[0] = StageRank::CLEAR;
+		savedata.stageRanks[1] = StageRank::NEW;
+
 		if ((error = fopen_s(&fp, filename, "wb")) != 0) {
-			DxLib::printfDx("セーブデータを作成できませんでした。");
+			// DxLib::printfDx("セーブデータを作成できませんでした。");
 		}
 		else {
 			fwrite(&savedata, sizeof(savedata), 1, fp);

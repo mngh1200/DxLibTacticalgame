@@ -7,7 +7,7 @@ namespace Entity {
 	 * @fn
 	 * コンストラクタ
 	 */
-	CourseButton::CourseButton() : animation_ {}, isSelected_(false), status_('!')
+	CourseButton::CourseButton() : animation_ {}, isSelected_(false), text_("!")
 	{
 		setColor(ColorType::MAIN_COLOR, ColorType::SUB_COLOR);
 	}
@@ -19,47 +19,24 @@ namespace Entity {
 	 * @param (y) y座標
 	 * @param (status) コースのクリア状況
 	 */
-	CourseButton::CourseButton(int x, int y, char status, bool isNew) : CourseButton()
+	CourseButton::CourseButton(int x, int y, int rank, bool isNew) : CourseButton()
 	{
-		status_ = status;
-		baseShape_ = Shape(x, y, SIZE, SIZE);
-
-		// 新コースの場合
-		if (isNew)
+		if (rank == StageRank::CLEAR)
 		{
-			setShape(x, y, 0, 0);
-			setText("", FontType::BLACK_S48);
+			text_ = "Clear";
+			setTextColor(ColorType::POSITIVE_COLOR);
+			setText(text_, FontType::BLACK_S24);
 		}
 		else
 		{
-			setShape(x, y, SIZE, SIZE);
-			setText(string(1, status), FontType::BLACK_S48);
-		}
-
-
-
-
-		// クリア状況次第でテキストと色変更
-		if (status == Status::S)
-		{
-			setTextColor(ColorType::ACCENT_COLOR);
-		}
-		else if (status == Status::A)
-		{
-			setTextColor(ColorType::PLAYER_COLOR);
-		}
-		else if (status == Status::B)
-		{
-			setTextColor(ColorType::SUB_COLOR);
-		}
-		else if (status == Status::C)
-		{
-			setTextColor(ColorType::NEGATIVE_COLOR);
-		}
-		else if (status == Status::NO_CLEAR)
-		{
 			setTextColor(ColorType::ENEMY_COLOR);
+			setText(text_, FontType::BLACK_S48);
 		}
+		
+
+		baseShape_ = Shape(x, y, SIZE, SIZE);
+		setShape(x, y, SIZE, SIZE);
+		
 		
 	}
 
@@ -125,7 +102,7 @@ namespace Entity {
 	void CourseButton::render() const
 	{
 		// ボタン
-		DxLib::DrawRoundRect(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), RECT_ROUND, RECT_ROUND, color_[State::NORMAL], TRUE);
+		DxLib::DrawRoundRectAA(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), RECT_ROUND, RECT_ROUND, 8, color_[State::NORMAL], TRUE);
 
 		// テキスト
 		DxLib::DrawFormatStringToHandle(shape_.x + textX_, shape_.y + textY_, textColor_[State::NORMAL], font_, text_.c_str());
@@ -154,7 +131,7 @@ namespace Entity {
 			}
 			else if (shape_.h >= BORN_DISP_TEXT_SIZE) // 文字表示
 			{
-				setText(string(1, status_));
+				setText(text_);
 				setSize(shape_.w, shape_.h); // 文字位置調整用
 			}
 			return false;

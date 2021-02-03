@@ -23,14 +23,10 @@ constexpr int MAX_STAGE = 10;
 namespace
 {
 	enum StageRank : int {
-		LOCK,  // 未開放ステージ
-		NEW,   // 新規ステージ
-		NONE,  // ランクなし
-		D,
-		C,
-		B,
-		A,
-		S,
+		LOCK,  //! 未開放ステージ
+		NEW,   //! 新規ステージ
+		NONE,  //! ランクなし
+		CLEAR, //! クリア済み
 		RANK_LEN
 	};
 }

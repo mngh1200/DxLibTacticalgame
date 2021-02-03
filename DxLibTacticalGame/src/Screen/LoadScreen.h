@@ -3,6 +3,7 @@
 #include <memory>
 #include "ScreenBase.h"
 #include "StartScreen.h"
+#include "Utility/SaveManager.h"
 #include "Entity/UI/Back.h"
 #include "Entity/View/Text.h"
 

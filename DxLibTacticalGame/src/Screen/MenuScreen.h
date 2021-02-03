@@ -4,6 +4,7 @@
 #include "ScreenBase.h"
 #include "FrameWork/Game.h"
 #include "Utility/ResourceManager.h"
+#include "Utility/SaveManager.h"
 #include "SelectScreen.h"
 #include "Entity/UI/Back.h"
 #include "Entity/UI/Button/MenuScreenButton.h"
