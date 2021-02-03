@@ -14,10 +14,12 @@ namespace Battle {
 		fight_.init(map_);
 
 		// ステージデータ読み込み
+		string title;
+		string hint;
 		std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H > mapData;
 		vector<vector<int>> units;
 		vector<int> checkWinData;
-		Utility::ResourceManager::loadStageData("resource/map/stage1.csv", &mapData, &checkWinData, &units);
+		Utility::ResourceManager::loadStageData("stage", 1, &title, &hint, &mapData, &checkWinData, &units);
 
 		map->loadStageData(mapData);
 		map->loadUnits(units);

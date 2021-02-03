@@ -326,7 +326,7 @@ namespace Utility {
 	 * ステージデータのロード
 	 * @param (csvFilePath) ファイルパス
 	 */
-	void ResourceManager::loadStageData(const LPCSTR csvFilePath, std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H >* mapData, vector<int>* checkWinData, vector<vector<int>>* units)
+	void ResourceManager::loadStageData(const string stageKind, const int id, string* title, string* hint, std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H >* mapData, vector<int>* checkWinData, vector<vector<int>>* units)
 	{
 		std::string str_buf;
 		std::string str_conma_buf;
@@ -337,7 +337,17 @@ namespace Utility {
 		}
 
 		// 読み込むcsvファイルを開く(std::ifstreamのコンストラクタで開く)
+		string str = "resource/map/" + stageKind + to_string(id) + ".csv";
+		const LPCSTR csvFilePath = str.c_str();
 		std::ifstream ifs_csv_file(csvFilePath);
+
+		getline(ifs_csv_file, str_buf); // ステージタイトル
+		*title = str_buf;
+
+		getline(ifs_csv_file, str_buf); // ヒント
+		*hint = str_buf;
+
+		getline(ifs_csv_file, str_buf); // 空行
 
 		// 勝敗ルール読み込み
 		getline(ifs_csv_file, str_buf);

@@ -6,7 +6,7 @@ namespace Entity {
 	 * @fn
 	 * コンストラクタ
 	 */
-	Text::Text() : text_(""), font_(-1), color_(-1)
+	Text::Text() : text_(""), font_(-1), color_(-1), align_(Align::LEFT), baseX_(0)
 	{
 		type_ = TEXT;
 	}
@@ -24,25 +24,38 @@ namespace Entity {
 	Text::Text(string text, int x, int y, int fontType, int colorType, int align) : Text()
 	{
 		Utility::ResourceManager& resourceManager = Utility::ResourceManager::getInstance();
+		align_ = align;
 
-		text_ = text;
+		baseX_ = x;
 		shape_.y = y;
 		font_ = resourceManager.getHdlFont(fontType);
 		color_ = resourceManager.getColor(colorType);
 
-		if (align == CENTER) // 中央揃え
+		setText(text);
+	}
+
+	/**
+	 * @fn
+	 * テキストセット
+	 * @param (text) 変更テキスト
+	 */
+	void Text::setText(string text)
+	{
+		text_ = text;
+
+		if (align_ == CENTER) // 中央揃え
 		{
 			int width = DxLib::GetDrawFormatStringWidthToHandle(font_, text.c_str());
-			shape_.x = x - width / 2;
+			shape_.x = baseX_ - width / 2;
 		}
-		else if (align == RIGHT) // 右揃え
+		else if (align_ == RIGHT) // 右揃え
 		{
 			int width = DxLib::GetDrawFormatStringWidthToHandle(font_, text.c_str());
-			shape_.x = x - width;
+			shape_.x = baseX_ - width;
 		}
 		else // 左揃え
 		{
-			shape_.x = x;
+			shape_.x = baseX_;
 		}
 	}
 

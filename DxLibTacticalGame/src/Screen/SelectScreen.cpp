@@ -24,11 +24,9 @@ namespace Screen
 		// 左上のテキスト
 		objectsControl.addFigure(Layer::UI, ++viewId, make_shared<Entity::Text>("コースセレクト", COURSE_MARGIN_X, PADDING_TOP, ::FontType::NORMAL_S24, ::ColorType::MAIN_COLOR));
 
-
-		
-
-		// コースタイトル テスト処理
-		objectsControl.addFigure(Layer::UI, UIid::COURSE_NAME, make_shared<Entity::Text>("チュートリアル1", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, COURSE_TOP, FontType::NORMAL_S32, ColorType::SUB_COLOR));
+		// コースタイトル
+		stageTitle_ = make_shared<Entity::Text>("チュートリアル1", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, COURSE_TOP, FontType::NORMAL_S32, ColorType::SUB_COLOR);
+		objectsControl.addFigure(Layer::UI, UIid::COURSE_NAME, stageTitle_);
 
 		// コースボタン
 
@@ -108,6 +106,8 @@ namespace Screen
 				shared_ptr<Entity::CourseButton> courseBtn = dynamic_pointer_cast<Entity::CourseButton>(hitObjSp);
 				courseBtn->setSelected(true);
 				selectedCourseId_ = hitObjSp->getObjectId();
+
+				updateStageInfo();
 			}
 			else if (hitObjSp->getLayerId() == Layer::UI && eventType == MOUSE_INPUT_LOG_CLICK)
 			{
@@ -179,6 +179,23 @@ namespace Screen
 				game.setScreenLock(false);
 			}
 		}
+	}
+
+	/**
+	 * @fn
+	 * 選択ステージ情報更新
+	*/
+	void SelectScreen::updateStageInfo()
+	{
+		// ステージデータ読み込み
+		string title;
+		string hint;
+		std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H > mapData;
+		vector<vector<int>> units;
+		vector<int> checkWinData;
+		Utility::ResourceManager::loadStageData(stageKind_, selectedCourseId_, &title, &hint, &mapData, &checkWinData, &units);
+
+		stageTitle_->setText(title);
 	}
 
 }

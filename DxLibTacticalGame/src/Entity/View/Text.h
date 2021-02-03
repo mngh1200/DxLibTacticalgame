@@ -23,6 +23,8 @@ namespace Entity
 		Text(string text, int x, int y, int fontType, int colorType, int align = LEFT);
 		~Text() {};
 
+		void setText(string text);
+
 		void render() const;
 
 		/**
@@ -45,5 +47,11 @@ namespace Entity
 
 		//! F
 		int color_;
+
+		//! Šî€‚ÌxÀ•W
+		int baseX_;
+
+		//! ‘µ‚¦
+		int align_;
 	};
 }

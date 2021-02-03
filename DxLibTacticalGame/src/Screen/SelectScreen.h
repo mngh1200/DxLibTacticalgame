@@ -23,13 +23,19 @@ namespace Screen
 	class SelectScreen : public ScreenBase
 	{
 	public:
-		SelectScreen() : selectedCourseId_(-1), openScreen_(Screen::MAIN_MENU), newCourseId_(-1) {};
+		SelectScreen() : 
+			selectedCourseId_(-1), 
+			stageKind_("stage"),
+			openScreen_(Screen::MAIN_MENU), 
+			newCourseId_(-1) {};
 		~SelectScreen() {};
 
 		void init();
 		void updateByEvents(weak_ptr < Entity::Object> hitObjWp, int x, int y, int button, int eventType);
 		void updateByAnimation();
 	private:
+		void updateStageInfo();
+
 		constexpr static int PADDING_TOP = 10;		//! 上側の余白
 		constexpr static int LEFT_AREA_WIDTH = 800; //! 左側のエリアの幅
 
@@ -46,8 +52,11 @@ namespace Screen
 
 		constexpr static int BACK_SIZE = 60;	//! 戻るボタンのサイズ
 
+		string stageKind_;
 		int selectedCourseId_; //! 選択中のコースID
 		int newCourseId_; // 新コースID
+
+		shared_ptr<Entity::Text> stageTitle_; //! ステージタイトル
 
 		enum Layer
 		{

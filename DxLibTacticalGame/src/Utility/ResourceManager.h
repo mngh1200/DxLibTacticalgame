@@ -140,7 +140,7 @@ namespace Utility
 
 		static void playSound(int kind);
 
-		static void loadStageData(const LPCSTR csvFilePath, std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H >* mapData, vector<int>* checkWinData, vector<vector<int>>* units);
+		static void loadStageData(const string stageKind, const int id, string* title, string* hint, std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H >* mapData, vector<int>* checkWinData, vector<vector<int>>* units);
 
 		boolean isLoaded() const;
 
