@@ -17,7 +17,8 @@ namespace Entity {
 	 * コンストラクタ
 	 * @param (x) x座標
 	 * @param (y) y座標
-	 * @param (status) コースのクリア状況
+	 * @param (rank) コースランク
+	 * @param (isNew) 新規コースであるか
 	 */
 	CourseButton::CourseButton(int x, int y, int rank, bool isNew) : CourseButton()
 	{
