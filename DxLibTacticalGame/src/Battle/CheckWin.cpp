@@ -64,12 +64,12 @@ namespace Battle {
 	*/
 	void CheckWin::showRemainingTurnMessage(shared_ptr<Message> message, int turnNum)
 	{
-		if (limitTurn_ == 0)
+		if (limitTurn_ == 0 || winner_ != Winner::UNDECIDED)
 		{
-			return; // ターンの勝利条件がない場合はメッセージを表示しない
+			return; // ターンの勝利条件がない場合はメッセージを表示しない、勝敗確定後は出さない
 		}
 
-		string text = "残り" + to_string(limitTurn_ - turnNum) + "ターンで";
+		string text = "残り" + to_string(limitTurn_ - turnNum + 1) + "ターンで";
 		
 		if (isPlayerWinOverLimit_)
 		{
