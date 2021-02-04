@@ -7,7 +7,7 @@ namespace Battle {
 	 * 初期処理
 	 * @param (map) マップのポインタ
 	 */
-	void BattleManager::init(shared_ptr<Entity::Map> map)
+	void BattleManager::init(shared_ptr<Entity::Map> map, int stageId)
 	{
 		map_ = map;
 		battleUI.init();
@@ -19,7 +19,7 @@ namespace Battle {
 		std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H > mapData;
 		vector<vector<int>> units;
 		vector<int> checkWinData;
-		Utility::ResourceManager::loadStageData("stage", 1, &title, &hint, &mapData, &checkWinData, &units);
+		Utility::ResourceManager::loadStageData("stage", stageId, &title, &hint, &mapData, &checkWinData, &units);
 
 		map->loadStageData(mapData);
 		map->loadUnits(units);

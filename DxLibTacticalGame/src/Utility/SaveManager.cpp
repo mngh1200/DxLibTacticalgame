@@ -52,7 +52,8 @@ namespace Utility {
 
 		// テスト処理
 		savedata.stageRanks[0] = StageRank::CLEAR;
-		savedata.stageRanks[1] = StageRank::NEW;
+		savedata.stageRanks[1] = StageRank::CLEAR;
+		savedata.stageRanks[2] = StageRank::NEW;
 
 		if ((error = fopen_s(&fp, filename, "wb")) != 0) {
 			// DxLib::printfDx("セーブデータを作成できませんでした。");

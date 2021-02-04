@@ -68,10 +68,10 @@ namespace Battle
 
 		enum Rule
 		{
-			NORMAL,
-			DEFENSE,
-			ATTACK,
-			CONFRICT
+			NORMAL,  //! 防衛地点なし
+			DEFENSE, //! プレイヤー防衛地点有り
+			ATTACK,  //! 敵側の防衛地点あり
+			CONFRICT //! 両側の防衛地点あり
 		};
 	};
 

@@ -167,7 +167,9 @@ namespace Screen
 			else if (openScreen_ == Screen::BATTLE)
 			{
 				// ƒoƒgƒ‹‰æ–Ê‚É‘JˆÚ
-				FrameWork::Game::getInstance().setScreen(new BattleScreen());
+				BattleScreen* battleScreen = new BattleScreen();
+				battleScreen->setStage(selectedCourseId_);
+				FrameWork::Game::getInstance().setScreen(battleScreen);
 			}
 		}
 		else if (nowScene_ == Scene::BORN)

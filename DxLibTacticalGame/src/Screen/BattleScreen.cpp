@@ -32,7 +32,7 @@ namespace Screen
 		objectsControl.addObject(Layer::MAP, 0, map);
 		
 		// バトル管理用クラスの初期処理
-		btlMng_.init(map);
+		btlMng_.init(map, stageId_);
 		playerBtlCont_.init(map);
 		enemyBtlCont_.init(map);
 
@@ -158,6 +158,15 @@ namespace Screen
 				FrameWork::Game::getInstance().setScreen(new SelectScreen());
 			}
 		}
+	}
+
+	/**
+	 * @fn
+	 * 選択ステージをセット
+	*/
+	void BattleScreen::setStage(int id)
+	{
+		stageId_ = id;
 	}
 
 	/**

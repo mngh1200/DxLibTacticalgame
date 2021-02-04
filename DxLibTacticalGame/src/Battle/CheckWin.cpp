@@ -10,7 +10,7 @@ namespace Battle {
 	{
 		if (data.size() > 1) // ƒ^[ƒ“§ŒÀ
 		{
-			setLimitTurn(data.at(0), data.at(1) == 0);
+			setLimitTurn(data.at(0), data.at(1) != 1);
 		}
 
 		if (data.size() > 2) // –h‰qƒ‹[ƒ‹

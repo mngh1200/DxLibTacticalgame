@@ -28,7 +28,7 @@ namespace Screen
 	class BattleScreen : public ScreenBase
 	{
 	public:
-		BattleScreen() : btlMng_{}, playerBtlCont_{},  openScreen_(-1) {};
+		BattleScreen() : btlMng_{}, playerBtlCont_{},  openScreen_(-1), stageId_(0) {};
 		~BattleScreen() {};
 
 		// レイヤー
@@ -52,9 +52,11 @@ namespace Screen
 			RESULT_SCENE
 		};
 
-		void init();
-		void updateByEvents(weak_ptr < Entity::Object> hitObjWp, int x, int y, int button, int eventType);
-		void updateByAnimation();
+		void init() override;
+		void updateByEvents(weak_ptr < Entity::Object> hitObjWp, int x, int y, int button, int eventType) override;
+		void updateByAnimation() override;
+
+		void setStage(int id);
 
 	private:
 		void turnEnd();
@@ -67,6 +69,9 @@ namespace Screen
 
 		// 敵ユニット操作クラス
 		Battle::EnemyBattleController enemyBtlCont_;
+
+		//! 選択ステージのID
+		int stageId_;
 
 		//! 表示対象スクリーン
 		int openScreen_;
