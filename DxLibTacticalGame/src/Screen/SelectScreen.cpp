@@ -43,7 +43,11 @@ namespace Screen
 				saveManager.updateRank(i, StageRank::NONE);
 				saveManager.save();
 			}
-			else if (status == StageRank::LOCK)
+			else if (status == StageRank::NONE) // 未クリアコース
+			{
+				selectedCourseId_ = i;
+			}
+			else if (status == StageRank::LOCK) // 非公開コース
 			{
 				continue;
 			}
@@ -152,9 +156,13 @@ namespace Screen
 				game.setScreenLock(true);
 				game.objectsControl.addAnimationObj(Entity::CourseButton::AnimationId::BORN, Layer::COURSE_BUTTON, newCourseId_);
 			}
-			else
+			else if (selectedCourseId_ != -1)
 			{
 				nowScene_ = Scene::SELECT;
+
+				// 未クリアコースを選択
+				shared_ptr<Entity::CourseButton> courseBtn = dynamic_pointer_cast<Entity::CourseButton>(game.objectsControl.getObjectWp(Layer::COURSE_BUTTON, selectedCourseId_).lock());
+				courseBtn->setSelected(true);
 			}
 		}
 		else if (isCloseOverlayEnded()) // オーバーレイ（close）終了判定用
