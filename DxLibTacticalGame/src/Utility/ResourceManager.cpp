@@ -220,6 +220,7 @@ namespace Utility {
 
 		// フォントの行間
 		DxLib::SetFontLineSpaceToHandle(24, hdlFont_[FontType::NORMAL_S18]);
+		DxLib::SetFontLineSpaceToHandle(30, hdlFont_[FontType::NORMAL_S24]);
 
 		return ret;
 	}
@@ -345,7 +346,7 @@ namespace Utility {
 		*title = str_buf;
 
 		getline(ifs_csv_file, str_buf); // ヒント
-		*hint = str_buf;
+		*hint = regex_replace(str_buf, regex("\\\\n"), "\n");
 
 		getline(ifs_csv_file, str_buf); // 空行
 

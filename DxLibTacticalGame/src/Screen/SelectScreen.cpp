@@ -18,19 +18,37 @@ namespace Screen
 
 		objectsControl.setLayer(Layer::LEN);
 		objectsControl.addObject(Layer::BACK, 0, make_shared<Entity::Back>(Entity::Back::Screen::SELECT));
-
-		int viewId = UIid::UIID_LEN;
 		
 		// 左上のテキスト
-		objectsControl.addFigure(Layer::UI, ++viewId, make_shared<Entity::Text>("コースセレクト", COURSE_MARGIN_X, PADDING_TOP, ::FontType::NORMAL_S24, ::ColorType::MAIN_COLOR));
+		objectsControl.addFigure(Layer::UI, make_shared<Entity::Text>("コースセレクト", COURSE_MARGIN_X, PADDING_TOP, ::FontType::NORMAL_S24, ::ColorType::MAIN_COLOR));
 
-		// コースタイトル
-		stageTitle_ = make_shared<Entity::Text>("チュートリアル1", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, COURSE_TOP, FontType::NORMAL_S32, ColorType::SUB_COLOR);
-		objectsControl.addFigure(Layer::UI, UIid::COURSE_NAME, stageTitle_);
+		// ステージタイトル
+		stageTitle_ = make_shared<Entity::Text>("", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, COURSE_TOP, FontType::NORMAL_S32, ColorType::SUB_COLOR);
+		objectsControl.addFigure(Layer::UI, stageTitle_);
+
+		// 勝利条件 + 敗北条件
+		winLabel_ = make_shared<Entity::Text>("勝利条件", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, STAGE_INFO_Y, FontType::NORMAL_S24, ColorType::PLAYER_COLOR);
+		objectsControl.addFigure(Layer::UI, winLabel_);
+
+		winValue_ = make_shared<Entity::Text>("", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, STAGE_INFO_Y + LINE_HEIGHT, FontType::NORMAL_S24, ColorType::SUB_COLOR);
+		objectsControl.addFigure(Layer::UI, winValue_);
+
+		loseLabel_ = make_shared<Entity::Text>("敗北条件", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, STAGE_INFO_Y, FontType::NORMAL_S24, ColorType::ENEMY_COLOR);
+		objectsControl.addFigure(Layer::UI, loseLabel_);
+
+		loseValue_ = make_shared<Entity::Text>("", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, STAGE_INFO_Y, FontType::NORMAL_S24, ColorType::SUB_COLOR);
+		objectsControl.addFigure(Layer::UI, loseValue_);
+
+		// ステージヒント
+		hintLabel_ = make_shared<Entity::Text>("ヒント", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, STAGE_INFO_Y, FontType::NORMAL_S24, ColorType::SUB_COLOR_DARK);
+		objectsControl.addFigure(Layer::UI, hintLabel_);
+
+		stageHint_ = make_shared<Entity::Text>("", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, STAGE_INFO_Y, FontType::NORMAL_S24, ColorType::SUB_COLOR);
+		objectsControl.addFigure(Layer::UI, stageHint_);
 
 		// コースボタン
 
-		for (int i = 0; i < MAX_STAGE; i++) // テスト処理
+		for (int i = 0; i < MAX_STAGE; i++)
 		{
 			// X座標
 			int x = (i % COURSE_COLUMN_NUM) * (Entity::CourseButton::SIZE + COURSE_MARGIN_X) + COURSE_MARGIN_X;
@@ -71,6 +89,7 @@ namespace Screen
 		backBtn->setText("×", FontType::NORMAL_S32);
 		objectsControl.addObject(Layer::UI, UIid::BACK_BTN, backBtn);
 
+		updateStageInfo();
 
 		// オーバーレイセット
 		createOverlay(true);
@@ -205,7 +224,68 @@ namespace Screen
 		vector<int> checkWinData;
 		Utility::ResourceManager::loadStageData(stageKind_, selectedCourseId_, &title, &hint, &mapData, &checkWinData, &units);
 
+		int lineCount = 0;
+
+		// タイトル
 		stageTitle_->setText(title);
+
+		// 勝敗条件情報読み込み
+		Battle::CheckWin checkWin;
+		checkWin.loadData(checkWinData);
+
+		++lineCount; // 勝利条件ラベル分
+
+		// 勝利条件内容
+		string winValue = "・敵ユニットの全滅";
+		++lineCount;
+
+		if (checkWin.isEnemyBaseDefense()) 
+		{
+			winValue = winValue + "\n・敵砦の制圧";
+			++lineCount;
+		}
+
+		if (checkWin.isPlayerWinOverLimit())
+		{
+			winValue = winValue + "\n・" + to_string(checkWin.getLimitTurn()) + "ターンの経過";
+			++lineCount;
+		}
+
+		winValue_->setText(winValue);
+
+		// 敗北条件ラベル（y座標のみ変更）
+		loseLabel_->setY(STAGE_INFO_Y + LINE_HEIGHT * lineCount);
+
+		// 敗北条件内容
+		string loseValue = "・自軍ユニットの全滅";
+		++lineCount;
+
+		loseValue_->setY(STAGE_INFO_Y + LINE_HEIGHT * lineCount);
+		if (checkWin.isPlayerBaseDefense())
+		{
+			loseValue = loseValue + "\n・自軍砦を敵が制圧";
+			++lineCount;
+		}
+
+		if (!checkWin.isPlayerWinOverLimit())
+		{
+			loseValue = loseValue + "\n・" + to_string(checkWin.getLimitTurn()) + "ターンの経過";
+			++lineCount;
+		}
+
+		loseValue_->setText(loseValue);
+
+		// ヒント
+		++lineCount;
+		hintLabel_->setY(STAGE_INFO_Y + HINT_MARGIN_TOP + LINE_HEIGHT * lineCount);
+		++lineCount;
+
+		stageHint_->setText(hint);
+		stageHint_->setY(STAGE_INFO_Y + HINT_MARGIN_TOP + LINE_HEIGHT * lineCount);
+		
+
+
+
 	}
 
 }

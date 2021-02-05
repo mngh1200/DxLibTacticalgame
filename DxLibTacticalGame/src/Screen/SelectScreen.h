@@ -10,6 +10,7 @@
 #include "Entity/UI/Back.h"
 #include "Entity/UI/Button/CourseButton.h"
 #include "Entity/View/Text.h"
+#include "Battle/CheckWin.h"
 
 using namespace std;
 
@@ -46,6 +47,11 @@ namespace Screen
 
 		constexpr static int RIGHT_AREA_PADDING_LEFT = 80;	//! (右エリアの)左側の余白
 
+		constexpr static int STAGE_INFO_Y = COURSE_TOP + 32 + 30; //! 勝利条件等を記載するY座標
+		constexpr static int LINE_HEIGHT = 36;	//! 行の高さ
+		constexpr static int HINT_MARGIN_TOP = 20; //! ヒント表示の上の余白
+
+
 		constexpr static int START_MARGIN = 70; //! スタートボタンの余白
 		constexpr static int START_Y = 545;		//! スタートボタンのY座標
 		constexpr static int START_HEIGHT = 100; //! スタートボタンの高さ
@@ -56,7 +62,15 @@ namespace Screen
 		int selectedCourseId_; //! 選択中のコースID
 		int newCourseId_; // 新コースID
 
-		shared_ptr<Entity::Text> stageTitle_; //! ステージタイトル
+		shared_ptr<Entity::Text> stageTitle_;	//! ステージタイトル
+
+		shared_ptr<Entity::Text> winLabel_;		//! 勝利条件ラベル
+		shared_ptr<Entity::Text> winValue_;		//! 勝利条件の内容
+		shared_ptr<Entity::Text> loseLabel_;	//! 敗北条件ラベル
+		shared_ptr<Entity::Text> loseValue_;	//! 敗北条件ラベル
+
+		shared_ptr<Entity::Text> hintLabel_;		//! ヒントラベル
+		shared_ptr<Entity::Text> stageHint_;	//! ステージヒント
 
 		enum Layer
 		{
