@@ -25,6 +25,8 @@ namespace Entity
 
 		void setText(string text);
 
+		void setY(int y);
+
 		void render() const;
 
 		/**

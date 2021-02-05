@@ -61,6 +61,16 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * y座標セット
+	 * @param (y) y座標
+	 */
+	void Text::setY(int y)
+	{
+		shape_.y = y;
+	}
+
+	/**
+	 * @fn
 	 * 描画処理
 	 */
 	void Text::render() const
