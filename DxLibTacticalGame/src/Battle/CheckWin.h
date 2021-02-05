@@ -48,6 +48,11 @@ namespace Battle
 
 		int getWinner() const { return winner_; }; // 勝者を返す
 
+		int getLimitTurn() const { return limitTurn_; } // ターン制限を返す
+		bool isPlayerWinOverLimit() const { return isPlayerWinOverLimit_; } // ターンオーバー時にプレイヤー勝利となるかを返す
+		bool isPlayerBaseDefense() const { return isPlayerBaseDefense_; } // プレイヤー側の防衛拠点があるかを返す
+		bool isEnemyBaseDefense() const { return isEnemyBaseDefense_; } // 敵側の防衛拠点があるか
+
 	private:
 		int checkWipeOut(shared_ptr<Map> map);
 
