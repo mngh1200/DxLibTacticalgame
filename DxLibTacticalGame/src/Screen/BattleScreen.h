@@ -7,6 +7,7 @@
 #include "Screen/MenuScreen.h"
 #include "FrameWork/Game.h"
 #include "Utility/ResourceManager.h"
+#include "Utility/SaveManager.h"
 #include "Entity/UI/Back.h"
 #include "Entity/Battle/ResultScene.h"
 #include "Battle/BattleManager.h"

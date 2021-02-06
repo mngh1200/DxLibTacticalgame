@@ -127,7 +127,26 @@ namespace Screen
 			(nowScene_ == Scene::ENEMY_TURN || nowScene_ == Scene::PLAYER_TURN))
 		{
 			nowScene_ = Scene::RESULT_ANIME;
-			ResultScene::makeResultScene(winner == Battle::CheckWin::Winner::PLAYER);
+
+			bool isPlayerWin = winner == Battle::CheckWin::Winner::PLAYER;
+
+			ResultScene::makeResultScene(isPlayerWin);
+			
+			if (isPlayerWin) // 新コース解禁判定
+			{
+				Utility::SaveManager& saveManager = Utility::SaveManager::getInstance();
+
+				saveManager.updateRank(stageId_, StageRank::CLEAR);
+
+				int newStageId = stageId_ + 1;
+				if (saveManager.getRank(newStageId) == StageRank::LOCK)
+				{
+					saveManager.updateRank(newStageId, StageRank::NEW);
+				}
+
+				saveManager.save();
+			}
+
 		} 
 		else if (nowScene_ == Scene::RESULT_ANIME) // 結果画面のアニメーション終了判定
 		{

@@ -27,6 +27,7 @@ namespace
 		NEW,   //! 新規ステージ
 		NONE,  //! ランクなし
 		CLEAR, //! クリア済み
+		NULL_STAGE,  //! 存在しないステージ
 		RANK_LEN
 	};
 }

@@ -98,11 +98,15 @@ namespace Utility {
 	}
 	/**
 　　 * @fn
-　　 * ステージランクの更新
-　　 * @return 終了フラグ（0が正常）
+　　 * ステージランクの取得
+　　 * @return ステージランク
 　　 */
 	int SaveManager::getRank(int stageKey)
 	{
-		return savedata.stageRanks[stageKey];
+		if (0 <= stageKey && stageKey < MAX_STAGE)
+		{
+			return savedata.stageRanks[stageKey];
+		}
+		return NULL_STAGE;
 	}
 }
