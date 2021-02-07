@@ -1,0 +1,343 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<link rel="stylesheet" href="style.css">
+<script>
+// 定義
+var MAP_W = 20;
+var MAP_H = 10;
+
+var FORT_IDS = ['4','5']; // 砦マスのID
+
+// マス定義
+var MASS_DEFINE = [
+	{key: 'light-green', text: '草原'},
+	{key: 'blue', text: '川'},
+	{key: 'green', text: '森'},
+	{key: 'brown', text: '山'},
+	{key: 'player-fort', text: '砦（自軍）'},
+	{key: 'enemy-fort', text: '砦（敵軍）'}
+]
+
+// ユニット定義
+var UNIT_DEFINE = [
+	{key: 'lancer'},
+	{key: 'cavarie'},
+	{key: 'gunner'},
+	{key: 'delete'}
+]
+
+var DEL_UNIT_ID = UNIT_DEFINE.length - 1 + ''; // 削除ID
+</script>
+</head>
+<body>
+
+<div class="header">
+	<a href="#" class="btn header__btn" onclick="readCsv()">ファイル読込</a>
+	<input type="file" class="input-file--hidden js-csv"/>
+</div>
+
+<div class="container">
+	<div class="left-container">
+
+		<table class="map">
+<script>
+for (var y = 0; y < MAP_H; y++) {
+	document.write('<tr class="map__row">');
+	for (var x = 0; x < MAP_W; x++) {
+		document.write('<td class="map__cell mass" data-mass-key="' + MASS_DEFINE[0].key + '" data-id="0">')
+		document.write('<span class="map__cell__unit" data-id="" data-is-enemy=""></span>');
+		document.write('</td>');
+	}
+
+	document.write('</tr>');
+}
+</script>
+		</table>
+
+		<div class="select-area">
+			<ul class="mass-list select-list">
+<script>
+for (var i = 0; i < MASS_DEFINE.length; i++) {
+	document.write('<li class="select-list__item mass" title="' + MASS_DEFINE[i].text + '" data-mass-key="' + MASS_DEFINE[i].key + '" data-mass-id="' + i + '"></li>')
+}
+</script>
+			</ul>
+
+			<ul class="unit-list select-list">
+<script>
+for (var i = 0; i < UNIT_DEFINE.length - 1; i++) {
+	document.write('<li class="select-list__item mass" data-is-enemy="0" data-unit-key="' + UNIT_DEFINE[i].key + '" data-unit-id="' + i + '"></li>')
+}
+for (var i = 0; i < UNIT_DEFINE.length; i++) {
+	var enemyAttr = i == UNIT_DEFINE.length - 1 ? '' : 'data-is-enemy="1"';
+	document.write('<li class="select-list__item mass"' + enemyAttr + ' data-unit-key="' + UNIT_DEFINE[i].key + '" data-unit-id="' + i + '"></li>')
+}
+</script>
+			</ul>
+		</div>
+	</div>
+	<div class="right-container">
+		<div class="setting-form">
+			<label class="setting-form__label">タイトル:</label>
+			<input type="text" class="setting-form__input" name="title"/>
+			<label class="setting-form__label">ヒント:</label>
+			<textarea class="setting-form__textarea" name="hint"></textarea>
+			<label class="setting-form__label">ターン制限:</label>
+			<select class="setting-form__select" name="limit-winner">
+				<option value="-1">ターン制限なし</option>
+				<option value="0">ターン制限超過で勝利</option>
+				<option value="1">ターン制限超過で敗北</option>
+			</select>
+			<input type="num" class="setting-form__input" name="turn" value="20"/>
+
+			<label class="setting-form__label">ファイル名:</label>
+			<input type="text" class="setting-form__input" name="fileName" value="stage1"/>
+
+			<a href="#" class="btn btn-blue setting-form__btn" onclick="outputCsv()">出力</a>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+<script>
+
+var isMassSelect = true; // true: マス選択, false: ユニット選択
+var isEnemy = false; // 敵ユニットを選択しているか
+var selectId = 0; // 選択ID
+
+// 設置する項目を選択
+function select(id, isMass, enemyVal) {
+	selectId = id;
+	isMassSelect = isMass;
+	isEnemy = enemyVal == '1';
+
+	$('.selected').removeClass('selected');
+
+	if (isMass) {
+		var $selectMass = $('[data-mass-id="' + id + '"]');
+		$selectMass.addClass('selected');
+	} else {
+		var enemy = isEnemy ? '1' : '0';
+		var $selectUnit = $('[data-unit-id="' + id + '"][data-is-enemy=' + enemyVal + ']');
+		$selectUnit.addClass('selected');
+
+		if ($selectUnit.length == 0) { // 削除キー
+			var $del = $('[data-unit-id="' + id + '"]');
+			$del.addClass('selected');
+		}
+	}
+}
+
+// デフォルト選択
+select(selectId, isMassSelect, isEnemy);
+
+// 設置項目選択イベント
+$('.select-list__item').click(function() {
+	var $ele = $(this);
+	if ($ele.attr('data-mass-id')) {
+		select($ele.attr('data-mass-id'), true);
+	} else if ($ele.attr('data-unit-id')) {
+		select($ele.attr('data-unit-id'), false, $ele.attr('data-is-enemy'));
+	}
+});
+
+$('.map__cell').on('mousedown mouseenter', function(e) { // クリック時、または、左ボタン押下しながらホバー
+	if (e.buttons != 1 && e.type != 'click') {
+		return;
+	}
+
+	if (isMassSelect) {
+		setMassId($(this), selectId);
+
+	} else {
+		setUnitId($(this).find('.map__cell__unit'), selectId, isEnemy);
+	}
+	
+});
+
+// マス種類セット
+function setMassId($ele, id) {
+	if (FORT_IDS.indexOf(id) != -1) {
+		// 砦の場合は、唯一にするため、他を削除
+		var $other = $('.map__cell[data-id="' + id + '"]');
+		$other.attr('data-mass-key', MASS_DEFINE[0].key);
+		$other.attr('data-id', 0);
+	}
+
+	$ele.attr('data-mass-key', MASS_DEFINE[id].key);
+	$ele.attr('data-id', id);
+}
+
+// ユニットセット
+function setUnitId($ele, id, isEnemy) {
+	if (id != DEL_UNIT_ID) {
+		$ele.attr('data-unit-key', UNIT_DEFINE[id].key);
+		$ele.attr('data-id', id);
+		$ele.attr('data-is-enemy', isEnemy ? '1' : '0');
+	} else {
+		$ele.text('');
+		$ele.attr('data-id', '');
+		$ele.attr('data-unit-key', '');
+		$ele.attr('data-is-enemy', '');
+	}
+}
+
+// ターン制限条件変更
+$('[name=limit-winner]').change(function() {
+	var $ele = $(this);
+	var $turn = $('[name=turn]');
+	if ($ele.val() == '-1') {
+		$turn.prop('disabled', true);
+		$turn.val(0);
+	} else {
+		$turn.prop('disabled', false);
+		if ($turn.val() == 0) {
+			$turn.val(20);
+		}
+	}
+});
+
+$('[name=limit-winner]').change();
+
+// 入力欄でエンターキー
+$('.setting-form__input').keydown(function(e){
+	if(e.which == 13) {
+		outputCsv();
+	}
+});
+
+// データ出力
+function outputCsv() {
+	var texts = $('[name=title]').val() + '\n' +  ($('[name=hint]').val()).replaceAll('\n','\\n') + '\n\n';
+	var checkWin = getCheckWin();
+	var mapAndUnitText = getMapText();
+
+	var text = texts + checkWin + mapAndUnitText;
+
+	let blob = new Blob([text],{type:"text/plan"});
+	let link = document.createElement('a');
+	link.href = URL.createObjectURL(blob);
+	link.download = $('[name=fileName]').val() + '.csv';
+	link.click();
+}
+
+// 勝敗条件出力
+function getCheckWin() {
+	var text = $('[name=turn]').val()  + ',' + $('[name=limit-winner]').val() + ',';
+
+	var rule = 0;
+
+	if ($('.map__cell[data-mass-key="player-fort"]').length) {
+		rule += 1;
+	}
+
+	if ($('.map__cell[data-mass-key="enemy-fort"]').length) {
+		rule += 2;
+	}
+	return text + rule + '\n\n';
+}
+
+// マップデータ出力
+function getMapText() {
+	var mapText = '';
+	var unitsText = '';
+
+	var $massList = $('.map__cell');
+
+	var y = 0;
+	var x = 0;
+	$massList.each(function() {
+		var $mass = $(this);
+		mapText = mapText + $mass.attr('data-id');
+
+		var $unit = $mass.find('.map__cell__unit');
+		if ($unit.attr('data-id') && $unit.attr('data-id') != '') {
+			unitsText = unitsText + x + ',' + y + ',' + $unit.attr('data-id') + ',' + $unit.attr('data-is-enemy') + '\n';
+		}
+
+		x++;
+
+		if (x >= MAP_W) {
+			mapText = mapText + '\n';
+			x = 0;
+			y++;
+		} else {
+			mapText = mapText + ',';
+		}
+	})
+
+	return mapText + '\n' + unitsText;
+}
+
+// 読込CSVファイル選択
+function readCsv() {
+	$('.js-csv').click();
+}
+
+// CSV読込後処理
+$('.js-csv').change(function() {
+	var file = this.files;
+
+	//FileReaderの作成
+	var reader = new FileReader();
+	//テキスト形式で読み込む
+	reader.readAsText(file[0]);
+
+	//読込終了後の処理
+	reader.onload = function(ev){
+	//テキストエリアに表示する
+		var textLines = reader.result.split('\n');
+		
+		$('[name=title]').val(textLines[0]); // タイトル
+		$('[name=hint]').val(textLines[1].replaceAll('\\n','\n'));  // ヒント
+
+		var checkWinList = textLines[3].split(',');
+		$('[name=turn]').val(checkWinList[0]); // 制限
+		$('[name=limit-winner]').val(checkWinList[1]); // 制限ルール
+
+		// マップデータ
+		var y = 0;
+		var count = 5;
+		var $cells = $('.map__cell');
+		while(count < textLines.length && textLines[count] != '' && y < MAP_H) {
+			setMapData(y, textLines[count], $cells);
+			y++;
+			count++;
+		}
+
+		count++;
+		// ユニットデータ
+		var $unitCont = $('.map__cell__unit');
+		while(count < textLines.length && textLines[count] != '') {
+			setUnitData(textLines[count], $unitCont);
+			count++;
+		}
+	}
+});
+
+// マップデータ取得
+function setMapData(y, data, $cells) {
+	var rowDataList = data.split(',');
+	for (var i = 0; i < rowDataList.length && i < MAP_W; i++) {
+		setMassId($cells.eq(y * MAP_W + i), Number(rowDataList[i]));
+	}
+}
+
+// ユニットデータ取得
+function setUnitData(data, $unitCont) {
+	var words = data.split(',');
+	if (words.length < 4) {
+		return;
+	}
+
+	var x = Number(words[0]);
+	var y = Number(words[1]);
+	var id = Number(words[2]);
+	var isEnemy = words[3] == '1';
+
+	setUnitId($unitCont.eq(y * MAP_H + x), id, isEnemy);
+}
+
+</script>
+</body>
