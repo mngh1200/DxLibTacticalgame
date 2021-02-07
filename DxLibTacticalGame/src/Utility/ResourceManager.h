@@ -1,5 +1,4 @@
 #pragma once
-#include "Define.h"
 #include "DxLib.h"
 #include "Battle/BattleDefine.h"
 #include "resource.h"

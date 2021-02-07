@@ -14,6 +14,11 @@ constexpr int MAP_MASS_H = 10;
  //! マップ表示位置
 constexpr int MAP_Y = 0;
 
+//! ダメージエフェクトの画像枚数
+constexpr int DMAGE_EFFECT_LEN = 10; 
+constexpr int DMAGE_EFFECT_W = 26;
+constexpr int DMAGE_EFFECT_H = 32;
+
 namespace
 {
 	// 兵種管理

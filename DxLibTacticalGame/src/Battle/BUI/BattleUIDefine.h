@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "Utility/ResourceManager.h"
+#include "Define.h"
 #include "Battle/BattleDefine.h"
 
 /**

@@ -20,6 +20,9 @@ constexpr int MAX_ALPHA = 255;
 //! ステージ数
 constexpr int MAX_STAGE = 10;
 
+//! チュートリアルステージ数
+constexpr int TUTORIAL_STAGE_NUM = 2;
+
 namespace
 {
 	enum StageRank : int {

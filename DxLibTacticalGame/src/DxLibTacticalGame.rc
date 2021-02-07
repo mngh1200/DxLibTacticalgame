@@ -16,9 +16,9 @@ UNIT_ACTED_IMAGE	IMAGE_FILE	"../resource/image/unit/unit-acted.png"
 
 BULLET_IMAGE		IMAGE_FILE	"../resource/image/unit/bullet.png"
 
-EFFECT_DAMAGE	IMAGE_FILE	"../resource/image/effect/damage.png"
+EFFECT_DAMAGE_IMAGE	IMAGE_FILE	"../resource/image/effect/damage.png"
 
-EFFECT_MISS	IMAGE_FILE	"../resource/image/effect/miss.png"
+EFFECT_MISS_IMAGE	IMAGE_FILE	"../resource/image/effect/miss.png"
 
 
 

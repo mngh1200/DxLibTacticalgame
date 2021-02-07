@@ -188,11 +188,13 @@ namespace Utility {
 
 		// ダメージエフェクト
 		image_.insert(std::make_pair(ImageType::EFFECT, vector<int*>()));
-		image_.at(ImageType::EFFECT).push_back(new int[10]);
-		ret = DxLib::LoadDivGraph("resource/image/effect/damage.png", 10, 10, 1, 26, 32, image_.at(ImageType::EFFECT).at(EffectId::DAMAGE));
+		image_.at(ImageType::EFFECT).push_back(new int[DMAGE_EFFECT_LEN]);
+		loadDivImage(MAKEINTRESOURCE(EFFECT_DAMAGE_IMAGE), MAKEINTRESOURCE(IMAGE_FILE),
+			DMAGE_EFFECT_LEN, DMAGE_EFFECT_LEN, 1, DMAGE_EFFECT_W, DMAGE_EFFECT_H,
+			image_.at(ImageType::EFFECT).at(EffectId::DAMAGE));
 		
 		image_.at(ImageType::EFFECT).push_back(new int[1]);
-		loadImage(MAKEINTRESOURCE(EFFECT_MISS), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::EFFECT).at(EffectId::MISS));
+		loadImage(MAKEINTRESOURCE(EFFECT_MISS_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::EFFECT).at(EffectId::MISS));
 
 		// 弾丸
 		image_.at(ImageType::EFFECT).push_back(new int[BULLET_POS_LEN]);
