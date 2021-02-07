@@ -1,24 +1,29 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta charset="utf-8">
+<script type="text/javascript" src="encoding.min.js"></script>
 <link rel="stylesheet" href="style.css">
 <script>
-// ’è‹`
+// å®šç¾©
 var MAP_W = 20;
 var MAP_H = 10;
 
-var FORT_IDS = ['4','5']; // Ôƒ}ƒX‚ÌID
+var FORT_IDS = ['4','5']; // ç ¦ãƒã‚¹ã®ID
 
-// ƒ}ƒX’è‹`
+// ãƒã‚¹å®šç¾©
 var MASS_DEFINE = [
-	{key: 'light-green', text: '‘Œ´'},
-	{key: 'blue', text: 'ì'},
-	{key: 'green', text: 'X'},
-	{key: 'brown', text: 'R'},
-	{key: 'player-fort', text: 'Ôi©ŒRj'},
-	{key: 'enemy-fort', text: 'Ôi“GŒRj'}
+	{key: 'light-green', text: 'è‰åŸ'},
+	{key: 'blue', text: 'å·'},
+	{key: 'green', text: 'æ£®'},
+	{key: 'brown', text: 'å±±'},
+	{key: 'player-fort', text: 'ç ¦ï¼ˆè‡ªè»ï¼‰'},
+	{key: 'enemy-fort', text: 'ç ¦ï¼ˆæ•µè»ï¼‰'}
 ]
 
-// ƒ†ƒjƒbƒg’è‹`
+// ãƒ¦ãƒ‹ãƒƒãƒˆå®šç¾©
 var UNIT_DEFINE = [
 	{key: 'lancer'},
 	{key: 'cavarie'},
@@ -26,13 +31,13 @@ var UNIT_DEFINE = [
 	{key: 'delete'}
 ]
 
-var DEL_UNIT_ID = UNIT_DEFINE.length - 1 + ''; // íœID
+var DEL_UNIT_ID = UNIT_DEFINE.length - 1 + ''; // å‰Šé™¤ID
 </script>
 </head>
 <body>
 
 <div class="header">
-	<a href="#" class="btn header__btn" onclick="readCsv()">ƒtƒ@ƒCƒ‹“Ç</a>
+	<a href="#" class="btn header__btn" onclick="readCsv()">ãƒ•ã‚¡ã‚¤ãƒ«èª­è¾¼</a>
 	<input type="file" class="input-file--hidden js-csv"/>
 </div>
 
@@ -78,35 +83,36 @@ for (var i = 0; i < UNIT_DEFINE.length; i++) {
 	</div>
 	<div class="right-container">
 		<div class="setting-form">
-			<label class="setting-form__label">ƒ^ƒCƒgƒ‹:</label>
+			<label class="setting-form__label">ã‚¿ã‚¤ãƒˆãƒ«:</label>
 			<input type="text" class="setting-form__input" name="title"/>
-			<label class="setting-form__label">ƒqƒ“ƒg:</label>
+			<label class="setting-form__label">ãƒ’ãƒ³ãƒˆ:</label>
 			<textarea class="setting-form__textarea" name="hint"></textarea>
-			<label class="setting-form__label">ƒ^[ƒ“§ŒÀ:</label>
+			<label class="setting-form__label">ã‚¿ãƒ¼ãƒ³åˆ¶é™:</label>
 			<select class="setting-form__select" name="limit-winner">
-				<option value="-1">ƒ^[ƒ“§ŒÀ‚È‚µ</option>
-				<option value="0">ƒ^[ƒ“§ŒÀ’´‰ß‚ÅŸ—˜</option>
-				<option value="1">ƒ^[ƒ“§ŒÀ’´‰ß‚Å”s–k</option>
+				<option value="-1">ã‚¿ãƒ¼ãƒ³åˆ¶é™ãªã—</option>
+				<option value="0">ã‚¿ãƒ¼ãƒ³åˆ¶é™è¶…éã§å‹åˆ©</option>
+				<option value="1">ã‚¿ãƒ¼ãƒ³åˆ¶é™è¶…éã§æ•—åŒ—</option>
 			</select>
 			<input type="num" class="setting-form__input" name="turn" value="20"/>
 
-			<label class="setting-form__label">ƒtƒ@ƒCƒ‹–¼:</label>
+			<label class="setting-form__label">ãƒ•ã‚¡ã‚¤ãƒ«å:</label>
 			<input type="text" class="setting-form__input" name="fileName" value="stage1"/>
 
-			<a href="#" class="btn btn-blue setting-form__btn" onclick="outputCsv()">o—Í</a>
+			<a href="#" class="btn btn-blue setting-form__btn" onclick="outputCsv()">å‡ºåŠ›</a>
 		</div>
 	</div>
 </div>
 
 
 <script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+
 <script>
 
-var isMassSelect = true; // true: ƒ}ƒX‘I‘ğ, false: ƒ†ƒjƒbƒg‘I‘ğ
-var isEnemy = false; // “Gƒ†ƒjƒbƒg‚ğ‘I‘ğ‚µ‚Ä‚¢‚é‚©
-var selectId = 0; // ‘I‘ğID
+var isMassSelect = true; // true: ãƒã‚¹é¸æŠ, false: ãƒ¦ãƒ‹ãƒƒãƒˆé¸æŠ
+var isEnemy = false; // æ•µãƒ¦ãƒ‹ãƒƒãƒˆã‚’é¸æŠã—ã¦ã„ã‚‹ã‹
+var selectId = 0; // é¸æŠID
 
-// İ’u‚·‚é€–Ú‚ğ‘I‘ğ
+// è¨­ç½®ã™ã‚‹é …ç›®ã‚’é¸æŠ
 function select(id, isMass, enemyVal) {
 	selectId = id;
 	isMassSelect = isMass;
@@ -122,17 +128,17 @@ function select(id, isMass, enemyVal) {
 		var $selectUnit = $('[data-unit-id="' + id + '"][data-is-enemy=' + enemyVal + ']');
 		$selectUnit.addClass('selected');
 
-		if ($selectUnit.length == 0) { // íœƒL[
+		if ($selectUnit.length == 0) { // å‰Šé™¤ã‚­ãƒ¼
 			var $del = $('[data-unit-id="' + id + '"]');
 			$del.addClass('selected');
 		}
 	}
 }
 
-// ƒfƒtƒHƒ‹ƒg‘I‘ğ
+// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆé¸æŠ
 select(selectId, isMassSelect, isEnemy);
 
-// İ’u€–Ú‘I‘ğƒCƒxƒ“ƒg
+// è¨­ç½®é …ç›®é¸æŠã‚¤ãƒ™ãƒ³ãƒˆ
 $('.select-list__item').click(function() {
 	var $ele = $(this);
 	if ($ele.attr('data-mass-id')) {
@@ -142,7 +148,7 @@ $('.select-list__item').click(function() {
 	}
 });
 
-$('.map__cell').on('mousedown mouseenter', function(e) { // ƒNƒŠƒbƒNA‚Ü‚½‚ÍA¶ƒ{ƒ^ƒ“‰Ÿ‰º‚µ‚È‚ª‚çƒzƒo[
+$('.map__cell').on('mousedown mouseenter', function(e) { // ã‚¯ãƒªãƒƒã‚¯æ™‚ã€ã¾ãŸã¯ã€å·¦ãƒœã‚¿ãƒ³æŠ¼ä¸‹ã—ãªãŒã‚‰ãƒ›ãƒãƒ¼
 	if (e.buttons != 1 && e.type != 'click') {
 		return;
 	}
@@ -156,10 +162,10 @@ $('.map__cell').on('mousedown mouseenter', function(e) { // ƒNƒŠƒbƒNA‚Ü‚½‚ÍA
 	
 });
 
-// ƒ}ƒXí—ŞƒZƒbƒg
+// ãƒã‚¹ç¨®é¡ã‚»ãƒƒãƒˆ
 function setMassId($ele, id) {
 	if (FORT_IDS.indexOf(id) != -1) {
-		// Ô‚Ìê‡‚ÍA—Bˆê‚É‚·‚é‚½‚ßA‘¼‚ğíœ
+		// ç ¦ã®å ´åˆã¯ã€å”¯ä¸€ã«ã™ã‚‹ãŸã‚ã€ä»–ã‚’å‰Šé™¤
 		var $other = $('.map__cell[data-id="' + id + '"]');
 		$other.attr('data-mass-key', MASS_DEFINE[0].key);
 		$other.attr('data-id', 0);
@@ -169,7 +175,7 @@ function setMassId($ele, id) {
 	$ele.attr('data-id', id);
 }
 
-// ƒ†ƒjƒbƒgƒZƒbƒg
+// ãƒ¦ãƒ‹ãƒƒãƒˆã‚»ãƒƒãƒˆ
 function setUnitId($ele, id, isEnemy) {
 	if (id != DEL_UNIT_ID) {
 		$ele.attr('data-unit-key', UNIT_DEFINE[id].key);
@@ -183,7 +189,7 @@ function setUnitId($ele, id, isEnemy) {
 	}
 }
 
-// ƒ^[ƒ“§ŒÀğŒ•ÏX
+// ã‚¿ãƒ¼ãƒ³åˆ¶é™æ¡ä»¶å¤‰æ›´
 $('[name=limit-winner]').change(function() {
 	var $ele = $(this);
 	var $turn = $('[name=turn]');
@@ -200,14 +206,14 @@ $('[name=limit-winner]').change(function() {
 
 $('[name=limit-winner]').change();
 
-// “ü—Í—“‚ÅƒGƒ“ƒ^[ƒL[
+// å…¥åŠ›æ¬„ã§ã‚¨ãƒ³ã‚¿ãƒ¼ã‚­ãƒ¼
 $('.setting-form__input').keydown(function(e){
 	if(e.which == 13) {
 		outputCsv();
 	}
 });
 
-// ƒf[ƒ^o—Í
+// ãƒ‡ãƒ¼ã‚¿å‡ºåŠ›
 function outputCsv() {
 	var texts = $('[name=title]').val() + '\n' +  ($('[name=hint]').val()).replaceAll('\n','\\n') + '\n\n';
 	var checkWin = getCheckWin();
@@ -215,14 +221,26 @@ function outputCsv() {
 
 	var text = texts + checkWin + mapAndUnitText;
 
-	let blob = new Blob([text],{type:"text/plan"});
+	var sjis_array = Encoding.convert(Encoding.stringToCode(text), "SJIS", "UNICODE");
+	var sjis_data = new Uint8Array(sjis_array);
+
+	let blob = new Blob([sjis_data],{type:"text/plan"});
 	let link = document.createElement('a');
 	link.href = URL.createObjectURL(blob);
 	link.download = $('[name=fileName]').val() + '.csv';
 	link.click();
 }
 
-// Ÿ”sğŒo—Í
+// æ–‡å­—åˆ—ã‚’é…åˆ—ã«å¤‰æ›
+function str2array(str) {
+	const unicodeArray = [];
+	for (let i = 0; i < str.length; i++) {
+	  unicodeArray.push(str.charCodeAt(i));
+	}
+	return unicodeArray;
+};
+
+// å‹æ•—æ¡ä»¶å‡ºåŠ›
 function getCheckWin() {
 	var text = $('[name=turn]').val()  + ',' + $('[name=limit-winner]').val() + ',';
 
@@ -238,7 +256,7 @@ function getCheckWin() {
 	return text + rule + '\n\n';
 }
 
-// ƒ}ƒbƒvƒf[ƒ^o—Í
+// ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿å‡ºåŠ›
 function getMapText() {
 	var mapText = '';
 	var unitsText = '';
@@ -270,33 +288,38 @@ function getMapText() {
 	return mapText + '\n' + unitsText;
 }
 
-// “ÇCSVƒtƒ@ƒCƒ‹‘I‘ğ
+// èª­è¾¼CSVãƒ•ã‚¡ã‚¤ãƒ«é¸æŠ
 function readCsv() {
 	$('.js-csv').click();
 }
 
-// CSV“ÇŒãˆ—
+// CSVèª­è¾¼å¾Œå‡¦ç†
 $('.js-csv').change(function() {
-	var file = this.files;
+	var file = this.files[0];
 
-	//FileReader‚Ìì¬
+	//FileReaderã®ä½œæˆ
 	var reader = new FileReader();
-	//ƒeƒLƒXƒgŒ`®‚Å“Ç‚İ‚Ş
-	reader.readAsText(file[0]);
+	//ãƒ†ã‚­ã‚¹ãƒˆå½¢å¼ã§èª­ã¿è¾¼ã‚€
+	reader.readAsBinaryString(file);
 
-	//“ÇI—¹Œã‚Ìˆ—
-	reader.onload = function(ev){
-	//ƒeƒLƒXƒgƒGƒŠƒA‚É•\¦‚·‚é
-		var textLines = reader.result.split('\n');
+	
+
+	reader.onload = function(event) {
+		var result = event.target.result;
+		var sjisArray = Encoding.stringToCode(result);
+		var uniArray = Encoding.convert(sjisArray, 'UNICODE', 'SJIS');
+		var result = Encoding.codeToString(uniArray);
+
+		var textLines = result.split('\n');
 		
-		$('[name=title]').val(textLines[0]); // ƒ^ƒCƒgƒ‹
-		$('[name=hint]').val(textLines[1].replaceAll('\\n','\n'));  // ƒqƒ“ƒg
+		$('[name=title]').val(textLines[0]); // ã‚¿ã‚¤ãƒˆãƒ«
+		$('[name=hint]').val(textLines[1].replaceAll('\\n','\n'));  // ãƒ’ãƒ³ãƒˆ
 
 		var checkWinList = textLines[3].split(',');
-		$('[name=turn]').val(checkWinList[0]); // §ŒÀ
-		$('[name=limit-winner]').val(checkWinList[1]); // §ŒÀƒ‹[ƒ‹
+		$('[name=turn]').val(checkWinList[0]); // åˆ¶é™
+		$('[name=limit-winner]').val(checkWinList[1]); // åˆ¶é™ãƒ«ãƒ¼ãƒ«
 
-		// ƒ}ƒbƒvƒf[ƒ^
+		// ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿
 		var y = 0;
 		var count = 5;
 		var $cells = $('.map__cell');
@@ -307,7 +330,7 @@ $('.js-csv').change(function() {
 		}
 
 		count++;
-		// ƒ†ƒjƒbƒgƒf[ƒ^
+		// ãƒ¦ãƒ‹ãƒƒãƒˆãƒ‡ãƒ¼ã‚¿
 		var $unitCont = $('.map__cell__unit');
 		while(count < textLines.length && textLines[count] != '') {
 			setUnitData(textLines[count], $unitCont);
@@ -316,7 +339,7 @@ $('.js-csv').change(function() {
 	}
 });
 
-// ƒ}ƒbƒvƒf[ƒ^æ“¾
+// ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿å–å¾—
 function setMapData(y, data, $cells) {
 	var rowDataList = data.split(',');
 	for (var i = 0; i < rowDataList.length && i < MAP_W; i++) {
@@ -324,7 +347,7 @@ function setMapData(y, data, $cells) {
 	}
 }
 
-// ƒ†ƒjƒbƒgƒf[ƒ^æ“¾
+// ãƒ¦ãƒ‹ãƒƒãƒˆãƒ‡ãƒ¼ã‚¿å–å¾—
 function setUnitData(data, $unitCont) {
 	var words = data.split(',');
 	if (words.length < 4) {
