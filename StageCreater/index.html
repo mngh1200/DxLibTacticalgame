@@ -297,12 +297,16 @@ function readCsv() {
 $('.js-csv').change(function() {
 	var file = this.files[0];
 
+	if (!file) {
+		return;
+	}
+
 	//FileReaderの作成
 	var reader = new FileReader();
 	//テキスト形式で読み込む
 	reader.readAsBinaryString(file);
 
-	
+	$('[name="fileName"]').val(file.name.substring(0, file.name.indexOf('.')));
 
 	reader.onload = function(event) {
 		var result = event.target.result;
