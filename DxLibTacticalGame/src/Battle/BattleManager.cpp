@@ -60,11 +60,11 @@ namespace Battle {
 	*/
 	int BattleManager::checkEnd()
 	{
-		if (checkWin_.getWinner() != Winner::UNDECIDED)
+		if (checkWin_.getWinner() != CheckWin::Winner::UNDECIDED)
 		{
 			return checkWin_.getWinner();
 		}
-		return Winner::UNDECIDED;
+		return CheckWin::Winner::UNDECIDED;
 	}
 
 	/**

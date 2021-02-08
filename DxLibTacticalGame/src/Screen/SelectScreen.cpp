@@ -219,10 +219,8 @@ namespace Screen
 		// ステージデータ読み込み
 		string title;
 		string hint;
-		std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H > mapData;
-		vector<vector<int>> units;
 		vector<int> checkWinData;
-		Utility::ResourceManager::loadStageData(stageKind_, selectedCourseId_, &title, &hint, &mapData, &checkWinData, &units);
+		Utility::ResourceManager::loadStageData(stageKind_, selectedCourseId_, &title, &hint, &checkWinData);
 
 		int lineCount = 0;
 
@@ -236,47 +234,30 @@ namespace Screen
 		++lineCount; // 勝利条件ラベル分
 
 		// 勝利条件内容
-		string winValue = "・敵ユニットの全滅";
-		++lineCount;
 
-		if (checkWin.isEnemyBaseDefense()) 
-		{
-			winValue = winValue + "\n・敵砦の制圧";
-			++lineCount;
-		}
+		string winValue;
+		int winValueLineCount;
 
-		if (checkWin.isPlayerWinOverLimit())
-		{
-			winValue = winValue + "\n・" + to_string(checkWin.getLimitTurn()) + "ターンの経過";
-			++lineCount;
-		}
+		checkWin.getWinConditionsText(&winValue, &winValueLineCount);
 
 		winValue_->setText(winValue);
+		lineCount += winValueLineCount;
 
 		// 敗北条件ラベル（y座標のみ変更）
 		loseLabel_->setY(STAGE_INFO_Y + LINE_HEIGHT * lineCount);
-
-		// 敗北条件内容
-		string loseValue = "・自軍ユニットの全滅";
 		++lineCount;
+		
+		// 敗北条件内容
+		string loseValue;
+		int loseValueLineCount;
 
-		loseValue_->setY(STAGE_INFO_Y + LINE_HEIGHT * lineCount);
-		if (checkWin.isPlayerBaseDefense())
-		{
-			loseValue = loseValue + "\n・自軍砦を敵が制圧";
-			++lineCount;
-		}
-
-		if (!checkWin.isPlayerWinOverLimit())
-		{
-			loseValue = loseValue + "\n・" + to_string(checkWin.getLimitTurn()) + "ターンの経過";
-			++lineCount;
-		}
+		checkWin.getLoseConditionsText(&loseValue, &loseValueLineCount);
 
 		loseValue_->setText(loseValue);
+		loseValue_->setY(STAGE_INFO_Y + LINE_HEIGHT * lineCount);
+		lineCount += loseValueLineCount;
 
 		// ヒント
-		++lineCount;
 		hintLabel_->setY(STAGE_INFO_Y + HINT_MARGIN_TOP + LINE_HEIGHT * lineCount);
 		++lineCount;
 

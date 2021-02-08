@@ -63,6 +63,7 @@ namespace Battle
 		bool isSelectedUnitActive() const;
 		bool isSelectedUnit(shared_ptr<Unit> unit) const;
 		int getNowTurn() const { return turnNumEach_ / 2 + 1; }; // 現在ターンを返す
+		const CheckWin& getCheckWin() const { return checkWin_; }; // 勝敗判定用クラスを返す
 
 		//! バトルUI
 		BattleUI battleUI;
@@ -91,14 +92,6 @@ namespace Battle
 
 		//! 勝者
 		CheckWin checkWin_;
-
-		// 勝者の値
-		enum Winner
-		{
-			UNDECIDED,
-			PLAYER,
-			ENEMY
-		};
 	};
 
 

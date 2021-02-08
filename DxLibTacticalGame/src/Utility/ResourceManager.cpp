@@ -327,17 +327,36 @@ namespace Utility {
 	/**
 	 * @fn
 	 * ステージデータのロード
-	 * @param (csvFilePath) ファイルパス
+	 * @param (stageKind) ステージの種類
+	 * @param (id) ステージID
+	 * @param (title) ステージタイトル取得用
+	 * @param (hint) ヒント取得用
+	 * @param (checkWinData) 勝敗条件取得用
+	 * @param (isUntilCheckWin) タイトル、ヒント、勝敗条件のみ取得したい場合はtrue (デフォルトfalse)
 	 */
-	void ResourceManager::loadStageData(const string stageKind, const int id, string* title, string* hint, std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H >* mapData, vector<int>* checkWinData, vector<vector<int>>* units)
+	void ResourceManager::loadStageData(const string stageKind, const int id, string* title, string* hint, vector<int>* checkWinData)
+	{
+		std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H > mapData;
+		vector<vector<int>> units;
+		Utility::ResourceManager::loadStageData(stageKind, id, title, hint, &mapData, checkWinData, &units, true);
+	}
+
+	/**
+	 * @fn
+	 * ステージデータのロード
+	 * @param (stageKind) ステージの種類
+	 * @param (id) ステージID
+	 * @param (title) ステージタイトル取得用
+	 * @param (hint) ヒント取得用
+	 * @param (mapData) マップデータ取得用
+	 * @param (checkWinData) 勝敗条件取得用
+	 * @param (units) 配置ユニット取得用
+	 * @param (isUntilCheckWin) タイトル、ヒント、勝敗条件のみ取得したい場合はtrue (デフォルトfalse)
+	 */
+	void ResourceManager::loadStageData(const string stageKind, const int id, string* title, string* hint, std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H >* mapData, vector<int>* checkWinData, vector<vector<int>>* units, bool isUntilCheckWin)
 	{
 		std::string str_buf;
 		std::string str_conma_buf;
-		for (int i = 0; i < MAP_MASS_H; i++) {
-			for (int j = 0; j < MAP_MASS_W; j++) {
-				(*mapData)[i][j] = -1;
-			}
-		}
 
 		// 読み込むcsvファイルを開く(std::ifstreamのコンストラクタで開く)
 		string str = "resource/map/" + stageKind + to_string(id) + ".csv";
@@ -360,8 +379,20 @@ namespace Utility {
 			(*checkWinData).push_back(stoi(str_conma_buf));
 		}
 
+		if (isUntilCheckWin) // 勝敗条件までしか読み込まない場合
+		{
+			ifs_csv_file.close();
+			return;
+		}
+
 		getline(ifs_csv_file, str_buf); // 空行を読み込む想定
 
+		// マス初期化
+		for (int i = 0; i < MAP_MASS_H; i++) {
+			for (int j = 0; j < MAP_MASS_W; j++) {
+				(*mapData)[i][j] = -1;
+			}
+		}
 
 		int lineCount = 0;
 		// getline関数で1行ずつ読み込む(読み込んだ内容はstr_bufに格納)

@@ -47,6 +47,7 @@ namespace Screen
 			LEN
 		};
 
+		// 上位UIレイヤーのオブジェクトID
 		enum TopUiId
 		{
 			MESSAGE,
@@ -61,6 +62,8 @@ namespace Screen
 
 	private:
 		void turnEnd();
+		void showHint();
+		void showCheckWinText();
 
 		// バトル管理クラス
 		Battle::BattleManager btlMng_;
@@ -83,9 +86,11 @@ namespace Screen
 		// システムメニューのキー
 		enum SystemMenuKey
 		{
-			TURN_END,
-			BACK_SELECT_SCREEN,
-			BACK_MENU_SCREEN
+			TURN_END,			//! ターンエンド
+			CHECK_WIN_TEXT,		//! 勝敗条件
+			HINT,				//! ヒント表示
+			BACK_SELECT_SCREEN,	//! セレクト画面へ戻る
+			BACK_MENU_SCREEN	//! メニュー画面へ戻る
 		};
 
 		// シーンの種類

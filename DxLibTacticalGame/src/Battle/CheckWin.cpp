@@ -111,6 +111,55 @@ namespace Battle {
 
 	/**
 	 * @fn
+	 * 勝利条件テキスト取得
+	 * @param (text) テキスト取得用
+	 * @param (lineCount) 行数取得用
+	*/
+	void CheckWin::getWinConditionsText(string* text, int* lineCount) const
+	{
+		(*text) = "・敵ユニットの全滅";
+		(*lineCount) = 1;
+
+		if (isEnemyBaseDefense())
+		{
+			(*text) += "\n・敵砦の制圧";
+			++(*lineCount);
+		}
+
+		if (isPlayerWinOverLimit())
+		{
+			(*text) += "\n・" + to_string(getLimitTurn()) + "ターンの経過";
+			++(*lineCount);
+		}
+	}
+
+	/**
+	 * @fn
+	 * 敗北条件テキスト取得
+	 * @param (text) テキスト取得用
+	 * @param (lineCount) 行数取得用
+	*/
+	void CheckWin::getLoseConditionsText(string* text, int* lineCount) const
+	{
+		// 敗北条件内容
+		(*text) = "・自軍ユニットの全滅";
+		(*lineCount) = 1;
+
+		if (isPlayerBaseDefense())
+		{
+			(*text) += "\n・自軍砦を敵が制圧";
+			++(*lineCount);
+		}
+
+		if (!isPlayerWinOverLimit())
+		{
+			(*text) += "\n・" + to_string(getLimitTurn()) + "ターンの経過";
+			++(*lineCount);
+		}
+	}
+
+	/**
+	 * @fn
 	 * 勝敗判定
 	 * @param (map) Mapのスマートポインタ
 	*/

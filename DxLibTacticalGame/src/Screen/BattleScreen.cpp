@@ -24,6 +24,8 @@ namespace Screen
 		objectsControl.addObject(Layer::CONTEXT_MENU, 0, systemMenu_);
 
 		systemMenu_->addMenuButton(SystemMenuKey::TURN_END, "ƒ^[ƒ“I—¹");
+		systemMenu_->addMenuButton(SystemMenuKey::CHECK_WIN_TEXT, "Ÿ”sðŒ");
+		systemMenu_->addMenuButton(SystemMenuKey::HINT, "ƒqƒ“ƒg");
 		systemMenu_->addMenuButton(SystemMenuKey::BACK_SELECT_SCREEN, "ƒZƒŒƒNƒg‰æ–Ê‚É–ß‚é");
 		systemMenu_->addMenuButton(SystemMenuKey::BACK_MENU_SCREEN, "ƒƒjƒ…[‰æ–Ê‚É–ß‚é");
 
@@ -69,11 +71,20 @@ namespace Screen
 					turnEnd();
 					systemMenu_->hide();
 				}
+				else if (systemMenuKey == SystemMenuKey::HINT)
+				{
+					showHint();
+					systemMenu_->hide();
+				}
+				else if (systemMenuKey == SystemMenuKey::CHECK_WIN_TEXT)
+				{
+					showCheckWinText();
+					systemMenu_->hide();
+				}
 				else if (systemMenuKey == SystemMenuKey::BACK_SELECT_SCREEN || systemMenuKey == SystemMenuKey::BACK_MENU_SCREEN)
 				{
 					// “Á’è‰æ–Ê‚É–ß‚é
 					openScreen_ = systemMenuKey;
-					// Utility::ResourceManager::playSound(SoundKind::BACK);
 					createOverlay(false);
 				}
 				else if (eventType == MOUSE_INPUT_LOG_UP || (eventType == MOUSE_INPUT_LOG_CLICK && hitObjSp != systemMenu_))
@@ -206,5 +217,44 @@ namespace Screen
 			nowScene_ = Scene::PLAYER_TURN;
 			btlMng_.onStartTurn(true);
 		}
+	}
+
+	/**
+	 * @fn
+	 * ƒqƒ“ƒg•\Ž¦
+	*/
+	void BattleScreen::showHint()
+	{
+		string title;
+		string hint;
+		vector<int> checkWinData;
+		Utility::ResourceManager::loadStageData("stage", stageId_, &title, &hint, &checkWinData);
+
+		btlMng_.message->show(hint, false);
+	}
+
+	/**
+	 * @fn
+	 * Ÿ”sðŒ•\Ž¦
+	*/
+	void BattleScreen::showCheckWinText()
+	{
+		string text = "Ÿ—˜ðŒ\n";
+
+		string value;
+		int lineCount;
+
+		// Ÿ—˜ðŒ“à—e
+		btlMng_.getCheckWin().getWinConditionsText(&value, &lineCount);
+		text += value;
+
+		// ”s–kðŒƒ‰ƒxƒ‹
+		text += "\n\n”s–kðŒ\n";
+
+		// ”s–kðŒ“à—e
+		btlMng_.getCheckWin().getLoseConditionsText(&value, &lineCount);
+		text += value;
+
+		btlMng_.message->show(text, false);
 	}
 }

@@ -46,6 +46,9 @@ namespace Battle
 		void checkWin(shared_ptr<Map> map);
 		void checkWin(int turnNum);
 
+		void getWinConditionsText(string* text, int* lineCount) const;
+		void getLoseConditionsText(string* text, int* lineCount) const;
+
 		int getWinner() const { return winner_; }; // ŸÒ‚ğ•Ô‚·
 
 		int getLimitTurn() const { return limitTurn_; } // ƒ^[ƒ“§ŒÀ‚ğ•Ô‚·
