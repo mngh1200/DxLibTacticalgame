@@ -54,9 +54,10 @@ namespace Entity
 		
 		constexpr static int TEXT_SIZE = 18; //! ボタンテキストサイズ
 
-		constexpr static int BUTTON_MARGIN_BOTTOM = 5; //! ボタンのマージン
-		constexpr static int BUTTON_PADDING = 10; //! ボタンの余白
-		constexpr static int BUTTON_HEIGHT = TEXT_SIZE + BUTTON_PADDING * 2; // ボタン高さ
+		constexpr static int BUTTON_MARGIN_BOTTOM = 3; //! ボタンのマージン
+		constexpr static int BUTTON_PADDING_X = 14; //! ボタンの余白
+		constexpr static int BUTTON_PADDING_Y = 8; //! ボタンの余白
+		constexpr static int BUTTON_HEIGHT = TEXT_SIZE + BUTTON_PADDING_Y * 2; // ボタン高さ
 
 		vector<MenuButton> menuBtns_; //! メニューボタンリスト
 

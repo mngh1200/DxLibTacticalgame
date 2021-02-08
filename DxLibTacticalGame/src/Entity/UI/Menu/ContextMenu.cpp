@@ -158,7 +158,7 @@ namespace Entity {
 			}
 
 			DxLib::DrawRoundRectAA((float)itr->shape.x, (float)itr->shape.y, (float)itr->shape.getX2(), (float)itr->shape.getY2(), (float)RECT_ROUND, (float)RECT_ROUND, POS_NUM, backgroundColor, TRUE);
-			DxLib::DrawFormatStringToHandle(itr->shape.x + BUTTON_PADDING, itr->shape.y + BUTTON_PADDING, textColor, rm.getHdlFont(FontType::NORMAL_S18), itr->text.c_str());
+			DxLib::DrawFormatStringToHandle(itr->shape.x + BUTTON_PADDING_X, itr->shape.y + BUTTON_PADDING_Y, textColor, rm.getHdlFont(FontType::NORMAL_S18), itr->text.c_str());
 		}
 	}
 
@@ -179,7 +179,7 @@ namespace Entity {
 
 		// テキスト内容からメニューの幅調整
 		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
-		int width = (PADDING + BUTTON_PADDING) * 2 + DxLib::GetDrawFormatStringWidthToHandle(rm.getHdlFont(FontType::NORMAL_S18), text.c_str());
+		int width = (PADDING + BUTTON_PADDING_X) * 2 + DxLib::GetDrawFormatStringWidthToHandle(rm.getHdlFont(FontType::NORMAL_S18), text.c_str());
 
 		if (width > width_)
 		{
