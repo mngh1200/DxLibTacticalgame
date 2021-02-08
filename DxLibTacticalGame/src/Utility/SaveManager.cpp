@@ -37,23 +37,21 @@ namespace Utility {
 	/**
      * @fn
      * セーブデータファイルの新規作成
-     * @return 終了フラグ（0が正常）
      */
 	void SaveManager::createSavefile()
 	{
 		FILE* fp;
 		errno_t error;
 		// ステージランクの初期化
-		for (int i = 0; i < MAX_STAGE; i++) {
+		for (int i = 0; i < MAX_STAGE; ++i) {
 			savedata.stageRanks[i] = StageRank::LOCK;
 		}
 
-		// savedata.stageRanks[0] = StageRank::NONE;
-
-		// テスト処理
-		savedata.stageRanks[0] = StageRank::CLEAR;
-		savedata.stageRanks[1] = StageRank::CLEAR;
-		savedata.stageRanks[2] = StageRank::NEW;
+		// すべてのチュートリアルステージと標準ステージ１つを開放
+		for (int i = 0; i < TUTORIAL_STAGE_NUM + 1; ++i)
+		{
+			savedata.stageRanks[i] = StageRank::NONE;
+		}
 
 		if ((error = fopen_s(&fp, filename, "wb")) != 0) {
 			// DxLib::printfDx("セーブデータを作成できませんでした。");
