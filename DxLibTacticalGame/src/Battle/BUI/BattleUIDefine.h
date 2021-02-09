@@ -9,6 +9,7 @@
  * @brief バトルUI用の共通定数と関数
  */
 
+constexpr int BUI_H = WIN_H - CHIP_SIZE * MAP_MASS_H; //! バトルUIの高さ
 constexpr int BUI_PADDING = 5; //! バトルUIの余白
 
 constexpr int BUI_FONT_SIZE = 18; //! 文字サイズ

@@ -13,6 +13,7 @@ namespace Entity {
 		fight_ = nullptr;
 		shape_.set(BUI_PADDING, BATTLE_UI_AREA_Y + BUI_PADDING);
 		shape_.setSize(AREA_WIDTH * 2 + CENTER_WIDTH, BUI_LINE_HEIGHT * BUI_LINE_COUNT + BUI_LINE_MARGIN);
+		shape_.disabledHit = true;
 	}
 
 	/**
@@ -198,6 +199,7 @@ namespace Entity {
 	{
 		fight_ = fight;
 		changeAnimation(AnimationKind::DISPLAY);
+		shape_.disabledHit = false;
 	}
 
 	/**
@@ -208,6 +210,7 @@ namespace Entity {
 	{
 		fight_ = nullptr;
 		animation_.reset();
+		shape_.disabledHit = true;
 	}
 
 

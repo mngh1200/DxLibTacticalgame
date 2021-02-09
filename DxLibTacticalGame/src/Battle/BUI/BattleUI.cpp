@@ -27,12 +27,57 @@ namespace Battle {
 		objectsControl.addObject(uiLayerId, BattleUIid::FIGHT_PREDICT, fightPredictDisplay_);
 
 		// ターン終了ボタン
-		turnEndButton_ = make_shared<TurnEndButton>();
+		turnEndButton_ = make_shared<BuiConfirmButton>();
+		turnEndButton_->setText("ターン終了");
 		objectsControl.addObject(uiLayerId, BattleUIid::TURN_END_BUTTON, turnEndButton_);
 
 		// 敵ターンスピード調整ボタン
 		enemySpeedController_ = make_shared<EnemySpeedController>();
 		objectsControl.addObject(uiLayerId, BattleUIid::ENEMY_SPEED_CONTROLLER, enemySpeedController_);
+		
+
+	}
+
+	/**
+	 * @fn
+	 * ユニット選択モードを開始
+	*/
+	void BattleUI::startSelectUnitMode()
+	{
+		mode_ = Mode::SET_UNITS;
+
+		turnEndButton_->hide();
+		enemySpeedController_->hide();
+
+		// ユニット選択欄設置
+		FrameWork::Game& game = FrameWork::Game::getInstance();
+		Entity::ObjectsControl& objectsControl = game.objectsControl;
+
+		int layerId = terrainEffectDisplay_->getLayerId(); // レイヤーID、地形効果表示欄と同じ
+		
+		selectUnitArea_ = make_shared<SelectUnitArea>();
+		objectsControl.addObject(layerId, BattleUIid::SELECT_UNIT_AREA, selectUnitArea_);
+
+		// ユニット配置確定ボタン
+		confirmUnitSetButton_ = make_shared<BuiConfirmButton>();
+		confirmUnitSetButton_->setText("準備完了");
+		objectsControl.addObject(layerId, BattleUIid::CONFIRM_UNIT_SET, confirmUnitSetButton_);
+	}
+
+	/**
+	 * @fn
+	 * ユニット選択モードを終了
+	*/
+	void BattleUI::endSelectUnitMode()
+	{
+		mode_ = Mode::NORMAL;
+
+		// ユニット選択欄と準備完了ボタン削除
+		FrameWork::Game& game = FrameWork::Game::getInstance();
+		Entity::ObjectsControl& objectsControl = game.objectsControl;
+
+		objectsControl.removeObject(selectUnitArea_->getLayerId(), selectUnitArea_->getObjectId());
+		objectsControl.removeObject(confirmUnitSetButton_->getLayerId(), confirmUnitSetButton_->getObjectId());
 	}
 
 	/**
@@ -74,7 +119,6 @@ namespace Battle {
 	*/
 	void BattleUI::animationCheck()
 	{
-
 
 	}
 

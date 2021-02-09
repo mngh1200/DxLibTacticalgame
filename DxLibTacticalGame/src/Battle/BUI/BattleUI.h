@@ -7,7 +7,8 @@
 #include "TerrainEffectDisplay.h"
 #include "FightPredictDisplay.h"
 #include "EnemySpeedController.h"
-#include "Entity/UI/Button/TurnEndButton.h"
+#include "SelectUnitArea.h"
+#include "Entity/UI/Button/BuiConfirmButton.h"
 
 using namespace std;
 using namespace Entity;
@@ -33,10 +34,16 @@ namespace Battle
 			FIGHT_PREDICT,
 			TURN_END_BUTTON,
 			ENEMY_SPEED_CONTROLLER,
+			SELECT_UNIT_AREA,
+			CONFIRM_UNIT_SET,
 			UIID_LEN
 		};
 
 		void init();
+
+		void startSelectUnitMode();
+		void endSelectUnitMode();
+
 		void onStartTurn(bool isPlayer);
 
 		void setTargetUnit(shared_ptr<Unit> unit);
@@ -56,6 +63,7 @@ namespace Battle
 		//! 表示モードの種類
 		enum class Mode
 		{
+			SET_UNITS,
 			NORMAL,
 			FIGHT_PREDICT,
 			ENEMY_TURN
@@ -74,10 +82,16 @@ namespace Battle
 		shared_ptr<FightPredictDisplay> fightPredictDisplay_;
 
 		//! ターン終了ボタン
-		shared_ptr<TurnEndButton> turnEndButton_;
+		shared_ptr<BuiConfirmButton> turnEndButton_;
 
 		//! 敵ターンスピード調整ボタン
 		shared_ptr<EnemySpeedController> enemySpeedController_;
+
+		//! ユニット選択欄
+		shared_ptr<SelectUnitArea> selectUnitArea_;
+
+		//! ユニット配置確定ボタン
+		shared_ptr<BuiConfirmButton> confirmUnitSetButton_;
 	};
 
 

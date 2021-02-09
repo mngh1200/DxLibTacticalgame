@@ -2,7 +2,7 @@
 #include <climits>
 #include <cmath>
 #include "Entity/Unit/Unit.h"
-#include "Entity/UI/Button/TurnEndButton.h"
+#include "Entity/UI/Button/BuiConfirmButton.h"
 #include "Utility/ResourceManager.h"
 #include "Battle/BUI/BattleUIDefine.h"
 
@@ -36,9 +36,9 @@ namespace Entity
 	private:
 		constexpr static int PADDING_X = 22; //! ボタンの余白 横
 		constexpr static int PADDING_Y = 16; //! ボタンの余白 縦
-		constexpr static int BUTTON_H = BATTLE_UI_AREA_H - (TurnEndButton::MARGIN + PADDING_Y) * 2; //! ボタンのサイズ
+		constexpr static int BUTTON_H = BATTLE_UI_AREA_H - (BuiConfirmButton::MARGIN + PADDING_Y) * 2; //! ボタンのサイズ
 		constexpr static int BUTTON_W = BUTTON_H + 10;
-		constexpr static int BUTTON_RELATIVE_XN = (TurnEndButton::WIDTH - PADDING_X * 2 - BUTTON_W) / 2; //! N番目のボタンの相対X座標
+		constexpr static int BUTTON_RELATIVE_XN = (BuiConfirmButton::WIDTH - PADDING_X * 2 - BUTTON_W) / 2; //! N番目のボタンの相対X座標
 
 		const static float PLAYMARK_W; //! 再生マークの幅
 

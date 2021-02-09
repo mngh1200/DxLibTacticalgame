@@ -10,8 +10,8 @@ namespace Entity {
 	 */
 	EnemySpeedController::EnemySpeedController() : speed_(Speed::NORMAL), cacheSpeed_(Speed::NORMAL)
 	{
-		shape_.set(WIN_W - TurnEndButton::WIDTH - TurnEndButton::MARGIN, BATTLE_UI_AREA_Y + TurnEndButton::MARGIN);
-		shape_.setSize(TurnEndButton::WIDTH, BATTLE_UI_AREA_H - TurnEndButton::MARGIN * 2);
+		shape_.set(WIN_W - BuiConfirmButton::WIDTH - BuiConfirmButton::MARGIN, BATTLE_UI_AREA_Y + BuiConfirmButton::MARGIN);
+		shape_.setSize(BuiConfirmButton::WIDTH, BATTLE_UI_AREA_H - BuiConfirmButton::MARGIN * 2);
 
 		for (int i = 0; i < Speed::LEN; ++i)
 		{
@@ -51,7 +51,7 @@ namespace Entity {
 
 		// 枠
 		DxLib::DrawRoundRectAA((float)shape_.x, (float)shape_.y, (float)shape_.getX2(), (float)shape_.getY2(),
-			(float)TurnEndButton::RECT_ROUND, (float)TurnEndButton::RECT_ROUND, TurnEndButton::RECT_ROUND_POS_NUM, rm.getColor(ColorType::SUB_COLOR), TRUE);
+			(float)BuiConfirmButton::RECT_ROUND, (float)BuiConfirmButton::RECT_ROUND, BuiConfirmButton::RECT_ROUND_POS_NUM, rm.getColor(ColorType::SUB_COLOR), TRUE);
 
 		// 各ボタン
 		for (int i = 0; i < Speed::LEN; ++i)
