@@ -6,12 +6,13 @@ namespace Battle {
 	 * @fn
 	 * 初期処理
 	 * @param (map) マップのポインタ
+	 * @param (stageId) ステージID
 	 */
 	void BattleManager::init(shared_ptr<Entity::Map> map, int stageId)
 	{
-		map_ = map;
+		this->map = map;
 		battleUI.init();
-		fight_.init(map_);
+		fight_.init(this->map);
 
 		// ステージデータ読み込み
 		string title;
@@ -21,14 +22,17 @@ namespace Battle {
 		vector<int> checkWinData;
 		Utility::ResourceManager::loadStageData("stage", stageId, &title, &hint, &mapData, &checkWinData, &units);
 
-		map->loadStageData(mapData);
-		map->loadUnits(units);
+		this->map->loadStageData(mapData);
+		this->map->loadUnits(units);
 		checkWin_.loadData(checkWinData);
 
 		// メッセージ欄をオブジェクトとして追加
 		message = make_shared<Message>();
 		FrameWork::Game& game = FrameWork::Game::getInstance();
 		game.objectsControl.addObject(Screen::BattleScreen::Layer::TOP_UI, Screen::BattleScreen::TopUiId::MESSAGE, message);
+
+		// テスト処理
+		battleUI.startSelectUnitMode();
 	}
 
 	/**
@@ -48,7 +52,7 @@ namespace Battle {
 		{
 			// 攻撃終了
 			phase_ = Phase::NORMAL;
-			checkWin_.checkWin(map_);
+			checkWin_.checkWin(map);
 		}
 
 	}
@@ -82,7 +86,7 @@ namespace Battle {
 
 		isPlayerTurn_ = isPlayer;
 
-		for (auto itr = map_->unitsBegin(); itr != map_->unitsEnd(); ++itr)
+		for (auto itr = map->unitsBegin(); itr != map->unitsEnd(); ++itr)
 		{
 			itr->second->turnEnd(itr->second->isEnemy() == isPlayer);
 		}
@@ -114,9 +118,9 @@ namespace Battle {
 	{
 		if (isSelectedUnitActive())
 		{
-			map_->clearMassState();
+			map->clearMassState();
 			phase_ = Phase::SELECT_ACTION; // 行動選択 
-			map_->displayAtackAbleRange(selectedUnit_, selectedUnit_->getMassX(), selectedUnit_->getMassY());
+			map->displayAtackAbleRange(selectedUnit_, selectedUnit_->getMassX(), selectedUnit_->getMassY());
 		}
 	}
 
@@ -126,10 +130,10 @@ namespace Battle {
 	*/
 	void BattleManager::endSelectActionPhase()
 	{
-		map_->clearMassState();
+		map->clearMassState();
 		phase_ = Phase::NORMAL;
 		deselectUnit();
-		checkWin_.checkWin(map_);
+		checkWin_.checkWin(map);
 	}
 
 	/**
@@ -148,7 +152,7 @@ namespace Battle {
 
 				if (!unit->isActed())
 				{
-					map_->displayMovableRange(unit);
+					map->displayMovableRange(unit);
 				}
 			}
 		}
@@ -172,7 +176,7 @@ namespace Battle {
 			{
 				selectedUnit_.reset();
 				battleUI.resetTargetUnit();
-				map_->clearMassState();
+				map->clearMassState();
 				return true;
 			}
 			return false;
@@ -193,9 +197,9 @@ namespace Battle {
 	{
 		if (isSelectedUnitActive())
 		{
-			map_->confirmMove(selectedUnit_);
+			map->confirmMove(selectedUnit_);
 			fight_.start();
-			map_->clearMassState();
+			map->clearMassState();
 			deselectUnit();
 			phase_ = Phase::FIGHT;
 		}
@@ -209,7 +213,7 @@ namespace Battle {
 	{
 		if (isSelectedUnitActive())
 		{
-			map_->confirmMove(selectedUnit_);
+			map->confirmMove(selectedUnit_);
 			selectedUnit_->endAction();
 			endSelectActionPhase();
 		}
@@ -254,8 +258,8 @@ namespace Battle {
 				if (!isPlayerTurn_)
 				{
 					// 敵軍の操作の場合、攻撃可能エリアの表示を攻撃対象のみにする
-					map_->clearMassState();
-					shared_ptr<Mass> mass = map_->getMass(targetUnit->getMassX(), targetUnit->getMassY());
+					map->clearMassState();
+					shared_ptr<Mass> mass = map->getMass(targetUnit->getMassX(), targetUnit->getMassY());
 					if (mass)
 					{
 						mass->state = Mass::ATK_ABLE;
@@ -287,7 +291,7 @@ namespace Battle {
 	{
 		if (targetUnit)
 		{
-			shared_ptr<Mass> mass = map_->getMass(targetUnit->getMassX(), targetUnit->getMassY());
+			shared_ptr<Mass> mass = map->getMass(targetUnit->getMassX(), targetUnit->getMassY());
 			return isSelectedUnitActive() && targetUnit->isEnemy() == isPlayerTurn_ && mass->state == Mass::ATK_ABLE;
 		}
 		return false;

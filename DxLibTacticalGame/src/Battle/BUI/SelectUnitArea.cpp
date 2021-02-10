@@ -56,8 +56,9 @@ namespace Entity {
 		int count = 0;
 		for (auto itr = unitList_.begin(); itr != unitList_.end(); ++itr)
 		{
-			if ((*itr).isHit(x, y))
+			if ((*itr).isHit(x, y) && selectUnitId_ != count)
 			{
+				Utility::ResourceManager::playSound(SoundKind::CHECK);
 				selectUnitId_ = count;
 			}
 			++count;

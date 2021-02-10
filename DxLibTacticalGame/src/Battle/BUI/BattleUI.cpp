@@ -82,6 +82,20 @@ namespace Battle {
 
 	/**
 	 * @fn
+	 * 選択中のユニットIDを返す
+	 * @return ユニットID　（取得不可の場合 -1）
+	*/
+	int BattleUI::getSelectedUnitId() const
+	{
+		if (selectUnitArea_)
+		{
+			return selectUnitArea_->getSelectUnitId();
+		}
+		return -1;
+	}
+
+	/**
+	 * @fn
 	 * ターン開始時処理
 	*/
 	void BattleUI::onStartTurn(bool isPlayer)

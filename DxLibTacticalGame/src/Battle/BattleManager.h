@@ -71,15 +71,15 @@ namespace Battle
 		//! メッセージ
 		shared_ptr<Entity::Message> message;
 
+		//! マップ
+		shared_ptr<Entity::Map> map;
+
 	private:
 		//! 経過ターン数(プレイヤーターン、敵ターンでそれぞれ＋１にする、表示ターンの二倍で表示)
 		int turnNumEach_;
 
 		//! 選択中のユニット
 		shared_ptr<Entity::Unit> selectedUnit_;
-
-		//! マップ
-		shared_ptr<Entity::Map> map_;
 
 		//! 個人戦闘管理用
 		Fight fight_;

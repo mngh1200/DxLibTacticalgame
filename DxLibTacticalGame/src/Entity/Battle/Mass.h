@@ -21,7 +21,7 @@ namespace Entity
 	class Mass
 	{
 	public:
-		Mass() : kindId_(Kind::OUT_OF_MAP), state(State::NORMAL), passingMov(-1), imageId_(-1) {};
+		Mass() : kindId_(Kind::OUT_OF_MAP), state(State::NORMAL), passingMov(-1), imageId_(-1), ableUnitSet(false) {};
 		Mass(int kindId);
 		~Mass() {};
 
@@ -55,12 +55,15 @@ namespace Entity
 		//! マスの状況
 		int state;
 
+		//! ユニット配置可能であるか
+		bool ableUnitSet;
+
 		// マスの状況
 		enum State
 		{
 			NORMAL,
-			MOVABLE,
-			ATK_ABLE
+			MOVABLE,	//! 移動可能
+			ATK_ABLE	//! 攻撃可能
 		};
 
 	private:

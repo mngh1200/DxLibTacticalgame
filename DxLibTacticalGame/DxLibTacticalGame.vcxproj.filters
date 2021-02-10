@@ -243,11 +243,14 @@
     <ClCompile Include="src\Entity\UI\Message.cpp">
       <Filter>ソース ファイル\Entity\UI</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entity\UI\Button\BuiConfirmButton.cpp">
+      <Filter>ソース ファイル\Entity\UI\Button</Filter>
+    </ClCompile>
     <ClCompile Include="src\Battle\BUI\SelectUnitArea.cpp">
       <Filter>ソース ファイル\Battle\BUI</Filter>
     </ClCompile>
-    <ClCompile Include="src\Entity\UI\Button\BuiConfirmButton.cpp">
-      <Filter>ソース ファイル\Entity\UI\Button</Filter>
+    <ClCompile Include="src\Battle\SetUnits.cpp">
+      <Filter>ソース ファイル\Battle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -398,11 +401,14 @@
     <ClInclude Include="src\Entity\UI\Message.h">
       <Filter>ヘッダー ファイル\Entity\UI</Filter>
     </ClInclude>
+    <ClInclude Include="src\Entity\UI\Button\BuiConfirmButton.h">
+      <Filter>ヘッダー ファイル\Entity\UI\Button</Filter>
+    </ClInclude>
     <ClInclude Include="src\Battle\BUI\SelectUnitArea.h">
       <Filter>ヘッダー ファイル\Battle\BUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\Entity\UI\Button\BuiConfirmButton.h">
-      <Filter>ヘッダー ファイル\Entity\UI\Button</Filter>
+    <ClInclude Include="src\Battle\SetUnits.h">
+      <Filter>ヘッダー ファイル\Battle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

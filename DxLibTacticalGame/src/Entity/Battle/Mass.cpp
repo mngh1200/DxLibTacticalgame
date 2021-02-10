@@ -13,14 +13,16 @@ namespace Entity {
 	 * コンストラクタ
 	 * @param (kindId) マスの種類
 	 */
-	Mass::Mass(int kindId) : kindId_(kindId), state(State::NORMAL), passingMov(-1)
+	Mass::Mass(int kindId) : Mass()
 	{
-		if (0 > kindId_ || kindId_ >= Kind::LEN)
+		kindId_ = kindId;
+
+		if (0 > kindId || kindId >= Kind::LEN)
 		{
 			kindId_ = Kind::PLAIN;
 		}
 
-		setImageIdFromKind(kindId);
+		setImageIdFromKind(kindId_);
 	}
 
 	/**

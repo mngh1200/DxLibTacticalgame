@@ -28,6 +28,8 @@ namespace Entity
 
 		void onMouseClick(int x, int y) override;
 
+		int getSelectUnitId() const { return selectUnitId_; }; // 選択中のユニットIDを返す
+
 	private:
 		constexpr static int UNIT_Y = BATTLE_UI_AREA_Y + (BUI_H - CHIP_SIZE) / 2; //! ユニット選択肢のY座標
 		constexpr static int UNIT_MARGIN = 10; //! ユニット選択肢の余白

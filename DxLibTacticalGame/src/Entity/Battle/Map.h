@@ -53,6 +53,7 @@ namespace Entity
 
 		shared_ptr<Mass> getMass(int massX, int massY);
 		void clearMassState();
+		void clearMassUnitSet();
 
 		bool isRange(int x, int y) const;
 		pair<int, int> getPlayerFortMass() const { return playerFortMass_; }; // プレイヤーの砦マスを返す

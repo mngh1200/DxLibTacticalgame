@@ -23,9 +23,10 @@ namespace
 {
 	// ï∫éÌä«óù
 	enum UnitKey {
-		LANCER,
-		CAVALRY,
-		GUNNER,
+		FREE = -1,	//! é©óRê›íu
+		LANCER,		//! ëÑï∫
+		CAVALRY,	//! ãRï∫
+		GUNNER,		//! èeï∫
 		UNIT_KIND_LEN
 	};
 

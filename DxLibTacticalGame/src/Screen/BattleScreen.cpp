@@ -107,6 +107,19 @@ namespace Screen
 					}
 				}
 			}
+			else if (nowScene_ == Scene::SET_UNITS && eventType == MOUSE_INPUT_LOG_CLICK) // ユニット配置シーン
+			{
+				// 準備完了ボタン
+				if (hitObjSp->getLayerId() == Layer::UI && hitObjSp->getObjectId() == Battle::BattleUI::BattleUIid::CONFIRM_UNIT_SET)
+				{
+					confirmSetUnits();
+				}
+				else
+				{
+					// ユニット配置イベント
+					SetUnits::onClick(x, y, btlMng_.map, btlMng_.battleUI.getSelectedUnitId());
+				}
+			}
 			else if (nowScene_ == Scene::RESULT && eventType == MOUSE_INPUT_LOG_CLICK)
 			{
 				// 勝敗画面時は、クリックすることでセレクト画面に遷移
@@ -173,7 +186,10 @@ namespace Screen
 		}
 		else if (isOpenOverlayEnded()) // オーバーレイ開く
 		{
-			nowScene_ = Scene::PLAYER_TURN;
+			// nowScene_ = Scene::PLAYER_TURN;
+
+			// テスト処理
+			nowScene_ = Scene::SET_UNITS;
 		}	
 		else if (isCloseOverlayEnded()) // オーバレイ閉じる
 		{
@@ -217,6 +233,18 @@ namespace Screen
 			nowScene_ = Scene::PLAYER_TURN;
 			btlMng_.onStartTurn(true);
 		}
+	}
+
+	/**
+	 * @fn
+	 * ユニット設置の準備完了ボタン押下時の処理
+	*/
+	void BattleScreen::confirmSetUnits()
+	{
+		btlMng_.battleUI.endSelectUnitMode();
+		btlMng_.map->clearMassUnitSet();
+		nowScene_ = Scene::PLAYER_TURN;
+		btlMng_.onStartTurn(true);
 	}
 
 	/**

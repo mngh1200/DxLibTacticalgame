@@ -64,7 +64,19 @@ namespace Entity {
 
 			if (unit.size() > 3)
 			{
-				setUnit(unit[0], unit[1], unit[2], unit[3] == 1);
+				int x = unit[0];
+				int y = unit[1];
+				int kind = unit[2];
+				bool isEnemy = unit[3] == 1;
+
+				if (kind != UnitKey::FREE) // ユニットセット
+				{
+					setUnit(x, y, kind, isEnemy);
+				}
+				else // 自由設置エリアのセット
+				{
+					getMass(x, y)->ableUnitSet = true;
+				}
 			}
 		}
 	}
@@ -109,7 +121,7 @@ namespace Entity {
 				{
 					// 何もしない
 				}
-				if ((*cell)->state == Mass::State::MOVABLE) // 移動範囲
+				if ((*cell)->state == Mass::State::MOVABLE || (*cell)->ableUnitSet) // 移動範囲 or ユニット配置可能
 				{
 					drawMoveableMass(realX, realY);
 				}
@@ -470,6 +482,19 @@ namespace Entity {
 			for (auto cell = (*line).begin(); cell != (*line).end(); ++cell) {
 				(*cell)->state = Mass::State::NORMAL;
 				(*cell)->passingMov = -1;
+			}
+		}
+	}
+
+	/**
+	 * @fn
+	 * ユニット配置可能エリアをクリアする
+	 */
+	void Map::clearMassUnitSet()
+	{
+		for (auto line = mass_.begin(); line != mass_.end(); ++line) {
+			for (auto cell = (*line).begin(); cell != (*line).end(); ++cell) {
+				(*cell)->ableUnitSet = false;
 			}
 		}
 	}

@@ -43,6 +43,7 @@ namespace Battle
 
 		void startSelectUnitMode();
 		void endSelectUnitMode();
+		int getSelectedUnitId() const;
 
 		void onStartTurn(bool isPlayer);
 

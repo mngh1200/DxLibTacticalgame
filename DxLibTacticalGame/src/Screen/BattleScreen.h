@@ -13,6 +13,7 @@
 #include "Battle/BattleManager.h"
 #include "Battle/PlayerBattleController.h"
 #include "Battle/EnemyBattleController.h"
+#include "Battle/SetUnits.h"
 #include "Entity/Battle/Map.h"
 #include "Entity/Unit/Unit.h"
 #include "Entity/UI/Menu/ContextMenu.h"
@@ -62,6 +63,7 @@ namespace Screen
 
 	private:
 		void turnEnd();
+		void confirmSetUnits();
 		void showHint();
 		void showCheckWinText();
 
@@ -96,10 +98,11 @@ namespace Screen
 		// シーンの種類
 		enum Scene
 		{
-			PLAYER_TURN,
-			ENEMY_TURN,
-			RESULT_ANIME,
-			RESULT
+			SET_UNITS,		//! ユニット配置	
+			PLAYER_TURN,	//! プレイヤーターン
+			ENEMY_TURN,		//! 敵ターン
+			RESULT_ANIME,	//! 勝敗結果前のアニメーション
+			RESULT			//! 勝敗結果
 		};
 	};
 }
