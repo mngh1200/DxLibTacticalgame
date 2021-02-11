@@ -55,12 +55,12 @@ namespace Entity {
 				{
 					drawAtackDirection(shape_.y + shape_.h / 4, true); // UŒ‚‘¤‚¾‚¯
 				}
-				else if (fight_->isActSideFirst()) // UŒ‚Às‘¤æU
+				else if (playerFightData->isFirst) // ƒvƒŒƒCƒ„[‘¤æU
 				{
 					drawAtackDirection(shape_.y, true);
 					drawAtackDirection(shape_.y + shape_.h / 2, false);
 				}
-				else if (fight_->isActSideFirst()) // –hŒä‘¤æU
+				else if (enemyFightData->isFirst) // “G‘¤æU
 				{
 					drawAtackDirection(shape_.y, false);
 					drawAtackDirection(shape_.y + shape_.h / 2, true);

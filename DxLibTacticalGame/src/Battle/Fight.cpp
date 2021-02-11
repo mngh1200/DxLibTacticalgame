@@ -121,7 +121,7 @@ namespace Battle
 			}
 
 			shared_ptr<Mass> mass = map_->getMass(psvUnit->getMassX(), psvUnit->getMassY()); // 防御側のマス
-			isActSideFirst_ = true;
+			actSide_.isFirst = true;
 
 			UnitInfo actInfo = actUnit->getInfo();
 			// UnitInfo psvInfo = psvUnit->getInfo();
@@ -137,6 +137,12 @@ namespace Battle
 			}
 
 			makeFightData(&psvSide_, psvUnit, actUnit, mass, false, coordinatedAttack); // 防御側計算 (迎撃判定があるため先に処理)
+
+			if (psvSide_.isFirst)
+			{
+				actSide_.isFirst = false;
+			}
+
 			makeFightData(&actSide_, actUnit, psvUnit, mass, true, coordinatedAttack);  // 攻撃側計算
 
 			// 連携、挟撃のダメージ計算
@@ -164,9 +170,8 @@ namespace Battle
 	 */
 	void Fight::reset()
 	{
-		actSide_ = { nullptr, 0, 0, true };
-		psvSide_ = { nullptr, 0, 0, false };
-		isActSideFirst_ = true;
+		actSide_ = { nullptr, true };
+		psvSide_ = { nullptr, false };
 		phase_ = Phase::NO_FIGHT;
 	}
 
@@ -195,7 +200,7 @@ namespace Battle
 			{
 				fightData->extraEffects.push_back(atkInfo.ability.getLabel());
 				fightData->isAtk = true;
-				isActSideFirst_ = false;
+				fightData->isFirst = true;
 			}
 		}
 
@@ -236,11 +241,11 @@ namespace Battle
 			}
 
 			// 突撃スキル
-			if (isAct && isActSideFirst_)
+			if (isAct && isActSideFirst())
 			{
 				if (actSide_.unit->getInfo().ability.kind == Ability::Kind::RUSH)
 				{
-					if (isActSideFirst_ && mass->getKind() == Mass::PLAIN)
+					if (isActSideFirst() && mass->getKind() == Mass::PLAIN)
 					{
 						actSide_.extraEffects.push_back(actSide_.unit->getInfo().ability.getLabel());
 						actSide_.damage += 5;
@@ -266,7 +271,7 @@ namespace Battle
 		if (isPrepared())
 		{
 			phase_ = Phase::FIRST_ATK;
-			atack(isActSideFirst_);
+			atack(isActSideFirst());
 		}
 	}
 
@@ -292,7 +297,7 @@ namespace Battle
 		// アニメーション終了時
 		if (phase_ == Phase::FIRST_ATK)
 		{
-			if (atack(!isActSideFirst_))
+			if (atack(!isActSideFirst()))
 			{
 				// 防御側の攻撃あり
 				phase_ = Phase::SECOND_ATK;

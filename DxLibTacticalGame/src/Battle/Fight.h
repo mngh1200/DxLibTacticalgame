@@ -18,10 +18,11 @@ namespace Battle
 	struct FightData
 	{
 		shared_ptr<Unit> unit;	//! 対称ユニット
-		int damage;				//! 与ダメージ
-		int hitRate;			//! 命中率
-		bool isAtk;				//! 攻撃するか
-		bool isCloseAttack;		//! 近接攻撃であるか
+		bool isFirst;			//! 先行であるか
+		bool isAtk = false;		//! 攻撃するか
+		int damage = 0;				//! 与ダメージ
+		int hitRate = 0;			//! 命中率
+		bool isCloseAttack = true;		//! 近接攻撃であるか
 		int direction = Direction::NONE_DIRECTION; //! 攻撃方向
 		vector<string> extraEffects; //! 特殊効果（アビリティや連携等）
 	};
@@ -32,7 +33,6 @@ namespace Battle
 		Fight() : 
 			actSide_{nullptr, 0, 0, true},
 			psvSide_{nullptr, 0, 0, false},
-			isActSideFirst_(true),
 			phase_(Phase::NO_FIGHT)
 		{};
 		~Fight() {};
@@ -50,7 +50,7 @@ namespace Battle
 
 		bool isPrepared() const;
 
-		bool isActSideFirst() const { return isActSideFirst_; }; // 攻撃実行側が先攻であるか
+		bool isActSideFirst() const { return actSide_.isFirst; }; // 攻撃実行側が先攻であるか
 
 	private:
 		int getCoordinatedAttack(int atkDirection, int atkedLogs);
@@ -65,9 +65,6 @@ namespace Battle
 
 		//! 防御側データ
 		FightData psvSide_;
-
-		//! 攻撃実行側が先攻であるか
-		bool isActSideFirst_;
 
 		//! フェイズ
 		enum class Phase
