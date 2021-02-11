@@ -34,7 +34,7 @@ namespace Screen
 		objectsControl.addObject(Layer::MAP, 0, map);
 		
 		// バトル管理用クラスの初期処理
-		btlMng_.init(map, stageId_);
+		btlMng_.init(map, stageId_, &isSetUnit_);
 		playerBtlCont_.init(map);
 		enemyBtlCont_.init(map);
 
@@ -117,7 +117,7 @@ namespace Screen
 				else
 				{
 					// ユニット配置イベント
-					SetUnits::onClick(x, y, btlMng_.map, btlMng_.battleUI.getSelectedUnitId());
+					SetUnits::onClick(x, y, btlMng_.map, &btlMng_.battleUI);
 				}
 			}
 			else if (nowScene_ == Scene::RESULT && eventType == MOUSE_INPUT_LOG_CLICK)
@@ -186,10 +186,14 @@ namespace Screen
 		}
 		else if (isOpenOverlayEnded()) // オーバーレイ開く
 		{
-			// nowScene_ = Scene::PLAYER_TURN;
-
-			// テスト処理
-			nowScene_ = Scene::SET_UNITS;
+			if (isSetUnit_) // ユニット配置
+			{
+				nowScene_ = Scene::SET_UNITS;
+			}
+			else
+			{
+				startBattle();
+			}
 		}	
 		else if (isCloseOverlayEnded()) // オーバレイ閉じる
 		{
@@ -213,6 +217,16 @@ namespace Screen
 	void BattleScreen::setStage(int id)
 	{
 		stageId_ = id;
+	}
+
+	/**
+	 * @fn
+	 * バトル開始
+	*/
+	void BattleScreen::startBattle()
+	{
+		nowScene_ = Scene::PLAYER_TURN;
+		btlMng_.onStartTurn(true);
 	}
 
 	/**
@@ -243,8 +257,7 @@ namespace Screen
 	{
 		btlMng_.battleUI.endSelectUnitMode();
 		btlMng_.map->clearMassUnitSet();
-		nowScene_ = Scene::PLAYER_TURN;
-		btlMng_.onStartTurn(true);
+		startBattle();
 	}
 
 	/**

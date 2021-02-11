@@ -7,8 +7,9 @@ namespace Battle {
 	 * 初期処理
 	 * @param (map) マップのポインタ
 	 * @param (stageId) ステージID
+	 * @param (isSetUnit) ユニット配置シーンの有無取得用
 	 */
-	void BattleManager::init(shared_ptr<Entity::Map> map, int stageId)
+	void BattleManager::init(shared_ptr<Entity::Map> map, int stageId, bool* isSetUnit)
 	{
 		this->map = map;
 		battleUI.init();
@@ -20,7 +21,8 @@ namespace Battle {
 		std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H > mapData;
 		vector<vector<int>> units;
 		vector<int> checkWinData;
-		Utility::ResourceManager::loadStageData("stage", stageId, &title, &hint, &mapData, &checkWinData, &units);
+		vector<int> extraRules;
+		Utility::ResourceManager::loadStageData("stage", stageId, &title, &hint, &checkWinData, &extraRules, &mapData, &units);
 
 		this->map->loadStageData(mapData);
 		this->map->loadUnits(units);
@@ -31,8 +33,19 @@ namespace Battle {
 		FrameWork::Game& game = FrameWork::Game::getInstance();
 		game.objectsControl.addObject(Screen::BattleScreen::Layer::TOP_UI, Screen::BattleScreen::TopUiId::MESSAGE, message);
 
-		// テスト処理
-		battleUI.startSelectUnitMode();
+		*isSetUnit = false;
+
+		// ユニット配置可能数の確認
+		if (extraRules.size() > 0)
+		{
+			int countMax = extraRules[0];
+
+			if (countMax > 0)
+			{
+				battleUI.startSelectUnitMode(countMax);
+				*isSetUnit = true;
+			}
+		}
 	}
 
 	/**

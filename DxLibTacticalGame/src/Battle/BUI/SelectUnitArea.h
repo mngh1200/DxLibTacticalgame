@@ -28,11 +28,23 @@ namespace Entity
 
 		void onMouseClick(int x, int y) override;
 
+		void setCountMax(int countMax);
+		bool addCount();
+		void removeCount();
+
+		int getCount() const { return count_; } // 現在の配置数を返す
 		int getSelectUnitId() const { return selectUnitId_; }; // 選択中のユニットIDを返す
 
 	private:
+		constexpr static int FONT_TYPE = FontType::NORMAL_S32; //! フォントの種類
+		constexpr static int COUNT_WIDTH = 100; //! カウントエリアの幅
+
 		constexpr static int UNIT_Y = BATTLE_UI_AREA_Y + (BUI_H - CHIP_SIZE) / 2; //! ユニット選択肢のY座標
 		constexpr static int UNIT_MARGIN = 10; //! ユニット選択肢の余白
+
+		pair<int, int> countPos_;	//! 配置数の座標
+		int countMax_;	//! 最大配置可能数
+		int count_;		//! 配置数
 
 		int selectUnitId_; //! 選択中のユニットID
 

@@ -11,7 +11,7 @@ namespace Entity {
 		: animation_{}
 	{
 		fight_ = nullptr;
-		shape_.set(BUI_PADDING, BATTLE_UI_AREA_Y + BUI_PADDING);
+		shape_.set(BUI_PADDING, WIN_H);
 		shape_.setSize(AREA_WIDTH * 2 + CENTER_WIDTH, BUI_LINE_HEIGHT * BUI_LINE_COUNT + BUI_LINE_MARGIN);
 		shape_.disabledHit = true;
 	}

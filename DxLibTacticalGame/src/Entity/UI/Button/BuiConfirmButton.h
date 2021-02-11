@@ -33,8 +33,11 @@ namespace Entity
 		void show();
 		void hide();
 
-	private:
+		void setDisabled(bool disable);
 
+	private:
+		bool isVisible_; //! ボタン表示状態
+		bool isDisabled_; //! ボタンの有効状態
 	};
 
 	

@@ -10,7 +10,7 @@ namespace Entity {
 	UnitStatusDisplay::UnitStatusDisplay() 
 		: animation_{}, extraStatusHoverId_ (EXTRA_STATUS_ID_NONE)
 	{
-		shape_.set(X, BATTLE_UI_AREA_Y + BUI_PADDING, WIDTH, BUI_LINE_HEIGHT * BUI_LINE_COUNT + BUI_LINE_MARGIN);
+		shape_.set(X, WIN_H, WIDTH, BUI_LINE_HEIGHT * BUI_LINE_COUNT + BUI_LINE_MARGIN);
 	}
 
 	/**

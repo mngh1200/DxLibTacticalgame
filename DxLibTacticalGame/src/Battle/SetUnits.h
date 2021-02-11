@@ -13,5 +13,5 @@ using namespace Entity;
 
 namespace SetUnits
 {
-	void onClick(int x, int y, shared_ptr<Map> map, int unitId);
+	void onClick(int x, int y, shared_ptr<Map> map, Battle::BattleUI* battleUI);
 }

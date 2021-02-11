@@ -32,7 +32,7 @@ BORN_WAVE	WAVE	"../resource/sound/born.wav"
 
 ATTACK_CLOSE_WAVE	WAVE	"../resource/sound/attack-close.wav"
 
-MOV_WAVEE	WAVE	"../resource/sound/move.wav"
+MOV_WAVE	WAVE	"../resource/sound/move.wav"
 
 SELECT_UNIT_WAVE	WAVE	"../resource/sound/select-unit.wav"
 

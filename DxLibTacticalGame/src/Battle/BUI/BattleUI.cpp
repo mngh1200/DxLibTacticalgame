@@ -41,8 +41,9 @@ namespace Battle {
 	/**
 	 * @fn
 	 * ユニット選択モードを開始
+	 * @param (setUnitNum) ユニット最大配置可能数
 	*/
-	void BattleUI::startSelectUnitMode()
+	void BattleUI::startSelectUnitMode(int setUnitNum)
 	{
 		mode_ = Mode::SET_UNITS;
 
@@ -56,11 +57,13 @@ namespace Battle {
 		int layerId = terrainEffectDisplay_->getLayerId(); // レイヤーID、地形効果表示欄と同じ
 		
 		selectUnitArea_ = make_shared<SelectUnitArea>();
+		selectUnitArea_->setCountMax(setUnitNum);
 		objectsControl.addObject(layerId, BattleUIid::SELECT_UNIT_AREA, selectUnitArea_);
 
 		// ユニット配置確定ボタン
 		confirmUnitSetButton_ = make_shared<BuiConfirmButton>();
 		confirmUnitSetButton_->setText("準備完了");
+		confirmUnitSetButton_->setDisabled(true);
 		objectsControl.addObject(layerId, BattleUIid::CONFIRM_UNIT_SET, confirmUnitSetButton_);
 	}
 
@@ -78,6 +81,34 @@ namespace Battle {
 
 		objectsControl.removeObject(selectUnitArea_->getLayerId(), selectUnitArea_->getObjectId());
 		objectsControl.removeObject(confirmUnitSetButton_->getLayerId(), confirmUnitSetButton_->getObjectId());
+	}
+
+	/**
+	 * @fn
+	 * ユニット配置カウント増加
+	 * @return 最大可能数による制限でカウント増加できなかった場合はfalseを返す
+	 */
+	bool BattleUI::addSetUnitCount()
+	{
+		confirmUnitSetButton_->setDisabled(false);
+		if (selectUnitArea_->addCount())
+		{
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @fn
+	 * ユニット配置カウント減少
+	 */
+	void BattleUI::removeSetUnitCount()
+	{
+		selectUnitArea_->removeCount();
+		if (selectUnitArea_->getCount() == 0)
+		{
+			confirmUnitSetButton_->setDisabled(true);
+		}
 	}
 
 	/**

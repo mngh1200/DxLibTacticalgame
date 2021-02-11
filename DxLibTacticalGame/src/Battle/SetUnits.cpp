@@ -6,10 +6,11 @@ namespace SetUnits {
 	 * @fn
 	 * ユニット配置シーンでのクリックイベント
 	 */
-	void onClick(int x, int y, shared_ptr<Map> map, int unitId)
+	void onClick(int x, int y, shared_ptr<Map> map, Battle::BattleUI* battleUI)
 	{
 		int massX = Map::getMassX(x);
 		int massY = Map::getMassY(y);
+		int unitId = battleUI->getSelectedUnitId();
 
 		if (!map->isRange(massX, massY) || unitId == -1)
 		{
@@ -26,11 +27,12 @@ namespace SetUnits {
 
 		if (unit) // 対象マスにユニットが存在する場合は削除
 		{
+			battleUI->removeSetUnitCount();
 			map->eraseUnit(unit);
 			unit->destroy();
 			Utility::ResourceManager::playSound(SoundKind::BACK);
 		}
-		else // 対象マスにユニットが存在しない場合は、設置
+		else if (battleUI->addSetUnitCount()) // 対象マスにユニットが存在しない場合は、設置
 		{
 			map->setUnit(massX, massY, unitId);
 			Utility::ResourceManager::playSound(SoundKind::CHECK);

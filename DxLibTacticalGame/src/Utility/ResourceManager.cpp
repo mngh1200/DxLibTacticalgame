@@ -253,6 +253,7 @@ namespace Utility {
 		colorType_[ColorType::POSITIVE_LITE_COLOR] = DxLib::GetColor(185, 202, 165);
 
 		colorType_[ColorType::NEGATIVE_COLOR] = DxLib::GetColor(139, 137, 130);
+		colorType_[ColorType::NEGATIVE_COLOR_DARK] = 0x55534E;
 
 		colorType_[ColorType::ACCENT_COLOR] = DxLib::GetColor(204, 75, 194);
 
@@ -336,9 +337,10 @@ namespace Utility {
 	 */
 	void ResourceManager::loadStageData(const string stageKind, const int id, string* title, string* hint, vector<int>* checkWinData)
 	{
+		vector<int> extraRules;
 		std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H > mapData;
 		vector<vector<int>> units;
-		Utility::ResourceManager::loadStageData(stageKind, id, title, hint, &mapData, checkWinData, &units, true);
+		Utility::ResourceManager::loadStageData(stageKind, id, title, hint, checkWinData, &extraRules, &mapData, &units, true);
 	}
 
 	/**
@@ -348,12 +350,13 @@ namespace Utility {
 	 * @param (id) ステージID
 	 * @param (title) ステージタイトル取得用
 	 * @param (hint) ヒント取得用
-	 * @param (mapData) マップデータ取得用
 	 * @param (checkWinData) 勝敗条件取得用
+	 * @param (extraRules) その他のルール (自由配置可能数)
+	 * @param (mapData) マップデータ取得用
 	 * @param (units) 配置ユニット取得用
 	 * @param (isUntilCheckWin) タイトル、ヒント、勝敗条件のみ取得したい場合はtrue (デフォルトfalse)
 	 */
-	void ResourceManager::loadStageData(const string stageKind, const int id, string* title, string* hint, std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H >* mapData, vector<int>* checkWinData, vector<vector<int>>* units, bool isUntilCheckWin)
+	void ResourceManager::loadStageData(const string stageKind, const int id, string* title, string* hint, vector<int>* checkWinData, vector<int>* extraRules, std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H >* mapData, vector<vector<int>>* units, bool isUntilCheckWin)
 	{
 		std::string str_buf;
 		std::string str_conma_buf;
@@ -383,6 +386,14 @@ namespace Utility {
 		{
 			ifs_csv_file.close();
 			return;
+		}
+
+		// その他ルール
+		getline(ifs_csv_file, str_buf);
+		i_stream = istringstream(str_buf);
+		while (getline(i_stream, str_conma_buf, ','))
+		{
+			(*extraRules).push_back(stoi(str_conma_buf));
 		}
 
 		getline(ifs_csv_file, str_buf); // 空行を読み込む想定

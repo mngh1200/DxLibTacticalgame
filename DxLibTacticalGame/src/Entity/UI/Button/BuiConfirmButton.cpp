@@ -5,7 +5,7 @@ namespace Entity {
 	 * @fn
 	 * コンストラクタ
 	 */
-	BuiConfirmButton::BuiConfirmButton()
+	BuiConfirmButton::BuiConfirmButton() : isVisible_(true), isDisabled_(false)
 	{
 		setColor(ColorType::POSITIVE_COLOR, ColorType::POSITIVE_LITE_COLOR, State::NORMAL);
 		setColor(ColorType::POSITIVE_LITE_COLOR, ColorType::POSITIVE_COLOR, State::MOUSE_DOWN);
@@ -22,7 +22,7 @@ namespace Entity {
 	 */
 	void BuiConfirmButton::render() const
 	{
-		if (shape_.disabledHit)
+		if (!isVisible_)
 		{
 			return; // 非表示
 		}
@@ -52,7 +52,8 @@ namespace Entity {
 	 */
 	void BuiConfirmButton::show()
 	{
-		shape_.disabledHit = false;
+		isVisible_ = true;
+		shape_.disabledHit = isDisabled_;
 	}
 
 	/**
@@ -61,6 +62,34 @@ namespace Entity {
 	 */
 	void BuiConfirmButton::hide()
 	{
+		isVisible_ = false;
 		shape_.disabledHit = true;
+	}
+
+	/**
+	 * @fn
+	 * 有効状態セット
+	 * @param (disable) セットする状態
+	 */
+	void BuiConfirmButton::setDisabled(bool disable)
+	{
+		isDisabled_ = disable;
+		shape_.disabledHit = disable;
+
+		if (disable)
+		{
+			setColor(ColorType::NEGATIVE_COLOR_DARK, ColorType::NEGATIVE_COLOR, State::ALL);
+		}
+		else
+		{
+			setColor(ColorType::POSITIVE_COLOR, ColorType::POSITIVE_LITE_COLOR, State::NORMAL);
+			setColor(ColorType::POSITIVE_LITE_COLOR, ColorType::POSITIVE_COLOR, State::MOUSE_DOWN);
+			setColor(ColorType::POSITIVE_LITE_COLOR, ColorType::POSITIVE_COLOR, State::MOUSE_OVER);
+		}
+
+		if (!isVisible_)
+		{
+			shape_.disabledHit = true;
+		}
 	}
 }

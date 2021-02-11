@@ -49,6 +49,7 @@ namespace
 		POSITIVE_COLOR,
 		POSITIVE_LITE_COLOR,
 		NEGATIVE_COLOR,
+		NEGATIVE_COLOR_DARK,
 		ACCENT_COLOR,
 		COLOR_LEN
 	};
@@ -141,7 +142,7 @@ namespace Utility
 		static void playSound(int kind);
 
 		static void loadStageData(const string stageKind, const int id, string* title, string* hint, vector<int>* checkWinData);
-		static void loadStageData(const string stageKind, const int id, string* title, string* hint, std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H >* mapData, vector<int>* checkWinData, vector<vector<int>>* units, bool isUntilCheckWin = false);
+		static void loadStageData(const string stageKind, const int id, string* title, string* hint, vector<int>* checkWinData, vector<int>* extraRules, std::array<std::array<int, MAP_MASS_W>, MAP_MASS_H>* mapData, vector<vector<int>>* units, bool isUntilCheckWin = false);
 
 		boolean isLoaded() const;
 

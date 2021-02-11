@@ -30,7 +30,7 @@ namespace Screen
 	class BattleScreen : public ScreenBase
 	{
 	public:
-		BattleScreen() : btlMng_{}, playerBtlCont_{},  openScreen_(-1), stageId_(0) {};
+		BattleScreen() : btlMng_{}, playerBtlCont_{},  openScreen_(-1), stageId_(0), isSetUnit_(false) {};
 		~BattleScreen() {};
 
 		// レイヤー
@@ -62,6 +62,7 @@ namespace Screen
 		void setStage(int id);
 
 	private:
+		void startBattle();
 		void turnEnd();
 		void confirmSetUnits();
 		void showHint();
@@ -75,6 +76,9 @@ namespace Screen
 
 		// 敵ユニット操作クラス
 		Battle::EnemyBattleController enemyBtlCont_;
+
+		// ユニット配置シーンの有無
+		bool isSetUnit_;
 
 		//! 選択ステージのID
 		int stageId_;

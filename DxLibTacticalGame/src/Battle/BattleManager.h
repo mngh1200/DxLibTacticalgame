@@ -36,7 +36,7 @@ namespace Battle
 			FIGHT
 		};
 
-		void init(shared_ptr<Entity::Map> map, int stageId);
+		void init(shared_ptr<Entity::Map> map, int stageId, bool* isSetUnit);
 
 		void animationCheck();
 		int checkEnd();
