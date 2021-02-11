@@ -206,7 +206,13 @@ body {
 	visibility: visible;
 }
 
-[data-unit-key=delete]:before {
+[data-unit-key=free-or-delete][data-is-enemy="0"]:before {
+	background-size: 100%;
+	background-image: url(../../DxLibTacticalGame/DxLibTacticalGame/resource/image/map/state-movable.png);
+	visibility: visible;
+}
+
+[data-unit-key=free-or-delete][data-is-enemy="1"]:before {
 	content: '消';
 	visibility: visible;
 	background: none

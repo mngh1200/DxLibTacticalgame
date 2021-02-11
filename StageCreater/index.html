@@ -28,10 +28,11 @@ var UNIT_DEFINE = [
 	{key: 'lancer'},
 	{key: 'cavarie'},
 	{key: 'gunner'},
-	{key: 'delete'}
+	{key: 'free-or-delete'}
 ]
 
-var DEL_UNIT_ID = UNIT_DEFINE.length - 1 + ''; // 削除ID
+// 自由配置マスまたはユニット削除ID
+var FREE_OR_DEL_ID = UNIT_DEFINE.length - 1 + '';
 </script>
 </head>
 <body>
@@ -70,12 +71,10 @@ for (var i = 0; i < MASS_DEFINE.length; i++) {
 
 			<ul class="unit-list select-list">
 <script>
-for (var i = 0; i < UNIT_DEFINE.length - 1; i++) {
-	document.write('<li class="select-list__item mass" data-is-enemy="0" data-unit-key="' + UNIT_DEFINE[i].key + '" data-unit-id="' + i + '"></li>')
-}
-for (var i = 0; i < UNIT_DEFINE.length; i++) {
-	var enemyAttr = i == UNIT_DEFINE.length - 1 ? '' : 'data-is-enemy="1"';
-	document.write('<li class="select-list__item mass"' + enemyAttr + ' data-unit-key="' + UNIT_DEFINE[i].key + '" data-unit-id="' + i + '"></li>')
+for (var h = 0; h < 2; h++) {
+	for (var i = 0; i < UNIT_DEFINE.length; i++) {
+		document.write('<li class="select-list__item mass" data-is-enemy="' + h + '" data-unit-key="' + UNIT_DEFINE[i].key + '" data-unit-id="' + i + '"></li>')
+	}
 }
 </script>
 			</ul>
@@ -94,6 +93,9 @@ for (var i = 0; i < UNIT_DEFINE.length; i++) {
 				<option value="1">ターン制限超過で敗北</option>
 			</select>
 			<input type="num" class="setting-form__input" name="turn" value="20"/>
+
+			<label class="setting-form__label">最大配置可能数:</label>
+			<input type="text" class="setting-form__input" name="set-unit-num" value="0"/>
 
 			<label class="setting-form__label">ファイル名:</label>
 			<input type="text" class="setting-form__input" name="fileName" value="stage1"/>
@@ -127,11 +129,6 @@ function select(id, isMass, enemyVal) {
 		var enemy = isEnemy ? '1' : '0';
 		var $selectUnit = $('[data-unit-id="' + id + '"][data-is-enemy=' + enemyVal + ']');
 		$selectUnit.addClass('selected');
-
-		if ($selectUnit.length == 0) { // 削除キー
-			var $del = $('[data-unit-id="' + id + '"]');
-			$del.addClass('selected');
-		}
 	}
 }
 
@@ -148,7 +145,8 @@ $('.select-list__item').click(function() {
 	}
 });
 
-$('.map__cell').on('mousedown mouseenter', function(e) { // クリック時、または、左ボタン押下しながらホバー
+// クリック時、または、左ボタン押下しながらホバー
+$('.map__cell').on('mousedown mouseenter', function(e) {
 	if (e.buttons != 1 && e.type != 'click') {
 		return;
 	}
@@ -177,15 +175,20 @@ function setMassId($ele, id) {
 
 // ユニットセット
 function setUnitId($ele, id, isEnemy) {
-	if (id != DEL_UNIT_ID) {
+	if (id != FREE_OR_DEL_ID) {
 		$ele.attr('data-unit-key', UNIT_DEFINE[id].key);
 		$ele.attr('data-id', id);
 		$ele.attr('data-is-enemy', isEnemy ? '1' : '0');
 	} else {
-		$ele.text('');
-		$ele.attr('data-id', '');
-		$ele.attr('data-unit-key', '');
-		$ele.attr('data-is-enemy', '');
+		if (!isEnemy) { // 自由配置
+			$ele.attr('data-id', -1);
+			$ele.attr('data-unit-key', UNIT_DEFINE[id].key);
+			$ele.attr('data-is-enemy', '0');
+		} else { // 削除
+			$ele.attr('data-id', '');
+			$ele.attr('data-unit-key', '');
+			$ele.attr('data-is-enemy', '');
+		}
 	}
 }
 
@@ -217,9 +220,10 @@ $('.setting-form__input').keydown(function(e){
 function outputCsv() {
 	var texts = $('[name=title]').val() + '\n' +  ($('[name=hint]').val()).replaceAll('\n','\\n') + '\n\n';
 	var checkWin = getCheckWin();
+	var setUnitNum = $('[name="set-unit-num"]').val() + '\n\n';
 	var mapAndUnitText = getMapText();
 
-	var text = texts + checkWin + mapAndUnitText;
+	var text = texts + checkWin + setUnitNum + mapAndUnitText;
 
 	var sjis_array = Encoding.convert(Encoding.stringToCode(text), "SJIS", "UNICODE");
 	var sjis_data = new Uint8Array(sjis_array);
@@ -253,7 +257,7 @@ function getCheckWin() {
 	if ($('.map__cell[data-mass-key="enemy-fort"]').length) {
 		rule += 2;
 	}
-	return text + rule + '\n\n';
+	return text + rule + '\n';
 }
 
 // マップデータ出力
@@ -315,17 +319,30 @@ $('.js-csv').change(function() {
 		var result = Encoding.codeToString(uniArray);
 
 		var textLines = result.split('\n');
-		
-		$('[name=title]').val(textLines[0]); // タイトル
-		$('[name=hint]').val(textLines[1].replaceAll('\\n','\n'));  // ヒント
 
-		var checkWinList = textLines[3].split(',');
+		var count = 0; // 対象行
+		
+		$('[name=title]').val(textLines[count++]); // タイトル
+		$('[name=hint]').val(textLines[count++].replaceAll('\\n','\n'));  // ヒント
+
+		count++;
+
+		var checkWinList = textLines[count++].split(',');
 		$('[name=turn]').val(checkWinList[0]); // 制限
-		$('[name=limit-winner]').val(checkWinList[1]); // 制限ルール
+		$('[name=limit-winner]').val(checkWinList[1]); // 制限ルール		
+
+		// 最大配置可能数
+		var extraRules = textLines[count++];
+		if (extraRules != '') {
+			$(['name=set-unit-num']).val(extraRules);
+			count++;
+		} else {
+			$(['name=set-unit-num']).val(0);
+		}
 
 		// マップデータ
 		var y = 0;
-		var count = 5;
+		
 		var $cells = $('.map__cell');
 		while(count < textLines.length && textLines[count] != '' && y < MAP_H) {
 			setMapData(y, textLines[count], $cells);
