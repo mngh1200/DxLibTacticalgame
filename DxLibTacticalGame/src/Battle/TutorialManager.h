@@ -24,7 +24,10 @@ namespace
 		FIGHT_PREDICT,	//! 戦闘予測確認
 		ATACK,			//! 攻撃
 		TERRAIN_EFFECT,	//! 地形効果
-		FREE_SET,		//! 自由配置
+		FREE_SET_SELECT,//! 自由配置（選択）
+		FREE_SET_SET,	//! 自由配置（設置）
+		FREE_SET_DEL,	//! 自由配置（削除）
+		FREE_SET_FIN,	//! 自由配置（完了）
 		COORDINATED,	//! 連携
 		PINCHING,		//! 挟撃
 		ALL_KILL,		//! 殲滅
@@ -53,7 +56,7 @@ namespace Battle
 		{};
 		~TutorialManager() {};
 
-		void init(int stageId);
+		void init(int stageId, shared_ptr<Message> message);
 		void onEvent(int tutorialId);
 
 	private:
