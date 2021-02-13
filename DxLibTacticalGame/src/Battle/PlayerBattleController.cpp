@@ -16,9 +16,9 @@ namespace Battle {
 	 * @fn
 	 * イベント処理
 	 */
-	void PlayerBattleController::updateByEvents(BattleManager* bm, shared_ptr<Object> hitObj, int x, int y, int button, int eventType)
+	void PlayerBattleController::updateByEvents(BattleManager* bm, shared_ptr<Object> hitObj, int x, int y, int button, int* eventType)
 	{
-		if (eventType == MOUSE_INPUT_LOG_CLICK && !bm->isAnimation()) // クリック かつ　アニメーション中ではない
+		if (*eventType == MOUSE_INPUT_LOG_CLICK && !bm->isAnimation()) // クリック かつ　アニメーション中ではない
 		{
 			if (hitObj->getType() == Object::Type::UNIT)
 			{
@@ -27,6 +27,16 @@ namespace Battle {
 			else if (hitObj->getType() == Object::Type::MAP)
 			{
 				onClickMass(bm, x, y);
+			}
+		}
+		else if (*eventType == MOUSE_INPUT_LOG_UP && button == MOUSE_INPUT_RIGHT && !bm->isAnimation()) // マウス右クリック（厳密にはボタンアップ）
+		{
+			if (hitObj->getType() == Object::Type::MAP)
+			{
+				if (checkMoveConfirm(bm, x, y))
+				{
+					*eventType = MOUSE_INPUT_LOG_USED;
+				}
 			}
 		}
 
@@ -41,7 +51,7 @@ namespace Battle {
 			bm->resetFightPredict();
 		}
 
-		bm->battleUI.updateByEvents(hitObj, x, y, button, eventType);
+		bm->battleUI.updateByEvents(hitObj, x, y, button, *eventType);
 
 	}
 
@@ -123,6 +133,7 @@ namespace Battle {
 			else
 			{
 				bm->selectUnit(unit); // ユニット選択
+				bm->tutorial.onEvent(TutorialManager::TutorialId::MOVE);
 				Utility::ResourceManager::playSound(SoundKind::SELECT_UNIT);
 			}
 		}
@@ -131,6 +142,9 @@ namespace Battle {
 	/**
 	 * @fn
 	 * マス クリック時処理
+	 * @param (bm) バトル管理クラス
+	 * @param (x) x座標
+	 * @param (y) y座標
 	 */
 	void PlayerBattleController::onClickMass(BattleManager* bm, int x, int y)
 	{
@@ -159,5 +173,32 @@ namespace Battle {
 		{
 			bm->deselectUnit(); // 選択解除
 		}
+	}
+
+	/**
+	 * @fn
+	 * マス 右クリック時処理
+	 * @param (bm) バトル管理クラス
+	 * @param (x) x座標
+	 * @param (y) y座標
+	 * @return 移動、移動確定を実行した場合 trueを返す
+	 */
+	bool PlayerBattleController::checkMoveConfirm(BattleManager* bm, int x, int y)
+	{
+		int massX = Map::getMassX(x);
+		int massY = Map::getMassY(y);
+
+		if (bm->isSelectedUnitActive())
+		{
+			shared_ptr<Mass> targetMass = map_->getMass(massX, massY);
+
+			if (bm->getPhase() != BattleManager::Phase::SELECT_ACTION && targetMass->isMovable())
+			{
+				bm->moveAction(massX, massY, true); //移動 & 移動確定
+				Utility::ResourceManager::playSound(SoundKind::WAIT);
+				return true;
+			}
+		}
+		return false;
 	}
 }

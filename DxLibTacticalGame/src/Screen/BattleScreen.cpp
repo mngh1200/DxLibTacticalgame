@@ -61,7 +61,7 @@ namespace Screen
 
 			if (nowScene_ == Scene::PLAYER_TURN) // プレイヤーターン
 			{
-				playerBtlCont_.updateByEvents(&btlMng_, hitObjSp, x, y, button, eventType);
+				playerBtlCont_.updateByEvents(&btlMng_, hitObjSp, x, y, button, &eventType);
 
 				// システムメニュー関連イベント
 				int systemMenuKey = systemMenu_->checkRunButton(x, y, eventType);

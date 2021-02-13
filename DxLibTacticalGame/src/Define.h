@@ -13,6 +13,7 @@ constexpr int WIN_H = 720;
 
 //! マウスのクリック時のイベントタイプ
 constexpr int MOUSE_INPUT_LOG_CLICK = 2;
+constexpr int MOUSE_INPUT_LOG_USED = 3; // すでに他のイベントで使用した場合
 
 //! 透過度の最大値
 constexpr int MAX_ALPHA = 255;

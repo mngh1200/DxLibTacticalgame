@@ -57,7 +57,7 @@ namespace Battle
 
 		void atackAction();
 		void waitAction();
-		void moveAction(int massX, int massY);
+		void moveAction(int massX, int massY, bool isMoveImmdiateConfirm = false);
 		void moveCancel();
 
 		void setFightPredict(shared_ptr<Unit> targetUnit);
@@ -101,6 +101,9 @@ namespace Battle
 
 		//! ŸÒ
 		CheckWin checkWin_;
+
+		//! ˆÚ“®‚ğ‘¦Šm’è‚³‚¹‚é‚©
+		bool isMoveImmdiateConfirm_;
 	};
 
 

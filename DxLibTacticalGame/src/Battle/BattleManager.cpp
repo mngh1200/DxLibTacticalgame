@@ -68,6 +68,12 @@ namespace Battle {
 			if (selectedUnit_ && !selectedUnit_->isAnimation()) // 移動終了
 			{
 				startSelectActionPhase(); // 行動選択フェイズ
+				tutorial.onEvent(TutorialManager::TutorialId::MOVE_CONFIRM);
+
+				if (isMoveImmdiateConfirm_) // 移動即時確定
+				{
+					waitAction();
+				}
 			}
 		}
 		else if (phase_ == Phase::FIGHT && fight_.checkUpdate()) // 攻撃
@@ -248,11 +254,13 @@ namespace Battle {
 	 * ユニット移動アクション
 	 * @param (massX) マス座標X
 	 * @param (massY) マス座標Y
+	 * @param (isMoveImmdiateConfirm) trueの場合、移動即時確定
 	*/
-	void BattleManager::moveAction(int massX, int massY)
+	void BattleManager::moveAction(int massX, int massY, bool isMoveImmdiateConfirm)
 	{
 		selectedUnit_->move(massX, massY); // 移動
 		phase_ = Phase::MOVE;
+		isMoveImmdiateConfirm_ = isMoveImmdiateConfirm;
 	}
 
 	/**
