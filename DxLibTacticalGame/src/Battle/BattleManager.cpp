@@ -80,6 +80,7 @@ namespace Battle {
 		{
 			// çUåÇèIóπ
 			phase_ = Phase::NORMAL;
+			tutorial.onEvent(TutorialManager::TutorialId::COORDINATED);
 			checkWin_.checkWin(map);
 		}
 

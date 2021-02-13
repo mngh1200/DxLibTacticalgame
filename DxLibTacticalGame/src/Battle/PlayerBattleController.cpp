@@ -80,6 +80,7 @@ namespace Battle {
 			{
 				// 戦闘予測
 				bm->setFightPredict(unit);
+				bm->tutorial.onEvent(TutorialManager::TutorialId::ATACK);
 			}
 			else
 			{
@@ -112,6 +113,7 @@ namespace Battle {
 			if (bm->isSelectedUnit(unit)) // 選択中のユニットクリック
 			{
 				bm->waitAction(); // 待機アクション
+				bm->tutorial.onEvent(TutorialManager::TutorialId::TURN_END);
 				Utility::ResourceManager::playSound(SoundKind::WAIT);
 			}
 			else
