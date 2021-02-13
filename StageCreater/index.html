@@ -16,8 +16,8 @@ var FORT_IDS = ['4','5']; // 砦マスのID
 // マス定義
 var MASS_DEFINE = [
 	{key: 'light-green', text: '草原'},
-	{key: 'blue', text: '川'},
 	{key: 'green', text: '森'},
+	{key: 'blue', text: '川'},
 	{key: 'brown', text: '山'},
 	{key: 'player-fort', text: '砦（自軍）'},
 	{key: 'enemy-fort', text: '砦（敵軍）'}
@@ -357,6 +357,8 @@ $('.js-csv').change(function() {
 			setUnitData(textLines[count], $unitCont);
 			count++;
 		}
+
+		$('.js-csv').val('');
 	}
 });
 
@@ -380,7 +382,7 @@ function setUnitData(data, $unitCont) {
 	var id = Number(words[2]);
 	var isEnemy = words[3] == '1';
 
-	setUnitId($unitCont.eq(y * MAP_H + x), id, isEnemy);
+	setUnitId($unitCont.eq(y * MAP_W + x), id, isEnemy);
 }
 
 </script>
