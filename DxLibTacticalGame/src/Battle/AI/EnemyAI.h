@@ -38,7 +38,7 @@ namespace Battle
 	{
 		int stay = 0;			//! 現在のマスから動かない
 		int atack = 10;			//! 攻撃性
-		int survive = 10;		//! 生き残る
+		int survive = 5;		//! 生き残る
 		// int kill = 10;			//! キル
 		int friendship = 10;	//! 味方との隣接
 		int targetPoint = 10;	//! 制圧 or 防衛
