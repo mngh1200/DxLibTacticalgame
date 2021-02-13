@@ -5,7 +5,7 @@
 namespace Entity {
 	const vector<int> Mass::COST = { 1, 2, 2, INT_MAX, 1, 1 };
 	const vector<int> Mass::AGL_UP = { 0, 20, -20, 0, 0, 0 };
-	const vector<int> Mass::DEF_UP = { 0,  2,  -2, 0, 3, 3 };
+	const vector<int> Mass::DEF_UP = { 0,  1,  -2, 0, 2, 3 };
 	const vector<string> Mass::TEXT1 = {"‘Œ´", "X", "ì", "R", "Ôi©ŒRj", "Ôi“GŒRj"};
 
 	/**

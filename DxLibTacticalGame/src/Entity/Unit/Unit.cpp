@@ -54,7 +54,7 @@ namespace Entity {
 		{
 			info_.name = "‘„•º";
 			info_.hpm = 30;
-			info_.atk = 6;
+			info_.atk = 7;
 			info_.def = 2;
 			info_.mov = 2;
 			info_.len = 1;
