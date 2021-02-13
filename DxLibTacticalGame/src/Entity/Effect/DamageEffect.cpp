@@ -59,6 +59,11 @@ namespace Entity {
 
 		shape_.x = unitX + CHIP_SIZE / 2 - shape_.w / 2; // ’†‰›‘µ‚¦
 
+		if (shape_.y < 0) // ‰æ–ÊŠO‚Ìê‡
+		{
+			shape_.y = unitY;
+		}
+
 		joinAnimationList(AnimationKind::DISPLAY);
 	}
 
