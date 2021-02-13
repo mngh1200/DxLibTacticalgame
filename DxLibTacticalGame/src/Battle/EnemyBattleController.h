@@ -22,12 +22,20 @@ namespace Battle
 		EnemyBattleController() : timerEvent_(TimerEvent::NONE), timer_{} {};
 		~EnemyBattleController() {};
 
-		void init(shared_ptr<Map> map);
+		void init(shared_ptr<Map> map, int aiKind);
 
 		bool update(BattleManager* bm);
 
 		static float timerRate; //! タイマー時間の長さの倍率（速度調整用）
 	private:
+		// AIの種類
+		enum AiKind
+		{
+			NORMAL,				//! 標準
+			SELF_DEFENCE_ONLY,	//! 攻撃してこない
+			AI_KIND_LEN
+		};
+
 		// タイマーイベント
 		enum TimerEvent
 		{

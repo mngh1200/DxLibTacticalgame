@@ -8,11 +8,19 @@ namespace Battle {
 	 * 初期処理
 	 * @param (map) マップのポインタ
 	 */
-	void EnemyBattleController::init(shared_ptr<Map> map)
+	void EnemyBattleController::init(shared_ptr<Map> map, int aiKind)
 	{
 		map_ = map;
 		ai_ = make_unique<EnemyAI>();
 		ai_->init(map);
+
+		if (aiKind == AiKind::SELF_DEFENCE_ONLY)
+		{
+			Oriented oriented = {};
+			oriented.stay = 100;
+			oriented.atack = 1;
+			ai_->setOriented(oriented);
+		}
 	}
 
 	/**

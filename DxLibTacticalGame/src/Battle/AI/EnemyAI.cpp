@@ -13,6 +13,16 @@ namespace Battle {
 
 	/**
 	 * @fn
+	 * AIの志向特性をセットする
+	 * @param (oriented) 志向特性
+	 */
+	void EnemyAI::setOriented(Oriented oriented)
+	{
+		oriented_ = oriented;
+	}
+
+	/**
+	 * @fn
 	 * 操作手順を返す
 	 * @param (map) mapポインタ
 	 */
@@ -37,6 +47,12 @@ namespace Battle {
 		{
 			// 対象マスの得点計算
 			int point = 0;
+
+			// 現在マスに留まる志向スコア
+			if (oriented_.stay != 0 && itr->first == unit->getMassX() && itr->second == unit->getMassY())
+			{
+				point += oriented_.stay;
+			}
 
 			// 戦闘予測からのポイント算出
 			shared_ptr<Unit> tmpTargetUnit;
@@ -106,8 +122,8 @@ namespace Battle {
 				FightData actFight = fight.getFightData(true);
 				FightData defFight = fight.getFightData(false);
 
-				tmpPoint = actFight.damage * actFight.hitRate / 100;
-				tmpPoint -= defFight.damage * defFight.hitRate / 100;
+				tmpPoint = (actFight.damage * actFight.hitRate / 100) * oriented_.atack;
+				tmpPoint -= (defFight.damage * defFight.hitRate / 100)* oriented_.survive;
 
 				if (tmpPoint > point) // 得点が高い場合
 				{
@@ -120,22 +136,22 @@ namespace Battle {
 		// 味方ユニットとの隣接ボーナス
 		if (map->getUnit(x, y + 1))
 		{
-			point += SCORE_BY_FRIEND;
+			point += SCORE_BY_FRIEND * oriented_.friendship;
 		}
 
 		if (map->getUnit(x, y - 1))
 		{
-			point += SCORE_BY_FRIEND;
+			point += SCORE_BY_FRIEND * oriented_.friendship;
 		}
 
 		if (map->getUnit(x + 1, y))
 		{
-			point += SCORE_BY_FRIEND;
+			point += SCORE_BY_FRIEND * oriented_.friendship;
 		}
 
 		if (map->getUnit(x - 1, y))
 		{
-			point += SCORE_BY_FRIEND;
+			point += SCORE_BY_FRIEND * oriented_.friendship;
 		}
 
 		// 基本スコアを加算
@@ -181,12 +197,12 @@ namespace Battle {
 			{
 				int kind = (*xItr)->getKind();
 
-				if (kind == Mass::Kind::FORT_ENEMY || kind == Mass::Kind::FORT_PLAYER)
+				if (kind == Mass::Kind::FORT_ENEMY || kind == Mass::Kind::FORT_PLAYER) // 砦マス
 				{
 					std::map<pair<int, int>, int> tmpBaseScoreMap;
-					massBaseScoreMap[make_pair(x, y)] = 100;
+					massBaseScoreMap[make_pair(x, y)] = FORT_SCORE * oriented_.targetPoint;
 
-					setBaseScoreByFort(map, x, y, SCORE_BY_FORT, tmpBaseScoreMap);
+					setBaseScoreByFort(map, x, y, SCORE_BY_FORT * oriented_.targetPoint, tmpBaseScoreMap);
 					map->clearMassState();
 
 					// 砦から波及する基本スコアをセット
@@ -226,7 +242,7 @@ namespace Battle {
 		{
 			return;
 		}
-		move = move - nowMass->getCost() * FORT_MOVE_SCORE_RATE;
+		move = move - nowMass->getCost() * FORT_MOVE_SCORE_RATE * oriented_.targetPoint;
 		
 		if (move > nowMass->passingMov)
 		{

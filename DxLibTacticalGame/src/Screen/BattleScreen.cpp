@@ -34,9 +34,10 @@ namespace Screen
 		objectsControl.addObject(Layer::MAP, 0, map);
 		
 		// バトル管理用クラスの初期処理
-		btlMng_.init(map, stageId_, &isSetUnit_);
+		int aiKind;
+		btlMng_.init(map, stageId_, &isSetUnit_, &aiKind);
 		playerBtlCont_.init(map);
-		enemyBtlCont_.init(map);
+		enemyBtlCont_.init(map, aiKind);
 
 		// オーバーレイセット
 		createOverlay(true);

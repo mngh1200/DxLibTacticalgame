@@ -9,7 +9,7 @@ namespace Battle {
 	 * @param (stageId) ステージID
 	 * @param (isSetUnit) ユニット配置シーンの有無取得用
 	 */
-	void BattleManager::init(shared_ptr<Entity::Map> map, int stageId, bool* isSetUnit)
+	void BattleManager::init(shared_ptr<Entity::Map> map, int stageId, bool* isSetUnit, int* aiKind)
 	{
 		this->map = map;
 		battleUI.init();
@@ -33,9 +33,11 @@ namespace Battle {
 		FrameWork::Game& game = FrameWork::Game::getInstance();
 		game.objectsControl.addObject(Screen::BattleScreen::Layer::TOP_UI, Screen::BattleScreen::TopUiId::MESSAGE, message);
 
-		*isSetUnit = false;
+		// チュートリアル
+		tutorial.init(stageId, message);
 
 		// ユニット配置可能数の確認
+		*isSetUnit = false;
 		if (extraRules.size() > 0)
 		{
 			int countMax = extraRules[0];
@@ -45,6 +47,13 @@ namespace Battle {
 				battleUI.startSelectUnitMode(countMax);
 				*isSetUnit = true;
 			}
+		}
+
+		// AIの種類取得
+		*aiKind = 0;
+		if (extraRules.size() > 1)
+		{
+			*aiKind = extraRules[1];
 		}
 	}
 
@@ -119,6 +128,8 @@ namespace Battle {
 		if (isPlayerTurn_)
 		{
 			checkWin_.showRemainingTurnMessage(message, getNowTurn());
+
+			tutorial.onPlayerTurnStart(map);
 		}
 		
 	}

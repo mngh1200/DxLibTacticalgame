@@ -4,6 +4,7 @@
 #include "BUI/BattleUI.h"
 #include "Fight.h"
 #include "CheckWin.h"
+#include "TutorialManager.h"
 #include "Entity/Battle/Map.h"
 #include "Entity/Unit/Unit.h"
 #include "BUI/BattleUI.h"
@@ -23,8 +24,13 @@ namespace Battle
 	{
 	public:
 		BattleManager() : 
-			isPlayerTurn_(true), phase_(Phase::NORMAL), turnNumEach_(0),
-			checkWin_{}, battleUI{} {};
+			isPlayerTurn_(true), 
+			phase_(Phase::NORMAL), 
+			turnNumEach_(0),
+			checkWin_{},
+			battleUI{},
+			tutorial{}
+		{};
 		~BattleManager() {};
 
 		// 状態遷移状況
@@ -36,7 +42,7 @@ namespace Battle
 			FIGHT
 		};
 
-		void init(shared_ptr<Entity::Map> map, int stageId, bool* isSetUnit);
+		void init(shared_ptr<Entity::Map> map, int stageId, bool* isSetUnit, int* aiKind);
 
 		void animationCheck();
 		int checkEnd();
@@ -67,6 +73,9 @@ namespace Battle
 
 		//! バトルUI
 		BattleUI battleUI;
+
+		//! チュートリアル管理クラス
+		TutorialManager tutorial;
 
 		//! メッセージ
 		shared_ptr<Entity::Message> message;
