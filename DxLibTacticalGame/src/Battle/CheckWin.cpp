@@ -126,11 +126,12 @@ namespace Battle {
 			++(*lineCount);
 		}
 
-		if (isPlayerWinOverLimit())
+		if (isPlayerWinOverLimit() && getLimitTurn() > 0)
 		{
 			(*text) += "\n・" + to_string(getLimitTurn()) + "ターンの経過";
 			++(*lineCount);
 		}
+		++(*lineCount);
 	}
 
 	/**
@@ -151,7 +152,7 @@ namespace Battle {
 			++(*lineCount);
 		}
 
-		if (!isPlayerWinOverLimit())
+		if (!isPlayerWinOverLimit() && getLimitTurn() > 0)
 		{
 			(*text) += "\n・" + to_string(getLimitTurn()) + "ターンの経過";
 			++(*lineCount);
