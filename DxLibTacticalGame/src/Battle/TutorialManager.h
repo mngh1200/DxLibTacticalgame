@@ -4,6 +4,7 @@
 #include <string>
 #include "Entity/UI/Message.h"
 #include "Entity/Battle/Map.h"
+#include "Fight.h"
 
 using namespace std;
 using namespace Entity;
@@ -45,7 +46,7 @@ namespace Battle
 			DEFFENCE,		//! 防衛
 			SUPPRESSION,	//! 制圧
 			AMBUSH,			//! 迎撃
-			AMBUSH_CANCE,	//! 連携、挟撃による迎撃キャンセル
+			AMBUSH_CANCEL,	//! 連携、挟撃による迎撃キャンセル
 			RUSH,			//! 突撃
 			RUSH_CANCEL,	//! 迎撃による突撃キャンセル
 			RUSH_NOT_PLAIN,	//! 地形による突撃キャンセル
@@ -55,10 +56,19 @@ namespace Battle
 			TUTORIAL_ID_LEN
 		};
 
+		enum class FightPhase
+		{
+			PREDICT,//! 戦闘予測
+			START,	//! 戦闘開始
+			END		//! 戦闘終了
+		};
+
 		void init(int stageId, shared_ptr<Message> message);
 		bool onEvent(int tutorialId);
 
 		void onPlayerTurnStart(shared_ptr<Map> map);
+
+		void onFight(const Fight* fight, FightPhase phase);
 
 	private:
 		bool setTutorialIdList(int stageId);

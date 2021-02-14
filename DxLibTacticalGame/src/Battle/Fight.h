@@ -2,7 +2,7 @@
 #include <climits>
 #include <map>
 #include "Entity/Battle/Mass.h"
-#include "Entity/Unit/Unit.h"
+#include "Entity/Unit/Gunner.h"
 
 using namespace std;
 using namespace Entity;

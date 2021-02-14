@@ -21,14 +21,14 @@ namespace Battle {
 		messageList.at(TutorialId::FREE_SET_SELECT) =	"左下から設置したいユニットを選択してください";
 		messageList.at(TutorialId::FREE_SET_SET) =		"青いマスをクリックすることで\n選択中のユニットを設置できます";
 		messageList.at(TutorialId::FREE_SET_DEL) =		"設置したユニットをクリックすることで\n設置を取り消すことができます";
-		messageList.at(TutorialId::FREE_SET_FIN) =		"ユニットの設置がすべて完了したら、右下の「準備完了」ボタンをクリックしてください";
+		messageList.at(TutorialId::FREE_SET_FIN) =		"ユニットの設置がすべて完了したら\n右下の「準備完了」ボタンをクリックしてください";
 		messageList.at(TutorialId::COORDINATED) =		"攻撃後、他のユニットで側面から攻撃することで\n「連携」攻撃になり、ダメージが上昇します";
 		messageList.at(TutorialId::PINCHING) =			"攻撃後、他のユニットで反対側から攻撃することで\n「挟撃」になり、ダメージが大幅に上昇します";
 		messageList.at(TutorialId::ALL_KILL) =			"敵ユニットを全滅させることで勝利になります";
 		messageList.at(TutorialId::DEFFENCE) =			"敵ユニットが自軍の砦に移動すると敗北になります";
 		messageList.at(TutorialId::SUPPRESSION) =		"敵軍の砦に移動することで勝利になります";
 		messageList.at(TutorialId::AMBUSH) =			"槍兵が騎兵（自分よりも射程の短いユニット）に攻撃された時\nスキル「迎撃」を発動します\n「迎撃」を発動すると、槍兵側が先制攻撃します";
-		messageList.at(TutorialId::AMBUSH_CANCE) =		"槍兵は「連携」または「挟撃」を受けた場合は\nスキル「迎撃」を発動できません";
+		messageList.at(TutorialId::AMBUSH_CANCEL) =		"「連携」または「挟撃」をすると\n槍兵のスキル「迎撃」を無効化できます";
 		messageList.at(TutorialId::RUSH) =				"騎兵は自分から攻撃した時にスキル「突撃」を発動します。\n「突撃」を発動すると、ダメージが上昇します。";
 		messageList.at(TutorialId::RUSH_CANCEL) =		"「迎撃」を受けた場合は、「突撃」は発動しません";
 		messageList.at(TutorialId::RUSH_NOT_PLAIN) =	"「草原」マス以外では「突撃」は発動しません";
@@ -95,6 +95,9 @@ namespace Battle {
 				tutorialId == TutorialId::PINCHING ||		// 挟撃
 				tutorialId == TutorialId::AMBUSH ||			// 迎撃
 				tutorialId == TutorialId::DEFFENCE ||		// 防衛
+				tutorialId == TutorialId::RUSH ||			// 突撃
+				tutorialId == TutorialId::RUSH_NOT_PLAIN ||	// 突撃(草原以外)
+				tutorialId == TutorialId::LOADING ||		// 弾込め
 				tutorialId == TutorialId::TERRAIN_EFFECT)	// 地形効果
 			{
 				onEvent(tutorialId);
@@ -109,6 +112,67 @@ namespace Battle {
 				tutorialId == TutorialId::SUPPRESSION)	// 制圧
 			{
 				onEvent(tutorialId);
+			}
+		}
+	}
+
+	/**
+	 * @fn
+	 * 戦闘情報をもとにチュートリアルメッセージ表示
+	 * @param (figth) 戦闘データ
+	 * @param (phase) 戦闘フェイズ
+	 */
+	void TutorialManager::onFight(const Fight* fight, FightPhase phase)
+	{
+
+		for (auto itr = tutorialIdList_.begin(); itr != tutorialIdList_.end(); ++itr)
+		{
+			int tutorialId = *itr;
+			if (phase == FightPhase::PREDICT)
+			{
+				if (tutorialId == TutorialId::RUSH_CANCEL) // 突撃無効化が残っている場合は表示しない
+				{
+					return;
+				}
+				else if (tutorialId == TutorialId::AMBUSH_CANCEL)
+				{
+					const FightData psvData = fight->getFightData(false);
+					if (psvData.unit->getInfo().kind == UnitKey::LANCER)
+					{
+						onEvent(tutorialId);
+						return;
+					}
+				}
+				else if (tutorialId == TutorialId::THROUGH) // 貫通
+				{
+					onEvent(tutorialId);
+					return;
+				}
+				else if (tutorialId == TutorialId::HIT_ATTENUATION) // 距離減衰
+				{
+					const FightData actData = fight->getFightData(true);
+					if (actData.hitRate < 100) // 命中率が下がっている場合
+					{
+						onEvent(tutorialId);
+						return;
+					}
+				}
+			}
+			else if (phase == FightPhase::START)
+			{
+
+			}
+			else if (phase == FightPhase::END)
+			{
+				if (tutorialId == TutorialId::RUSH_CANCEL)
+				{
+					const FightData psvData = fight->getFightData(false);
+					if (psvData.unit->getInfo().kind == UnitKey::LANCER)
+					{
+						onEvent(tutorialId);
+					}
+					return;
+				}
 			}
 		}
 	}
@@ -144,9 +208,9 @@ namespace Battle {
 		}
 		else if (stageId == 3)
 		{
-			tutorialIdList_.push_back(TutorialId::AMBUSH_CANCE);
 			tutorialIdList_.push_back(TutorialId::RUSH);
 			tutorialIdList_.push_back(TutorialId::RUSH_CANCEL);
+			tutorialIdList_.push_back(TutorialId::AMBUSH_CANCEL);
 		}
 		else if (stageId == 4)
 		{

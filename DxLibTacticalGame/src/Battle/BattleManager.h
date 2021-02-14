@@ -4,7 +4,7 @@
 #include "BUI/BattleUI.h"
 #include "Fight.h"
 #include "CheckWin.h"
-#include "TutorialManager.h"
+#include "Battle/TutorialManager.h"
 #include "Entity/Battle/Map.h"
 #include "Entity/Unit/Unit.h"
 #include "BUI/BattleUI.h"

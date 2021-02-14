@@ -233,7 +233,7 @@ namespace Battle
 
 			// ‹——£Œ¸Š
 			int distance = Map::getMassDistance(atkUnit->getMassX(), atkUnit->getMassY(), defUnit->getMassX(), defUnit->getMassY());
-			fightData->hitRate -= (distance - 1) * 20;
+			fightData->hitRate -= (distance - 1) * Gunner::ATTENUATION;
 
 			if (fightData->hitRate < 0)
 			{
@@ -307,7 +307,7 @@ namespace Battle
 
 		// í“¬I—¹
 		actSide_.unit->endAction();
-		reset();
+		// reset();
 		return true;
 	}
 

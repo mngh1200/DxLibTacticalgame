@@ -45,6 +45,7 @@ namespace Battle {
 			if (countMax > 0)
 			{
 				battleUI.startSelectUnitMode(countMax);
+				tutorial.onEvent(TutorialManager::TutorialId::FREE_SET_SELECT);
 				*isSetUnit = true;
 			}
 		}
@@ -80,8 +81,12 @@ namespace Battle {
 		{
 			// UŒ‚I—¹
 			phase_ = Phase::NORMAL;
-			tutorial.onEvent(TutorialManager::TutorialId::COORDINATED);
+			if (!tutorial.onEvent(TutorialManager::TutorialId::COORDINATED))
+			{
+				tutorial.onFight(&fight_, TutorialManager::FightPhase::END);
+			}
 			checkWin_.checkWin(map);
+			fight_.reset();
 		}
 
 	}
@@ -233,6 +238,7 @@ namespace Battle {
 			map->clearMassState();
 			deselectUnit();
 			phase_ = Phase::FIGHT;
+			tutorial.onFight(&fight_, TutorialManager::FightPhase::START);
 		}
 	}
 
@@ -297,6 +303,10 @@ namespace Battle {
 					{
 						mass->state = Mass::ATK_ABLE;
 					}
+				}
+				else
+				{
+					tutorial.onFight(&fight_, TutorialManager::FightPhase::PREDICT);
 				}
 			}
 		}

@@ -22,7 +22,7 @@ constexpr int MAX_ALPHA = 255;
 constexpr int MAX_STAGE = 10;
 
 //! チュートリアルステージ数
-constexpr int TUTORIAL_STAGE_NUM = 2;
+constexpr int TUTORIAL_STAGE_NUM = 6;
 
 namespace
 {
