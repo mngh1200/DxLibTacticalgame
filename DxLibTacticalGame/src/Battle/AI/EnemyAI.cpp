@@ -86,6 +86,24 @@ namespace Battle {
 
 	/**
 	 * @fn
+	 * 自分以外の味方ユニットがいるか判定
+	 * @param (unit) 基準のユニット
+	 * @param (x) 対象のx座標
+	 * @param (y) 対象のy座標
+	 * @return 隣接時 trueを返す
+	 */
+	bool isFriendExist(shared_ptr<Map> map, shared_ptr<Unit> unit, int x, int y)
+	{
+		shared_ptr<Unit> targetUnit = map->getUnit(x, y);
+		if (targetUnit && targetUnit != unit && targetUnit->isEnemy() == unit->isEnemy())
+		{
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @fn
 	 * 対象マスの得点を返す
 	 * @param (map) mapポインタ
 	 * @param (unit) 対象ユニット
@@ -134,25 +152,29 @@ namespace Battle {
 		}
 
 		// 味方ユニットとの隣接ボーナス
-		if (map->getUnit(x, y + 1))
+		int adjacentCount = 0; // 隣接数
+
+		if (isFriendExist(map, unit, x, y + 1))
 		{
-			point += SCORE_BY_FRIEND * oriented_.friendship;
+			++adjacentCount;
 		}
 
-		if (map->getUnit(x, y - 1))
+		if (isFriendExist(map, unit, x, y - 1))
 		{
-			point += SCORE_BY_FRIEND * oriented_.friendship;
+			++adjacentCount;
 		}
 
-		if (map->getUnit(x + 1, y))
+		if (isFriendExist(map, unit, x + 1, y))
 		{
-			point += SCORE_BY_FRIEND * oriented_.friendship;
+			++adjacentCount;
 		}
 
-		if (map->getUnit(x - 1, y))
+		if (isFriendExist(map, unit, x - 1, y))
 		{
-			point += SCORE_BY_FRIEND * oriented_.friendship;
+			++adjacentCount;
 		}
+
+		point += adjacentCount * SCORE_BY_FRIEND * oriented_.friendship;
 
 		// 基本スコアを加算
 		if (massBaseScoreMap.count(make_pair(x, y)) != 0)
