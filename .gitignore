@@ -411,3 +411,8 @@ About
 
 # Others
 Log.txt
+*.bak
+*.wav
+*.ogg
+*.dat
+*.lnk
