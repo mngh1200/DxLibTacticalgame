@@ -28,3 +28,12 @@
 #define WIN_OGG 304
 #define LOSE_OGG 305
 #define MESSAGE_OGG 306
+
+#define CSV 400
+#define STAGE0 401
+#define STAGE1 402
+#define STAGE2 403
+#define STAGE3 404
+#define STAGE4 405
+#define STAGE5 406
+#define STAGE6 407

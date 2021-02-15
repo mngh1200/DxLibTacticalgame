@@ -361,10 +361,34 @@ namespace Utility {
 		std::string str_buf;
 		std::string str_conma_buf;
 
+		// リソースからステージファイル読み込み
+		HRSRC hrc = FindResourceA(NULL, MAKEINTRESOURCE(STAGE0 + id), MAKEINTRESOURCE(CSV));
+		DWORD datasize = SizeofResource(NULL, hrc);
+		HGLOBAL hgb = LoadResource(NULL, hrc);
+		LPVOID data = LockResource(hgb);
+
+		FreeResource(hrc);
+
+		if (!hgb || datasize <= 0 || !data)
+		{
+			DxLib::printfDx("error: ステージファイルの読込に失敗");
+			return;
+		}
+
+		string dataString = regex_replace(string((char*)data, datasize), regex("\r\n"), "\n"); ;
+		std::stringstream ss{ dataString };
+
+		std::ifstream ifs_csv_file;
+		ifs_csv_file.basic_ios<char>::rdbuf(ss.rdbuf());
+		ifs_csv_file.rdbuf()->pubsetbuf((char*)data, datasize);
+
 		// 読み込むcsvファイルを開く(std::ifstreamのコンストラクタで開く)
+		/*
 		string str = "resource/map/" + stageKind + to_string(id) + ".csv";
 		const LPCSTR csvFilePath = str.c_str();
-		std::ifstream ifs_csv_file(csvFilePath);
+
+		std::ifstream ifs_csv_file(p);
+		*/		
 
 		getline(ifs_csv_file, str_buf); // ステージタイトル
 		*title = str_buf;
