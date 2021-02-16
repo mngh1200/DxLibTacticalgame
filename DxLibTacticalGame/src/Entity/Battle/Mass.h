@@ -21,7 +21,7 @@ namespace Entity
 	class Mass
 	{
 	public:
-		Mass() : kindId_(Kind::OUT_OF_MAP), state(State::NORMAL), passingMov(-1), imageId_(-1), ableUnitSet(false) {};
+		Mass() : kindId_(Kind::OUT_OF_MAP), state(State::NORMAL), passingMov(-1), imageId_(-1), ableUnitSet(false), angle_(0.0) {};
 		Mass(int kindId);
 		~Mass() {};
 
@@ -38,12 +38,15 @@ namespace Entity
 			OUT_OF_MAP	//! 範囲外
 		};
 
+		void init(int adjacent);
+
 		int getCost() const;
 		int getAgl() const;
 		int getDef() const;
 
 		int getKind() const;
 		int getImageId() const;
+		double getAngle() const { return angle_; }; // 画像の回転量を返す
 
 		string getText(int line) const;
 
@@ -67,17 +70,20 @@ namespace Entity
 		};
 
 	private:
+		void setImageIdFromKind(int kindId, int adjacent);
+
 		static const vector<int> COST;		//! 移動コスト
 		static const vector<int> AGL_UP;	//! 回避UP
 		static const vector<int> DEF_UP;    //! 防御UP
 		static const vector<string> TEXT1;  //! 地形効果説明文
-
-		void setImageIdFromKind(int kindId);
 
 		//! 地形種類
 		int kindId_;
 
 		//! 画像
 		int imageId_;
+
+		//! 画像の回転
+		double angle_;
 	};
 }

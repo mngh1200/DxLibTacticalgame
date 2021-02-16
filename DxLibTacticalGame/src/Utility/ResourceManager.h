@@ -71,11 +71,20 @@ namespace
 	};
 
 	// イメージタイプ
-	enum ImageType {
+	enum ImageType
+	{
 		UNIT,
 		MAP,
 		EFFECT,
 		IMAGE
+	};
+
+	// マップイメージの種類
+	enum MapImageKind
+	{
+		ALL,
+		MOUNTAIN,
+		RIVER
 	};
 
 	// エフェクト画像の種類
@@ -106,12 +115,6 @@ namespace
 		BULLET_BODY,
 		UNLOADED, // 未装填
 		BULLET_POS_LEN
-	};
-
-	enum MapId {
-		STAGE1,
-		STAGE2,
-		MAP_ID_LEN
 	};
 }
 
@@ -151,6 +154,14 @@ namespace Utility
 			:image_{}, hdlFont_{}, colorType_{}, sounds_{}, loadFlag{ false }
 		{};
 		~ResourceManager();
+
+		//! 山画像読込用の情報
+		constexpr static int MOUNTAIN_W = 4;
+		constexpr static int MOUNTAIN_H = 4;
+		constexpr static int MOUNTAIN_ALL = MOUNTAIN_W * MOUNTAIN_H;
+
+		//! 川画像読込用の情報
+		constexpr static int RIVER_NUM = 4;
 
 		void loadMapchip(const char* resourcePath, int* handle);
 		void loadCharacterchip(const char* resourcePath, int* handle);

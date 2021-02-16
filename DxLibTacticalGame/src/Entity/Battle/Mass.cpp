@@ -22,7 +22,18 @@ namespace Entity {
 			kindId_ = Kind::PLAIN;
 		}
 
-		setImageIdFromKind(kindId_);
+		// setImageIdFromKind(kindId_, adjacent);
+	}
+
+
+	/**
+	 * @fn
+	 * 初期処理
+	 * @param (adjacent) 同種類マスとの隣接情報
+	 */
+	void Mass::init(int adjacent)
+	{
+		setImageIdFromKind(kindId_, adjacent);
 	}
 
 	/**
@@ -135,17 +146,100 @@ namespace Entity {
 
 	/**
 	 * @fn
-	 * 画像の種類を元に画像IDをセット
-	 * @param (kindId) 画像の種類
+	 * 川画像の情報取得
+	 * @param (adjacent) 同種類との隣接情報
+	 * @param (imageId) 画像ID取得用
+	 * @param (angle) 画像の回転量取得用
 	 */
-	void Mass::setImageIdFromKind(int kindId)
+	void getRiverImage(int adjacent, int* imageId, double* angle)
 	{
 		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
 
-		// テスト処理
+		int imgPos = 0;
+
+		if (adjacent == (Direction::TOP + Direction::RIGHT + Direction::BOTTOM + Direction::LEFT))
+		{
+			imgPos = 3; // 全方向
+		}
+		else if (adjacent & Direction::TOP && adjacent & Direction::BOTTOM) // 縦方向に隣接
+		{
+			if (adjacent & Direction::LEFT)
+			{
+				imgPos = 2;
+				*angle = - PI / 2.0;
+			}
+			else if (adjacent & Direction::RIGHT)
+			{
+				imgPos = 2;
+				*angle = PI / 2.0;
+			}
+			else
+			{
+				*angle = PI / 2.0;
+			}
+		}
+		else if (adjacent & Direction::LEFT && adjacent & Direction::RIGHT) // 横方向に隣接
+		{
+			if (adjacent & Direction::TOP)
+			{
+				imgPos = 2;
+			}
+			else if (adjacent & Direction::BOTTOM)
+			{
+				imgPos = 2;
+				*angle = PI;
+			}
+		}
+		else if (adjacent & Direction::TOP) // 以下 垂直に２方向判定
+		{
+			if (adjacent & Direction::LEFT)
+			{
+				imgPos = 1;
+			}
+			else if (adjacent & Direction::RIGHT)
+			{
+				imgPos = 1;
+				*angle = PI / 2.0;
+			}
+			else
+			{
+				*angle = PI / 2.0;
+			}
+		}
+		else if (adjacent & Direction::BOTTOM)
+		{
+			if (adjacent & Direction::LEFT)
+			{
+				imgPos = 1;
+				*angle = - PI / 2.0;
+			}
+			else if (adjacent & Direction::RIGHT)
+			{
+				imgPos = 1;
+				*angle = PI;
+			}
+			else
+			{
+				*angle = PI / 2.0;
+			}
+		}
+
+		*imageId = rm.getImage(ImageType::MAP, MapImageKind::RIVER, imgPos);
+	}
+
+	/**
+	 * @fn
+	 * 画像の種類を元に画像IDをセット
+	 * @param (kindId) 画像の種類
+	 */
+	void Mass::setImageIdFromKind(int kindId, int adjacent)
+	{
+		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
+
 		if (kindId == Kind::MOUNTAIN) // 山
 		{
-			imageId_ = rm.getImage(ImageType::MAP, 0, 0);
+			imageId_ = rm.getImage(ImageType::MAP, MapImageKind::MOUNTAIN, adjacent);
+			// imageId_ = rm.getImage(ImageType::MAP, 0, 0);
 		}
 		else if (kindId == Kind::FOREST) // 森
 		{
@@ -153,7 +247,8 @@ namespace Entity {
 		}
 		else if (kindId == Kind::RIVER) // 川
 		{
-			imageId_ = rm.getImage(ImageType::MAP, 0, 3);
+			// imageId_ = rm.getImage(ImageType::MAP, 0, 3);
+			getRiverImage(adjacent, &imageId_, &angle_);
 		}
 		else if (kindId == Kind::FORT_PLAYER) // 砦（自軍）
 		{

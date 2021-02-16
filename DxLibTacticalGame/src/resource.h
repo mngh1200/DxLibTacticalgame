@@ -5,6 +5,8 @@
 #define MAP_IMAGE 111
 #define MASS_MOVABLE 112
 #define MASS_ATACKABLE 113
+#define MAP_MOUNTAIN 114
+#define MAP_RIVER 115
 
 #define UNIT_IMAGE 121
 #define UNIT_ACTED_IMAGE 122

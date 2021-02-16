@@ -173,10 +173,23 @@ namespace Utility {
 		loadImage(MAKEINTRESOURCE(MASS_ATACKABLE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::IMAGE).at(ImageId::MASS_ATACK));
 		loadImage(MAKEINTRESOURCE(MASS_MOVABLE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::IMAGE).at(ImageId::MASS_MOVE));
 
+		// マス読込
 		image_.insert(std::make_pair(ImageType::MAP, vector<int*>()));
 		image_.at(ImageType::MAP).push_back(new int[8]);
-		//loadMapchip("resource/image/map/mapchip.png", image_.at(ImageType::MAP).at(0));
-		loadMapchip(MAKEINTRESOURCE(MAP_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::MAP).at(0));
+		loadMapchip(MAKEINTRESOURCE(MAP_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::MAP).at(MapImageKind::ALL));
+
+		// 山
+		image_.at(ImageType::MAP).push_back(new int[MOUNTAIN_ALL]);
+		loadDivImage(MAKEINTRESOURCE(MAP_MOUNTAIN), MAKEINTRESOURCE(IMAGE_FILE),
+			MOUNTAIN_ALL, MOUNTAIN_W, MOUNTAIN_H, CHIP_SIZE, CHIP_SIZE,
+			image_.at(ImageType::MAP).at(MapImageKind::MOUNTAIN));
+
+		// 川
+		image_.at(ImageType::MAP).push_back(new int[RIVER_NUM]);
+		loadDivImage(MAKEINTRESOURCE(MAP_RIVER), MAKEINTRESOURCE(IMAGE_FILE),
+			RIVER_NUM, RIVER_NUM, 1, CHIP_SIZE, CHIP_SIZE,
+			image_.at(ImageType::MAP).at(MapImageKind::RIVER));
+
 
 		// プレイヤー画像の読み込み
 		image_.insert(std::make_pair(ImageType::UNIT, vector<int*>()));

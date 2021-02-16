@@ -8,6 +8,10 @@ MASS_MOVABLE	IMAGE_FILE	"../resource/image/map/state-movable.png"
 
 MASS_ATACKABLE	IMAGE_FILE	"../resource/image/map/state-atack.png"
 
+MAP_MOUNTAIN	IMAGE_FILE	"../resource/image/map/mountain.png"
+
+MAP_RIVER	IMAGE_FILE	"../resource/image/map/river.png"
+
 
 UNIT_IMAGE		IMAGE_FILE	"../resource/image/unit/unit.png"
 

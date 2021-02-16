@@ -43,8 +43,51 @@ namespace Entity {
 					{
 						enemyFortMass_ = make_pair(x, y);
 					}
+
 					mass_[y].push_back(make_shared<Mass>(kind));
 					++x;
+			}
+			++y;
+			x = 0;
+		}
+
+		// マスの初期処理（画像ID取得）
+		y = 0;
+		x = 0;
+		for (auto yItr = mass_.begin(); yItr != mass_.end(); ++yItr)
+		{
+			auto line = *yItr;
+			for (auto xItr = line.begin(); xItr != line.end(); ++xItr)
+			{
+				auto cell = *xItr;
+				int kind = cell->getKind();
+
+				// 同種類マスとの隣接判定
+				int adjacent = Direction::NONE_DIRECTION;
+
+				if (isRange(x, y - 1) && getMass(x, y - 1)->getKind() == kind)
+				{
+					adjacent += Direction::TOP;
+				}
+
+				if (isRange(x + 1, y) && getMass(x + 1, y)->getKind() == kind)
+				{
+					adjacent += Direction::RIGHT;
+				}
+
+				if (isRange(x, y + 1) && getMass(x, y + 1)->getKind() == kind)
+				{
+					adjacent += Direction::BOTTOM;
+				}
+
+				if (isRange(x - 1, y) && getMass(x - 1, y)->getKind() == kind)
+				{
+					adjacent += Direction::LEFT;
+				}
+
+				cell->init(adjacent);
+
+				++x;
 			}
 			++y;
 			x = 0;
@@ -106,7 +149,16 @@ namespace Entity {
 			for (auto cell = (*line).begin(); cell != (*line).end(); ++cell) {
 				int realX = getRealX(x);
 				int realY = getRealY(y);
-				DxLib::DrawGraph(realX, realY, (*cell)->getImageId(), FALSE);
+
+				if ((*cell)->getAngle() == 0)
+				{
+					DxLib::DrawGraph(realX, realY, (*cell)->getImageId(), FALSE);
+				}
+				else
+				{
+					DxLib::DrawRotaGraph2(realX + CHIP_SIZE / 2, realY + CHIP_SIZE / 2, CHIP_SIZE / 2, CHIP_SIZE / 2, 1.0, (*cell)->getAngle(), (*cell)->getImageId(), FALSE);
+				}
+				
 
 				
 				if (isMouseOver_) // ホバー時の描画

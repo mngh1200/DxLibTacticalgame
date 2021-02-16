@@ -5,6 +5,8 @@
  * @brief 共通定数を保持
  */
 
+constexpr double PI = 3.1415926535897932384626433832795;
+
 //! ウィンドウ解像度(幅)
 constexpr int WIN_W = 1280;
 
