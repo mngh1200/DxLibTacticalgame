@@ -353,6 +353,9 @@ $('.js-csv').change(function() {
 		count++;
 		// ユニットデータ
 		var $unitCont = $('.map__cell__unit');
+
+		$unitCont.attr('data-id', '').attr('data-unit-key', '').attr('data-is-enemy', ''); // 全配置削除
+
 		while(count < textLines.length && textLines[count] != '') {
 			setUnitData(textLines[count], $unitCont);
 			count++;
