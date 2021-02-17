@@ -239,28 +239,26 @@ namespace Entity {
 		if (kindId == Kind::MOUNTAIN) // éR
 		{
 			imageId_ = rm.getImage(ImageType::MAP, MapImageKind::MOUNTAIN, adjacent);
-			// imageId_ = rm.getImage(ImageType::MAP, 0, 0);
 		}
 		else if (kindId == Kind::FOREST) // êX
 		{
-			imageId_ = rm.getImage(ImageType::MAP, 0, 2);
+			imageId_ = rm.getImage(ImageType::MAP, MapImageKind::ALL, MapChipPos::FOREST_POS);
 		}
 		else if (kindId == Kind::RIVER) // êÏ
 		{
-			// imageId_ = rm.getImage(ImageType::MAP, 0, 3);
 			getRiverImage(adjacent, &imageId_, &angle_);
 		}
 		else if (kindId == Kind::FORT_PLAYER) // ç‘Åié©åRÅj
 		{
-			imageId_ = rm.getImage(ImageType::MAP, 0, 4);
+			imageId_ = rm.getImage(ImageType::MAP, MapImageKind::ALL, MapChipPos::PLAYER_FORT_POS);
 		}
 		else if (kindId == Kind::FORT_ENEMY) // ç‘ÅiìGåRÅj
 		{
-			imageId_ = rm.getImage(ImageType::MAP, 0, 5);
+			imageId_ = rm.getImage(ImageType::MAP, MapImageKind::ALL, MapChipPos::ENEMY_FORT_POS);
 		}
-		else // ïΩå¥
+		else // ëêå¥
 		{
-			imageId_ = rm.getImage(ImageType::MAP, 0, 1);
+			imageId_ = rm.getImage(ImageType::MAP, MapImageKind::ALL, MapChipPos::PLAIN_POS);
 		}
 	}
 }

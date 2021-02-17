@@ -87,6 +87,16 @@ namespace
 		RIVER
 	};
 
+	// マップチップ種類
+	enum MapChipPos
+	{
+		PLAIN_POS,
+		FOREST_POS,
+		PLAYER_FORT_POS,
+		ENEMY_FORT_POS,
+		MAP_CHIP_LEN
+	};
+
 	// エフェクト画像の種類
 	enum EffectId
 	{

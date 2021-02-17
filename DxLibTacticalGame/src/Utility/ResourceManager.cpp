@@ -113,7 +113,7 @@ namespace Utility {
 	 */
 	void ResourceManager::loadMapchip(const char* resourceName, const char* resourceType, int* handle) {
 		int ret = DxLib::LoadDivGraphToResource(resourceName, resourceType,
-			8, 4, 2, CHIP_SIZE, CHIP_SIZE, handle);
+			MAP_CHIP_LEN, MAP_CHIP_LEN, 1, CHIP_SIZE, CHIP_SIZE, handle);
 		THROWS_EX(ret, resourceName);
 	}
 	/**

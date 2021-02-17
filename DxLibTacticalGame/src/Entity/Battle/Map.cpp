@@ -150,15 +150,23 @@ namespace Entity {
 				int realX = getRealX(x);
 				int realY = getRealY(y);
 
+				// 川の場合はベースに草原マスを設置
+				if ((*cell)->getKind() == Mass::Kind::RIVER)
+				{
+					DxLib::DrawGraph(realX, realY, rm.getImage(ImageType::MAP, MapImageKind::ALL, MapChipPos::PLAIN_POS), FALSE);
+				}
+
+				// マス画像本体
 				if ((*cell)->getAngle() == 0)
 				{
-					DxLib::DrawGraph(realX, realY, (*cell)->getImageId(), FALSE);
+					DxLib::DrawGraph(realX, realY, (*cell)->getImageId(), TRUE);
 				}
 				else
 				{
-					DxLib::DrawRotaGraph2(realX + CHIP_SIZE / 2, realY + CHIP_SIZE / 2, CHIP_SIZE / 2, CHIP_SIZE / 2, 1.0, (*cell)->getAngle(), (*cell)->getImageId(), FALSE);
+					DxLib::DrawRotaGraph2(realX + CHIP_SIZE / 2, realY + CHIP_SIZE / 2, CHIP_SIZE / 2, CHIP_SIZE / 2, 1.0, (*cell)->getAngle(), (*cell)->getImageId(), TRUE);
 				}
 				
+
 
 				
 				if (isMouseOver_) // ホバー時の描画
