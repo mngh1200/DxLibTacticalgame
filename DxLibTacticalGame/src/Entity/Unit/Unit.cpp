@@ -42,7 +42,7 @@ namespace Entity {
 		{
 			info_.name = "èeï∫";
 			info_.hpm = 20;
-			info_.atk = 12;
+			info_.atk = 14;
 			info_.def = 2;
 			info_.mov = 2;
 			info_.len = 2;
@@ -54,7 +54,7 @@ namespace Entity {
 		{
 			info_.name = "ëÑï∫";
 			info_.hpm = 30;
-			info_.atk = 8;
+			info_.atk = 9;
 			info_.def = 4;
 			info_.mov = 2;
 			info_.len = 1;
