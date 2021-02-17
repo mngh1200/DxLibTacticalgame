@@ -62,7 +62,7 @@ namespace Battle
 		constexpr static int FORT_SCORE = 100; //! 砦マスの基本スコア
 		constexpr static int FORT_MOVE_SCORE_RATE = 3;	//! 砦マスの波及スコアの係数
 		constexpr static int SCORE_BY_FORT = (MAP_MASS_W + MAP_MASS_H - 2) * FORT_MOVE_SCORE_RATE; //! 砦から波及する基本スコアの加算
-		constexpr static int SCORE_BY_FRIEND = 5; //! 味方ユニットとの隣接スコア
+		constexpr static int SCORE_BY_FRIEND = 2; //! 味方ユニットとの隣接スコア係数
 
 		void setBaseScore(shared_ptr<Map> map);
 		void setBaseScoreByFort(shared_ptr<Map> map, int x, int y, int move, std::map<pair<int, int>, int>& tmpBaseScoreMap);
