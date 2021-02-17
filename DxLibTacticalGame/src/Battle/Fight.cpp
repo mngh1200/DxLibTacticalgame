@@ -239,6 +239,10 @@ namespace Battle
 			{
 				fightData->hitRate = 0;
 			}
+			else if (fightData->hitRate > 100)
+			{
+				fightData->hitRate = 100;
+			}
 
 			// “ËŒ‚ƒXƒLƒ‹
 			if (isAct && isActSideFirst())
