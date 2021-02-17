@@ -39,3 +39,5 @@
 #define STAGE4 405
 #define STAGE5 406
 #define STAGE6 407
+#define STAGE7 408
+#define STAGE8 409
