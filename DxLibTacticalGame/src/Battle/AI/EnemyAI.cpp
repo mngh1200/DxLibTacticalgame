@@ -264,7 +264,15 @@ namespace Battle {
 		{
 			return;
 		}
-		move = move - nowMass->getCost() * FORT_MOVE_SCORE_RATE * oriented_.targetPoint;
+
+		if (nowMass->getCost() == INT_MAX)
+		{
+			move = 0;
+		}
+		else
+		{
+			move = move - nowMass->getCost() * FORT_MOVE_SCORE_RATE * oriented_.targetPoint;
+		}
 		
 		if (move > nowMass->passingMov)
 		{
