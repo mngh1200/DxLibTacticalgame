@@ -21,7 +21,7 @@ constexpr int MOUSE_INPUT_LOG_USED = 3; // すでに他のイベントで使用した場合
 constexpr int MAX_ALPHA = 255;
 
 //! ステージ数
-constexpr int MAX_STAGE = 10;
+constexpr int MAX_STAGE = 12;
 
 //! チュートリアルステージ数
 constexpr int TUTORIAL_STAGE_NUM = 6;
