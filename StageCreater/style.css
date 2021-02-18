@@ -154,29 +154,27 @@ body {
 }
 
 .mass[data-mass-key=light-green] {
-    background-position-x: calc(-32 * 1px);
+    background-position-x: calc(-32 * 0px);
 }
 
 .mass[data-mass-key=blue] {
-    background-position-x: calc(-32 * 3px);
+    background-image: url(../../DxLibTacticalGame/DxLibTacticalGame/resource/image/map/river.png);
 }
 
 .mass[data-mass-key=green] {
-    background-position-x: calc(-32 * 2px);
+    background-position-x: calc(-32 * 1px);
 }
 
 .mass[data-mass-key=brown] {
-    background-position-x: calc(-32 * 0px);
+	background-image: url(../../DxLibTacticalGame/DxLibTacticalGame/resource/image/map/mountain.png);
 }
 
 .mass[data-mass-key=player-fort] {
-    background-position-x: calc(-32 * 0px);
-    background-position-y: -32px;
+    background-position-x: calc(-32 * 2px);
 }
 
 .mass[data-mass-key=enemy-fort] {
-    background-position-x: calc(-32 * 1px);
-    background-position-y: -32px;
+    background-position-x: calc(-32 * 3px);
 }
 
 [data-unit-key]:before {
