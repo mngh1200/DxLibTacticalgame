@@ -61,7 +61,7 @@ namespace Screen
 				saveManager.updateRank(i, StageRank::NONE);
 				saveManager.save();
 			}
-			else if (status == StageRank::NONE) // 未クリアコース
+			else if (status == StageRank::NONE || status == StageRank::CLEAR) // 公開コース（新コース以外）
 			{
 				selectedCourseId_ = i;
 			}
@@ -89,8 +89,11 @@ namespace Screen
 		backBtn->setText("×", FontType::NORMAL_S32);
 		objectsControl.addObject(Layer::UI, UIid::BACK_BTN, backBtn);
 
-		updateStageInfo();
-
+		if (selectedCourseId_ != -1)
+		{
+			updateStageInfo(); // ステージ情報更新
+		}
+		
 		// オーバーレイセット
 		createOverlay(true);
 	}
