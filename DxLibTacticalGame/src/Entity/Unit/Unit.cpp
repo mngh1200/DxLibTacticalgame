@@ -46,7 +46,7 @@ namespace Entity {
 			info_.def = 2;
 			info_.mov = 2;
 			info_.len = 2;
-			info_.range = 4;
+			info_.range = 3;
 			info_.isCloseAtack = false;
 			info_.ability = Ability::Kind::THROUGH;
 		}
