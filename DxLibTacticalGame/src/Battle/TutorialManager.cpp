@@ -33,6 +33,7 @@ namespace Battle {
 		messageList.at(TutorialId::RUSH_CANCEL) =		"「迎撃」を受けた場合は、「突撃」は発動しません";
 		messageList.at(TutorialId::RUSH_NOT_PLAIN) =	"「草原」マス以外では「突撃」は発動しません";
 		messageList.at(TutorialId::THROUGH) =			"銃兵はスキル「貫通」により、敵ユニットの防御力を無視して\nダメージを与えることができます";
+		messageList.at(TutorialId::SHOOTING) =			"銃兵の「射撃」攻撃の場合\n槍兵や騎兵のような「近接」攻撃と違い\n「連携」や「挟撃」は発動しません";
 		messageList.at(TutorialId::LOADING) =			"銃兵は攻撃した次のターンに攻撃不可になります";
 		messageList.at(TutorialId::HIT_ATTENUATION) =	"銃兵は離れた敵を攻撃しようとした場合、命中率が減少します";
 
@@ -97,7 +98,7 @@ namespace Battle {
 				tutorialId == TutorialId::DEFFENCE ||		// 防衛
 				tutorialId == TutorialId::RUSH ||			// 突撃
 				tutorialId == TutorialId::RUSH_NOT_PLAIN ||	// 突撃(草原以外)
-				tutorialId == TutorialId::LOADING ||		// 弾込め
+				tutorialId == TutorialId::LOADING && tutorialIdList_.size() < 3 ||		// 弾込め
 				tutorialId == TutorialId::TERRAIN_EFFECT)	// 地形効果
 			{
 				onEvent(tutorialId);
@@ -143,7 +144,7 @@ namespace Battle {
 						return;
 					}
 				}
-				else if (tutorialId == TutorialId::THROUGH) // 貫通
+				else if (tutorialId == TutorialId::THROUGH || tutorialId == TutorialId::SHOOTING) // 貫通 or 射撃
 				{
 					onEvent(tutorialId);
 					return;
@@ -214,8 +215,9 @@ namespace Battle {
 		}
 		else if (stageId == 4)
 		{
-			tutorialIdList_.push_back(TutorialId::RUSH_NOT_PLAIN);
+			// tutorialIdList_.push_back(TutorialId::RUSH_NOT_PLAIN);
 			tutorialIdList_.push_back(TutorialId::THROUGH);
+			tutorialIdList_.push_back(TutorialId::SHOOTING);
 			tutorialIdList_.push_back(TutorialId::LOADING);
 			tutorialIdList_.push_back(TutorialId::HIT_ATTENUATION);
 		}

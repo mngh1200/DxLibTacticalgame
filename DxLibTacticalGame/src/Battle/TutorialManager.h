@@ -51,6 +51,7 @@ namespace Battle
 			RUSH_CANCEL,	//! 迎撃による突撃キャンセル
 			RUSH_NOT_PLAIN,	//! 地形による突撃キャンセル
 			THROUGH,		//! 貫通
+			SHOOTING,		//! 射撃の説明
 			LOADING,		//! 弾込め
 			HIT_ATTENUATION,//! 命中率減衰
 			TUTORIAL_ID_LEN
