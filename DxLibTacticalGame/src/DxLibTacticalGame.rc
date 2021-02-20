@@ -1,0 +1,66 @@
+#include "resource.h"
+
+BACKGROUND_IMAGE	IMAGE_FILE	"../resource/image/menu/background.jpg"
+
+MAP_IMAGE	IMAGE_FILE	"../resource/image/map/mapchip.png"
+
+MASS_MOVABLE	IMAGE_FILE	"../resource/image/map/state-movable.png"
+
+MASS_ATACKABLE	IMAGE_FILE	"../resource/image/map/state-atack.png"
+
+MAP_MOUNTAIN	IMAGE_FILE	"../resource/image/map/mountain.png"
+
+MAP_RIVER	IMAGE_FILE	"../resource/image/map/river.png"
+
+
+UNIT_IMAGE		IMAGE_FILE	"../resource/image/unit/unit.png"
+
+UNIT_ACTED_IMAGE	IMAGE_FILE	"../resource/image/unit/unit-acted.png"
+
+
+BULLET_IMAGE		IMAGE_FILE	"../resource/image/unit/bullet.png"
+
+EFFECT_DAMAGE_IMAGE	IMAGE_FILE	"../resource/image/effect/damage.png"
+
+EFFECT_MISS_IMAGE	IMAGE_FILE	"../resource/image/effect/miss.png"
+
+
+
+BACK_WAVE	WAVE	"../resource/sound/back.wav"
+
+CLICK_OGG	OGG		"../resource/sound/click.ogg"
+
+CHECK_OGG	OGG		"../resource/sound/check.ogg"
+
+BORN_WAVE	WAVE	"../resource/sound/born.wav"
+
+ATTACK_CLOSE_WAVE	WAVE	"../resource/sound/attack-close.wav"
+
+MOV_WAVE	WAVE	"../resource/sound/move.wav"
+
+SELECT_UNIT_WAVE	WAVE	"../resource/sound/select-unit.wav"
+
+WAIT_WAVE	WAVE	"../resource/sound/wait.wav"
+
+ATTACK_FIRE_OGG	OGG	"../resource/sound/attack-fire.ogg"
+
+WIN_OGG	OGG	"../resource/sound/win.ogg"
+
+LOSE_OGG	OGG	"../resource/sound/lose.ogg"
+
+MESSAGE_OGG	OGG	"../resource/sound/message.ogg"
+
+
+
+STAGE0	CSV	"../resource/map/stage0.csv"
+STAGE1	CSV	"../resource/map/stage1.csv"
+STAGE2	CSV	"../resource/map/stage2.csv"
+STAGE3	CSV	"../resource/map/stage3.csv"
+STAGE4	CSV	"../resource/map/stage4.csv"
+STAGE5	CSV	"../resource/map/stage5.csv"
+STAGE6	CSV	"../resource/map/stage6.csv"
+STAGE7	CSV	"../resource/map/stage7.csv"
+STAGE8	CSV	"../resource/map/stage8.csv"
+STAGE9	CSV	"../resource/map/stage9.csv"
+STAGE10	CSV	"../resource/map/stage10.csv"
+STAGE11	CSV	"../resource/map/stage11.csv"

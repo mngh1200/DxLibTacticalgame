@@ -1,0 +1,252 @@
+* {
+	box-sizing: border-box;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+ol, ul {
+	list-style: none;
+}
+
+input[type=password], input[type=text], select, textarea {
+    border: 1px solid silver;
+}
+
+body {
+	font-family: Robot,"メイリオ",Meiryo,"ヒラギノ角ゴシック Pro","Hiragino Kaku Gothic Pro",Osaka,"ＭＳ Ｐゴシック","MS PGothic",sans-serif;
+	color: #333;
+	font-size: 1.2rem;
+	width: 1028px;
+	margin: 50px auto 0;
+}
+
+.mass {
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;
+}
+
+.btn {
+	line-height: 28px;
+	display: inline-block;
+	padding-right: 13px;
+	padding-left: 13px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 3px;
+	background-color: #fff;
+	text-decoration: none;
+	border: 1px solid #aaa;
+	color: #333;
+}
+
+.btn:hover {
+	background-color: #fafafa;
+}
+
+.btn-blue {
+	color: #fff;
+	background-color: #3367D6;
+}
+
+.btn-blue:hover {
+	background-color: #608ae4;
+}
+
+.input-file--hidden {
+	display: none;
+}
+
+.header {
+	margin-bottom: 10px;
+}
+
+.container {
+	display: flex;
+}
+
+.left-container {
+	flex-shrink: 0;
+	margin-right: 20px;
+}
+
+.right-container {
+	flex: auto;
+	background-color: #eee;
+}
+
+.select-area {
+	margin-top: 20px;
+	padding: 10px;
+	background-color: #eee;
+}
+
+.select-list {
+	display: flex;
+	margin-bottom: 10px;
+}
+
+.select-list:last-child {
+	margin-bottom: 0;
+}
+
+.select-list__item {
+	border: 1px solid #ddd;
+	margin-right: 10px;
+	cursor: pointer;
+	user-select:none;
+}
+
+.select-list__item.selected {
+	border: 1px solid #00f;
+}
+
+.unit-list .select-list__item {
+	background: #fff;
+}
+
+.map {
+	border-top: 1px solid #aaa;
+	border-left: 1px solid #aaa;
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+
+.map__row {
+	display: flex;
+}
+.map__cell {
+	border-right: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
+	user-select:none;
+	flex-shrink: 0;
+}
+
+.map__cell__unit {
+	cursor: default;
+	user-select:none;
+}
+
+.mass {
+	background-image: url(../../DxLibTacticalGame/DxLibTacticalGame/resource/image/map/mapchip.png);
+	background-repeat: no-repeat;
+	background-size: 400%;
+	box-sizing: content-box;
+}
+
+.mass[data-mass-key=light-green] {
+    background-position-x: calc(-32 * 0px);
+}
+
+.mass[data-mass-key=blue] {
+    background-image: url(../../DxLibTacticalGame/DxLibTacticalGame/resource/image/map/river.png);
+}
+
+.mass[data-mass-key=green] {
+    background-position-x: calc(-32 * 1px);
+}
+
+.mass[data-mass-key=brown] {
+	background-image: url(../../DxLibTacticalGame/DxLibTacticalGame/resource/image/map/mountain.png);
+}
+
+.mass[data-mass-key=player-fort] {
+    background-position-x: calc(-32 * 2px);
+}
+
+.mass[data-mass-key=enemy-fort] {
+    background-position-x: calc(-32 * 3px);
+}
+
+[data-unit-key]:before {
+	content: '';
+	visibility: hidden;
+	background-image: url(../../DxLibTacticalGame/DxLibTacticalGame/resource/image/unit/unit.png);
+	background-repeat: no-repeat;
+	background-size: 300%;
+	box-sizing: content-box;
+	width: 100%;
+	height: 100%;
+	display: inline-block;
+}
+
+[data-unit-key=lancer]:before {
+	background-position-x: calc(-32 * 0px);
+	visibility: visible;
+}
+
+[data-unit-key=cavarie]:before {
+	background-position-x: calc(-32 * 1px);
+	visibility: visible;
+}
+
+[data-unit-key=gunner]:before {
+	background-position-x: calc(-32 * 2px);
+	visibility: visible;
+}
+
+[data-unit-key=free-or-delete][data-is-enemy="0"]:before {
+	background-size: 100%;
+	background-image: url(../../DxLibTacticalGame/DxLibTacticalGame/resource/image/map/state-movable.png);
+	visibility: visible;
+}
+
+[data-unit-key=free-or-delete][data-is-enemy="1"]:before {
+	content: '消';
+	visibility: visible;
+	background: none
+}
+
+[data-is-enemy="0"]:before {
+	
+}
+
+[data-is-enemy="1"]:before {
+	background-position-y: -32px;
+}
+
+.setting-form {
+	padding: 20px;
+}
+
+.setting-form__label {
+	font-size: 1.0rem;
+}
+
+.setting-form__input,
+.setting-form__select,
+.setting-form__textarea {
+	width: 100%;
+    height: 32px;
+	margin-bottom: 16px;
+    padding: 5px;
+	font-size: 1.0rem;
+}
+
+.setting-form__textarea {
+	height: 50px;
+}
+
+.setting-form__btn {
+	width: 100%;
+    line-height: 40px;
+}

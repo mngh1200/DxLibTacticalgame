@@ -1,0 +1,470 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\FrameWork">
+      <UniqueIdentifier>{b1e660a7-325a-4b57-8dc1-18392dd9334e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\FrameWork">
+      <UniqueIdentifier>{d22f4360-000c-41f0-a685-8afdf5e66212}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Entity">
+      <UniqueIdentifier>{bdcce9fc-3a5d-440a-bf02-5ff19d8621ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Entity\UI">
+      <UniqueIdentifier>{ff371e08-eef1-458c-8b88-2d5af6737340}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Entity\View">
+      <UniqueIdentifier>{fcf9cc9a-f440-407a-81b0-ec7f17893b25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Screen">
+      <UniqueIdentifier>{5106a2a5-d6cd-45c6-bf6f-7222ae9aa050}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Screen">
+      <UniqueIdentifier>{ba3a2cd9-ecec-48e4-9c5a-a431b4572db5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Utility">
+      <UniqueIdentifier>{a32821f4-4417-4f3e-9766-12583eeab5e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Utility">
+      <UniqueIdentifier>{b220aa6f-e190-4883-b045-799e4d6e7d55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Entity\UI\Button">
+      <UniqueIdentifier>{e287a7b5-566c-4341-9b9b-c96359957946}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Entity\Animation">
+      <UniqueIdentifier>{7cc775f0-b850-4e85-93e8-f9f521651880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entity">
+      <UniqueIdentifier>{441bcf55-bb6a-4e55-b3d6-331239bf0eaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entity\UI">
+      <UniqueIdentifier>{e62a4c02-6b02-4035-8f2e-32371d7eda23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entity\UI\Button">
+      <UniqueIdentifier>{ae130153-6c7e-4dae-b873-e700ed36b6c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entity\View">
+      <UniqueIdentifier>{414e1c60-f313-4e25-b45e-9697613a94ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entity\Animation">
+      <UniqueIdentifier>{fb26c7c0-54fe-499c-b643-c9d877d3dee1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Entity\Battle">
+      <UniqueIdentifier>{7268d3f0-15be-48b7-9624-820fd1ee0644}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entity\Battle">
+      <UniqueIdentifier>{9faec344-9b9a-4d58-a438-f700347145d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Entity\Unit">
+      <UniqueIdentifier>{ebadad9d-f79f-48ce-a81f-d66e3ba099c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entity\Unit">
+      <UniqueIdentifier>{565592bb-ad3c-4f0d-97bb-c5a2c581c9ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Battle">
+      <UniqueIdentifier>{7cb89ef4-6217-4886-afc7-90344f413999}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Battle">
+      <UniqueIdentifier>{0f905c69-d2fd-4efc-9a25-57934bd3b7ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Entity\UI\Menu">
+      <UniqueIdentifier>{a9c68f5c-0df2-4b11-943c-dd2971479880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entity\UI\Menu">
+      <UniqueIdentifier>{7e2e727e-b131-4e1c-8330-bb2d8db42427}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Battle\BUI">
+      <UniqueIdentifier>{e37dccb0-2bda-45e5-a52c-ba58ac232ab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Battle\BUI">
+      <UniqueIdentifier>{1d603ddb-d1c8-403e-a9e5-ee1764fc5ff3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Entity\Effect">
+      <UniqueIdentifier>{0b266338-38bf-4bf3-b074-8816c9a41f35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entity\Effect">
+      <UniqueIdentifier>{708df3c8-aab4-47be-9d5a-e8ebd829fc00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Battle\AI">
+      <UniqueIdentifier>{ebd60c86-affb-4d53-a5b9-019003fc1711}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Battle\AI">
+      <UniqueIdentifier>{aca65fa3-a292-4fb8-85a7-e1e054018a44}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FrameWork\Game.cpp">
+      <Filter>ソース ファイル\FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FrameWork\Controller.cpp">
+      <Filter>ソース ファイル\FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Object.cpp">
+      <Filter>ソース ファイル\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Shape.cpp">
+      <Filter>ソース ファイル\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\UI\Back.cpp">
+      <Filter>ソース ファイル\Entity\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\View\Text.cpp">
+      <Filter>ソース ファイル\Entity\View</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\ObjectsControl.cpp">
+      <Filter>ソース ファイル\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Figure.cpp">
+      <Filter>ソース ファイル\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screen\ScreenBase.cpp">
+      <Filter>ソース ファイル\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screen\StartScreen.cpp">
+      <Filter>ソース ファイル\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screen\MenuScreen.cpp">
+      <Filter>ソース ファイル\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\UI\Overlay.cpp">
+      <Filter>ソース ファイル\Entity\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Animation\Animation.cpp">
+      <Filter>ソース ファイル\Entity\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utility\ResourceManager.cpp">
+      <Filter>ソース ファイル\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screen\SelectScreen.cpp">
+      <Filter>ソース ファイル\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\UI\Button\TextButton.cpp">
+      <Filter>ソース ファイル\Entity\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\UI\Button\MenuScreenButton.cpp">
+      <Filter>ソース ファイル\Entity\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\UI\Button\CourseButton.cpp">
+      <Filter>ソース ファイル\Entity\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screen\BattleScreen.cpp">
+      <Filter>ソース ファイル\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Battle\Map.cpp">
+      <Filter>ソース ファイル\Entity\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Battle\Mass.cpp">
+      <Filter>ソース ファイル\Entity\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Unit\Unit.cpp">
+      <Filter>ソース ファイル\Entity\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Battle\BattleManager.cpp">
+      <Filter>ソース ファイル\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Battle\BUI\BattleUI.cpp">
+      <Filter>ソース ファイル\Battle\BUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Battle\BUI\BattleUIDefine.cpp">
+      <Filter>ソース ファイル\Battle\BUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Battle\BUI\TerrainEffectDisplay.cpp">
+      <Filter>ソース ファイル\Battle\BUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Battle\BUI\UnitStatusDisplay.cpp">
+      <Filter>ソース ファイル\Battle\BUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Battle\Fight.cpp">
+      <Filter>ソース ファイル\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Battle\BUI\FightPredictDisplay.cpp">
+      <Filter>ソース ファイル\Battle\BUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\UI\Menu\ContextMenu.cpp">
+      <Filter>ソース ファイル\Entity\UI\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Effect\DamageEffect.cpp">
+      <Filter>ソース ファイル\Entity\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screen\LoadScreen.cpp">
+      <Filter>ソース ファイル\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Battle\BUI\EnemySpeedController.cpp">
+      <Filter>ソース ファイル\Battle\BUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Battle\PlayerBattleController.cpp">
+      <Filter>ソース ファイル\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Battle\EnemyBattleController.cpp">
+      <Filter>ソース ファイル\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Battle\AI\EnemyAI.cpp">
+      <Filter>ソース ファイル\Battle\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utility\Timer.cpp">
+      <Filter>ソース ファイル\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Unit\Ability.cpp">
+      <Filter>ソース ファイル\Entity\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\View\Tooltip.cpp">
+      <Filter>ソース ファイル\Entity\View</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Unit\Gunner.cpp">
+      <Filter>ソース ファイル\Entity\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Unit\UnitInfo.cpp">
+      <Filter>ソース ファイル\Entity\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utility\SaveManager.cpp">
+      <Filter>ソース ファイル\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Battle\ResultScene.cpp">
+      <Filter>ソース ファイル\Entity\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Battle\CheckWin.cpp">
+      <Filter>ソース ファイル\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\UI\Message.cpp">
+      <Filter>ソース ファイル\Entity\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\UI\Button\BuiConfirmButton.cpp">
+      <Filter>ソース ファイル\Entity\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Battle\BUI\SelectUnitArea.cpp">
+      <Filter>ソース ファイル\Battle\BUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Battle\SetUnits.cpp">
+      <Filter>ソース ファイル\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Battle\TutorialManager.cpp">
+      <Filter>ソース ファイル\Battle</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\FrameWork\Game.h">
+      <Filter>ヘッダー ファイル\FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FrameWork\Controller.h">
+      <Filter>ヘッダー ファイル\FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Object.h">
+      <Filter>ヘッダー ファイル\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Shape.h">
+      <Filter>ヘッダー ファイル\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Define.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\UI\Back.h">
+      <Filter>ヘッダー ファイル\Entity\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\View\Text.h">
+      <Filter>ヘッダー ファイル\Entity\View</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\ObjectsControl.h">
+      <Filter>ヘッダー ファイル\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Figure.h">
+      <Filter>ヘッダー ファイル\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screen\ScreenBase.h">
+      <Filter>ヘッダー ファイル\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screen\StartScreen.h">
+      <Filter>ヘッダー ファイル\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screen\MenuScreen.h">
+      <Filter>ヘッダー ファイル\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\UI\Overlay.h">
+      <Filter>ヘッダー ファイル\Entity\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Animation\Animation.h">
+      <Filter>ヘッダー ファイル\Entity\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Animation\Easing.h">
+      <Filter>ヘッダー ファイル\Entity\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\ResourceManager.h">
+      <Filter>ヘッダー ファイル\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screen\SelectScreen.h">
+      <Filter>ヘッダー ファイル\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\UI\Button\MenuScreenButton.h">
+      <Filter>ヘッダー ファイル\Entity\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\UI\Button\TextButton.h">
+      <Filter>ヘッダー ファイル\Entity\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\UI\Button\CourseButton.h">
+      <Filter>ヘッダー ファイル\Entity\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screen\BattleScreen.h">
+      <Filter>ヘッダー ファイル\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Battle\Map.h">
+      <Filter>ヘッダー ファイル\Entity\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Battle\Mass.h">
+      <Filter>ヘッダー ファイル\Entity\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Unit\Unit.h">
+      <Filter>ヘッダー ファイル\Entity\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\BattleManager.h">
+      <Filter>ヘッダー ファイル\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\BUI\BattleUI.h">
+      <Filter>ヘッダー ファイル\Battle\BUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\BUI\BattleUIDefine.h">
+      <Filter>ヘッダー ファイル\Battle\BUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\BUI\TerrainEffectDisplay.h">
+      <Filter>ヘッダー ファイル\Battle\BUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\BUI\UnitStatusDisplay.h">
+      <Filter>ヘッダー ファイル\Battle\BUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\Fight.h">
+      <Filter>ヘッダー ファイル\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\BUI\FightPredictDisplay.h">
+      <Filter>ヘッダー ファイル\Battle\BUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\UI\Menu\ContextMenu.h">
+      <Filter>ヘッダー ファイル\Entity\UI\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Effect\DamageEffect.h">
+      <Filter>ヘッダー ファイル\Entity\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screen\LoadScreen.h">
+      <Filter>ヘッダー ファイル\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\BUI\EnemySpeedController.h">
+      <Filter>ヘッダー ファイル\Battle\BUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\PlayerBattleController.h">
+      <Filter>ヘッダー ファイル\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\EnemyBattleController.h">
+      <Filter>ヘッダー ファイル\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\AI\EnemyAI.h">
+      <Filter>ヘッダー ファイル\Battle\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\Timer.h">
+      <Filter>ヘッダー ファイル\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Unit\Ability.h">
+      <Filter>ヘッダー ファイル\Entity\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\View\Tooltip.h">
+      <Filter>ヘッダー ファイル\Entity\View</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Unit\Gunner.h">
+      <Filter>ヘッダー ファイル\Entity\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Unit\UnitInfo.h">
+      <Filter>ヘッダー ファイル\Entity\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\SaveManager.h">
+      <Filter>ヘッダー ファイル\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Battle\ResultScene.h">
+      <Filter>ヘッダー ファイル\Entity\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\CheckWin.h">
+      <Filter>ヘッダー ファイル\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\BattleDefine.h">
+      <Filter>ヘッダー ファイル\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\UI\Message.h">
+      <Filter>ヘッダー ファイル\Entity\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\UI\Button\BuiConfirmButton.h">
+      <Filter>ヘッダー ファイル\Entity\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\BUI\SelectUnitArea.h">
+      <Filter>ヘッダー ファイル\Battle\BUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\SetUnits.h">
+      <Filter>ヘッダー ファイル\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\TutorialManager.h">
+      <Filter>ヘッダー ファイル\Battle</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\DxLibTacticalGame.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resource\image\unit\unit.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="resource\image\menu\background.jpg">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="resource\image\map\mapchip.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="resource\image\effect\damage.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="resource\image\effect\miss.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="resource\image\map\state-movable.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="resource\image\map\state-atack.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="resource\image\unit\bullet.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\image\unit\player\default1.bin">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="resource\sound\check.ogg">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="resource\sound\click.ogg">
+      <Filter>リソース ファイル</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="resource\sound\back.wav">
+      <Filter>リソース ファイル</Filter>
+    </Media>
+    <Media Include="resource\sound\born.wav">
+      <Filter>リソース ファイル</Filter>
+    </Media>
+  </ItemGroup>
+</Project>

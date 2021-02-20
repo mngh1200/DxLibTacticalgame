@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{33a16a0e-f861-41b2-9830-c7ca547381ad}</ProjectGuid>
+    <RootNamespace>DxLibTacticalGame</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>src;C:\Library\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Library\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>src;C:\Library\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Library\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>src;C:\Library\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalLibraryDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>src;C:\Library\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>src;C:\Library\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalLibraryDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>src;C:\Library\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Animation\Animation.cpp" />
+    <ClCompile Include="src\Battle\AI\EnemyAI.cpp" />
+    <ClCompile Include="src\Battle\BattleManager.cpp" />
+    <ClCompile Include="src\Battle\BUI\BattleUI.cpp" />
+    <ClCompile Include="src\Battle\BUI\BattleUIDefine.cpp" />
+    <ClCompile Include="src\Battle\BUI\EnemySpeedController.cpp" />
+    <ClCompile Include="src\Battle\BUI\FightPredictDisplay.cpp" />
+    <ClCompile Include="src\Battle\BUI\SelectUnitArea.cpp" />
+    <ClCompile Include="src\Battle\BUI\TerrainEffectDisplay.cpp" />
+    <ClCompile Include="src\Battle\BUI\UnitStatusDisplay.cpp" />
+    <ClCompile Include="src\Battle\CheckWin.cpp" />
+    <ClCompile Include="src\Battle\EnemyBattleController.cpp" />
+    <ClCompile Include="src\Battle\Fight.cpp" />
+    <ClCompile Include="src\Battle\PlayerBattleController.cpp" />
+    <ClCompile Include="src\Battle\SetUnits.cpp" />
+    <ClCompile Include="src\Battle\TutorialManager.cpp" />
+    <ClCompile Include="src\Entity\Battle\Map.cpp" />
+    <ClCompile Include="src\Entity\Battle\Mass.cpp" />
+    <ClCompile Include="src\Entity\Battle\ResultScene.cpp" />
+    <ClCompile Include="src\Entity\Effect\DamageEffect.cpp" />
+    <ClCompile Include="src\Entity\Object.cpp" />
+    <ClCompile Include="src\Entity\ObjectsControl.cpp" />
+    <ClCompile Include="src\Entity\Shape.cpp" />
+    <ClCompile Include="src\Entity\UI\Back.cpp" />
+    <ClCompile Include="src\Entity\Figure.cpp" />
+    <ClCompile Include="src\Entity\UI\Button\BuiConfirmButton.cpp" />
+    <ClCompile Include="src\Entity\UI\Button\CourseButton.cpp" />
+    <ClCompile Include="src\Entity\UI\Button\MenuScreenButton.cpp" />
+    <ClCompile Include="src\Entity\UI\Button\TextButton.cpp" />
+    <ClCompile Include="src\Entity\UI\Menu\ContextMenu.cpp" />
+    <ClCompile Include="src\Entity\UI\Message.cpp" />
+    <ClCompile Include="src\Entity\UI\Overlay.cpp" />
+    <ClCompile Include="src\Entity\Unit\Ability.cpp" />
+    <ClCompile Include="src\Entity\Unit\Gunner.cpp" />
+    <ClCompile Include="src\Entity\Unit\Unit.cpp" />
+    <ClCompile Include="src\Entity\Unit\UnitInfo.cpp" />
+    <ClCompile Include="src\Entity\View\Text.cpp" />
+    <ClCompile Include="src\Entity\View\Tooltip.cpp" />
+    <ClCompile Include="src\FrameWork\Controller.cpp" />
+    <ClCompile Include="src\FrameWork\Game.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Screen\BattleScreen.cpp" />
+    <ClCompile Include="src\Screen\LoadScreen.cpp" />
+    <ClCompile Include="src\Screen\MenuScreen.cpp" />
+    <ClCompile Include="src\Screen\ScreenBase.cpp" />
+    <ClCompile Include="src\Screen\SelectScreen.cpp" />
+    <ClCompile Include="src\Screen\StartScreen.cpp" />
+    <ClCompile Include="src\Utility\ResourceManager.cpp" />
+    <ClCompile Include="src\Utility\Timer.cpp" />
+    <ClCompile Include="src\Utility\SaveManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Animation\Animation.h" />
+    <ClInclude Include="src\Animation\Easing.h" />
+    <ClInclude Include="src\Battle\AI\EnemyAI.h" />
+    <ClInclude Include="src\Battle\BattleDefine.h" />
+    <ClInclude Include="src\Battle\BattleManager.h" />
+    <ClInclude Include="src\Battle\BUI\BattleUI.h" />
+    <ClInclude Include="src\Battle\BUI\BattleUIDefine.h" />
+    <ClInclude Include="src\Battle\BUI\EnemySpeedController.h" />
+    <ClInclude Include="src\Battle\BUI\FightPredictDisplay.h" />
+    <ClInclude Include="src\Battle\BUI\SelectUnitArea.h" />
+    <ClInclude Include="src\Battle\BUI\TerrainEffectDisplay.h" />
+    <ClInclude Include="src\Battle\BUI\UnitStatusDisplay.h" />
+    <ClInclude Include="src\Battle\CheckWin.h" />
+    <ClInclude Include="src\Battle\EnemyBattleController.h" />
+    <ClInclude Include="src\Battle\Fight.h" />
+    <ClInclude Include="src\Battle\PlayerBattleController.h" />
+    <ClInclude Include="src\Battle\SetUnits.h" />
+    <ClInclude Include="src\Battle\TutorialManager.h" />
+    <ClInclude Include="src\Define.h" />
+    <ClInclude Include="src\Entity\Battle\Map.h" />
+    <ClInclude Include="src\Entity\Battle\Mass.h" />
+    <ClInclude Include="src\Entity\Battle\ResultScene.h" />
+    <ClInclude Include="src\Entity\Effect\DamageEffect.h" />
+    <ClInclude Include="src\Entity\Object.h" />
+    <ClInclude Include="src\Entity\ObjectsControl.h" />
+    <ClInclude Include="src\Entity\Shape.h" />
+    <ClInclude Include="src\Entity\UI\Back.h" />
+    <ClInclude Include="src\Entity\Figure.h" />
+    <ClInclude Include="src\Entity\UI\Button\BuiConfirmButton.h" />
+    <ClInclude Include="src\Entity\UI\Button\CourseButton.h" />
+    <ClInclude Include="src\Entity\UI\Button\MenuScreenButton.h" />
+    <ClInclude Include="src\Entity\UI\Button\TextButton.h" />
+    <ClInclude Include="src\Entity\UI\Menu\ContextMenu.h" />
+    <ClInclude Include="src\Entity\UI\Message.h" />
+    <ClInclude Include="src\Entity\UI\Overlay.h" />
+    <ClInclude Include="src\Entity\Unit\Ability.h" />
+    <ClInclude Include="src\Entity\Unit\Gunner.h" />
+    <ClInclude Include="src\Entity\Unit\Unit.h" />
+    <ClInclude Include="src\Entity\Unit\UnitInfo.h" />
+    <ClInclude Include="src\Entity\View\Text.h" />
+    <ClInclude Include="src\Entity\View\Tooltip.h" />
+    <ClInclude Include="src\FrameWork\Controller.h" />
+    <ClInclude Include="src\FrameWork\Game.h" />
+    <ClInclude Include="src\resource.h" />
+    <ClInclude Include="src\Screen\BattleScreen.h" />
+    <ClInclude Include="src\Screen\LoadScreen.h" />
+    <ClInclude Include="src\Screen\MenuScreen.h" />
+    <ClInclude Include="src\Screen\ScreenBase.h" />
+    <ClInclude Include="src\Screen\SelectScreen.h" />
+    <ClInclude Include="src\Screen\StartScreen.h" />
+    <ClInclude Include="src\Utility\ResourceManager.h" />
+    <ClInclude Include="src\Utility\Timer.h" />
+    <ClInclude Include="src\Utility\SaveManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\DxLibTacticalGame.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resource\image\effect\damage.png" />
+    <Image Include="resource\image\effect\miss.png" />
+    <Image Include="resource\image\map\mapchip.png" />
+    <Image Include="resource\image\map\state-atack.png" />
+    <Image Include="resource\image\map\state-movable.png" />
+    <Image Include="resource\image\menu\background.jpg" />
+    <Image Include="resource\image\unit\bullet.png" />
+    <Image Include="resource\image\unit\unit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\image\unit\player\default1.bin" />
+    <None Include="resource\sound\check.ogg" />
+    <None Include="resource\sound\click.ogg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="resource\sound\back.wav" />
+    <Media Include="resource\sound\born.wav" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
