@@ -61,7 +61,7 @@ namespace Screen
 				saveManager.updateRank(i, StageRank::NONE);
 				saveManager.save();
 			}
-			else if (status == StageRank::NONE || status == StageRank::CLEAR) // 公開コース（新コース以外）
+			else if (status == StageRank::NONE && selectedCourseId_ == -1) // 未クリアコース
 			{
 				selectedCourseId_ = i;
 			}
@@ -71,6 +71,11 @@ namespace Screen
 			}
 
 			objectsControl.addObject(Layer::COURSE_BUTTON, i, make_shared<Entity::CourseButton>(x, y, status, i == newCourseId_));
+		}
+
+		if (selectedCourseId_ == -1)
+		{
+			selectedCourseId_ = MAX_STAGE - 1;
 		}
 		
 		// スタートボタン
