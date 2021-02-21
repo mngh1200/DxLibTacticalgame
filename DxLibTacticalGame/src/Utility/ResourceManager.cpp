@@ -375,6 +375,7 @@ namespace Utility {
 		std::string str_conma_buf;
 
 		// リソースからステージファイル読み込み
+		/*
 		HRSRC hrc = FindResourceA(NULL, MAKEINTRESOURCE(STAGE0 + id), MAKEINTRESOURCE(CSV));
 		DWORD datasize = SizeofResource(NULL, hrc);
 		HGLOBAL hgb = LoadResource(NULL, hrc);
@@ -401,18 +402,38 @@ namespace Utility {
 		const LPCSTR csvFilePath = str.c_str();
 
 		std::ifstream ifs_csv_file(p);
-		*/		
+		*/
 
-		getline(ifs_csv_file, str_buf); // ステージタイトル
+		string filePath = "resource/map/" + stageKind + to_string(id) + ".csv";
+
+		char readLine[256];
+
+		// CSVファイル読込
+		int csvHandle = FileRead_open(filePath.c_str());
+
+		if (csvHandle == 0)
+		{
+			DxLib::printfDx("ステージデータの読込に失敗しました。");
+			return;
+		}
+
+		// ステージタイトル
+		DxLib::FileRead_gets(readLine, 256, csvHandle);
+		str_buf = string(readLine);
 		*title = str_buf;
 
-		getline(ifs_csv_file, str_buf); // ヒント
+		// ヒント
+		DxLib::FileRead_gets(readLine, 256, csvHandle);
+		str_buf = string(readLine);
 		*hint = regex_replace(str_buf, regex("\\\\n"), "\n");
 
-		getline(ifs_csv_file, str_buf); // 空行
+		// 空行
+		DxLib::FileRead_gets(readLine, 256, csvHandle);
+		str_buf = string(readLine);
 
 		// 勝敗ルール読み込み
-		getline(ifs_csv_file, str_buf);
+		DxLib::FileRead_gets(readLine, 256, csvHandle);
+		str_buf = string(readLine);
 		std::istringstream i_stream(str_buf);
 		while (getline(i_stream, str_conma_buf, ','))
 		{
@@ -421,19 +442,23 @@ namespace Utility {
 
 		if (isUntilCheckWin) // 勝敗条件までしか読み込まない場合
 		{
-			ifs_csv_file.close();
+			// ifs_csv_file.close();
+			DxLib::FileRead_close(csvHandle);
 			return;
 		}
 
 		// その他ルール
-		getline(ifs_csv_file, str_buf);
+		DxLib::FileRead_gets(readLine, 256, csvHandle);
+		str_buf = string(readLine);
 		i_stream = istringstream(str_buf);
 		while (getline(i_stream, str_conma_buf, ','))
 		{
 			(*extraRules).push_back(stoi(str_conma_buf));
 		}
 
-		getline(ifs_csv_file, str_buf); // 空行を読み込む想定
+		// 空行を読み込む想定
+		DxLib::FileRead_gets(readLine, 256, csvHandle);
+		str_buf = string(readLine);
 
 		// マス初期化
 		for (int i = 0; i < MAP_MASS_H; i++) {
@@ -443,9 +468,15 @@ namespace Utility {
 		}
 
 		int lineCount = 0;
-		// getline関数で1行ずつ読み込む(読み込んだ内容はstr_bufに格納)
-		while (getline(ifs_csv_file, str_buf) && lineCount < MAP_MASS_H)
+		while (lineCount < MAP_MASS_H)
 		{
+			if (DxLib::FileRead_gets(readLine, 256, csvHandle) == -1)
+			{
+				return;
+			}
+
+			str_buf = string(readLine);
+
 			if (str_buf == "")
 			{
 				break; // 空行の場合終了
@@ -465,8 +496,10 @@ namespace Utility {
 		}
 
 		// 設置ユニットを読み込む
-		while (getline(ifs_csv_file, str_buf))
+		while (DxLib::FileRead_gets(readLine, 256, csvHandle) != -1)
 		{
+			str_buf = string(readLine);
+
 			// 「,」区切りごとにデータを読み込むためにistringstream型にする
 			std::istringstream i_stream(str_buf);
 			vector<int> unitData;
@@ -479,7 +512,8 @@ namespace Utility {
 			units->push_back(unitData);
 		}
 
-		ifs_csv_file.close();
+		// ifs_csv_file.close();
+		DxLib::FileRead_close(csvHandle);
 	}
 
 	boolean ResourceManager::isLoaded() const {

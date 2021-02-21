@@ -49,18 +49,3 @@ WIN_OGG	OGG	"../resource/sound/win.ogg"
 LOSE_OGG	OGG	"../resource/sound/lose.ogg"
 
 MESSAGE_OGG	OGG	"../resource/sound/message.ogg"
-
-
-
-STAGE0	CSV	"../resource/map/stage0.csv"
-STAGE1	CSV	"../resource/map/stage1.csv"
-STAGE2	CSV	"../resource/map/stage2.csv"
-STAGE3	CSV	"../resource/map/stage3.csv"
-STAGE4	CSV	"../resource/map/stage4.csv"
-STAGE5	CSV	"../resource/map/stage5.csv"
-STAGE6	CSV	"../resource/map/stage6.csv"
-STAGE7	CSV	"../resource/map/stage7.csv"
-STAGE8	CSV	"../resource/map/stage8.csv"
-STAGE9	CSV	"../resource/map/stage9.csv"
-STAGE10	CSV	"../resource/map/stage10.csv"
-STAGE11	CSV	"../resource/map/stage11.csv"
