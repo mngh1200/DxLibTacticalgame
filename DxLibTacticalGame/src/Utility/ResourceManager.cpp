@@ -11,8 +11,17 @@ namespace Utility {
 
 	ResourceManager::~ResourceManager()
 	{
-		unloadFont("resource/font/rounded-mplus/rounded-mplus-1p-regular.ttf");
-		unloadFont("resource/font/rounded-mplus/rounded-mplus-1p-black.ttf");
+		// フォントファイルを解放
+		for (auto itr = fontHandleList_.begin(); itr != fontHandleList_.end(); ++itr)
+		{
+			bool success = RemoveFontMemResourceEx(*itr);
+
+			if (!success)
+			{
+				DxLib::printfDx("failue unload font");
+			}
+
+		}
 
 		for (auto&& mItr = image_.begin(); mItr != image_.end(); ++mItr)
 		{
@@ -318,23 +327,40 @@ namespace Utility {
 
 	void ResourceManager::loadFont(const LPCSTR fontFilePath)
 	{
-		if (AddFontResource(fontFilePath) > 0) {
+		int FontFileSize = FileRead_size(fontFilePath);
+		// フォントファイルを開く
+		int FontFileHandle = FileRead_open(fontFilePath);
+
+		// フォントデータ格納用のメモリ領域を確保
+		void* Buffer = new void* [FontFileSize];
+		// フォントファイルを丸ごとメモリに読み込む
+		FileRead_read(Buffer, FontFileSize, FontFileHandle);
+
+		// AddFontMemResourceEx引数用
+		DWORD font_num = 0;
+
+		// メモリに読み込んだフォントデータをシステムに追加
+		HANDLE handle = AddFontMemResourceEx(Buffer, FontFileSize, NULL, &font_num);
+		if (handle == 0)
+		{
+			DxLib::printfDx("フォントデータの読み込みに失敗しました");
+			return;
+		}
+
+		fontHandleList_.push_back(handle);
+
+		FileRead_close(FontFileHandle);
+		delete[] Buffer;
+
+		/*
+		if (AddFontResource(fontFilePath) > 0) 
 			PostMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0);
 		}
 		else {
 			// フォント読込エラー処理
 			MessageBox(NULL, "フォント読込失敗", "", MB_OK);
 		}
-	}
-
-	void ResourceManager::unloadFont(const LPCSTR fontFilePath)
-	{
-		if (RemoveFontResource(fontFilePath)) {
-			PostMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0);
-		}
-		else {
-			MessageBox(NULL, "remove failure", "", MB_OK);
-		}
+		*/
 	}
 
 

@@ -190,7 +190,6 @@ namespace Utility
 		int loadSounds();
 
 		void loadFont(const LPCSTR fontFilePath);
-		void unloadFont(const LPCSTR fontFilePath);
 
 		//! フォントデータ
 		int hdlFont_[FontType::FONT_LEN];
@@ -201,6 +200,10 @@ namespace Utility
 		//! 音声データ
 		int sounds_[SoundKind::SOUNDS_LEN];
 
+		//! ロード済みであるか
 		boolean loadFlag;
+
+		//! 読み込んだフォントのハンドル
+		vector<HANDLE> fontHandleList_;
 	};
 }
