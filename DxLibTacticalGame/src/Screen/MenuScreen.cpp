@@ -23,7 +23,7 @@ namespace Screen
 
 		objectsControl.setLayer(Layer::LEN);
 		objectsControl.addObject(Layer::BACK, 0, make_shared<Entity::Back>());
-		objectsControl.addFigure(Layer::UI, UIid::TITLE, make_shared<Entity::Text>("GAME TITLE", PADDING_LEFT, PADDING_TOP, FontType::BLACK_S48, ColorType::TITLE_TEXT));
+		objectsControl.addFigure(Layer::UI, UIid::TITLE, make_shared<Entity::Text>("Spirit Wars", PADDING_LEFT, PADDING_TOP, FontType::BLACK_S48, ColorType::TITLE_TEXT));
 
 		// メニューボタン
 		objectsControl.addObject(Layer::UI, UIid::CAMPAIN_BUTTON, make_shared<Entity::MenuScreenButton>("キャンペーン", PADDING_LEFT, BUTTON_TOP, BUTTON_WIDTH, BUTTON_HEIGHT_L));
