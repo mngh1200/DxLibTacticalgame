@@ -106,7 +106,7 @@ namespace Entity {
 			{
 				return itr->key;
 			}
-			else if (cont.isKeyPressed(itr->keyCode)) // キー判定
+			else if (itr->keyCode != -1 && cont.isKeyPressed(itr->keyCode)) // キー判定
 			{
 				return itr->key;
 			}
