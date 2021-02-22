@@ -106,7 +106,7 @@ namespace Entity {
 
 		// テキスト
 		DxLib::DrawStringToHandle(shape_.x + PADDING, shape_.y + PADDING_TOP + CLOSE_H, text_.c_str(),
-			rm.getColor(ColorType::SUB_COLOR), rm.getHdlFont(FontType::NORMAL_S18));
+			rm.getColor(ColorType::SUB_COLOR), rm.getHdlFont(FONT_TYPE));
 	}
 
 	/**

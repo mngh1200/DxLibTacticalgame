@@ -244,7 +244,7 @@ namespace Utility {
 
 		// フォントの行間
 		DxLib::SetFontLineSpaceToHandle(24, hdlFont_[FontType::NORMAL_S18]);
-		DxLib::SetFontLineSpaceToHandle(30, hdlFont_[FontType::NORMAL_S24]);
+		DxLib::SetFontLineSpaceToHandle(32, hdlFont_[FontType::NORMAL_S24]);
 
 		return ret;
 	}
