@@ -102,7 +102,8 @@ namespace
 	{
 		DAMAGE,
 		MISS,
-		BULLET
+		BULLET,
+		ARROW
 	};
 
 	// ƒ†ƒjƒbƒg‚ÌImageType (ó‘Ô)

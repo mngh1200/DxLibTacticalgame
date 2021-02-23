@@ -224,6 +224,9 @@ namespace Utility {
 			BULLET_POS_LEN, BULLET_POS_LEN, 1, CHIP_SIZE / 4, CHIP_SIZE /4,
 			image_.at(ImageType::EFFECT).at(EffectId::BULLET));
 
+		image_.at(ImageType::EFFECT).push_back(new int[1]);
+		loadImage("resource/image/effect/arrow.png", image_.at(ImageType::EFFECT).at(EffectId::ARROW));
+
 		loadFlag = true;
 		return ret;
 	}
