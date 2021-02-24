@@ -45,7 +45,7 @@ namespace Battle {
 			if (countMax > 0)
 			{
 				battleUI.startSelectUnitMode(countMax);
-				tutorial.onEvent(TutorialManager::TutorialId::FREE_SET_SELECT);
+				tutorial.onEvent(TutorialManager::TutorialId::FREE_SET_SELECT, this);
 				*isSetUnit = true;
 			}
 		}
@@ -69,7 +69,7 @@ namespace Battle {
 			if (selectedUnit_ && !selectedUnit_->isAnimation()) // 移動終了
 			{
 				startSelectActionPhase(); // 行動選択フェイズ
-				tutorial.onEvent(TutorialManager::TutorialId::MOVE_CONFIRM);
+				tutorial.onEvent(TutorialManager::TutorialId::MOVE_CONFIRM, this);
 
 				if (isMoveImmdiateConfirm_) // 移動即時確定
 				{
@@ -81,10 +81,7 @@ namespace Battle {
 		{
 			// 攻撃終了
 			phase_ = Phase::NORMAL;
-			if (!tutorial.onEvent(TutorialManager::TutorialId::COORDINATED))
-			{
-				tutorial.onFight(&fight_, TutorialManager::FightPhase::END);
-			}
+			tutorial.onFight(&fight_, TutorialManager::FightPhase::END, this);
 			checkWin_.checkWin(map);
 			fight_.reset();
 		}
@@ -141,7 +138,7 @@ namespace Battle {
 		{
 			checkWin_.showRemainingTurnMessage(message, getNowTurn());
 
-			tutorial.onPlayerTurnStart(map);
+			tutorial.onPlayerTurnStart(this);
 		}
 		
 	}
@@ -238,7 +235,7 @@ namespace Battle {
 			map->clearMassState();
 			deselectUnit();
 			phase_ = Phase::FIGHT;
-			tutorial.onFight(&fight_, TutorialManager::FightPhase::START);
+			tutorial.onFight(&fight_, TutorialManager::FightPhase::START, this);
 		}
 	}
 
@@ -306,7 +303,7 @@ namespace Battle {
 				}
 				else
 				{
-					tutorial.onFight(&fight_, TutorialManager::FightPhase::PREDICT);
+					tutorial.onFight(&fight_, TutorialManager::FightPhase::PREDICT, this);
 				}
 			}
 		}
