@@ -1,5 +1,6 @@
 #include "TutorialManager.h"
 #include "BattleManager.h"
+#include "BUI/SelectUnitArea.h"
 
 namespace Battle {
 	const vector<string> TutorialManager::MESSAGES = TutorialManager::initMessages();
@@ -105,15 +106,12 @@ namespace Battle {
 	 * 特定イベント発生時に、セットされているチュートリアルIDがあればメッセージ表示
 	 * @return メッセージが表示された場合 trueを返す
 	 */
-	bool TutorialManager::onEvent(int tutorialId, BattleManager* bm)
+	bool TutorialManager::onEvent(int tutorialId, BattleManager* bm, int x, int y)
 	{
 		if (!isAble_)
 		{
 			return false; // 無効状態
 		}
-
-		int x = -1;
-		int y = -1;
 
 		for (auto itr = tutorialIdList_.begin(); itr != tutorialIdList_.end(); ++itr)
 		{
@@ -134,6 +132,16 @@ namespace Battle {
 				else if (tutorialId == TutorialId::ATACK) // 戦闘
 				{
 					getFirstUnitPos(bm->map, true, &x, &y);
+				}
+				else if (tutorialId == TutorialId::FREE_SET_SELECT) // 自由選択
+				{
+					x = BUI_PADDING + SelectUnitArea::COUNT_WIDTH + SelectUnitArea::UNIT_MARGIN +  CHIP_SIZE / 2;
+					y = WIN_H - BUI_H;
+				}
+				else if (tutorialId == TutorialId::FREE_SET_SET) // 自由設置
+				{
+					x = Map::getRealX(FREE_SET_X) + CHIP_SIZE / 2;
+					y = Map::getRealY(FREE_SET_Y);
 				}
 
 				// チュートリアルメッセージ表示

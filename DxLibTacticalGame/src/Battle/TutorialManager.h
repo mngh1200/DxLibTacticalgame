@@ -71,7 +71,7 @@ namespace Battle
 		};
 
 		void init(int stageId, shared_ptr<Message> message);
-		bool onEvent(int tutorialId, BattleManager* bm);
+		bool onEvent(int tutorialId, BattleManager* bm, int x = -1, int y = -1);
 
 		void onPlayerTurnStart(BattleManager* bm);
 
@@ -97,6 +97,9 @@ namespace Battle
 
 		constexpr static int DEFFENCE_X = 8; //! ñhâqç¿ïWX
 		constexpr static int DEFFENCE_Y = 8; //! ñhâqç¿ïWY
+
+		constexpr static int FREE_SET_X = 6; //! é©óRê›íuX
+		constexpr static int FREE_SET_Y = 7; //! é©óRê›íuY
 
 		static const vector<string> MESSAGES;
 		static vector<string> initMessages();

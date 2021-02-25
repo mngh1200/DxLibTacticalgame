@@ -37,7 +37,8 @@ namespace SetUnits {
 		{
 			map->setUnit(massX, massY, unitId);
 			Utility::ResourceManager::playSound(SoundKind::CHECK);
-			tutorial->onEvent(Battle::TutorialManager::TutorialId::FREE_SET_DEL, bm);
+			tutorial->onEvent(Battle::TutorialManager::TutorialId::FREE_SET_DEL, bm,
+				Map::getRealX(massX) + CHIP_SIZE / 2, Map::getRealY(massY));
 		}
 	}
 }
