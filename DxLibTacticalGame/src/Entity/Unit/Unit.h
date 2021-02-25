@@ -48,6 +48,8 @@ namespace Entity
 
 		bool damage(int damage, int direction, bool isCloseAtack);
 
+		void forceDecreaseHp(int decrease);
+
 		void avoid();
 
 		bool checkDead();

@@ -56,6 +56,20 @@ namespace Battle {
 		{
 			*aiKind = extraRules[1];
 		}
+
+		// ƒ`ƒ…[ƒgƒŠƒAƒ‹‚P`‚R‚Í“G‚P‘Î‚ÌHP‚ğí‚Á‚Ä‚¨‚­
+		if (stageId < 3)
+		{
+			for (auto itr = map->unitsBegin(); itr != map->unitsEnd(); ++itr)
+			{
+				shared_ptr<Unit> unit = itr->second;
+				if (unit->isEnemy())
+				{
+					unit->forceDecreaseHp(15);
+					break;
+				}
+			}
+		}
 	}
 
 	/**

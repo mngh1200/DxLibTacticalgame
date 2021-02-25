@@ -348,6 +348,17 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * HPをシステム上の処理で強制的に削る場合のメソッド
+	 * @param (decrease) 減少量
+	 */
+	void Unit::forceDecreaseHp(int decrease)
+	{
+		info_.hp -= decrease;
+		viewHp_ = info_.hp;
+	}
+
+	/**
+	 * @fn
 	 * 回避
 	 */
 	void Unit::avoid()
