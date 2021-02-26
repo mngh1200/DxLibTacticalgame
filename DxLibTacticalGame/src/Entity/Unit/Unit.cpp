@@ -42,11 +42,11 @@ namespace Entity {
 		{
 			info_.name = "èeï∫";
 			info_.hpm = 20;
-			info_.atk = 14;
+			info_.atk = 12;
 			info_.def = 2;
 			info_.mov = 2;
 			info_.len = 2;
-			info_.range = 3;
+			info_.range = 4;
 			info_.isCloseAtack = false;
 			info_.ability = Ability::Kind::THROUGH;
 		}
