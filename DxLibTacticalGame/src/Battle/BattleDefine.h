@@ -19,6 +19,12 @@ constexpr int DMAGE_EFFECT_LEN = 10;
 constexpr int DMAGE_EFFECT_W = 26;
 constexpr int DMAGE_EFFECT_H = 32;
 
+//! Še•ûŒü‚É‚¨‚¯‚éx‚Ì•Ï‰»—Ê
+constexpr int dx[4] = { 0, -1, 0, 1 };
+
+//! Še•ûŒü‚É‚¨‚¯‚éx‚Ì•Ï‰»—Ê
+constexpr int dy[4] = { -1, 0, 1, 0 };
+
 namespace
 {
 	// •ºíŠÇ—

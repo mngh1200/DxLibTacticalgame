@@ -77,6 +77,7 @@ namespace Entity
 		bool isHorse() const { return info_.kind == UnitKey::CAVALRY; } // 騎兵であればtrueを返す
 		bool isEnemy() const { return isEnemy_; } // 敵ユニットであるかを返す
 		bool isActed() const { return isActed_; } // 行動終了済みであるか
+		bool isStricken() const { return info_.hpm > info_.hp; } // ダメージを受けたことがあるか
 
 	protected:
 		constexpr static int HP_PADDING = 5; //! HPバーの余白
