@@ -28,6 +28,7 @@ namespace Battle
 	public:
 		TutorialManager() : 
 			isAble_(false),
+			prevTutorialId_(-1),
 			tutorialIdList_{}
 		{};
 		~TutorialManager() {};

@@ -5,6 +5,12 @@ namespace SetUnits {
 	/**
 	 * @fn
 	 * ユニット配置シーンでのクリックイベント
+	 * @param (x) クリック座標x
+	 * @param (y) クリック座標y
+	 * @param (map) mapの参照
+	 * @param (battleUI) バトル用UIクラス
+	 * @param (tutorial) チュートリアル管理クラス
+	 * @param (bm) バトル管理クラス
 	 */
 	void onClick(int x, int y, shared_ptr<Map> map, Battle::BattleUI* battleUI, Battle::TutorialManager* tutorial, Battle::BattleManager* bm)
 	{

@@ -46,6 +46,7 @@ namespace Battle {
 	 * @fn
 	 * 初期処理
 	 * @param (sategeId) ステージID
+	 * @param (message) メッセージオブジェクト
 	 */
 	void TutorialManager::init(int stageId, shared_ptr<Message> message)
 	{
@@ -56,6 +57,7 @@ namespace Battle {
 	/**
 	 * @fn
 	 * 行動可能なユニットがいるか判定
+	 * @param(map) mapの参照
 	 * @return 行動可能なユニットが存在する場合 trueを返す
 	 */
 	bool isExistActableUnit(shared_ptr<Map> map)
@@ -74,6 +76,10 @@ namespace Battle {
 	/**
 	 * @fn
 	 * 適当な最初のユニットの座標取得(矢印座標用の調整含む)
+	 * @param (map) mapの参照
+	 * @param (isEnemy) 敵ユニットが対象の場合true、プレイヤーユニットの場合false
+	 * @param (x) 対象x座標返却用のポインタ
+	 * @param (y) 対象y座標返却用のポインタ
 	 */
 	void getFirstUnitPos(shared_ptr<Map> map, bool isEnemy, int* x, int* y)
 	{
@@ -91,6 +97,9 @@ namespace Battle {
 	/**
 	 * @fn
 	 * 対象ユニットの座標を取得(矢印座標用の調整含む)
+	 * @param (unit) 対象ユニット 
+	 * @param (x) 対象x座標返却用のポインタ
+	 * @param (y) 対象y座標返却用のポインタ
 	 */
 	void getUnitPos(shared_ptr<Unit> unit, int* x, int* y)
 	{
@@ -104,6 +113,10 @@ namespace Battle {
 	/**
 	 * @fn
 	 * 特定イベント発生時に、セットされているチュートリアルIDがあればメッセージ表示
+	 * @param (tutorialId) イベント特定用のID
+	 * @param (bm) バトル管理クラス
+	 * @param (x) 矢印座標x
+	 * @param (y) 矢印座標y
 	 * @return メッセージが表示された場合 trueを返す
 	 */
 	bool TutorialManager::onEvent(int tutorialId, BattleManager* bm, int x, int y)
@@ -157,6 +170,7 @@ namespace Battle {
 	/**
 	 * @fn
 	 * プレイヤーターン開始時に、特定のチュートリアルメッセージを表示
+	 * @param (bm) バトル管理クラス
 	 */
 	void TutorialManager::onPlayerTurnStart(BattleManager* bm)
 	{
@@ -243,6 +257,7 @@ namespace Battle {
 	 * 戦闘情報をもとにチュートリアルメッセージ表示
 	 * @param (figth) 戦闘データ
 	 * @param (phase) 戦闘フェイズ
+	 * @param (bm) バトル管理クラス
 	 */
 	void TutorialManager::onFight(const Fight* fight, FightPhase phase, BattleManager* bm)
 	{
@@ -381,6 +396,9 @@ namespace Battle {
 	/**
 	 * @fn
 	 * チュートリアル表示
+	 * @param (tutorialId) メッセージ特定用のID
+	 * @param (x) 矢印表示座標x
+	 * @param (y) 矢印表示座標y
 	 */
 	void TutorialManager::showTutorial(int tutorialId, int x, int y)
 	{
@@ -395,6 +413,8 @@ namespace Battle {
 	/**
 	 * @fn
 	 * チュートリアル表示
+	 * @param (tutorialId) メッセージ特定用のID
+	 * @param (arrowPosList) 表示する矢印の座標のリスト
 	 */
 	void TutorialManager::showTutorial(int tutorialId, vector<pair<int, int>>& arrowPosList)
 	{
