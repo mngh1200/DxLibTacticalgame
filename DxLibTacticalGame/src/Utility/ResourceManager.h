@@ -84,7 +84,8 @@ namespace
 	{
 		ALL,
 		MOUNTAIN,
-		RIVER
+		RIVER,
+		STATE
 	};
 
 	// マップチップ種類
@@ -115,9 +116,16 @@ namespace
 	// ImageのID
 	enum ImageId {
 		BACKGROUND_MENU,
-		MASS_ATACK,
-		MASS_MOVE,
 		IMAGE_ID_LEN
+	};
+
+	// マスの状態による効果の画像pos
+	enum MassStatePos
+	{
+		MOVABLE_POS,
+		MOVABLE_AND_ATTACKED_POS,
+		ATTACKABLE_POS,
+		MASS_STATE_LEN
 	};
 
 	// 弾薬画像のpos

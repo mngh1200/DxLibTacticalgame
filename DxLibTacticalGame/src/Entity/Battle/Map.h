@@ -49,7 +49,8 @@ namespace Entity
 
 		void displayAtackAbleRange(shared_ptr<Unit> unit, int x, int y, bool isExistEnemyOnly = false);
 		void getAtackAbleMasses(shared_ptr<Unit> unit, int x, int y, vector<pair<int, int>>& posList, bool isExistEnemyOnly = false);
-		
+
+		void updateAttackedArea(bool isEnemy);
 
 		shared_ptr<Mass> getMass(int massX, int massY);
 		void clearMassState();
@@ -59,8 +60,6 @@ namespace Entity
 		pair<int, int> getPlayerFortMass() const { return playerFortMass_; }; // プレイヤーの砦マスを返す
 		pair<int, int> getEnemyFortMass() const { return enemyFortMass_; }; // 敵軍の砦マスを返す
 
-		static void drawMoveableMass(int x, int y);
-		static void drawAtackMass(int x, int y);
 		static void drawHoverMass(int x, int y);
 		static void drawSelectedMass(int x, int y);
 
@@ -72,6 +71,9 @@ namespace Entity
 		static int getMassDistance(int x0, int y0, int x1, int  y1);
 
 	private:
+		void drawMoveableMass(int realX, int realY, bool isAttackedArea) const;
+		void drawAtackMass(int x, int y) const;
+
 		void getAtackAbleMass(shared_ptr<Unit> unit, int x, int y, vector<pair<int, int>>& posList, bool isExistEnemyOnly = false);
 
 		constexpr static int MASS_EFFECT_ALPHA = 50; //! マスの効果色の不透明度

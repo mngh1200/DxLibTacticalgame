@@ -4,9 +4,7 @@ BACKGROUND_IMAGE	IMAGE_FILE	"../resource/image/menu/background.jpg"
 
 MAP_IMAGE	IMAGE_FILE	"../resource/image/map/mapchip.png"
 
-MASS_MOVABLE	IMAGE_FILE	"../resource/image/map/state-movable.png"
-
-MASS_ATACKABLE	IMAGE_FILE	"../resource/image/map/state-atack.png"
+MASS_STATE	IMAGE_FILE	"../resource/image/map/mass-state.png"
 
 MAP_MOUNTAIN	IMAGE_FILE	"../resource/image/map/mountain.png"
 

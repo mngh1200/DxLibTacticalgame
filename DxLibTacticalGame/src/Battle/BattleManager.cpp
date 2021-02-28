@@ -147,14 +147,17 @@ namespace Battle {
 		// 勝敗判定
 		checkWin_.checkWin(getNowTurn());
 
-		// 残りターンメッセージ
 		if (isPlayerTurn_)
 		{
+			// 残りターンメッセージ
 			checkWin_.showRemainingTurnMessage(message, getNowTurn());
 
+			// チュートリアル
 			tutorial.onPlayerTurnStart(this);
+
+			// 敵の攻撃範囲判定情報更新
+			map->updateAttackedArea(true);
 		}
-		
 	}
 
 	/**
@@ -250,6 +253,11 @@ namespace Battle {
 			deselectUnit();
 			phase_ = Phase::FIGHT;
 			tutorial.onFight(&fight_, TutorialManager::FightPhase::START, this);
+
+			if (isPlayerTurn_)
+			{
+				map->updateAttackedArea(true);
+			}
 		}
 	}
 
@@ -264,6 +272,11 @@ namespace Battle {
 			map->confirmMove(selectedUnit_);
 			selectedUnit_->endAction();
 			endSelectActionPhase();
+
+			if (isPlayerTurn_)
+			{
+				map->updateAttackedArea(true);
+			}
 		}
 	}
 

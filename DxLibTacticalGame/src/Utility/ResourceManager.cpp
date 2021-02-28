@@ -178,10 +178,6 @@ namespace Utility {
 		// 背景
 		loadImage(MAKEINTRESOURCE(BACKGROUND_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::IMAGE).at(ImageId::BACKGROUND_MENU));
 
-		// マス効果
-		loadImage(MAKEINTRESOURCE(MASS_ATACKABLE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::IMAGE).at(ImageId::MASS_ATACK));
-		loadImage(MAKEINTRESOURCE(MASS_MOVABLE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::IMAGE).at(ImageId::MASS_MOVE));
-
 		// マス読込
 		image_.insert(std::make_pair(ImageType::MAP, vector<int*>()));
 		image_.at(ImageType::MAP).push_back(new int[8]);
@@ -198,6 +194,12 @@ namespace Utility {
 		loadDivImage(MAKEINTRESOURCE(MAP_RIVER), MAKEINTRESOURCE(IMAGE_FILE),
 			RIVER_NUM, RIVER_NUM, 1, CHIP_SIZE, CHIP_SIZE,
 			image_.at(ImageType::MAP).at(MapImageKind::RIVER));
+
+		// マス効果
+		image_.at(ImageType::MAP).push_back(new int[MassStatePos::MASS_STATE_LEN]);
+		loadDivImage(MAKEINTRESOURCE(MASS_STATE), MAKEINTRESOURCE(IMAGE_FILE),
+			MassStatePos::MASS_STATE_LEN, MassStatePos::MASS_STATE_LEN, 1, CHIP_SIZE, CHIP_SIZE,
+			image_.at(ImageType::MAP).at(MapImageKind::STATE));
 
 
 		// プレイヤー画像の読み込み
