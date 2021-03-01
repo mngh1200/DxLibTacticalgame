@@ -15,7 +15,7 @@ namespace Battle {
 
 		messageList.at(TutorialId::UNIT_SELECT) =		"ユニットをクリックすることで\nクリックしたユニットを選択することができます";
 		messageList.at(TutorialId::TURN_END) =			"右下の「ターン終了」ボタン\nまたは、右クリックで表示されるシステムメニューから\n自分のターンを終了できます";
-		messageList.at(TutorialId::MOVE) =				"青くなっているマスをクリックすると\nユニットをクリックしたマスに移動させられます";
+		messageList.at(TutorialId::MOVE) =				"青くなっているマスをクリックすると\nユニットをクリックしたマスに移動させられます\n（敵の攻撃可能範囲の場合、青紫色になります）";
 		messageList.at(TutorialId::MOVE_CONFIRM) =		"選択中のユニットをクリックすると、移動を確定させられます\n選択中のユニット以外をクリックすると、移動をキャンセルできます";
 		messageList.at(TutorialId::FIGHT_PREDICT) =		"①敵ユニットに隣接するように移動\n②隣接した敵ユニットにマウスカーソルを合わせる\n上記手順で画面下に戦闘予測が表示されます";
 		messageList.at(TutorialId::ATACK) =				"赤くなっているマスの敵ユニットを\nクリックすると攻撃できます";
