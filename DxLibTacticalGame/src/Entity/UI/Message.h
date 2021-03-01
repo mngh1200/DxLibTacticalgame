@@ -42,7 +42,7 @@ namespace Entity
 		constexpr static int MARGIN = 10; //! 余白
 		constexpr static int PADDING = 12; //! 余白
 		constexpr static int PADDING_TOP = 6; //! 余白(上側)
-		const static int FONT_TYPE = FontType::NORMAL_S18;  //! フォントタイプ
+		const static int FONT_TYPE = FontType::NORMAL_S24;  //! フォントタイプ
 
 		constexpr static int TEXT_PADDING_RIGHT = PADDING + 12; //! テキストのみの右側余白
 

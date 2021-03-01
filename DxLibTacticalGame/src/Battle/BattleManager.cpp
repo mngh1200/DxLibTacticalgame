@@ -45,7 +45,7 @@ namespace Battle {
 			if (countMax > 0)
 			{
 				battleUI.startSelectUnitMode(countMax);
-				tutorial.onEvent(TutorialManager::TutorialId::FREE_SET_SELECT);
+				tutorial.onEvent(TutorialManager::TutorialId::FREE_SET_SELECT, this);
 				*isSetUnit = true;
 			}
 		}
@@ -55,6 +55,20 @@ namespace Battle {
 		if (extraRules.size() > 1)
 		{
 			*aiKind = extraRules[1];
+		}
+
+		// チュートリアル１～３は敵１対のHPを削っておく
+		if (stageId < 3)
+		{
+			for (auto itr = map->unitsBegin(); itr != map->unitsEnd(); ++itr)
+			{
+				shared_ptr<Unit> unit = itr->second;
+				if (unit->isEnemy())
+				{
+					unit->forceDecreaseHp(15);
+					break;
+				}
+			}
 		}
 	}
 
@@ -69,7 +83,7 @@ namespace Battle {
 			if (selectedUnit_ && !selectedUnit_->isAnimation()) // 移動終了
 			{
 				startSelectActionPhase(); // 行動選択フェイズ
-				tutorial.onEvent(TutorialManager::TutorialId::MOVE_CONFIRM);
+				tutorial.onEvent(TutorialManager::TutorialId::MOVE_CONFIRM, this);
 
 				if (isMoveImmdiateConfirm_) // 移動即時確定
 				{
@@ -81,10 +95,7 @@ namespace Battle {
 		{
 			// 攻撃終了
 			phase_ = Phase::NORMAL;
-			if (!tutorial.onEvent(TutorialManager::TutorialId::COORDINATED))
-			{
-				tutorial.onFight(&fight_, TutorialManager::FightPhase::END);
-			}
+			tutorial.onFight(&fight_, TutorialManager::FightPhase::END, this);
 			checkWin_.checkWin(map);
 			fight_.reset();
 		}
@@ -136,14 +147,17 @@ namespace Battle {
 		// 勝敗判定
 		checkWin_.checkWin(getNowTurn());
 
-		// 残りターンメッセージ
 		if (isPlayerTurn_)
 		{
+			// 残りターンメッセージ
 			checkWin_.showRemainingTurnMessage(message, getNowTurn());
 
-			tutorial.onPlayerTurnStart(map);
+			// チュートリアル
+			tutorial.onPlayerTurnStart(this);
+
+			// 敵の攻撃範囲判定情報更新
+			map->updateAttackedArea(true);
 		}
-		
 	}
 
 	/**
@@ -238,7 +252,12 @@ namespace Battle {
 			map->clearMassState();
 			deselectUnit();
 			phase_ = Phase::FIGHT;
-			tutorial.onFight(&fight_, TutorialManager::FightPhase::START);
+			tutorial.onFight(&fight_, TutorialManager::FightPhase::START, this);
+
+			if (isPlayerTurn_)
+			{
+				map->updateAttackedArea(true);
+			}
 		}
 	}
 
@@ -253,6 +272,11 @@ namespace Battle {
 			map->confirmMove(selectedUnit_);
 			selectedUnit_->endAction();
 			endSelectActionPhase();
+
+			if (isPlayerTurn_)
+			{
+				map->updateAttackedArea(true);
+			}
 		}
 	}
 
@@ -306,7 +330,7 @@ namespace Battle {
 				}
 				else
 				{
-					tutorial.onFight(&fight_, TutorialManager::FightPhase::PREDICT);
+					tutorial.onFight(&fight_, TutorialManager::FightPhase::PREDICT, this);
 				}
 			}
 		}

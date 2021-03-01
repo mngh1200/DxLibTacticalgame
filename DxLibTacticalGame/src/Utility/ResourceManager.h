@@ -84,7 +84,8 @@ namespace
 	{
 		ALL,
 		MOUNTAIN,
-		RIVER
+		RIVER,
+		STATE
 	};
 
 	// マップチップ種類
@@ -102,7 +103,8 @@ namespace
 	{
 		DAMAGE,
 		MISS,
-		BULLET
+		BULLET,
+		ARROW
 	};
 
 	// ユニットのImageType (状態)
@@ -114,9 +116,16 @@ namespace
 	// ImageのID
 	enum ImageId {
 		BACKGROUND_MENU,
-		MASS_ATACK,
-		MASS_MOVE,
 		IMAGE_ID_LEN
+	};
+
+	// マスの状態による効果の画像pos
+	enum MassStatePos
+	{
+		MOVABLE_POS,
+		MOVABLE_AND_ATTACKED_POS,
+		ATTACKABLE_POS,
+		MASS_STATE_LEN
 	};
 
 	// 弾薬画像のpos
@@ -190,7 +199,6 @@ namespace Utility
 		int loadSounds();
 
 		void loadFont(const LPCSTR fontFilePath);
-		void unloadFont(const LPCSTR fontFilePath);
 
 		//! フォントデータ
 		int hdlFont_[FontType::FONT_LEN];
@@ -201,6 +209,10 @@ namespace Utility
 		//! 音声データ
 		int sounds_[SoundKind::SOUNDS_LEN];
 
+		//! ロード済みであるか
 		boolean loadFlag;
+
+		//! 読み込んだフォントのハンドル
+		vector<HANDLE> fontHandleList_;
 	};
 }

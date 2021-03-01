@@ -120,6 +120,10 @@ namespace Battle
 				return false; // 対象が変わっていない場合
 			}
 
+			// 特殊効果一覧クリア
+			actSide_.extraEffects.clear();
+			psvSide_.extraEffects.clear();
+
 			shared_ptr<Mass> mass = map_->getMass(psvUnit->getMassX(), psvUnit->getMassY()); // 防御側のマス
 			actSide_.isFirst = true;
 

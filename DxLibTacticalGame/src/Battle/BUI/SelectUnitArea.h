@@ -24,6 +24,9 @@ namespace Entity
 		SelectUnitArea();
 		~SelectUnitArea() {};
 
+		constexpr static int COUNT_WIDTH = 100; //! カウントエリアの幅
+		constexpr static int UNIT_MARGIN = 10; //! ユニット選択肢の余白
+
 		void render() const override;
 
 		void onMouseClick(int x, int y) override;
@@ -37,10 +40,7 @@ namespace Entity
 
 	private:
 		constexpr static int FONT_TYPE = FontType::NORMAL_S32; //! フォントの種類
-		constexpr static int COUNT_WIDTH = 100; //! カウントエリアの幅
-
 		constexpr static int UNIT_Y = BATTLE_UI_AREA_Y + (BUI_H - CHIP_SIZE) / 2; //! ユニット選択肢のY座標
-		constexpr static int UNIT_MARGIN = 10; //! ユニット選択肢の余白
 
 		pair<int, int> countPos_;	//! 配置数の座標
 		int countMax_;	//! 最大配置可能数

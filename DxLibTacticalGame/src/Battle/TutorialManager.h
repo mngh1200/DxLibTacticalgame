@@ -4,10 +4,16 @@
 #include <string>
 #include "Entity/UI/Message.h"
 #include "Entity/Battle/Map.h"
+#include "Entity/Effect/TutorialArrow.h"
 #include "Fight.h"
 
 using namespace std;
 using namespace Entity;
+
+namespace Battle
+{
+	class BattleManager;
+}
 
 /**
  * @file TutorialManager.h
@@ -22,6 +28,7 @@ namespace Battle
 	public:
 		TutorialManager() : 
 			isAble_(false),
+			prevTutorialId_(-1),
 			tutorialIdList_{}
 		{};
 		~TutorialManager() {};
@@ -65,14 +72,35 @@ namespace Battle
 		};
 
 		void init(int stageId, shared_ptr<Message> message);
-		bool onEvent(int tutorialId);
+		bool onEvent(int tutorialId, BattleManager* bm, int x = -1, int y = -1);
 
-		void onPlayerTurnStart(shared_ptr<Map> map);
+		void onPlayerTurnStart(BattleManager* bm);
 
-		void onFight(const Fight* fight, FightPhase phase);
+		void onFight(const Fight* fight, FightPhase phase, BattleManager* bm);
 
 	private:
+		void showTutorial(int tutorialId, int x = -1, int y = -1);
+		void showTutorial(int tutorialId, vector<pair<int,int>>& arrowPosList);
 		bool setTutorialIdList(int stageId);
+
+		void clearArrowList();
+
+		constexpr static int MESSAGE_MS = 20000; //! メッセージ表示時間
+
+		constexpr static int MOVE_X = 8; //! 移動チュートリアル時の対象マス座標
+		constexpr static int MOVE_Y = 5; //! 移動チュートリアル時の対象マス座標
+
+		constexpr static int FOREST_X = 8; //! 地形チュートリアル時の対象マス座標
+		constexpr static int FOREST_Y = 5; //! 地形チュートリアル時の対象マス座標
+
+		constexpr static int SUPPRESSION_X = 8; //! 制圧座標X
+		constexpr static int SUPPRESSION_Y = 1; //! 制圧座標Y
+
+		constexpr static int DEFFENCE_X = 8; //! 防衛座標X
+		constexpr static int DEFFENCE_Y = 8; //! 防衛座標Y
+
+		constexpr static int FREE_SET_X = 6; //! 自由設置X
+		constexpr static int FREE_SET_Y = 7; //! 自由設置Y
 
 		static const vector<string> MESSAGES;
 		static vector<string> initMessages();
@@ -80,9 +108,13 @@ namespace Battle
 
 		shared_ptr<Message> message_; //! メッセージオブジェクト
 
+		vector<shared_ptr<TutorialArrow>> arrowList_; //! 表示中のチュートリアル矢印
+
 		bool isAble_; //! 有効/無効
 
 		vector<int> tutorialIdList_; //! チュートリアルのIDリスト
+
+		int prevTutorialId_; //! 前回のチュートリアルID
 	};
 
 

@@ -183,7 +183,7 @@ namespace Entity {
 				}
 				if ((*cell)->state == Mass::State::MOVABLE || (*cell)->ableUnitSet) // 移動範囲 or ユニット配置可能
 				{
-					drawMoveableMass(realX, realY);
+					drawMoveableMass(realX, realY, (*cell)->isAttacked);
 				}
 				else if ((*cell)->state == Mass::State::ATK_ABLE) // 攻撃可能範囲
 				{
@@ -476,9 +476,58 @@ namespace Entity {
 		}
 	}
 
+
 	/**
 	 * @fn
-	 * 攻撃可能マスであるか判定
+	 * 特定プレイヤーの全ユニットの攻撃範囲であるかの判定情報を更新
+	 * @param (isEnemy) 敵側の攻撃範囲を判定する場合はtrue
+	*/
+	void Map::updateAttackedArea(bool isEnemy)
+	{
+		// すべてクリア
+		for (auto line = mass_.begin(); line != mass_.end(); ++line) {
+			for (auto cell = (*line).begin(); cell != (*line).end(); ++cell) {
+				(*cell)->isAttacked = false;
+			}
+		}
+
+		//! 攻撃範囲の座標リスト
+		vector<pair<int, int>> atkedPosList;
+
+		for (auto itr = unitsBegin(); itr != unitsEnd(); ++itr)
+		{
+			shared_ptr<Unit> unit = (*itr).second;
+
+			if (unit && unit->isEnemy() == isEnemy)
+			{
+				vector<pair<int, int>> movPosList;
+				getMovableMasses(unit, unit->getMassX(), unit->getMassY(), unit->getInfo().mov, movPosList, true);
+				clearMassState();
+
+				for (auto pos = movPosList.begin(); pos != movPosList.end(); ++pos)
+				{
+					getAtackAbleMasses(unit, (*pos).first, (*pos).second, atkedPosList);
+				}
+			}
+		}
+
+		// 重複削除
+		unique(atkedPosList.begin(), atkedPosList.end());
+
+		// 攻撃範囲であることを反映
+		for (auto itr = atkedPosList.begin(); itr != atkedPosList.end(); ++itr)
+		{
+			shared_ptr<Mass> mass = getMass((*itr).first, (*itr).second);
+			if (mass)
+			{
+				mass->isAttacked = true;
+			}
+		}
+	}
+
+	/**
+	 * @fn
+	 * 攻撃可能マスであるか判定して、攻撃可能マスであればposListに追加
 	 * @param (unit) 対象ユニット
 	 * @param (x) 攻撃起点マス座標X
 	 * @param (y) 攻撃起点マス座標Y
@@ -577,10 +626,18 @@ namespace Entity {
 	 * 移動可能範囲のマスを描画
 	 * @param (realX) x座標
 	 * @param (realY) y座標
+	 * @param (isAttackedArea) 敵の攻撃可能範囲であるか
 	 */
-	void Map::drawMoveableMass(int realX, int realY)
+	void Map::drawMoveableMass(int realX, int realY, bool isAttackedArea) const
 	{
-		DxLib::DrawGraph(realX, realY, Utility::ResourceManager::getInstance().getImage(ImageType::IMAGE, ImageId::MASS_MOVE), TRUE);
+		if (!isAttackedArea)
+		{
+			DxLib::DrawGraph(realX, realY, Utility::ResourceManager::getInstance().getImage(ImageType::MAP, MapImageKind::STATE, MassStatePos::MOVABLE_POS), TRUE);
+		}
+		else
+		{
+			DxLib::DrawGraph(realX, realY, Utility::ResourceManager::getInstance().getImage(ImageType::MAP, MapImageKind::STATE, MassStatePos::MOVABLE_AND_ATTACKED_POS), TRUE);
+		}
 	}
 
 	/**
@@ -589,9 +646,9 @@ namespace Entity {
 	 * @param (realX) x座標
 	 * @param (realY) y座標
 	 */
-	void Map::drawAtackMass(int realX, int realY)
+	void Map::drawAtackMass(int realX, int realY) const
 	{
-		DxLib::DrawGraph(realX, realY, Utility::ResourceManager::getInstance().getImage(ImageType::IMAGE, ImageId::MASS_ATACK), TRUE);
+		DxLib::DrawGraph(realX, realY, Utility::ResourceManager::getInstance().getImage(ImageType::MAP, MapImageKind::STATE, MassStatePos::ATTACKABLE_POS), TRUE);
 	}
 
 	/**

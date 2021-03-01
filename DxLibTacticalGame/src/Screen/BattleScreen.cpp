@@ -115,14 +115,15 @@ namespace Screen
 				{
 					confirmSetUnits();
 				}
-				else if (hitObjSp->getLayerId() == Layer::UI && hitObjSp->getObjectId() == Battle::BattleUI::BattleUIid::CONFIRM_UNIT_SET)
+				else if (hitObjSp->getLayerId() == Layer::UI && hitObjSp->getObjectId() == Battle::BattleUI::BattleUIid::SELECT_UNIT_AREA)
 				{
-					btlMng_.tutorial.onEvent(Battle::TutorialManager::TutorialId::FREE_SET_SET);
+					// ユニット選択エリア
+					btlMng_.tutorial.onEvent(Battle::TutorialManager::TutorialId::FREE_SET_SET, &btlMng_);
 				}
 				else
 				{
 					// ユニット配置イベント
-					SetUnits::onClick(x, y, btlMng_.map, &btlMng_.battleUI, &btlMng_.tutorial);
+					SetUnits::onClick(x, y, btlMng_.map, &btlMng_.battleUI, &btlMng_.tutorial, &btlMng_);
 				}
 			}
 			else if (nowScene_ == Scene::RESULT && eventType == MOUSE_INPUT_LOG_CLICK)

@@ -42,11 +42,11 @@ namespace Entity {
 		{
 			info_.name = "銃兵";
 			info_.hpm = 20;
-			info_.atk = 14;
+			info_.atk = 12;
 			info_.def = 2;
 			info_.mov = 2;
 			info_.len = 2;
-			info_.range = 3;
+			info_.range = 4;
 			info_.isCloseAtack = false;
 			info_.ability = Ability::Kind::THROUGH;
 		}
@@ -344,6 +344,17 @@ namespace Entity {
 		}
 		
 		return false;
+	}
+
+	/**
+	 * @fn
+	 * HPをシステム上の処理で強制的に削る場合のメソッド
+	 * @param (decrease) 減少量
+	 */
+	void Unit::forceDecreaseHp(int decrease)
+	{
+		info_.hp -= decrease;
+		viewHp_ = info_.hp;
 	}
 
 	/**

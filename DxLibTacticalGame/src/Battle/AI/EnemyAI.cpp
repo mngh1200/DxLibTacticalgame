@@ -23,6 +23,83 @@ namespace Battle {
 
 	/**
 	 * @fn
+	 * 敵に近づく
+	 * @param (map) mapポインタ
+	 */
+	void closeWithEnemy(shared_ptr<Map> map, shared_ptr<Unit> unit, pair<int, int>* targetPos)
+	{
+		// 幅探索用の座標情報（x, y, コスト, 移動可能範囲中の移動元座標X, 移動可能範囲中の移動元座標Y）
+		deque<tuple<int, int, int, int, int>> posDeque;
+
+		posDeque.push_back(make_tuple(unit->getMassX(), unit->getMassY(), 1, unit->getMassX(), unit->getMassY()));
+
+		// 未訪問マスは-1にしておく
+		vector<vector<int> > dist(MAP_MASS_W, vector<int>(MAP_MASS_H, -1));
+
+		dist[unit->getMassX()][unit->getMassY()] = 0; // 初期地点は0
+
+		while (!posDeque.empty())
+		{
+			tuple<int, int, int, int, int> current_pos = posDeque.front();
+			
+			int x = get<0>(current_pos);
+			int y = get<1>(current_pos);
+			int cost = get<2>(current_pos);
+			int movX = get<3>(current_pos);
+			int movY = get<4>(current_pos);
+
+			posDeque.pop_front();
+
+			--cost;
+			if (cost > 0) // 残り移動コストが0より多い場合、後回し
+			{
+				posDeque.push_back(make_tuple(x, y, cost, movX, movY));
+				continue;
+			}
+
+
+			// 隣接頂点を探索
+			for (int direction = 0; direction < 4; ++direction) {
+				int nextX = x + dx[direction];
+				int nextY = y + dy[direction];
+
+				if (nextX < 0 || nextX >= MAP_MASS_W || nextY < 0 || nextY >= MAP_MASS_H)
+				{
+					continue; // 場外
+				}
+
+				shared_ptr<Mass> nextMass = map->getMass(nextX, nextY);
+
+				if (!nextMass || nextMass->getCost() == INT_MAX)
+				{
+					continue; // 通行不可
+				}
+
+				shared_ptr<Unit> unit = map->getUnit(nextX, nextY);
+
+				// プレイヤーユニットが存在する場合、探索終了
+				if (unit && !unit->isEnemy())
+				{
+					*targetPos = make_pair(movX, movY);
+					return;
+				}
+
+				
+				// まだ見ていない頂点なら push
+				if (dist[nextX][nextY] == -1) {
+					if (nextMass->passingMov > -1) // 移動可能範囲の場合、移動元更新
+					{
+						movX = nextX;
+						movY = nextY;
+					}
+					posDeque.push_back(make_tuple(nextX, nextY, nextMass->getCost(), movX, movY));
+				}
+			}
+		}
+	}
+
+	/**
+	 * @fn
 	 * 操作手順を返す
 	 * @param (map) mapポインタ
 	 */
@@ -65,6 +142,13 @@ namespace Battle {
 				maxPoint = point;
 				targetUnit = tmpTargetUnit;
 			}
+		}
+
+		// 手負いで攻撃対象がいなかった場合、再計算
+		if (unit->isStricken() && !targetUnit)
+		{
+			// 射程外から攻撃されていることを考慮して優先して、攻撃対象を探索
+			closeWithEnemy(map, unit, &targetPos);
 		}
 
 		// 移動命令

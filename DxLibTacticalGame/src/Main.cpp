@@ -12,7 +12,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 {
 	{
 		// Windowタイトル
-		DxLib::SetWindowTextA("DxLibTacticalGame");
+		DxLib::SetWindowTextA("Spirit Wars");
+		DxLib::SetDXArchiveKeyString("Uw9B7DPG");
+		DxLib::SetWindowIconID(ICON_IMAGE);
 
 		// Windowモード設定
 		if (DxLib::ChangeWindowMode(true) != DX_CHANGESCREEN_OK

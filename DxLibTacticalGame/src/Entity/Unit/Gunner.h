@@ -25,7 +25,7 @@ namespace Entity
 		{};
 		~Gunner() {};
 
-		constexpr static int ATTENUATION = 10; //! –½’†—¦‚Ì‹——£Œ¸Š
+		constexpr static int ATTENUATION = 15; //! –½’†—¦‚Ì‹——£Œ¸Š
 
 		bool isAtackable() const override; // UŒ‚‰Â”\‚Å‚ ‚é‚©
 

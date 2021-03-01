@@ -23,9 +23,9 @@ namespace Battle
 	class BattleManager
 	{
 	public:
-		BattleManager() : 
-			isPlayerTurn_(true), 
-			phase_(Phase::NORMAL), 
+		BattleManager() :
+			isPlayerTurn_(true),
+			phase_(Phase::NORMAL),
 			turnNumEach_(0),
 			checkWin_{},
 			battleUI{},
@@ -63,6 +63,7 @@ namespace Battle
 		void setFightPredict(shared_ptr<Unit> targetUnit);
 		void resetFightPredict();
 
+		bool isPlayerTurn() const { return isPlayerTurn_; } // プレイヤーであるかを返す
 		int getPhase() const { return phase_; }; // 状況を返す
 		bool isAnimation() const { return phase_ == Phase::FIGHT || phase_ == Phase::MOVE; }; // アニメーション中であるかを返す
 		bool isAtackAble(shared_ptr<Unit> targetUnit) const;
@@ -70,6 +71,7 @@ namespace Battle
 		bool isSelectedUnit(shared_ptr<Unit> unit) const;
 		int getNowTurn() const { return turnNumEach_ / 2 + 1; }; // 現在ターンを返す
 		const CheckWin& getCheckWin() const { return checkWin_; }; // 勝敗判定用クラスを返す
+		const shared_ptr<Unit> getSelectedUnit() const { return selectedUnit_; } // 選択中のユニットを返す
 
 		//! バトルUI
 		BattleUI battleUI;

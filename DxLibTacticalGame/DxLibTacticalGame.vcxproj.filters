@@ -255,6 +255,9 @@
     <ClCompile Include="src\Battle\TutorialManager.cpp">
       <Filter>ソース ファイル\Battle</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entity\Effect\TutorialArrow.cpp">
+      <Filter>ソース ファイル\Entity\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -415,6 +418,9 @@
     </ClInclude>
     <ClInclude Include="src\Battle\TutorialManager.h">
       <Filter>ヘッダー ファイル\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Effect\TutorialArrow.h">
+      <Filter>ヘッダー ファイル\Entity\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -11,8 +11,17 @@ namespace Utility {
 
 	ResourceManager::~ResourceManager()
 	{
-		unloadFont("resource/font/rounded-mplus/rounded-mplus-1p-regular.ttf");
-		unloadFont("resource/font/rounded-mplus/rounded-mplus-1p-black.ttf");
+		// フォントファイルを解放
+		for (auto itr = fontHandleList_.begin(); itr != fontHandleList_.end(); ++itr)
+		{
+			bool success = RemoveFontMemResourceEx(*itr);
+
+			if (!success)
+			{
+				DxLib::printfDx("failue unload font");
+			}
+
+		}
 
 		for (auto&& mItr = image_.begin(); mItr != image_.end(); ++mItr)
 		{
@@ -169,10 +178,6 @@ namespace Utility {
 		// 背景
 		loadImage(MAKEINTRESOURCE(BACKGROUND_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::IMAGE).at(ImageId::BACKGROUND_MENU));
 
-		// マス効果
-		loadImage(MAKEINTRESOURCE(MASS_ATACKABLE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::IMAGE).at(ImageId::MASS_ATACK));
-		loadImage(MAKEINTRESOURCE(MASS_MOVABLE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::IMAGE).at(ImageId::MASS_MOVE));
-
 		// マス読込
 		image_.insert(std::make_pair(ImageType::MAP, vector<int*>()));
 		image_.at(ImageType::MAP).push_back(new int[8]);
@@ -189,6 +194,12 @@ namespace Utility {
 		loadDivImage(MAKEINTRESOURCE(MAP_RIVER), MAKEINTRESOURCE(IMAGE_FILE),
 			RIVER_NUM, RIVER_NUM, 1, CHIP_SIZE, CHIP_SIZE,
 			image_.at(ImageType::MAP).at(MapImageKind::RIVER));
+
+		// マス効果
+		image_.at(ImageType::MAP).push_back(new int[MassStatePos::MASS_STATE_LEN]);
+		loadDivImage(MAKEINTRESOURCE(MASS_STATE), MAKEINTRESOURCE(IMAGE_FILE),
+			MassStatePos::MASS_STATE_LEN, MassStatePos::MASS_STATE_LEN, 1, CHIP_SIZE, CHIP_SIZE,
+			image_.at(ImageType::MAP).at(MapImageKind::STATE));
 
 
 		// プレイヤー画像の読み込み
@@ -215,6 +226,9 @@ namespace Utility {
 			BULLET_POS_LEN, BULLET_POS_LEN, 1, CHIP_SIZE / 4, CHIP_SIZE /4,
 			image_.at(ImageType::EFFECT).at(EffectId::BULLET));
 
+		image_.at(ImageType::EFFECT).push_back(new int[1]);
+		loadImage("resource/image/effect/arrow.png", image_.at(ImageType::EFFECT).at(EffectId::ARROW));
+
 		loadFlag = true;
 		return ret;
 	}
@@ -235,7 +249,7 @@ namespace Utility {
 
 		// フォントの行間
 		DxLib::SetFontLineSpaceToHandle(24, hdlFont_[FontType::NORMAL_S18]);
-		DxLib::SetFontLineSpaceToHandle(30, hdlFont_[FontType::NORMAL_S24]);
+		DxLib::SetFontLineSpaceToHandle(32, hdlFont_[FontType::NORMAL_S24]);
 
 		return ret;
 	}
@@ -318,23 +332,40 @@ namespace Utility {
 
 	void ResourceManager::loadFont(const LPCSTR fontFilePath)
 	{
-		if (AddFontResource(fontFilePath) > 0) {
+		int FontFileSize = FileRead_size(fontFilePath);
+		// フォントファイルを開く
+		int FontFileHandle = FileRead_open(fontFilePath);
+
+		// フォントデータ格納用のメモリ領域を確保
+		void* Buffer = new void* [FontFileSize];
+		// フォントファイルを丸ごとメモリに読み込む
+		FileRead_read(Buffer, FontFileSize, FontFileHandle);
+
+		// AddFontMemResourceEx引数用
+		DWORD font_num = 0;
+
+		// メモリに読み込んだフォントデータをシステムに追加
+		HANDLE handle = AddFontMemResourceEx(Buffer, FontFileSize, NULL, &font_num);
+		if (handle == 0)
+		{
+			DxLib::printfDx("フォントデータの読み込みに失敗しました");
+			return;
+		}
+
+		fontHandleList_.push_back(handle);
+
+		FileRead_close(FontFileHandle);
+		delete[] Buffer;
+
+		/*
+		if (AddFontResource(fontFilePath) > 0) 
 			PostMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0);
 		}
 		else {
 			// フォント読込エラー処理
 			MessageBox(NULL, "フォント読込失敗", "", MB_OK);
 		}
-	}
-
-	void ResourceManager::unloadFont(const LPCSTR fontFilePath)
-	{
-		if (RemoveFontResource(fontFilePath)) {
-			PostMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0);
-		}
-		else {
-			MessageBox(NULL, "remove failure", "", MB_OK);
-		}
+		*/
 	}
 
 
@@ -375,6 +406,7 @@ namespace Utility {
 		std::string str_conma_buf;
 
 		// リソースからステージファイル読み込み
+		/*
 		HRSRC hrc = FindResourceA(NULL, MAKEINTRESOURCE(STAGE0 + id), MAKEINTRESOURCE(CSV));
 		DWORD datasize = SizeofResource(NULL, hrc);
 		HGLOBAL hgb = LoadResource(NULL, hrc);
@@ -401,18 +433,38 @@ namespace Utility {
 		const LPCSTR csvFilePath = str.c_str();
 
 		std::ifstream ifs_csv_file(p);
-		*/		
+		*/
 
-		getline(ifs_csv_file, str_buf); // ステージタイトル
+		string filePath = "resource/map/" + stageKind + to_string(id) + ".csv";
+
+		char readLine[256];
+
+		// CSVファイル読込
+		int csvHandle = FileRead_open(filePath.c_str());
+
+		if (csvHandle == 0)
+		{
+			DxLib::printfDx("ステージデータの読込に失敗しました。");
+			return;
+		}
+
+		// ステージタイトル
+		DxLib::FileRead_gets(readLine, 256, csvHandle);
+		str_buf = string(readLine);
 		*title = str_buf;
 
-		getline(ifs_csv_file, str_buf); // ヒント
+		// ヒント
+		DxLib::FileRead_gets(readLine, 256, csvHandle);
+		str_buf = string(readLine);
 		*hint = regex_replace(str_buf, regex("\\\\n"), "\n");
 
-		getline(ifs_csv_file, str_buf); // 空行
+		// 空行
+		DxLib::FileRead_gets(readLine, 256, csvHandle);
+		str_buf = string(readLine);
 
 		// 勝敗ルール読み込み
-		getline(ifs_csv_file, str_buf);
+		DxLib::FileRead_gets(readLine, 256, csvHandle);
+		str_buf = string(readLine);
 		std::istringstream i_stream(str_buf);
 		while (getline(i_stream, str_conma_buf, ','))
 		{
@@ -421,19 +473,23 @@ namespace Utility {
 
 		if (isUntilCheckWin) // 勝敗条件までしか読み込まない場合
 		{
-			ifs_csv_file.close();
+			// ifs_csv_file.close();
+			DxLib::FileRead_close(csvHandle);
 			return;
 		}
 
 		// その他ルール
-		getline(ifs_csv_file, str_buf);
+		DxLib::FileRead_gets(readLine, 256, csvHandle);
+		str_buf = string(readLine);
 		i_stream = istringstream(str_buf);
 		while (getline(i_stream, str_conma_buf, ','))
 		{
 			(*extraRules).push_back(stoi(str_conma_buf));
 		}
 
-		getline(ifs_csv_file, str_buf); // 空行を読み込む想定
+		// 空行を読み込む想定
+		DxLib::FileRead_gets(readLine, 256, csvHandle);
+		str_buf = string(readLine);
 
 		// マス初期化
 		for (int i = 0; i < MAP_MASS_H; i++) {
@@ -443,9 +499,15 @@ namespace Utility {
 		}
 
 		int lineCount = 0;
-		// getline関数で1行ずつ読み込む(読み込んだ内容はstr_bufに格納)
-		while (getline(ifs_csv_file, str_buf) && lineCount < MAP_MASS_H)
+		while (lineCount < MAP_MASS_H)
 		{
+			if (DxLib::FileRead_gets(readLine, 256, csvHandle) == -1)
+			{
+				return;
+			}
+
+			str_buf = string(readLine);
+
 			if (str_buf == "")
 			{
 				break; // 空行の場合終了
@@ -465,8 +527,10 @@ namespace Utility {
 		}
 
 		// 設置ユニットを読み込む
-		while (getline(ifs_csv_file, str_buf))
+		while (DxLib::FileRead_gets(readLine, 256, csvHandle) != -1)
 		{
+			str_buf = string(readLine);
+
 			// 「,」区切りごとにデータを読み込むためにistringstream型にする
 			std::istringstream i_stream(str_buf);
 			vector<int> unitData;
@@ -479,7 +543,8 @@ namespace Utility {
 			units->push_back(unitData);
 		}
 
-		ifs_csv_file.close();
+		// ifs_csv_file.close();
+		DxLib::FileRead_close(csvHandle);
 	}
 
 	boolean ResourceManager::isLoaded() const {

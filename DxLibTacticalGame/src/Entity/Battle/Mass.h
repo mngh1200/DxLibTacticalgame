@@ -21,7 +21,14 @@ namespace Entity
 	class Mass
 	{
 	public:
-		Mass() : kindId_(Kind::OUT_OF_MAP), state(State::NORMAL), passingMov(-1), imageId_(-1), ableUnitSet(false), angle_(0.0) {};
+		Mass() : 
+			kindId_(Kind::OUT_OF_MAP),
+			state(State::NORMAL),
+			passingMov(-1),
+			imageId_(-1),
+			ableUnitSet(false),
+			isAttacked(false),
+			angle_(0.0) {};
 		Mass(int kindId);
 		~Mass() {};
 
@@ -68,6 +75,9 @@ namespace Entity
 			MOVABLE,	//! ˆÚ“®‰Â”\
 			ATK_ABLE	//! UŒ‚‰Â”\
 		};
+
+		//! “G‚ÌUŒ‚”ÍˆÍ“à‚Å‚ ‚é‚©
+		bool isAttacked;
 
 	private:
 		void setImageIdFromKind(int kindId, int adjacent);
