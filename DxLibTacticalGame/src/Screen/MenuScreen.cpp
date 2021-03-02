@@ -15,7 +15,7 @@ namespace Screen
 		constexpr int PADDING_LEFT = 100; //! 左側余白
 		constexpr int PADDING_TOP = 100; //! 上側余白
 		constexpr int BUTTON_TOP = 250; //! ボタンY座標
-		constexpr int BUTTON_MARGIN_Y = 35; //! ボタンの縦余白
+		constexpr int BUTTON_MARGIN_Y = 20; //! ボタンの縦余白
 		constexpr int BUTTON_WIDTH = 400; //! ボタンの幅
 		constexpr int BUTTON_HEIGHT_S = 85; //! ボタン高さ（Sサイズ）
 		constexpr int BUTTON_HEIGHT_L = 110; //! ボタンの高さ（Lサイズ）
@@ -27,7 +27,8 @@ namespace Screen
 
 		// メニューボタン
 		objectsControl.addObject(Layer::UI, UIid::CAMPAIN_BUTTON, make_shared<Entity::MenuScreenButton>("キャンペーン", PADDING_LEFT, BUTTON_TOP, BUTTON_WIDTH, BUTTON_HEIGHT_L));
-		objectsControl.addObject(Layer::UI, UIid::QUIT_BUTTON, make_shared<Entity::MenuScreenButton>("終了", PADDING_LEFT, BUTTON_TOP + BUTTON_HEIGHT_L + BUTTON_MARGIN_Y, BUTTON_WIDTH, BUTTON_HEIGHT_S));
+		objectsControl.addObject(Layer::UI, UIid::NETWORK_BUTTON, make_shared<Entity::MenuScreenButton>("通信対戦", PADDING_LEFT, BUTTON_TOP + (BUTTON_HEIGHT_L + BUTTON_MARGIN_Y) * 1, BUTTON_WIDTH, BUTTON_HEIGHT_L));
+		objectsControl.addObject(Layer::UI, UIid::QUIT_BUTTON, make_shared<Entity::MenuScreenButton>("終了", PADDING_LEFT, BUTTON_TOP + (BUTTON_HEIGHT_L + BUTTON_MARGIN_Y) * 2, BUTTON_WIDTH, BUTTON_HEIGHT_S));
 
 
 		// オーバーレイセット
@@ -57,6 +58,12 @@ namespace Screen
 
 				if (objId == UIid::CAMPAIN_BUTTON) // キャンペーンボタン
 				{
+					nextScreen_ = new SelectScreen();
+					createOverlay(false); // （アニメーション後に）セレクト画面に画面遷移
+				}
+				else if (objId == UIid::NETWORK_BUTTON) // キャンペーンボタン
+				{
+					nextScreen_ = new NetworkScreen();
 					createOverlay(false); // （アニメーション後に）セレクト画面に画面遷移
 				}
 				else if (objId == UIid::QUIT_BUTTON) // 終了ボタン
@@ -75,10 +82,10 @@ namespace Screen
 	{
 		isOpenOverlayEnded();
 
-		if (isCloseOverlayEnded())
+		if (isCloseOverlayEnded() && nextScreen_ != nullptr)
 		{
 			// セレクト画面に画面遷移
-			FrameWork::Game::getInstance().setScreen(new SelectScreen());
+			FrameWork::Game::getInstance().setScreen(nextScreen_);
 		}
 		
 	}

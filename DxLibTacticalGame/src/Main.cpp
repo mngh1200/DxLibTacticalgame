@@ -16,6 +16,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		DxLib::SetDXArchiveKeyString("Uw9B7DPG");
 		DxLib::SetWindowIconID(ICON_IMAGE);
 
+		// テスト処理
+		SetDoubleStartValidFlag(TRUE); // 多重起動
+
 		// Windowモード設定
 		if (DxLib::ChangeWindowMode(true) != DX_CHANGESCREEN_OK
 			|| DxLib::DxLib_Init() == -1

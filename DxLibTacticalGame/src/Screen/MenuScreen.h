@@ -1,11 +1,11 @@
 #pragma once
 #include <climits>
 #include <memory>
-#include "ScreenBase.h"
 #include "FrameWork/Game.h"
 #include "Utility/ResourceManager.h"
 #include "Utility/SaveManager.h"
 #include "SelectScreen.h"
+#include "NetworkScreen.h"
 #include "Entity/UI/Back.h"
 #include "Entity/UI/Button/MenuScreenButton.h"
 #include "Entity/View/Text.h"
@@ -22,13 +22,14 @@ namespace Screen
 	class MenuScreen : public ScreenBase
 	{
 	public:
-		MenuScreen() {};
+		MenuScreen() : nextScreen_() {};
 		~MenuScreen() {};
 
 		void init();
 		void updateByEvents(weak_ptr < Entity::Object> hitObjWp, int x, int y, int button, int eventType);
 		void updateByAnimation();
 	private:
+		// レイヤーの種類
 		enum Layer
 		{
 			MASK,
@@ -37,11 +38,15 @@ namespace Screen
 			LEN
 		};
 
+		// メニューボタンの種類
 		enum UIid
 		{
 			TITLE,
 			CAMPAIN_BUTTON,
+			NETWORK_BUTTON,
 			QUIT_BUTTON
 		};
+
+		ScreenBase* nextScreen_;
 	};
 }

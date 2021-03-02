@@ -197,6 +197,7 @@
     <ClCompile Include="src\Screen\BattleScreen.cpp" />
     <ClCompile Include="src\Screen\LoadScreen.cpp" />
     <ClCompile Include="src\Screen\MenuScreen.cpp" />
+    <ClCompile Include="src\Screen\NetworkScreen.cpp" />
     <ClCompile Include="src\Screen\ScreenBase.cpp" />
     <ClCompile Include="src\Screen\SelectScreen.cpp" />
     <ClCompile Include="src\Screen\StartScreen.cpp" />
@@ -253,6 +254,7 @@
     <ClInclude Include="src\Screen\BattleScreen.h" />
     <ClInclude Include="src\Screen\LoadScreen.h" />
     <ClInclude Include="src\Screen\MenuScreen.h" />
+    <ClInclude Include="src\Screen\NetworkScreen.h" />
     <ClInclude Include="src\Screen\ScreenBase.h" />
     <ClInclude Include="src\Screen\SelectScreen.h" />
     <ClInclude Include="src\Screen\StartScreen.h" />

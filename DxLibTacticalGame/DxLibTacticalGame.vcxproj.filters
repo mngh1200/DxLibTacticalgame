@@ -258,6 +258,9 @@
     <ClCompile Include="src\Entity\Effect\TutorialArrow.cpp">
       <Filter>ソース ファイル\Entity\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="src\Screen\NetworkScreen.cpp">
+      <Filter>ソース ファイル\Screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -421,6 +424,9 @@
     </ClInclude>
     <ClInclude Include="src\Entity\Effect\TutorialArrow.h">
       <Filter>ヘッダー ファイル\Entity\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screen\NetworkScreen.h">
+      <Filter>ヘッダー ファイル\Screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
