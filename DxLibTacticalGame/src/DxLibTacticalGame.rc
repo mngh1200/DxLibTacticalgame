@@ -22,6 +22,8 @@ EFFECT_DAMAGE_IMAGE	IMAGE_FILE	"../resource/image/effect/damage.png"
 
 EFFECT_MISS_IMAGE	IMAGE_FILE	"../resource/image/effect/miss.png"
 
+EFFECT_ARROW_IMAGE	IMAGE_FILE	"../resource/image/effect/arrow.png"
+
 
 
 BACK_WAVE	WAVE	"../resource/sound/back.wav"

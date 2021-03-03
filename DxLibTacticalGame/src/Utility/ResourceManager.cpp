@@ -227,7 +227,7 @@ namespace Utility {
 			image_.at(ImageType::EFFECT).at(EffectId::BULLET));
 
 		image_.at(ImageType::EFFECT).push_back(new int[1]);
-		loadImage("resource/image/effect/arrow.png", image_.at(ImageType::EFFECT).at(EffectId::ARROW));
+		loadImage(MAKEINTRESOURCE(EFFECT_ARROW_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::EFFECT).at(EffectId::ARROW));
 
 		loadFlag = true;
 		return ret;
