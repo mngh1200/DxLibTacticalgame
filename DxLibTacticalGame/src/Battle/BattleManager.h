@@ -25,6 +25,7 @@ namespace Battle
 	public:
 		BattleManager() :
 			isPlayerTurn_(true),
+			isMoveImmdiateConfirm_(false),
 			phase_(Phase::NORMAL),
 			turnNumEach_(0),
 			checkWin_{},
