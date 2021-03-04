@@ -44,6 +44,9 @@ namespace Entity
 		void updateAnimation();
 		void clearAnimation();
 
+		//! フォーカス中のオブジェクト
+		weak_ptr<Object> focusObject;
+
 	private:
 		constexpr static int MAX_AUTO_OBJECT_ID = 10000; //! 自動採番するオブジェクトIDの最大値
 

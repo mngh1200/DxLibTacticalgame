@@ -29,6 +29,7 @@ namespace Entity
 			FIGURE,
 			BACKGROUND,
 			BUTTON,
+			TEXT_BOX,
 			UNIT,
 			MAP,
 			TEXT,

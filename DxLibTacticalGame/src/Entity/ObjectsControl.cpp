@@ -238,6 +238,20 @@ namespace Entity {
 			}
 		}
 
+		// フォーカス中のオブジェクトからフォーカスを外したか判定
+		if (*eventType == MOUSE_INPUT_LOG_DOWN)
+		{
+			shared_ptr<Object> prevFocusObject = focusObject.lock();
+			shared_ptr<Object> hitObj = hitObjWp.lock();
+
+			// 別のオブジェクトが押下された場合、Blur処理発火
+			if (prevFocusObject && hitObj != prevFocusObject)
+			{
+				prevFocusObject->onBlurBase();
+			}
+			focusObject = hitObj;
+		}
+
 		return hitObjWp;
 	}
 
