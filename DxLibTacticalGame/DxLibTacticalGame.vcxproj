@@ -185,6 +185,7 @@
     <ClCompile Include="src\Entity\UI\Menu\ContextMenu.cpp" />
     <ClCompile Include="src\Entity\UI\Message.cpp" />
     <ClCompile Include="src\Entity\UI\Overlay.cpp" />
+    <ClCompile Include="src\Entity\UI\TextBox.cpp" />
     <ClCompile Include="src\Entity\Unit\Ability.cpp" />
     <ClCompile Include="src\Entity\Unit\Gunner.cpp" />
     <ClCompile Include="src\Entity\Unit\Unit.cpp" />
@@ -242,6 +243,7 @@
     <ClInclude Include="src\Entity\UI\Menu\ContextMenu.h" />
     <ClInclude Include="src\Entity\UI\Message.h" />
     <ClInclude Include="src\Entity\UI\Overlay.h" />
+    <ClInclude Include="src\Entity\UI\TextBox.h" />
     <ClInclude Include="src\Entity\Unit\Ability.h" />
     <ClInclude Include="src\Entity\Unit\Gunner.h" />
     <ClInclude Include="src\Entity\Unit\Unit.h" />
