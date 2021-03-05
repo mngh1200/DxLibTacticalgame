@@ -56,6 +56,25 @@ namespace Screen
 
 		objectsControl.addObject(Layer::UI, UIid::SEARCH_ROOM_BUTTON, searchRoomButton);
 
+		// IPアドレス入力エリア
+		shared_ptr<TextBox> nextInput; // 次のIPアドレス入力欄
+		for (int i = 3; i >= 0; --i)
+		{
+			shared_ptr<Entity::TextBox> ipInput = make_shared<Entity::TextBox>();
+			ipInput->setShape(BUTTON_X + i * (100 + 10), BUTTON_Y + (BUTTON_H + BUTTON_MARGIN) * 2, 100, BUTTON_H);
+			ipInput->setMaxLength(3);
+			ipInput->setDataType(TextBox::DataType::NUM);
+			objectsControl.addObject(Layer::UI, UIid::IP_INPUT_1 + i, ipInput);
+
+			if (nextInput)
+			{
+				ipInput->setNextInput(nextInput);
+			}
+			nextInput = ipInput;
+			ipAdressInputList_.push_back(ipInput);
+		}
+
+
 		// 戻るボタン
 		shared_ptr<Entity::TextButton> backBtn = make_shared<Entity::TextButton>(ColorType::MAIN_COLOR, ColorType::SUB_COLOR);
 		backBtn->setShape(WIN_W - BACK_SIZE, 0, BACK_SIZE, BACK_SIZE);
@@ -84,6 +103,11 @@ namespace Screen
 	{
 		shared_ptr<Entity::Object> hitObjSp = hitObjWp.lock();
 
+		// IPアドレスリストの更新処理
+		for (auto itr = ipAdressInputList_.begin(); itr != ipAdressInputList_.end(); ++itr)
+		{
+			(*itr)->update();
+		}
 
 		if (hitObjSp)
 		{

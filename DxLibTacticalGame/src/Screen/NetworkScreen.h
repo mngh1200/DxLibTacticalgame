@@ -5,6 +5,7 @@
 #include "FrameWork/Game.h"
 #include "Utility/ResourceManager.h"
 #include "Entity/UI/Back.h"
+#include "Entity/UI/TextBox.h"
 #include "Entity/UI/Button/TextButton.h"
 #include "Entity/View/Text.h"
 
@@ -53,8 +54,14 @@ namespace Screen
 		{
 			CREATE_ROOM_BUTTON,
 			SEARCH_ROOM_BUTTON,
+			IP_INPUT_1,
+			IP_INPUT_2,
+			IP_INPUT_3,
+			IP_INPUT_4,
 			QUIT_BUTTON
 		};
+
+		vector<shared_ptr<Entity::TextBox>> ipAdressInputList_; //! IPアドレス入力欄のリスト
 
 		ScreenBase *nextScreen_; //! 次に開く画面
 	};
