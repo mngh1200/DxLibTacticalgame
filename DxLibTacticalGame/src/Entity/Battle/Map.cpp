@@ -511,9 +511,6 @@ namespace Entity {
 			}
 		}
 
-		// d•¡íœ
-		unique(atkedPosList.begin(), atkedPosList.end());
-
 		// UŒ‚”ÍˆÍ‚Å‚ ‚é‚±‚Æ‚ğ”½‰f
 		for (auto itr = atkedPosList.begin(); itr != atkedPosList.end(); ++itr)
 		{
