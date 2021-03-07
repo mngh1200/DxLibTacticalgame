@@ -275,9 +275,9 @@ namespace Entity {
 			shared_ptr<TextBox> nextInput = nextInput_.lock();
 			if (nextInput)
 			{
-				onBlurBase(); // フォーカス解除
 				nextInput->onForceFocus(); // 次の要素フォーカス
 			}
+			onBlurBase(); // フォーカス解除
 		}
 	}
 
