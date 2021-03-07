@@ -27,6 +27,7 @@ namespace Entity
 			UNSELECTED,
 			SELECT,
 			BATTLE,
+			NETWORK
 		};
 
 	private:
