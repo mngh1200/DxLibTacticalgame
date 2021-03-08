@@ -51,6 +51,8 @@ namespace Entity
 
 		void update();
 
+		void getText(string& text) { text =  text_; };
+
 	private:
 		int relationTextX_; //! テキストの相対x座標
 		int relationTextY_; //! テキストの相対y座標
