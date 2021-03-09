@@ -23,7 +23,7 @@ namespace Entity {
 	{
 		screen_ = screen;
 
-		if (screen_ == Screen::SELECT || screen_ == Screen::BATTLE || screen_ == Screen::NETWORK)
+		if (screen_ == Screen::SELECT || screen_ == Screen::BATTLE)
 		{
 			imageId_ = -1;
 		}
@@ -49,10 +49,6 @@ namespace Entity {
 		else if (screen_ == Screen::BATTLE) // í“¬‰æ–Ê
 		{
 			DxLib::DrawBox(shape_.x, shape_.y, WIN_W, WIN_H, resourceManager.getColor(ColorType::SUB_COLOR_DARK), TRUE);
-		}
-		else if (screen_ == Screen::NETWORK) // ’ÊM‘Îí€”õ‰æ–Ê
-		{
-			DxLib::DrawBox(shape_.x, shape_.y, WIN_W, WIN_H, resourceManager.getColor(ColorType::SUB_COLOR_LITE), TRUE);
 		}
 	}
 }

@@ -123,7 +123,7 @@ namespace Entity {
 	void TextBox::setFont(int fontType)
 	{
 		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
-		font_ = rm.getColor(fontType);
+		font_ = rm.getHdlFont(fontType);
 
 		relationTextY_ = (shape_.h - DxLib::GetFontSizeToHandle(font_)) / 2;
 	}
@@ -250,13 +250,13 @@ namespace Entity {
 
 	/**
 	 * @fn
-	 * 更新処理（キーイベントと入力チェック）
+	 * 変更があったかの確認と更新処理（キーイベントと入力チェック）
 	 */
-	void TextBox::update()
+	bool TextBox::checkChangeAndUpdate()
 	{
 		if (!isFocus_)
 		{
-			return; // フォーカス以外は処理不要
+			return false; // フォーカス以外は処理不要
 		}
 
 		FrameWork::Controller& cont = FrameWork::Controller::getInstance();
@@ -279,6 +279,8 @@ namespace Entity {
 			}
 			onBlurBase(); // フォーカス解除
 		}
+
+		return isChange;
 	}
 
 }

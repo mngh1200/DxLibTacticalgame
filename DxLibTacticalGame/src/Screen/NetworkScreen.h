@@ -8,8 +8,11 @@
 #include "Entity/UI/TextBox.h"
 #include "Entity/UI/Button/TextButton.h"
 #include "Entity/View/Text.h"
+#include "Network/NetworkHost.h"
+#include "Network/NetworkClient.h"
 
 using namespace std;
+using namespace Network;
 
 /**
  * @file NetworkScreen.h
@@ -22,8 +25,19 @@ namespace Screen
 	class NetworkScreen : public ScreenBase
 	{
 	public:
-		NetworkScreen() : nextScreen_() {};
+		NetworkScreen() : nextScreen_(), hostManager_{}, clientManager_{} {};
 		~NetworkScreen() {};
+
+		// レイヤーの種類
+		enum Layer
+		{
+			MASK,
+			MODAL_CONTENT,
+			MODAL_FRAME,
+			UI,
+			BACK,
+			LEN
+		};
 
 		void init();
 		void updateByEvents(weak_ptr < Entity::Object> hitObjWp, int x, int y, int button, int eventType);
@@ -37,16 +51,13 @@ namespace Screen
 
 		constexpr static int BACK_SIZE = 60;	//! 戻るボタンのサイズ
 
-		void createRoom();
-		void searchRoom();
-
-		// レイヤーの種類
-		enum Layer
+		// シーンの種類
+		enum Scene
 		{
-			MASK,
-			UI,
-			BACK,
-			LEN
+			INIT,
+			HOST,
+			CLIENT,
+			RULE_SET
 		};
 
 		// UIの種類
@@ -54,15 +65,12 @@ namespace Screen
 		{
 			CREATE_ROOM_BUTTON,
 			SEARCH_ROOM_BUTTON,
-			IP_INPUT_1,
-			IP_INPUT_2,
-			IP_INPUT_3,
-			IP_INPUT_4,
 			QUIT_BUTTON
 		};
 
-		vector<shared_ptr<Entity::TextBox>> ipAdressInputList_; //! IPアドレス入力欄のリスト
-
 		ScreenBase *nextScreen_; //! 次に開く画面
+
+		NetworkHost hostManager_; //! ネットワーク接続のホストになった時用のクラス
+		NetworkClient clientManager_; //! ネットワーク接続のクライアントになった時用のクラス
 	};
 }

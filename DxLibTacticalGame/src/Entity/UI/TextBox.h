@@ -49,7 +49,7 @@ namespace Entity
 		void onFocus() override;
 		void onBlur() override;
 
-		void update();
+		bool checkChangeAndUpdate();
 
 		void getText(string& text) { text =  text_; };
 
