@@ -78,16 +78,6 @@ namespace Network
 	*/
 	void NetworkHost::end()
 	{
-		isConnected_ = false;
-
-		FrameWork::Game& game = FrameWork::Game::getInstance();
-		Entity::ObjectsControl& objectsControl = game.objectsControl;
-
-		// 全要素削除
-		objectsControl.removeObject(LAYER_FRAME);
-		objectsControl.removeObject(LAYER_CONTENT);
-		objectsControl.removeFigure(LAYER_CONTENT);
-
 		// 接続解除
 		if (!isConnected_)
 		{
@@ -97,6 +87,16 @@ namespace Network
 		{
 			DxLib::CloseNetWork(netHandle_);
 		}
+
+		isConnected_ = false;
+
+		FrameWork::Game& game = FrameWork::Game::getInstance();
+		Entity::ObjectsControl& objectsControl = game.objectsControl;
+
+		// 全要素削除
+		objectsControl.removeObject(LAYER_FRAME);
+		objectsControl.removeObject(LAYER_CONTENT);
+		objectsControl.removeFigure(LAYER_CONTENT);
 	}
 
 	/**
