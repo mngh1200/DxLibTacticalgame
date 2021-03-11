@@ -170,6 +170,7 @@ namespace Network
 
 				if (objId == ContentId::CANCEL_BTN) // ƒLƒƒƒ“ƒZƒ‹
 				{
+					Utility::ResourceManager::playSound(SoundKind::BACK);
 					end();
 					return Result::CANCEL;
 				}
@@ -179,6 +180,7 @@ namespace Network
 				{
 					if (hitObjSp == connectButton_ && ableConnecButton_) // Ú‘±
 					{
+						Utility::ResourceManager::playSound(SoundKind::CHECK);
 						connectNetwork();
 						return Result::CONTINUE;
 					}

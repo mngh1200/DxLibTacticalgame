@@ -38,7 +38,7 @@ namespace Network
 		shared_ptr<Entity::ModalFrame> frame = make_shared<ModalFrame>();
 		frame->setColor(ColorType::MAIN_COLOR);
 		frame->setShape(MODAL_X, MODAL_Y, MODAL_W, MODAL_H);
-		frame->setTitle("部屋を作成");
+		frame->setTitle("部屋を作る");
 		objectsControl.addObject(LAYER_FRAME, frame);
 
 		//自分のIPアドレス
@@ -170,10 +170,12 @@ namespace Network
 				if (objId == ContentId::CANCEL_BTN) // キャンセル
 				{
 					end();
+					Utility::ResourceManager::playSound(SoundKind::BACK);
 					return Result::CANCEL;
 				}
 				else if (isConnected_ && hitObjSp == ruleSetButton_) // ルール設定
 				{
+					Utility::ResourceManager::playSound(SoundKind::CHECK);
 					DxLib::printfDx("ルール設定");
 				}
 			}

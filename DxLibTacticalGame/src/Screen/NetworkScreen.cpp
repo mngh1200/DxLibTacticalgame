@@ -69,7 +69,7 @@ namespace Screen
 	{
 		shared_ptr<Entity::Object> hitObjSp = hitObjWp.lock();
 
-		if (nowScene_ == Scene::HOST) // 部屋を作る
+		if (nowScene_ == Scene::HOST) // 部屋を作る（小画面表示時処理）
 		{
 			int result = hostManager_.checkAndUpdate(hitObjWp, x, y, button, eventType);
 
@@ -79,7 +79,7 @@ namespace Screen
 			}
 			return;
 		}
-		else if (nowScene_ == Scene::CLIENT) // 部屋を探す
+		else if (nowScene_ == Scene::CLIENT) // 部屋を探す（小画面表示時処理）
 		{
 			int result = clientManager_.checkAndUpdate(hitObjWp, x, y, button, eventType);
 
@@ -101,17 +101,20 @@ namespace Screen
 				{
 					if (objId == UIid::CREATE_ROOM_BUTTON) // 「部屋を作る」ボタン
 					{
+						Utility::ResourceManager::playSound(SoundKind::CHECK);
 						nowScene_ = Scene::HOST;
 						hostManager_.start();
 					}
 					else if (objId == UIid::SEARCH_ROOM_BUTTON) // 「部屋を探す」ボタン
 					{
+						Utility::ResourceManager::playSound(SoundKind::CHECK);
 						nowScene_ = Scene::CLIENT;
 						clientManager_.start();
 					}
 					else if (objId == UIid::QUIT_BUTTON) // 終了ボタン
 					{
 						// 画面遷移
+						Utility::ResourceManager::playSound(SoundKind::BACK);
 						nextScreen_ = new MenuScreen();
 						createOverlay(false);
 					}
