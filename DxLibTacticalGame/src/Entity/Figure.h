@@ -30,6 +30,7 @@ namespace Entity
 			BACKGROUND,
 			BUTTON,
 			TEXT_BOX,
+			RADIO_BUTTON,
 			UNIT,
 			MAP,
 			TEXT,

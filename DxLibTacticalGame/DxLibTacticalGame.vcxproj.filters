@@ -279,6 +279,12 @@
     <ClCompile Include="src\Entity\UI\ModalFrame.cpp">
       <Filter>ソース ファイル\Entity\UI</Filter>
     </ClCompile>
+    <ClCompile Include="src\Network\RuleSetting.cpp">
+      <Filter>ソース ファイル\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\UI\RadioButton.cpp">
+      <Filter>ソース ファイル\Entity\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -459,6 +465,12 @@
       <Filter>ヘッダー ファイル\Network</Filter>
     </ClInclude>
     <ClInclude Include="src\Entity\UI\ModalFrame.h">
+      <Filter>ヘッダー ファイル\Entity\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Network\RuleSetting.h">
+      <Filter>ヘッダー ファイル\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\UI\RadioButton.h">
       <Filter>ヘッダー ファイル\Entity\UI</Filter>
     </ClInclude>
   </ItemGroup>
