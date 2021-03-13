@@ -10,6 +10,7 @@
 #include "Entity/View/Text.h"
 #include "Network/NetworkHost.h"
 #include "Network/NetworkClient.h"
+#include "Network/RuleSetting.h"
 
 using namespace std;
 using namespace Network;
@@ -72,5 +73,6 @@ namespace Screen
 
 		NetworkHost hostManager_; //! ネットワーク接続のホストになった時用のクラス
 		NetworkClient clientManager_; //! ネットワーク接続のクライアントになった時用のクラス
+		RuleSetting ruleSetting_; //! ルール設定時に使用するクラス
 	};
 }

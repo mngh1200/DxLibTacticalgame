@@ -78,16 +78,6 @@ namespace Network
 	*/
 	void NetworkHost::end()
 	{
-		// 接続解除
-		if (!isConnected_)
-		{
-			DxLib::StopListenNetWork();
-		}
-		else
-		{
-			DxLib::CloseNetWork(netHandle_);
-		}
-
 		isConnected_ = false;
 
 		FrameWork::Game& game = FrameWork::Game::getInstance();
@@ -169,14 +159,16 @@ namespace Network
 
 				if (objId == ContentId::CANCEL_BTN) // キャンセル
 				{
+					closeNetwork();
 					end();
 					Utility::ResourceManager::playSound(SoundKind::BACK);
 					return Result::CANCEL;
 				}
 				else if (isConnected_ && hitObjSp == ruleSetButton_) // ルール設定
 				{
+					end();
 					Utility::ResourceManager::playSound(SoundKind::CHECK);
-					DxLib::printfDx("ルール設定");
+					return Result::SET_RULE;
 				}
 			}
 		}
@@ -207,6 +199,23 @@ namespace Network
 			ruleSetButton_->setColor(ColorType::POSITIVE_LITE_COLOR, ColorType::POSITIVE_COLOR, Entity::TextButton::State::NORMAL);
 			ruleSetButton_->setColor(ColorType::POSITIVE_COLOR, ColorType::POSITIVE_LITE_COLOR, Entity::TextButton::State::MOUSE_DOWN);
 			ruleSetButton_->setColor(ColorType::POSITIVE_COLOR, ColorType::POSITIVE_LITE_COLOR, Entity::TextButton::State::MOUSE_OVER);
+		}
+	}
+
+	/**
+	 * @fn
+	 * ネットワークを切断
+	*/
+	void NetworkHost::closeNetwork()
+	{
+		// 接続解除
+		if (!isConnected_)
+		{
+			DxLib::StopListenNetWork();
+		}
+		else
+		{
+			DxLib::CloseNetWork(netHandle_);
 		}
 	}
 }

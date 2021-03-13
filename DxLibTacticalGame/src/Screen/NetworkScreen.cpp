@@ -73,9 +73,28 @@ namespace Screen
 		{
 			int result = hostManager_.checkAndUpdate(hitObjWp, x, y, button, eventType);
 
-			if (result == NetworkHost::Result::CANCEL)
+			if (result == NetworkHost::Result::CANCEL) // キャンセル
 			{
 				nowScene_ = Scene::INIT;
+			}
+			else if (result == NetworkHost::Result::SET_RULE) // ルール設定
+			{
+				nowScene_ = Scene::RULE_SET;
+				ruleSetting_.start(hostManager_.getNetHandle());
+			}
+			return;
+		}
+		if (nowScene_ == Scene::RULE_SET) // ルール設定（小画面表示時処理）
+		{
+			int result = ruleSetting_.checkAndUpdate(hitObjWp, x, y, button, eventType);
+
+			if (result == RuleSetting::Result::CANCEL) // 閉じる or 切断
+			{
+				nowScene_ = Scene::INIT;
+			}
+			else if (result == RuleSetting::Result::START_BATTLE) // バトル開始
+			{
+				
 			}
 			return;
 		}

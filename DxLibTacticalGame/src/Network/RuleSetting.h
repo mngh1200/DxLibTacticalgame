@@ -3,6 +3,7 @@
 #include "FrameWork/Game.h"
 #include "NetworkDefine.h"
 #include "Entity/UI/Button/TextButton.h"
+#include "Entity/UI/RadioButton.h"
 #include "Entity/UI/ModalFrame.h"
 #include "Entity/View/Text.h"
 #include "Utility/Timer.h"
@@ -11,39 +12,38 @@ using namespace std;
 using namespace Entity;
 
 /**
- * @file NetworkHost.h
- * @brief ネットワーク接続待ち（部屋を作る）側の処理管理
+ * @file RuleSetting.h
+ * @brief 通信対戦のルール設定のUIセットと処理
  */
 
 namespace Network
 {
-	class NetworkHost
+	class RuleSetting
 	{
 	public:
-		NetworkHost() : isConnected_(false), clientIp_{}, textUpdataTimer_{}, dotCount_(1) {};
-		~NetworkHost() {};
+		RuleSetting() : 
+			netHandle_(-1),
+			isConnect_(true)
+		{};
+		~RuleSetting() {};
 
-		void start();
+		void start(int netHandle);
 		void end();
 
 		// checkAndUpdateの返し値用（Screenクラスに状況を返す）
 		enum Result
 		{
-			CONTINUE,	//! 継続
-			CANCEL,		//! キャンセル
-			SET_RULE	//! ルール設定へ進む
+			CONTINUE,		//! 継続
+			CANCEL,			//! キャンセル
+			START_BATTLE	//! バトル画面へ進む
 		};
 
 		int checkAndUpdate(weak_ptr<Entity::Object> hitObjWp, int x, int y, int button, int eventType);
 
-		int getNetHandle() const { return netHandle_; }; // ネットワークハンドルを返す
-
 	private:
-		void checkAcceptNetwork();
-		void closeNetwork();
 
 		constexpr static int MODAL_W = 600; //! 小画面 幅
-		constexpr static int MODAL_H = 330; //! 小画面 高さ
+		constexpr static int MODAL_H = 500; //! 小画面 高さ
 		constexpr static int MODAL_X = (WIN_W - MODAL_W) / 2; //! 小画面 x座標
 		constexpr static int MODAL_Y = (WIN_H - MODAL_H) / 2; //! 小画面 y座標
 
@@ -58,33 +58,24 @@ namespace Network
 		constexpr static int BUTTON_W = (MODAL_W - MODAL_PADDING * 2 - BUTTON_MARGIN_X) / 2; //! ボタンの幅
 
 		constexpr static int LINE_H = 32; //! 一行サイズ
-		constexpr static int LINE_MARGIN = 30; //! 一行の余白
-
-		constexpr static int TIMER_MS = 500; //! 状況テキスト更新タイマー
+		constexpr static int LINE_MARGIN = 15; //! 一行の余白
 
 
 		const static int LAYER_FRAME; //! フレームのレイヤーID
 		const static int LAYER_CONTENT; //! モーダル内の内容のレイヤーID
 
-		const static string WAIT_CONNECT_TEXT; //! 接続待ち状況でのテキスト
 
-		// コンテントのオブジェクトID
-		enum ContentId
-		{
-			CANCEL_BTN
-		};
-
-		shared_ptr<Text> statusText_; //! 接続状況を示すテキスト
-		shared_ptr<TextButton> ruleSetButton_; //! ルール設定ボタン
-
-		bool isConnected_; //! 接続済みであるか
-
-		IPDATA clientIp_; //! クライアント側のIPアドレス
+		bool isConnect_; //! 接続状況
 
 		int netHandle_; //! ネットワークハンドル
 
-		Utility::Timer textUpdataTimer_; //! 接続状況テキストの状態を更新するためのタイマー
+		shared_ptr<Text> statusText_; //! 接続状況を示すテキスト
 
-		int dotCount_; //! 接続状況テキストのドット数
+		shared_ptr<TextButton> startButton_; //! 開始ボタン
+		shared_ptr<TextButton> closeButton_; //! 閉じるor切断ボタン
+
+		shared_ptr<RadioButton> unitNum_;   //! ユニット数指定のラジオボタン
+		shared_ptr<RadioButton> mapSelect_; //! マップ指定のラジオボタン
+
 	};
 }
