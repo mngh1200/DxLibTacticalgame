@@ -101,7 +101,7 @@ namespace Entity {
 
 	/**
 	 * @fn
-	 * 特定の項目選択
+	 * 動的に特定の項目選択
 	 * @param (num) 選択する項目番号
 	 */
 	void RadioButton::select(int num)
@@ -154,8 +154,11 @@ namespace Entity {
 		{
 			if ((*itr).shape.isHit(x, y)) // 項目選択時
 			{
-				selectedNum_ = count;
-				Utility::ResourceManager::playSound(SoundKind::CHECK);
+				if (selectedNum_ != count) // 既に選択している項目でない場合
+				{
+					selectedNum_ = count;
+					Utility::ResourceManager::playSound(SoundKind::CHECK);
+				}
 				break;
 			}
 			++count;
