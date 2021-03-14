@@ -32,17 +32,22 @@ namespace Network
 		objectsControl.addFigure(LAYER_CONTENT, make_shared<Text>("ユニット数を選択してください", CONTENT_X, CONTENT_Y, FontType::NORMAL_S24, ColorType::SUB_COLOR_BIT_LITE));
 
 		unitNum_ = make_shared<RadioButton>();
-
 		vector<string> textList = {"6", "9", "12"};
 		unitNum_->setItems(textList);
 		unitNum_->setPos(CONTENT_X, CONTENT_Y + LINE_H + LINE_MARGIN);
-		unitNum_->setItemSize(80, 50);
+		unitNum_->setItemSize(RADIO_W, RADIO_H);
 		objectsControl.addObject(LAYER_CONTENT, unitNum_);
 
 
 		// マップ選択
-		objectsControl.addFigure(LAYER_CONTENT, make_shared<Text>("マップを選択してください", CONTENT_X, CONTENT_Y + 200, FontType::NORMAL_S24, ColorType::SUB_COLOR_BIT_LITE));
+		objectsControl.addFigure(LAYER_CONTENT, make_shared<Text>("マップを選択してください", CONTENT_X, SELECT_MAP_Y, FontType::NORMAL_S24, ColorType::SUB_COLOR_BIT_LITE));
 
+		mapSelect_ = make_shared<RadioButton>();
+		textList = { "平原", "河畔" };
+		mapSelect_->setItems(textList);
+		mapSelect_->setPos(CONTENT_X, SELECT_MAP_Y + LINE_H + LINE_MARGIN);
+		mapSelect_->setItemSize(RADIO_W, RADIO_H);
+		objectsControl.addObject(LAYER_CONTENT, mapSelect_);
 
 		// 状況メッセージ
 		statusText_ = make_shared<Text>("接続状況 : クライアントと接続済み", CONTENT_X, BUTTON_Y - (LINE_H + LINE_MARGIN), FontType::NORMAL_S24, ColorType::SUB_COLOR);

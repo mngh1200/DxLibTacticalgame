@@ -43,7 +43,7 @@ namespace Network
 	private:
 
 		constexpr static int MODAL_W = 600; //! 小画面 幅
-		constexpr static int MODAL_H = 500; //! 小画面 高さ
+		constexpr static int MODAL_H = 600; //! 小画面 高さ
 		constexpr static int MODAL_X = (WIN_W - MODAL_W) / 2; //! 小画面 x座標
 		constexpr static int MODAL_Y = (WIN_H - MODAL_H) / 2; //! 小画面 y座標
 
@@ -52,13 +52,18 @@ namespace Network
 		constexpr static int CONTENT_X = MODAL_X + MODAL_PADDING; //! 小画面要素のx座標
 		constexpr static int CONTENT_Y = MODAL_Y + MODAL_PADDING + ModalFrame::HEAD_H; //! 小画面要素のy座標
 
+		constexpr static int SELECT_MAP_Y = CONTENT_Y + 140; //! マップ選択のy座標
+
+		constexpr static int RADIO_W = 90; //! ラジオボタンの幅
+		constexpr static int RADIO_H = 50;  //! ラジオボタンも高さ
+
 		constexpr static int BUTTON_H = 75; //! ボタンの高さ
 		constexpr static int BUTTON_Y = MODAL_Y + MODAL_H - MODAL_PADDING - BUTTON_H; //! ボタンのy座標
 		constexpr static int BUTTON_MARGIN_X = 20; //! ボタンの余白
 		constexpr static int BUTTON_W = (MODAL_W - MODAL_PADDING * 2 - BUTTON_MARGIN_X) / 2; //! ボタンの幅
 
 		constexpr static int LINE_H = 32; //! 一行サイズ
-		constexpr static int LINE_MARGIN = 15; //! 一行の余白
+		constexpr static int LINE_MARGIN = 6; //! 一行の余白
 
 
 		const static int LAYER_FRAME; //! フレームのレイヤーID
