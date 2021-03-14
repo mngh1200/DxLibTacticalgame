@@ -70,9 +70,6 @@ namespace Network
 		closeButton_->setColor(ColorType::SUB_COLOR, ColorType::MAIN_COLOR, TextButton::State::MOUSE_DOWN);
 		closeButton_->setColor(ColorType::SUB_COLOR, ColorType::MAIN_COLOR, TextButton::State::MOUSE_OVER);
 		objectsControl.addObject(LAYER_CONTENT, closeButton_);
-
-		// ê⁄ë±ë“ÇøèÛë‘Ç…Ç∑ÇÈ
-		DxLib::PreparationListenNetWork(PORT);
 	}
 
 	/**
