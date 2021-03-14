@@ -285,6 +285,12 @@
     <ClCompile Include="src\Entity\UI\RadioButton.cpp">
       <Filter>ソース ファイル\Entity\UI</Filter>
     </ClCompile>
+    <ClCompile Include="src\Network\ReceiveManager.cpp">
+      <Filter>ソース ファイル\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Network\SendManager.cpp">
+      <Filter>ソース ファイル\Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -472,6 +478,12 @@
     </ClInclude>
     <ClInclude Include="src\Entity\UI\RadioButton.h">
       <Filter>ヘッダー ファイル\Entity\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Network\ReceiveManager.h">
+      <Filter>ヘッダー ファイル\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Network\SendManager.h">
+      <Filter>ヘッダー ファイル\Network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

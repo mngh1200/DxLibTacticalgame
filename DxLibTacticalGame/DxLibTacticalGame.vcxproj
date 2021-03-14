@@ -199,7 +199,9 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Network\NetworkClient.cpp" />
     <ClCompile Include="src\Network\NetworkHost.cpp" />
+    <ClCompile Include="src\Network\ReceiveManager.cpp" />
     <ClCompile Include="src\Network\RuleSetting.cpp" />
+    <ClCompile Include="src\Network\SendManager.cpp" />
     <ClCompile Include="src\Screen\BattleScreen.cpp" />
     <ClCompile Include="src\Screen\LoadScreen.cpp" />
     <ClCompile Include="src\Screen\MenuScreen.cpp" />
@@ -262,7 +264,9 @@
     <ClInclude Include="src\Network\NetworkClient.h" />
     <ClInclude Include="src\Network\NetworkDefine.h" />
     <ClInclude Include="src\Network\NetworkHost.h" />
+    <ClInclude Include="src\Network\ReceiveManager.h" />
     <ClInclude Include="src\Network\RuleSetting.h" />
+    <ClInclude Include="src\Network\SendManager.h" />
     <ClInclude Include="src\resource.h" />
     <ClInclude Include="src\Screen\BattleScreen.h" />
     <ClInclude Include="src\Screen\LoadScreen.h" />
