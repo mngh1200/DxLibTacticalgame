@@ -127,19 +127,6 @@ namespace Network
 		}
 		else // 接続済み
 		{
-			// 送信されてきたデータを描画（テスト）
-			int dataLength = DxLib::GetNetWorkDataLength(netHandle_);
-			if (dataLength > 0)
-			{
-				char strBuf[256];
-				if (DxLib::NetWorkRecv(netHandle_, &strBuf, dataLength) == 0)
-				{
-					DxLib::printfDx(strBuf);
-					// テスト処理
-					DxLib::NetWorkSend(netHandle_, "繋がったぞ～！！", 17);
-				}
-			}
-
 			// 切断された場合
 			if (int lostHandle = GetLostNetWork() == netHandle_)
 			{

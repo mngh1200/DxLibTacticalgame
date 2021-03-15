@@ -1,6 +1,7 @@
 #pragma once
 #include <climits>
 #include "FrameWork/Game.h"
+#include "ReceiveManager.h"
 #include "Entity/UI/Button/TextButton.h"
 #include "Entity/UI/ModalFrame.h"
 #include "Entity/View/Text.h"
@@ -92,6 +93,8 @@ namespace Network
 		int netHandle_; //! ネットワークハンドル
 
 		bool ableConnecButton_; //! IPアドレス入力済みであるか
+
+		ReceiveManager receiver_; //! ネットワーク受信管理クラス
 	};
 
 

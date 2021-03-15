@@ -15,6 +15,7 @@ namespace Network
 	void RuleSetting::start(int netHandle)
 	{
 		netHandle_ = netHandle;
+		sendManager_.setNetHandle(netHandle);
 
 		// 小画面生成
 		FrameWork::Game& game = FrameWork::Game::getInstance();
@@ -130,14 +131,41 @@ namespace Network
 				}
 				else if (isConnect_ && hitObjSp == startButton_) // 開始
 				{
-					Utility::ResourceManager::playSound(SoundKind::CLICK);
-					DxLib::printfDx("開始");
-					return Result::START_BATTLE;
+					if (sendRule())
+					{
+						Utility::ResourceManager::playSound(SoundKind::CLICK);
+						return Result::START_BATTLE;
+					}
+
+					statusText_->setText("データ送信に失敗しました");
 				}
 			}
 		}
 
 		return Result::CONTINUE;
+	}
+
+	/**
+	 * @fn
+	 * ルール設定送信
+	 * @return 成功時 trueを返す
+	*/
+	bool RuleSetting::sendRule()
+	{
+		// ルール設定送信
+		string unitNumBuf;
+		unitNum_->getSelectedText(unitNumBuf);
+
+		try
+		{
+			RuleData ruleData{ stoi(unitNumBuf), mapSelect_->getSelectedNum() };
+			sendManager_.sendRuleData(ruleData);
+			return true;
+		}
+		catch (const std::invalid_argument& e) {}
+		catch (const std::out_of_range& e) {}
+
+		return false;
 	}
 
 }

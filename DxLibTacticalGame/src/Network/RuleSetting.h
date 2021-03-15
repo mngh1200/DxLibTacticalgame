@@ -1,7 +1,8 @@
 #pragma once
 #include <climits>
+#include <string>
 #include "FrameWork/Game.h"
-#include "NetworkDefine.h"
+#include "Network/SendManager.h"
 #include "Entity/UI/Button/TextButton.h"
 #include "Entity/UI/RadioButton.h"
 #include "Entity/UI/ModalFrame.h"
@@ -41,6 +42,7 @@ namespace Network
 		int checkAndUpdate(weak_ptr<Entity::Object> hitObjWp, int x, int y, int button, int eventType);
 
 	private:
+		bool sendRule();
 
 		constexpr static int MODAL_W = 600; //! 小画面 幅
 		constexpr static int MODAL_H = 600; //! 小画面 高さ
@@ -73,6 +75,8 @@ namespace Network
 		bool isConnect_; //! 接続状況
 
 		int netHandle_; //! ネットワークハンドル
+
+		SendManager sendManager_; //! データ送信マネージャー
 
 		shared_ptr<Text> statusText_; //! 接続状況を示すテキスト
 

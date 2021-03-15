@@ -140,18 +140,19 @@ namespace Network
 		// 接続済みのとき
 		if (state_ == State::CONNECTED)
 		{
-			// 取得していない受信データ量を得る(テスト)
-			int dataLength = DxLib::GetNetWorkDataLength(netHandle_);
-			if (dataLength > 0)
+			// データ受信 (ルール設定)
+			if (receiver_.receive() && receiver_.isReceivedRule())
 			{
-				// データ受信
-				char strBuf[256];
-				DxLib::NetWorkRecv(netHandle_, &strBuf, dataLength);    // データをバッファに取得
-				DxLib::printfDx(strBuf);
+				RuleData ruleData;
+				receiver_.getRuleData(ruleData);
+
+				// テスト処理
+				DxLib::printfDx(string("ユニット数 : " + to_string(ruleData.unitNum) + "\n").c_str());
+				DxLib::printfDx(string("マップID : " + to_string(ruleData.mapId) + "\n").c_str());
 			}
 
 			// 切断された場合
-			if (int lostHandle = DxLib::GetLostNetWork() == netHandle_)
+			if (DxLib::GetLostNetWork() == netHandle_)
 			{
 				statusText_->setText("ホストから切断されました\n再接続してください");
 				setState(State::NONE);
@@ -264,8 +265,7 @@ namespace Network
 		{
 			statusText_->setText("ホストに接続できました\nホストがルール設定中です");
 
-			// データ送信
-			DxLib::NetWorkSend(netHandle_, "繋がったか～！？", 17);
+			receiver_.setNetHandle(netHandle_);
 
 			setState(State::CONNECTED);
 		}
