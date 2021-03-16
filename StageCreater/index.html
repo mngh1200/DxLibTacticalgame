@@ -176,7 +176,7 @@ function setMassId($ele, id) {
 // ユニットセット
 function setUnitId($ele, id, isEnemy) {
 	if (id != FREE_OR_DEL_ID) {
-		$ele.attr('data-unit-key', UNIT_DEFINE[id].key);
+		$ele.attr('data-unit-key', UNIT_DEFINE[3].key);
 		$ele.attr('data-id', id);
 		$ele.attr('data-is-enemy', isEnemy ? '1' : '0');
 	} else {
