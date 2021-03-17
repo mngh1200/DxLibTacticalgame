@@ -131,9 +131,10 @@ namespace Network
 				}
 				else if (isConnect_ && hitObjSp == startButton_) // 開始
 				{
-					if (sendRule())
+					if (keepRuleData()) // 画面上の設定を変数に保持（成功時のみの処理）
 					{
 						Utility::ResourceManager::playSound(SoundKind::CLICK);
+						sendManager_.sendRuleData(ruleData_); // ルールデータ送信
 						return Result::START_BATTLE;
 					}
 
@@ -147,10 +148,10 @@ namespace Network
 
 	/**
 	 * @fn
-	 * ルール設定送信
-	 * @return 成功時 trueを返す
+	 * ルール設定データを変数に保持
+	 * @return 画面上からのルールデータ読み込み成功時 trueを返す
 	*/
-	bool RuleSetting::sendRule()
+	bool RuleSetting::keepRuleData()
 	{
 		// ルール設定送信
 		string unitNumBuf;
@@ -158,8 +159,7 @@ namespace Network
 
 		try
 		{
-			RuleData ruleData{ stoi(unitNumBuf), mapSelect_->getSelectedNum() };
-			sendManager_.sendRuleData(ruleData);
+			ruleData_ = RuleData{ stoi(unitNumBuf), mapSelect_->getSelectedNum() };
 			return true;
 		}
 		catch (const std::invalid_argument& e) {}
@@ -167,5 +167,4 @@ namespace Network
 
 		return false;
 	}
-
 }

@@ -32,10 +32,14 @@ namespace Network
 		{
 			CONTINUE,	//! 継続
 			CANCEL,		//! キャンセル
-			BATTLE		//! バトル画面へ
+			START_BATTLE		//! バトル画面へ
 		};
 
 		int checkAndUpdate(weak_ptr<Entity::Object> hitObjWp, int x, int y, int button, int eventType);
+
+		const RuleData& getRuleData() const { return ruleData_; }; //! ルールデータを返す
+
+		int getNetHandle() const { return netHandle_; } //! ネットハンドルを返す
 
 	private:
 		void connectNetwork();
@@ -95,6 +99,8 @@ namespace Network
 		bool ableConnecButton_; //! IPアドレス入力済みであるか
 
 		ReceiveManager receiver_; //! ネットワーク受信管理クラス
+
+		RuleData ruleData_; //! 受信したルール設定データ
 	};
 
 

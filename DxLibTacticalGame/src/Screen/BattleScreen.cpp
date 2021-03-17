@@ -34,10 +34,19 @@ namespace Screen
 		objectsControl.addObject(Layer::MAP, 0, map);
 		
 		// バトル管理用クラスの初期処理
-		int aiKind;
-		btlMng_.init(map, stageId_, &isSetUnit_, &aiKind);
-		playerBtlCont_.init(map);
-		enemyBtlCont_.init(map, aiKind);
+		if (netHandler_ != -1) // 通信対戦
+		{
+			btlMng_.init(map, stageId_, setUnitNum_, isServer_);
+			playerBtlCont_.init(map);
+			enemyBtlCont_.init(map, 0);
+		}
+		else // 標準
+		{
+			int aiKind;
+			btlMng_.init(map, stageId_, &setUnitNum_, &aiKind);
+			playerBtlCont_.init(map);
+			enemyBtlCont_.init(map, aiKind);
+		}
 
 		// オーバーレイセット
 		createOverlay(true);
@@ -192,7 +201,7 @@ namespace Screen
 		}
 		else if (isOpenOverlayEnded()) // オーバーレイ開く
 		{
-			if (isSetUnit_) // ユニット配置
+			if (setUnitNum_ > 0) // ユニット配置
 			{
 				nowScene_ = Scene::SET_UNITS;
 			}
@@ -223,6 +232,21 @@ namespace Screen
 	void BattleScreen::setStage(int id)
 	{
 		stageId_ = id;
+	}
+
+	/**
+	 * @fn
+	 * 通信対戦できる状態を準備
+	 * @param (isServer) サーバー側であるか
+	 * @param (mapId) マップID
+	 * @param (unitNum) ユニット数
+	*/
+	void BattleScreen::prepareNetMatch(int netHandler, bool isServer, int mapId, int unitNum)
+	{
+		netHandler_ = netHandler;
+		stageId_ = mapId;
+		setUnitNum_ = unitNum;
+		isServer_ = isServer;
 	}
 
 	/**

@@ -94,7 +94,7 @@ namespace Screen
 			}
 			else if (result == RuleSetting::Result::START_BATTLE) // バトル開始
 			{
-				
+				startBattle(ruleSetting_.getNetHandle(), ruleSetting_.getRuleData(), true);
 			}
 			return;
 		}
@@ -105,6 +105,10 @@ namespace Screen
 			if (result == NetworkClient::Result::CANCEL)
 			{
 				nowScene_ = Scene::INIT;
+			}
+			else if (result == NetworkClient::Result::START_BATTLE)
+			{
+				startBattle(clientManager_.getNetHandle(), clientManager_.getRuleData(), false);
 			}
 			return;
 		}
@@ -158,6 +162,20 @@ namespace Screen
 			FrameWork::Game::getInstance().setScreen(nextScreen_); // 画面遷移
 		}
 		
+	}
+
+	/**
+	 * @fn
+	 * バトル画面への遷移処理
+	 * @param (ruleData) ルール設定データ
+	*/
+	void NetworkScreen::startBattle(int netHandler_, const RuleData& ruleData, bool isServer)
+	{
+		BattleScreen* bs = new BattleScreen();
+		bs->prepareNetMatch(netHandler_, isServer, ruleData.mapId, ruleData.unitNum);
+		nextScreen_ = bs;
+
+		createOverlay(false);
 	}
 
 }

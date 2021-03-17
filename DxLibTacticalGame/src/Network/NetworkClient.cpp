@@ -143,12 +143,8 @@ namespace Network
 			// データ受信 (ルール設定)
 			if (receiver_.receive() && receiver_.isReceivedRule())
 			{
-				RuleData ruleData;
-				receiver_.getRuleData(ruleData);
-
-				// テスト処理
-				DxLib::printfDx(string("ユニット数 : " + to_string(ruleData.unitNum) + "\n").c_str());
-				DxLib::printfDx(string("マップID : " + to_string(ruleData.mapId) + "\n").c_str());
+				receiver_.getRuleData(ruleData_);
+				return Result::START_BATTLE; // バトル画面へ
 			}
 
 			// 切断された場合

@@ -30,7 +30,15 @@ namespace Screen
 	class BattleScreen : public ScreenBase
 	{
 	public:
-		BattleScreen() : btlMng_{}, playerBtlCont_{},  openScreen_(-1), stageId_(0), isSetUnit_(false) {};
+		BattleScreen() : 
+			btlMng_{},
+			playerBtlCont_{},
+			openScreen_(-1),
+			stageId_(0), 
+			setUnitNum_(0),
+			netHandler_(-1),
+			isServer_(false)
+		{};
 		~BattleScreen() {};
 
 		// レイヤー
@@ -61,6 +69,8 @@ namespace Screen
 
 		void setStage(int id);
 
+		void prepareNetMatch(int netHandler, bool isServer, int mapId, int unitNum);
+
 	private:
 		void startBattle();
 		void turnEnd();
@@ -77,14 +87,20 @@ namespace Screen
 		// 敵ユニット操作クラス
 		Battle::EnemyBattleController enemyBtlCont_;
 
-		// ユニット配置シーンの有無
-		bool isSetUnit_;
+		// 配置可能ユニット数
+		int setUnitNum_;
 
 		//! 選択ステージのID
 		int stageId_;
 
 		//! 表示対象スクリーン
 		int openScreen_;
+
+		//! ネットハンドル（通信対戦出ないときは -1）
+		int netHandler_;
+
+		//! サーバー側か
+		bool isServer_;
 
 		//! システムメニュー
 		shared_ptr<Entity::ContextMenu> systemMenu_;
@@ -102,7 +118,8 @@ namespace Screen
 		// シーンの種類
 		enum Scene
 		{
-			SET_UNITS,		//! ユニット配置	
+			SET_UNITS,		//! ユニット配置
+			WAIT_ENEMY_SET, //! 敵側のユニット配置待ち
 			PLAYER_TURN,	//! プレイヤーターン
 			ENEMY_TURN,		//! 敵ターン
 			RESULT_ANIME,	//! 勝敗結果前のアニメーション

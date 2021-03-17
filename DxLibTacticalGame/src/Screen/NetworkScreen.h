@@ -44,6 +44,8 @@ namespace Screen
 		void updateByEvents(weak_ptr < Entity::Object> hitObjWp, int x, int y, int button, int eventType);
 		void updateByAnimation();
 	private:
+		void startBattle(int netHandler_, const RuleData& ruleData, bool isServer);
+
 		constexpr static int BUTTON_W = 600;	//! ボタン幅
 		constexpr static int BUTTON_H = 100;		//! ボタン高さ
 		constexpr static int BUTTON_X = (WIN_W - BUTTON_W) / 2;	//! ボタン座標x

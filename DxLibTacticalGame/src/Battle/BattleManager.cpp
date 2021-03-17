@@ -4,16 +4,33 @@
 namespace Battle {
 	/**
 	 * @fn
-	 * 初期処理
+	 * 共通の初期処理
 	 * @param (map) マップのポインタ
 	 * @param (stageId) ステージID
 	 * @param (isSetUnit) ユニット配置シーンの有無取得用
 	 */
-	void BattleManager::init(shared_ptr<Entity::Map> map, int stageId, bool* isSetUnit, int* aiKind)
+	void BattleManager::initCommon(shared_ptr<Entity::Map> map)
 	{
 		this->map = map;
 		battleUI.init();
 		fight_.init(this->map);
+
+		// メッセージ欄をオブジェクトとして追加
+		message = make_shared<Message>();
+		FrameWork::Game& game = FrameWork::Game::getInstance();
+		game.objectsControl.addObject(Screen::BattleScreen::Layer::TOP_UI, Screen::BattleScreen::TopUiId::MESSAGE, message);
+	}
+
+	/**
+	 * @fn
+	 * 標準時の初期処理
+	 * @param (map) マップのポインタ
+	 * @param (stageId) ステージID
+	 * @param (isSetUnit) ユニット配置シーンの有無取得用
+	 */
+	void BattleManager::init(shared_ptr<Entity::Map> map, int stageId, int* setUnitNum, int* aiKind)
+	{
+		initCommon(map);
 
 		// ステージデータ読み込み
 		string title;
@@ -28,16 +45,11 @@ namespace Battle {
 		this->map->loadUnits(units);
 		checkWin_.loadData(checkWinData);
 
-		// メッセージ欄をオブジェクトとして追加
-		message = make_shared<Message>();
-		FrameWork::Game& game = FrameWork::Game::getInstance();
-		game.objectsControl.addObject(Screen::BattleScreen::Layer::TOP_UI, Screen::BattleScreen::TopUiId::MESSAGE, message);
-
 		// チュートリアル
 		tutorial.init(stageId, message);
 
 		// ユニット配置可能数の確認
-		*isSetUnit = false;
+		*setUnitNum = 0;
 		if (extraRules.size() > 0)
 		{
 			int countMax = extraRules[0];
@@ -46,7 +58,7 @@ namespace Battle {
 			{
 				battleUI.startSelectUnitMode(countMax);
 				tutorial.onEvent(TutorialManager::TutorialId::FREE_SET_SELECT, this);
-				*isSetUnit = true;
+				*setUnitNum = countMax;
 			}
 		}
 
@@ -70,6 +82,40 @@ namespace Battle {
 				}
 			}
 		}
+	}
+
+	/**
+	 * @fn
+	 * 通信対戦時の初期処理
+	 * @param (map) マップのポインタ
+	 * @param (stageId) ステージID
+	 * @param (isSetUnit) ユニット配置シーンの有無取得用
+	 */
+	void BattleManager::init(shared_ptr<Entity::Map> map, int stageId, int setUnitNum, bool isServer)
+	{
+		initCommon(map);
+
+		string fileName = "match-s";
+
+		if (!isServer)
+		{
+			fileName = "match-c";
+		}
+
+		// ステージデータ読み込み
+		string title;
+		string hint;
+		std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H > mapData;
+		vector<vector<int>> units;
+		vector<int> checkWinData;
+		vector<int> extraRules;
+		Utility::ResourceManager::loadStageData(fileName, stageId, &title, &hint, &checkWinData, &extraRules, &mapData, &units);
+
+		this->map->loadStageData(mapData);
+		this->map->loadUnits(units);
+		checkWin_.loadData(checkWinData);
+
+		battleUI.startSelectUnitMode(setUnitNum);
 	}
 
 	/**
@@ -382,4 +428,5 @@ namespace Battle {
 	{
 		return selectedUnit_ == unit;
 	}
+
 }

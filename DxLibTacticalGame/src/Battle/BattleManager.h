@@ -43,7 +43,8 @@ namespace Battle
 			FIGHT
 		};
 
-		void init(shared_ptr<Entity::Map> map, int stageId, bool* isSetUnit, int* aiKind);
+		void init(shared_ptr<Entity::Map> map, int stageId, int* setUnitNum, int* aiKind);
+		void init(shared_ptr<Entity::Map> map, int stageId, int setUnitNum, bool isServer);
 
 		void animationCheck();
 		int checkEnd();
@@ -87,6 +88,8 @@ namespace Battle
 		shared_ptr<Entity::Map> map;
 
 	private:
+		void initCommon(shared_ptr<Entity::Map> map);
+
 		//! 経過ターン数(プレイヤーターン、敵ターンでそれぞれ＋１にする、表示ターンの二倍で表示)
 		int turnNumEach_;
 

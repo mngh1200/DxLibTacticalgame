@@ -41,8 +41,11 @@ namespace Network
 
 		int checkAndUpdate(weak_ptr<Entity::Object> hitObjWp, int x, int y, int button, int eventType);
 
+		const RuleData& getRuleData() const { return ruleData_; }; //! ルールデータを返す
+		int getNetHandle() const { return netHandle_; } //! ネットハンドルを返す
+
 	private:
-		bool sendRule();
+		bool keepRuleData();
 
 		constexpr static int MODAL_W = 600; //! 小画面 幅
 		constexpr static int MODAL_H = 600; //! 小画面 高さ
@@ -75,6 +78,8 @@ namespace Network
 		bool isConnect_; //! 接続状況
 
 		int netHandle_; //! ネットワークハンドル
+
+		RuleData ruleData_; //! 作成したルール設定データ
 
 		SendManager sendManager_; //! データ送信マネージャー
 
