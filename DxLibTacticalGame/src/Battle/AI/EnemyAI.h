@@ -18,16 +18,7 @@ namespace Battle
 	// 操作内容を保持
 	struct Order
 	{
-		// 操作の種類
-		enum Kind
-		{
-			NONE,
-			MOVE,
-			WAIT,
-			ATACK
-		};
-
-		int kind = Kind::NONE; //! 操作の種類
+		int kind = ActionKind::NO_ACTION; //! 操作の種類
 		shared_ptr<Unit> unit; //! 操作対象ユニット
 		int massX = 0; //! 対象マスX
 		int massY = 0; //! 対象マスY

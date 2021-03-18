@@ -24,6 +24,7 @@ namespace Network
 
 		void setNetHandle(int netHandle);
 
+		void sendSignal(int signal);
 		void sendRuleData(RuleData& ruleData);
 		void sendPlayerContLog(ContLog& PlayerContLog);
 

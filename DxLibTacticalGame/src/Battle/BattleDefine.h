@@ -44,6 +44,16 @@ namespace
 		BOTTOM = 0b0100,
 		LEFT = 0b1000
 	};
+
+	// ëÄçÏÇÃéÌóﬁ
+	enum ActionKind
+	{
+		NO_ACTION,
+		MOVE_ACT,
+		WAIT_ACT,
+		ATACK_ACT,
+		SET_ACT
+	};
 }
 
 

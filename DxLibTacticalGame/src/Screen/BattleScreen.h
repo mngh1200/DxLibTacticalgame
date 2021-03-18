@@ -17,6 +17,8 @@
 #include "Entity/Battle/Map.h"
 #include "Entity/Unit/Unit.h"
 #include "Entity/UI/Menu/ContextMenu.h"
+#include "Network/ReceiveManager.h"
+#include "Network/SendManager.h"
 
 using namespace std;
 
@@ -36,7 +38,7 @@ namespace Screen
 			openScreen_(-1),
 			stageId_(0), 
 			setUnitNum_(0),
-			netHandler_(-1),
+			netHandle_(-1),
 			isServer_(false)
 		{};
 		~BattleScreen() {};
@@ -72,11 +74,14 @@ namespace Screen
 		void prepareNetMatch(int netHandler, bool isServer, int mapId, int unitNum);
 
 	private:
+		void updateNetwork();
 		void startBattle();
 		void turnEnd();
 		void confirmSetUnits();
 		void showHint();
 		void showCheckWinText();
+
+		bool isNetMatch() { return netHandle_ != -1; } // 通信対戦であるか
 
 		// バトル管理クラス
 		Battle::BattleManager btlMng_;
@@ -95,12 +100,6 @@ namespace Screen
 
 		//! 表示対象スクリーン
 		int openScreen_;
-
-		//! ネットハンドル（通信対戦出ないときは -1）
-		int netHandler_;
-
-		//! サーバー側か
-		bool isServer_;
 
 		//! システムメニュー
 		shared_ptr<Entity::ContextMenu> systemMenu_;
@@ -125,5 +124,19 @@ namespace Screen
 			RESULT_ANIME,	//! 勝敗結果前のアニメーション
 			RESULT			//! 勝敗結果
 		};
+
+		// 以下、通信対戦関連
+
+		//! ネットハンドル（通信対戦出ないときは -1）
+		int netHandle_;
+
+		//! サーバー側か
+		bool isServer_;
+
+		//! 受信管理
+		Network::SendManager sender_;
+
+		//! 送信管理
+		Network::ReceiveManager receiver_;
 	};
 }

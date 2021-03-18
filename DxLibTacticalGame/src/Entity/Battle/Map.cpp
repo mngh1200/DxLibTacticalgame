@@ -204,7 +204,7 @@ namespace Entity {
 	 * @param (kind) ユニット種類
 	 * @param (isEnemy) false: プレイヤーユニット, true: 敵ユニット
 	 */
-	void Map::setUnit(int massX, int massY, int kind, bool isEnemy)
+	void Map::setUnit(int massX, int massY, int kind, bool isEnemy, int objectId)
 	{
 
 		if (isRange(massX, massY))
@@ -227,14 +227,29 @@ namespace Entity {
 
 			units_.emplace(make_pair(massX, massY), unit); // 新規追加のみ
 
-			if (!isEnemy)
+			if (objectId == -1)
 			{
-				objectsControl.addObject(Screen::BattleScreen::Layer::PLAYER_UNIT, unit);
+				if (!isEnemy)
+				{
+					objectsControl.addObject(Screen::BattleScreen::Layer::PLAYER_UNIT, unit);
+				}
+				else
+				{
+					objectsControl.addObject(Screen::BattleScreen::Layer::ENEMY_UNIT, unit);
+				}
 			}
 			else
 			{
-				objectsControl.addObject(Screen::BattleScreen::Layer::ENEMY_UNIT, unit);
+				if (!isEnemy)
+				{
+					objectsControl.addObject(Screen::BattleScreen::Layer::PLAYER_UNIT, objectId, unit);
+				}
+				else
+				{
+					objectsControl.addObject(Screen::BattleScreen::Layer::ENEMY_UNIT, objectId, unit);
+				}
 			}
+
 		}
 	}
 

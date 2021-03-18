@@ -1,6 +1,6 @@
 #pragma once
 #include <climits>
-#include <vector>
+#include <queue>
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -28,13 +28,16 @@ namespace Network
 
 		bool receive();
 		void getRuleData(RuleData& ruleData);
-		void getEnemeyPlayerContLogs(vector<ContLog>& enemyPlayerContLogs);
+		ContLog getNextContLog(bool isDelete = true);
+		void popContLog();
+		int getNextSignal();
 
 		bool isReceivedRule() const { return isReceivedRule_; } // ルールデータを受信済みか
 
 	private:
 		void setRuleData(vector<string>& valList);
 		void addEnemyPlayerContLogs(vector<string>& valList);
+		void addSignal(vector<string>& valList);
 
 		int netHandle_; //! ネットワークハンドル
 
@@ -42,6 +45,8 @@ namespace Network
 
 		RuleData ruleData_; //! 受信したルール設定
 
-		vector<ContLog> enemyPlayerContLogs_; //! 敵プレイヤーの操作ログ 
+		queue<ContLog> enemyPlayerContLogs_; //! 敵プレイヤーの操作ログ 
+
+		queue<int> signalList_; //! 単一の数値情報受信リスト
 	};
 }

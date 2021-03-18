@@ -34,7 +34,7 @@ namespace Screen
 		objectsControl.addObject(Layer::MAP, 0, map);
 		
 		// バトル管理用クラスの初期処理
-		if (netHandler_ != -1) // 通信対戦
+		if (netHandle_ != -1) // 通信対戦
 		{
 			btlMng_.init(map, stageId_, setUnitNum_, isServer_);
 			playerBtlCont_.init(map);
@@ -150,6 +150,11 @@ namespace Screen
 	*/
 	void BattleScreen::updateByAnimation()
 	{
+		if (isNetMatch()) // 通信対戦関連処理
+		{
+			updateNetwork();
+		}
+
 		btlMng_.animationCheck(); // バトル管理系の処理
 
 		if (nowScene_ == Scene::ENEMY_TURN) // 敵ターン
@@ -241,12 +246,33 @@ namespace Screen
 	 * @param (mapId) マップID
 	 * @param (unitNum) ユニット数
 	*/
-	void BattleScreen::prepareNetMatch(int netHandler, bool isServer, int mapId, int unitNum)
+	void BattleScreen::prepareNetMatch(int netHandle, bool isServer, int mapId, int unitNum)
 	{
-		netHandler_ = netHandler;
+		netHandle_ = netHandle;
 		stageId_ = mapId;
 		setUnitNum_ = unitNum;
 		isServer_ = isServer;
+
+		sender_.setNetHandle(netHandle);
+		receiver_.setNetHandle(netHandle);
+	}
+
+	/**
+	 * @fn
+	 * 通信対戦関連の更新処理
+	*/
+	void BattleScreen::updateNetwork()
+	{
+		receiver_.receive(); // データ受信
+
+		if (nowScene_ == Scene::WAIT_ENEMY_SET) // 敵プレイヤーのユニット配置待ち
+		{
+			if (receiver_.getNextSignal() == SignalKind::SET_END) // 敵プレイヤー配置完了
+			{
+				SetUnits::receiveSetUnitsData(&receiver_, btlMng_.map); // 敵ユニットの配置
+				startBattle();
+			}
+		}
 	}
 
 	/**
@@ -287,7 +313,16 @@ namespace Screen
 	{
 		btlMng_.battleUI.endSelectUnitMode();
 		btlMng_.map->clearMassUnitSet();
-		startBattle();
+
+		if (isNetMatch())
+		{
+			nowScene_ = Scene::WAIT_ENEMY_SET;
+			SetUnits::sendSetUnitsData(&sender_, btlMng_.map); // 配置情報送信
+		}
+		else
+		{
+			startBattle();
+		}
 	}
 
 	/**

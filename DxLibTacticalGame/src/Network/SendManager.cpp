@@ -14,14 +14,25 @@ namespace Network
 
 	/**
 	 * @fn
+	 * 単一数値情報を送信
+	 * @param (signal) 単一数値情報
+	 */
+	void SendManager::sendSignal(int signal)
+	{
+		string data = to_string(NetworkDataType::SIGNAL) + VALUE_SPLIT + to_string(signal) + DATA_SPLIT;
+		DxLib::NetWorkSend(netHandle_, data.c_str(), data.length());
+	}
+
+	/**
+	 * @fn
 	 * ルール設定を送信
 	 * @param (ruleData) ルール設定
 	 */
 	void SendManager::sendRuleData(RuleData& ruleData)
 	{
-		string data = to_string(NetworkDataType::RULE) + "," + 
-			to_string(ruleData.unitNum) + "," +
-			to_string(ruleData.mapId);
+		string data = to_string(NetworkDataType::RULE) + VALUE_SPLIT +
+			to_string(ruleData.unitNum) + VALUE_SPLIT +
+			to_string(ruleData.mapId) + DATA_SPLIT;
 
 		DxLib::NetWorkSend(netHandle_, data.c_str(), data.length());
 	}
@@ -33,12 +44,12 @@ namespace Network
 	 */
 	void SendManager::sendPlayerContLog(ContLog& PlayerContLog)
 	{
-		string data = to_string(NetworkDataType::CONT_LOG) + "," +
-			to_string(PlayerContLog.x) + "," +
-			to_string(PlayerContLog.y) + "," +
-			to_string(PlayerContLog.unitId) + "," +
-			to_string(PlayerContLog.actionKind) + "," +
-			to_string(PlayerContLog.hitValue);
+		string data = to_string(NetworkDataType::CONT_LOG) + VALUE_SPLIT +
+			to_string(PlayerContLog.x) + VALUE_SPLIT +
+			to_string(PlayerContLog.y) + VALUE_SPLIT +
+			to_string(PlayerContLog.unitId) + VALUE_SPLIT +
+			to_string(PlayerContLog.actionKind) + VALUE_SPLIT +
+			to_string(PlayerContLog.extraValue) + DATA_SPLIT;
 
 		DxLib::NetWorkSend(netHandle_, data.c_str(), data.length());
 	}
