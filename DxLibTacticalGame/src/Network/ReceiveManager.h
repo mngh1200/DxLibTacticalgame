@@ -16,8 +16,6 @@ using namespace std;
 
 namespace Network
 {
-
-
 	class ReceiveManager
 	{
 	public:
@@ -33,6 +31,7 @@ namespace Network
 		int getNextSignal();
 
 		bool isReceivedRule() const { return isReceivedRule_; } // ルールデータを受信済みか
+		int getNetHandle() const { return netHandle_; } // ネットハンドルをを返す
 
 	private:
 		void setRuleData(vector<string>& valList);
