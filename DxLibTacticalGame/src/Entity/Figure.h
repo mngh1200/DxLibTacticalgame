@@ -70,6 +70,8 @@ namespace Entity
 		int getX() const { return shape_.x; }; // X座標取得
 		int getY() const { return shape_.y; }; // Y座標取得
 
+		const Shape& getShape() const { return shape_; }; // 矩形座標取得
+
 	protected:
 		/**
 		 * @fn
