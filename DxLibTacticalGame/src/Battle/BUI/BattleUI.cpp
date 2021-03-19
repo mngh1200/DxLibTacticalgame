@@ -31,11 +31,9 @@ namespace Battle {
 		turnEndButton_->setText("ターン終了");
 		objectsControl.addObject(uiLayerId, BattleUIid::TURN_END_BUTTON, turnEndButton_);
 
-		// 敵ターンスピード調整ボタン
-		enemySpeedController_ = make_shared<EnemySpeedController>();
-		objectsControl.addObject(uiLayerId, BattleUIid::ENEMY_SPEED_CONTROLLER, enemySpeedController_);
-		
-
+		// 敵ターン中に右下に設置するオブジェクト
+		enemyTurnCont_ = make_shared<EnemyTurnCont>();
+		objectsControl.addObject(uiLayerId, BattleUIid::ENEMY_TURN_CONT, enemyTurnCont_);
 	}
 
 	/**
@@ -48,7 +46,7 @@ namespace Battle {
 		mode_ = Mode::SET_UNITS;
 
 		turnEndButton_->hide();
-		enemySpeedController_->hide();
+		enemyTurnCont_->hide();
 
 		// ユニット選択欄設置
 		FrameWork::Game& game = FrameWork::Game::getInstance();
@@ -129,18 +127,39 @@ namespace Battle {
 	 * @fn
 	 * ターン開始時処理
 	*/
-	void BattleUI::onStartTurn(bool isPlayer)
+	void BattleUI::onStartTurn(bool isPlayer, bool isNetMatch)
 	{
 		if (isPlayer)
 		{
 			turnEndButton_->show();
-			enemySpeedController_->hide();
+			enemyTurnCont_->hide();
 		}
 		else
 		{
 			turnEndButton_->hide();
-			enemySpeedController_->show();
+			enemyTurnCont_->show();
 		}
+	}
+
+	/**
+	 * @fn
+	 * 敵プレイヤーの自由配置待機の開始
+	*/
+	void BattleUI::startWaitEnemySet()
+	{
+		enemyTurnCont_->setMode(EnemyTurnCont::Mode::ENEMY_SET_MESSAGE);
+
+		turnEndButton_->hide();
+		enemyTurnCont_->show();
+	}
+
+	/**
+	 * @fn
+	 * 敵プレイヤーの自由配置待機の終了
+	*/
+	void BattleUI::endWaitEnemySet()
+	{
+		enemyTurnCont_->setMode(EnemyTurnCont::Mode::ENEMY_TURN_MESSAGE);
 	}
 
 	/**

@@ -210,9 +210,6 @@
     <ClCompile Include="src\Screen\LoadScreen.cpp">
       <Filter>ソース ファイル\Screen</Filter>
     </ClCompile>
-    <ClCompile Include="src\Battle\BUI\EnemySpeedController.cpp">
-      <Filter>ソース ファイル\Battle\BUI</Filter>
-    </ClCompile>
     <ClCompile Include="src\Battle\PlayerBattleController.cpp">
       <Filter>ソース ファイル\Battle</Filter>
     </ClCompile>
@@ -290,6 +287,9 @@
     </ClCompile>
     <ClCompile Include="src\Network\SendManager.cpp">
       <Filter>ソース ファイル\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Battle\BUI\EnemyTurnCont.cpp">
+      <Filter>ソース ファイル\Battle\BUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -398,9 +398,6 @@
     <ClInclude Include="src\Screen\LoadScreen.h">
       <Filter>ヘッダー ファイル\Screen</Filter>
     </ClInclude>
-    <ClInclude Include="src\Battle\BUI\EnemySpeedController.h">
-      <Filter>ヘッダー ファイル\Battle\BUI</Filter>
-    </ClInclude>
     <ClInclude Include="src\Battle\PlayerBattleController.h">
       <Filter>ヘッダー ファイル\Battle</Filter>
     </ClInclude>
@@ -484,6 +481,12 @@
     </ClInclude>
     <ClInclude Include="src\Network\SendManager.h">
       <Filter>ヘッダー ファイル\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\BUI\BuiContObject.h">
+      <Filter>ヘッダー ファイル\Battle\BUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Battle\BUI\EnemyTurnCont.h">
+      <Filter>ヘッダー ファイル\Battle\BUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -270,6 +270,7 @@ namespace Screen
 			if (receiver_.getNextSignal() == SignalKind::SET_END) // 敵プレイヤー配置完了
 			{
 				SetUnits::receiveSetUnitsData(&receiver_, btlMng_.map); // 敵ユニットの配置
+				btlMng_.battleUI.endWaitEnemySet();
 				startBattle();
 			}
 		}
@@ -317,6 +318,7 @@ namespace Screen
 		if (isNetMatch())
 		{
 			nowScene_ = Scene::WAIT_ENEMY_SET;
+			btlMng_.battleUI.startWaitEnemySet();
 			SetUnits::sendSetUnitsData(&sender_, btlMng_.map); // 配置情報送信
 		}
 		else
