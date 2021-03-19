@@ -182,8 +182,9 @@
     <ClCompile Include="src\Entity\UI\Button\CourseButton.cpp" />
     <ClCompile Include="src\Entity\UI\Button\MenuScreenButton.cpp" />
     <ClCompile Include="src\Entity\UI\Button\TextButton.cpp" />
+    <ClCompile Include="src\Entity\UI\Dialog.cpp" />
     <ClCompile Include="src\Entity\UI\ModalFrame.cpp" />
-    <ClCompile Include="src\Entity\UI\Menu\ContextMenu.cpp" />
+    <ClCompile Include="src\Entity\UI\ContextMenu.cpp" />
     <ClCompile Include="src\Entity\UI\Message.cpp" />
     <ClCompile Include="src\Entity\UI\Overlay.cpp" />
     <ClCompile Include="src\Entity\UI\RadioButton.cpp" />
@@ -248,8 +249,9 @@
     <ClInclude Include="src\Entity\UI\Button\CourseButton.h" />
     <ClInclude Include="src\Entity\UI\Button\MenuScreenButton.h" />
     <ClInclude Include="src\Entity\UI\Button\TextButton.h" />
+    <ClInclude Include="src\Entity\UI\Dialog.h" />
     <ClInclude Include="src\Entity\UI\ModalFrame.h" />
-    <ClInclude Include="src\Entity\UI\Menu\ContextMenu.h" />
+    <ClInclude Include="src\Entity\UI\ContextMenu.h" />
     <ClInclude Include="src\Entity\UI\Message.h" />
     <ClInclude Include="src\Entity\UI\Overlay.h" />
     <ClInclude Include="src\Entity\UI\RadioButton.h" />
