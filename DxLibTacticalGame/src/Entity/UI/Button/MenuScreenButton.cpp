@@ -24,7 +24,7 @@ namespace Entity {
 	 * @param (w) ïù
 	 * @param (h) çÇÇ≥
 	 */
-	MenuScreenButton::MenuScreenButton(string text, int x, int y, int w, int h) : MenuScreenButton()
+	MenuScreenButton::MenuScreenButton(const char* text, int x, int y, int w, int h) : MenuScreenButton()
 	{
 		setShape(x, y, w, h);
 		setText(text, FontType::BLACK_S48);

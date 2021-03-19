@@ -34,7 +34,7 @@ namespace Entity
 
 		void setPaddingLeft(int paddingLeft);
 
-		void setText(string text);
+		void setText(const char* text);
 
 		void setColor(int backColorType, int textColorType, int borderColorType, int borderColorTypeOnFocus);
 		void setFont(int fontType);

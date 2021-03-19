@@ -18,7 +18,7 @@ namespace Entity
 	{
 	public:
 		MenuScreenButton();
-		MenuScreenButton(string text, int x, int y, int w, int h);
+		MenuScreenButton(const char* text, int x, int y, int w, int h);
 		~MenuScreenButton() {};
 
 		bool animationUpdate() override;

@@ -93,7 +93,7 @@ namespace Entity {
 	 * テキストセット
 	 * @param (text) テキスト
 	 */
-	void TextBox::setText(string text)
+	void TextBox::setText(const char* text)
 	{
 		text_ = text;
 	}
