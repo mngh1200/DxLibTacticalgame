@@ -18,14 +18,6 @@ namespace Entity
 		ModalFrame();
 		~ModalFrame() {};
 
-		// データタイプの種類
-		enum DataType
-		{
-			ALL, //! 制限なし
-			HAN, //! 半角のみ
-			NUM, //! 数値のみ
-		};
-
 		constexpr static int HEAD_H = 46; //! ヘッダーの高さ
 
 		void setShape(int x, int y, int w, int h);
@@ -39,6 +31,8 @@ namespace Entity
 		void setColor(int colorType);
 
 		void render() const override;
+
+		const Shape& getFrameShape() const { return frameBodyShape_; }; // 矩形座標取得
 
 	private:
 		constexpr static int OVERLAY_ALPHA = 100; //! オーバレイの不透明度
