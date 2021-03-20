@@ -21,7 +21,7 @@ namespace Entity {
 	 * @param (colorType) テキスト色（fontManagerのColorTypeのenum値）
 	 * @param (align) x座標の基準（左、中央、右揃えを指定）
 	 */
-	Text::Text(string text, int x, int y, int fontType, int colorType, int align) : Text()
+	Text::Text(const char* text, int x, int y, int fontType, int colorType, int align) : Text()
 	{
 		Utility::ResourceManager& resourceManager = Utility::ResourceManager::getInstance();
 		align_ = align;
@@ -39,18 +39,18 @@ namespace Entity {
 	 * テキストセット
 	 * @param (text) 変更テキスト
 	 */
-	void Text::setText(string text)
+	void Text::setText(const char* text)
 	{
 		text_ = text;
 
 		if (align_ == CENTER) // 中央揃え
 		{
-			int width = DxLib::GetDrawFormatStringWidthToHandle(font_, text.c_str());
+			int width = DxLib::GetDrawFormatStringWidthToHandle(font_, text);
 			shape_.x = baseX_ - width / 2;
 		}
 		else if (align_ == RIGHT) // 右揃え
 		{
-			int width = DxLib::GetDrawFormatStringWidthToHandle(font_, text.c_str());
+			int width = DxLib::GetDrawFormatStringWidthToHandle(font_, text);
 			shape_.x = baseX_ - width;
 		}
 		else // 左揃え

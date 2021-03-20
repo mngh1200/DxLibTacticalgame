@@ -39,7 +39,7 @@ namespace Screen
 		objectsControl.addObject(Layer::UI, UIid::SEARCH_ROOM_BUTTON, searchRoomButton);
 
 		// 注釈
-		shared_ptr<Text> commentText = make_shared<Text>("※ ポート番号「" + to_string(PORT) + "」を開放しておく必要があります",
+		shared_ptr<Text> commentText = make_shared<Text>(("※ ポート番号「" + to_string(PORT) + "」を開放しておく必要があります").c_str(),
 			BUTTON_X, BUTTON_Y + (BUTTON_H + BUTTON_MARGIN) * 2, FontType::NORMAL_S24, ColorType::SUB_COLOR);
 		objectsControl.addFigure(Layer::UI, commentText);
 

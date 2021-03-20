@@ -42,11 +42,11 @@ namespace Network
 		objectsControl.addObject(LAYER_FRAME, frame);
 
 		//自分のIPアドレス
-		shared_ptr<Text> ipText = make_shared<Text>("自分のIPアドレス : " + getIpAdress(), CONTENT_X, CONTENT_Y, FontType::NORMAL_S24, ColorType::SUB_COLOR_BIT_LITE);
+		shared_ptr<Text> ipText = make_shared<Text>(string("自分のIPアドレス : " + getIpAdress()).c_str(), CONTENT_X, CONTENT_Y, FontType::NORMAL_S24, ColorType::SUB_COLOR_BIT_LITE);
 		objectsControl.addFigure(LAYER_CONTENT, ipText);
 
 		// 状況メッセージ
-		statusText_ = make_shared<Text>(WAIT_CONNECT_TEXT + ".", CONTENT_X, CONTENT_Y + LINE_H + LINE_MARGIN, FontType::NORMAL_S24, ColorType::SUB_COLOR);
+		statusText_ = make_shared<Text>((WAIT_CONNECT_TEXT + ".").c_str(), CONTENT_X, CONTENT_Y + LINE_H + LINE_MARGIN, FontType::NORMAL_S24, ColorType::SUB_COLOR);
 		objectsControl.addFigure(LAYER_CONTENT, statusText_);
 
 		// 状況メッセージ更新用タイマー
@@ -120,7 +120,7 @@ namespace Network
 				for (int i = 0; i < dotCount_; ++i)
 				{
 					dotText += ".";
-					statusText_->setText(WAIT_CONNECT_TEXT + dotText);
+					statusText_->setText((WAIT_CONNECT_TEXT + dotText).c_str());
 				}
 				textUpdataTimer_.setTimer(TIMER_MS);
 			}

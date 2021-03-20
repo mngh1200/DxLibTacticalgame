@@ -233,7 +233,7 @@ namespace Screen
 		int lineCount = 0;
 
 		// タイトル
-		stageTitle_->setText(title);
+		stageTitle_->setText(title.c_str());
 
 		// 勝敗条件情報読み込み
 		Battle::CheckWin checkWin;
@@ -248,7 +248,7 @@ namespace Screen
 
 		checkWin.getWinConditionsText(&winValue, &winValueLineCount);
 
-		winValue_->setText(winValue);
+		winValue_->setText(winValue.c_str());
 		lineCount += winValueLineCount;
 
 		// 敗北条件ラベル（y座標のみ変更）
@@ -261,7 +261,7 @@ namespace Screen
 
 		checkWin.getLoseConditionsText(&loseValue, &loseValueLineCount);
 
-		loseValue_->setText(loseValue);
+		loseValue_->setText(loseValue.c_str());
 		loseValue_->setY(STAGE_INFO_Y + LINE_HEIGHT * lineCount);
 		lineCount += loseValueLineCount;
 
@@ -269,7 +269,7 @@ namespace Screen
 		hintLabel_->setY(STAGE_INFO_Y + HINT_MARGIN_TOP + LINE_HEIGHT * lineCount);
 		++lineCount;
 
-		stageHint_->setText(hint);
+		stageHint_->setText(hint.c_str());
 		stageHint_->setY(STAGE_INFO_Y + HINT_MARGIN_TOP + LINE_HEIGHT * lineCount);
 		
 
