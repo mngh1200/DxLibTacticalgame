@@ -16,7 +16,8 @@
 #include "Battle/SetUnits.h"
 #include "Entity/Battle/Map.h"
 #include "Entity/Unit/Unit.h"
-#include "Entity/UI/Menu/ContextMenu.h"
+#include "Entity/UI/ContextMenu.h"
+#include "Entity/UI/Dialog.h"
 #include "Network/ReceiveManager.h"
 #include "Network/SendManager.h"
 
@@ -38,7 +39,7 @@ namespace Screen
 			openScreen_(-1),
 			stageId_(0), 
 			setUnitNum_(0),
-			netHandle_(-1),
+			isNetMatch_(false),
 			isServer_(false)
 		{};
 		~BattleScreen() {};
@@ -48,6 +49,7 @@ namespace Screen
 		{
 			MASK,
 			TOP_UI,
+			DIALOG_FRAME,
 			CONTEXT_MENU,
 			EFFECT,
 			UI,
@@ -80,8 +82,6 @@ namespace Screen
 		void confirmSetUnits();
 		void showHint();
 		void showCheckWinText();
-
-		bool isNetMatch() { return netHandle_ != -1; } // 通信対戦であるか
 
 		// バトル管理クラス
 		Battle::BattleManager btlMng_;
@@ -122,13 +122,14 @@ namespace Screen
 			PLAYER_TURN,	//! プレイヤーターン
 			ENEMY_TURN,		//! 敵ターン
 			RESULT_ANIME,	//! 勝敗結果前のアニメーション
-			RESULT			//! 勝敗結果
+			RESULT,			//! 勝敗結果
+			NETWORK_CLOSE	//! 相手から通信切断されたとき
 		};
 
 		// 以下、通信対戦関連
 
-		//! ネットハンドル（通信対戦出ないときは -1）
-		int netHandle_;
+		//! 通信対戦であるか
+		bool isNetMatch_;
 
 		//! サーバー側か
 		bool isServer_;
@@ -138,5 +139,8 @@ namespace Screen
 
 		//! 送信管理
 		Network::ReceiveManager receiver_;
+
+		//! ダイアログ
+		Dialog dialog_;
 	};
 }

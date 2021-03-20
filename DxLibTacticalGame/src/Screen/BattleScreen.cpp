@@ -34,7 +34,7 @@ namespace Screen
 		objectsControl.addObject(Layer::MAP, 0, map);
 		
 		// バトル管理用クラスの初期処理
-		if (netHandle_ != -1) // 通信対戦
+		if (isNetMatch_) // 通信対戦
 		{
 			btlMng_.init(map, stageId_, setUnitNum_, isServer_);
 			playerBtlCont_.init(map);
@@ -141,6 +141,14 @@ namespace Screen
 				openScreen_ = SystemMenuKey::BACK_SELECT_SCREEN;
 				createOverlay(false);
 			}
+			else if (nowScene_ == Scene::NETWORK_CLOSE) // 相手のネットワーク切断時
+			{
+				if (eventType == MOUSE_INPUT_LOG_CLICK && dialog_.isEqualsOkBtn(hitObjSp)) // ダイアログのOKボタンクリック時
+				{
+					openScreen_ = SystemMenuKey::BACK_MENU_SCREEN;
+					createOverlay(false);
+				}
+			}
 		}
 	}
 
@@ -150,7 +158,7 @@ namespace Screen
 	*/
 	void BattleScreen::updateByAnimation()
 	{
-		if (isNetMatch()) // 通信対戦関連処理
+		if (isNetMatch_) // 通信対戦関連処理
 		{
 			updateNetwork();
 		}
@@ -248,7 +256,7 @@ namespace Screen
 	*/
 	void BattleScreen::prepareNetMatch(int netHandle, bool isServer, int mapId, int unitNum)
 	{
-		netHandle_ = netHandle;
+		isNetMatch_ = true;
 		stageId_ = mapId;
 		setUnitNum_ = unitNum;
 		isServer_ = isServer;
@@ -263,6 +271,24 @@ namespace Screen
 	*/
 	void BattleScreen::updateNetwork()
 	{
+		if (nowScene_ == Scene::NETWORK_CLOSE)
+		{
+			return;
+		}
+
+		// 切断された場合
+		if (DxLib::GetLostNetWork() == receiver_.getNetHandle())
+		{
+			DxLib::CloseNetWork(receiver_.getNetHandle());
+			nowScene_ = Scene::NETWORK_CLOSE;
+
+			// ダイアログ表示
+			FrameWork::Game& game = FrameWork::Game::getInstance();
+			Entity::ObjectsControl& objectsControl = game.objectsControl;
+
+			dialog_.show("相手が通信を切断しました\nメインメニューに戻ります", Layer::DIALOG_FRAME, Layer::TOP_UI);
+		}
+
 		receiver_.receive(); // データ受信
 
 		if (nowScene_ == Scene::WAIT_ENEMY_SET) // 敵プレイヤーのユニット配置待ち
@@ -315,7 +341,7 @@ namespace Screen
 		btlMng_.battleUI.endSelectUnitMode();
 		btlMng_.map->clearMassUnitSet();
 
-		if (isNetMatch())
+		if (isNetMatch_)
 		{
 			nowScene_ = Scene::WAIT_ENEMY_SET;
 			btlMng_.battleUI.startWaitEnemySet();
