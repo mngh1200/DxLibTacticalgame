@@ -25,9 +25,19 @@ namespace Screen
 
 		systemMenu_->addMenuButton(SystemMenuKey::TURN_END, "ターン終了");
 		systemMenu_->addMenuButton(SystemMenuKey::CHECK_WIN_TEXT, "勝敗条件");
-		systemMenu_->addMenuButton(SystemMenuKey::HINT, "ヒント");
-		systemMenu_->addMenuButton(SystemMenuKey::BACK_SELECT_SCREEN, "セレクト画面に戻る");
-		systemMenu_->addMenuButton(SystemMenuKey::BACK_MENU_SCREEN, "メニュー画面に戻る");
+
+		if (isNetMatch_) // 通信対戦
+		{
+			systemMenu_->addMenuButton(SystemMenuKey::CLOSE_NETWORK, "切断");
+		}
+		else // 標準
+		{
+			systemMenu_->addMenuButton(SystemMenuKey::HINT, "ヒント");
+			systemMenu_->addMenuButton(SystemMenuKey::BACK_SELECT_SCREEN, "セレクト画面に戻る");
+			systemMenu_->addMenuButton(SystemMenuKey::BACK_MENU_SCREEN, "メニュー画面に戻る");
+		}
+
+
 
 		// マップ（マス）
 		shared_ptr<Entity::Map> map = make_shared<Entity::Map>();
@@ -75,35 +85,45 @@ namespace Screen
 				// システムメニュー関連イベント
 				int systemMenuKey = systemMenu_->checkRunButton(x, y, eventType);
 
-				if (systemMenuKey == SystemMenuKey::TURN_END)
+				if (systemMenuKey == SystemMenuKey::TURN_END) // ターンエンド
 				{
 					// ターンエンド処理
 					turnEnd();
 					systemMenu_->hide();
 				}
-				else if (systemMenuKey == SystemMenuKey::HINT)
+				else if (systemMenuKey == SystemMenuKey::HINT) // ヒント
 				{
 					showHint();
 					systemMenu_->hide();
 				}
-				else if (systemMenuKey == SystemMenuKey::CHECK_WIN_TEXT)
+				else if (systemMenuKey == SystemMenuKey::CHECK_WIN_TEXT) // 勝敗条件
 				{
 					showCheckWinText();
 					systemMenu_->hide();
 				}
-				else if (systemMenuKey == SystemMenuKey::BACK_SELECT_SCREEN || systemMenuKey == SystemMenuKey::BACK_MENU_SCREEN)
+				else if (systemMenuKey == SystemMenuKey::BACK_SELECT_SCREEN) // セレクト画面
 				{
-					// 特定画面に戻る
-					openScreen_ = systemMenuKey;
+					nextScreen_ = new SelectScreen();
+					createOverlay(false);
+				}
+				else if (systemMenuKey == SystemMenuKey::BACK_MENU_SCREEN) // メニュー画面
+				{
+					nextScreen_ = new MenuScreen();
+					createOverlay(false);
+				}
+				else if (systemMenuKey == SystemMenuKey::CLOSE_NETWORK) // 切断
+				{
+					DxLib::CloseNetWork(receiver_.getNetHandle());
+					nextScreen_ = new MenuScreen();
 					createOverlay(false);
 				}
 				else if (eventType == MOUSE_INPUT_LOG_UP || (eventType == MOUSE_INPUT_LOG_CLICK && hitObjSp != systemMenu_))
 				{
-					systemMenu_->hide();
+					systemMenu_->hide(); // コンテキストメニューを閉じる
 
 					if (button == MOUSE_INPUT_RIGHT) // 右マウスダウン
 					{
-						systemMenu_->show(x, y);
+						systemMenu_->show(x, y); // コンテキストメニューを開く
 					}
 				}
 				
@@ -138,14 +158,14 @@ namespace Screen
 			else if (nowScene_ == Scene::RESULT && eventType == MOUSE_INPUT_LOG_CLICK)
 			{
 				// 勝敗画面時は、クリックすることでセレクト画面に遷移
-				openScreen_ = SystemMenuKey::BACK_SELECT_SCREEN;
+				nextScreen_ = new SelectScreen();
 				createOverlay(false);
 			}
 			else if (nowScene_ == Scene::NETWORK_CLOSE) // 相手のネットワーク切断時
 			{
 				if (eventType == MOUSE_INPUT_LOG_CLICK && dialog_.isEqualsOkBtn(hitObjSp)) // ダイアログのOKボタンクリック時
 				{
-					openScreen_ = SystemMenuKey::BACK_MENU_SCREEN;
+					nextScreen_ = new MenuScreen();
 					createOverlay(false);
 				}
 			}
@@ -225,15 +245,10 @@ namespace Screen
 		}	
 		else if (isCloseOverlayEnded()) // オーバレイ閉じる
 		{
-			if (openScreen_ == SystemMenuKey::BACK_MENU_SCREEN)
-			{
-				// メニュー画面に戻る
-				FrameWork::Game::getInstance().setScreen(new MenuScreen());
-			}
-			else if (openScreen_ == SystemMenuKey::BACK_SELECT_SCREEN)
+			if (nextScreen_ != nullptr)
 			{
 				// セレクト画面に戻る
-				FrameWork::Game::getInstance().setScreen(new SelectScreen());
+				FrameWork::Game::getInstance().setScreen(nextScreen_);
 			}
 		}
 	}

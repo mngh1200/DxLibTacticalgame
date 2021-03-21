@@ -36,7 +36,6 @@ namespace Screen
 		BattleScreen() : 
 			btlMng_{},
 			playerBtlCont_{},
-			openScreen_(-1),
 			stageId_(0), 
 			setUnitNum_(0),
 			isNetMatch_(false),
@@ -99,7 +98,7 @@ namespace Screen
 		int stageId_;
 
 		//! 表示対象スクリーン
-		int openScreen_;
+		ScreenBase* nextScreen_;
 
 		//! システムメニュー
 		shared_ptr<Entity::ContextMenu> systemMenu_;
@@ -111,7 +110,8 @@ namespace Screen
 			CHECK_WIN_TEXT,		//! 勝敗条件
 			HINT,				//! ヒント表示
 			BACK_SELECT_SCREEN,	//! セレクト画面へ戻る
-			BACK_MENU_SCREEN	//! メニュー画面へ戻る
+			BACK_MENU_SCREEN,	//! メニュー画面へ戻る
+			CLOSE_NETWORK		//! 切断
 		};
 
 		// シーンの種類
