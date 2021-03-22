@@ -39,7 +39,8 @@ namespace Screen
 			stageId_(0), 
 			setUnitNum_(0),
 			isNetMatch_(false),
-			isServer_(false)
+			nextScreen_(),
+			isFirst_(true)
 		{};
 		~BattleScreen() {};
 
@@ -131,8 +132,11 @@ namespace Screen
 		//! 通信対戦であるか
 		bool isNetMatch_;
 
-		//! サーバー側か
+		//! サーバー側であるか
 		bool isServer_;
+
+		//! 先攻/後攻
+		bool isFirst_;
 
 		//! 受信管理
 		Network::SendManager sender_;

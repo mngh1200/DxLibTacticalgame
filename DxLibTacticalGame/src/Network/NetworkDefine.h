@@ -27,9 +27,10 @@ namespace Network
 	// 単一情報の種類
 	enum SignalKind
 	{
-		NO_SIGNAL,	//! なし
-		TURN_END,	//! ターン終了
-		SET_END		//! 自由配置完了
+		NO_SIGNAL,		//! なし
+		TURN_END,		//! ターン終了
+		SET_END,		//! 自由配置完了
+		CLIENT_FIRST	//! クライアント側が先攻
 	};
 
 	// ルールデータ

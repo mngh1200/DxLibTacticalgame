@@ -54,18 +54,24 @@ namespace Network
 
 	/**
 	 * @fn
-	 * 次の受信した単一数値取得（取得したログは削除）
-	 * @return 次の受信した単一数値（ない場合はNO_SIGNALを返す）
+	 * 特定の信号を受信しているか (受信していた場合、スタックしている信号を除去)
+	 * @return 受信している場合 trueを返す
 	 */
-	int ReceiveManager::getNextSignal()
+	bool ReceiveManager::checkReceiveSignal(int signal)
 	{
 		if (signalList_.size() > 0)
 		{
-			int signal = signalList_.front();
-			signalList_.pop();
+			for (auto itr = signalList_.begin(); itr != signalList_.end(); ++itr)
+			{
+				if ((*itr) == signal)
+				{
+					signalList_.erase(itr); // 信号除去
+					return true;
+				}
+			}
 			return signal;
 		}
-		return SignalKind::NO_SIGNAL;
+		return false;
 	}
 
 	/**
@@ -185,7 +191,7 @@ namespace Network
 		try
 		{
 			int signal = stoi(valList.at(1));
-			signalList_.push(signal);
+			signalList_.push_back(signal);
 		}
 		catch (const std::invalid_argument& e) {}
 		catch (const std::out_of_range& e) {}

@@ -185,7 +185,7 @@ namespace Screen
 
 		btlMng_.animationCheck(); // バトル管理系の処理
 
-		if (nowScene_ == Scene::ENEMY_TURN) // 敵ターン
+		if (!isNetMatch_ && nowScene_ == Scene::ENEMY_TURN) // 敵ターン
 		{
 			if (enemyBtlCont_.update(&btlMng_))
 			{
@@ -275,6 +275,20 @@ namespace Screen
 		stageId_ = mapId;
 		setUnitNum_ = unitNum;
 		isServer_ = isServer;
+		
+		if (isServer) // サーバー側
+		{
+			if (DxLib::GetRand(1) == 0) // サーバー側で先攻・後攻判定
+			{
+				// 後攻
+				sender_.sendSignal(Network::SignalKind::TURN_END);
+				isFirst_ = false;
+			}
+		}
+		else // クライアント側
+		{
+			isFirst_ = false;
+		}
 
 		sender_.setNetHandle(netHandle);
 		receiver_.setNetHandle(netHandle);
@@ -306,13 +320,27 @@ namespace Screen
 
 		receiver_.receive(); // データ受信
 
-		if (nowScene_ == Scene::WAIT_ENEMY_SET) // 敵プレイヤーのユニット配置待ち
+		if (nowScene_ == Scene::SET_UNITS) // 自由配置
 		{
-			if (receiver_.getNextSignal() == SignalKind::SET_END) // 敵プレイヤー配置完了
+			if (receiver_.checkReceiveSignal(SignalKind::CLIENT_FIRST)) // 先攻判定結果
+			{
+				isFirst_ = true;
+			}
+		}
+		else if (nowScene_ == Scene::WAIT_ENEMY_SET) // 敵プレイヤーのユニット配置待ち
+		{
+			if (receiver_.checkReceiveSignal(SignalKind::SET_END)) // 敵プレイヤー配置完了
 			{
 				SetUnits::receiveSetUnitsData(&receiver_, btlMng_.map); // 敵ユニットの配置
 				btlMng_.battleUI.endWaitEnemySet();
 				startBattle();
+			}
+		}
+		else if (nowScene_ == Scene::ENEMY_TURN) // 敵ターン
+		{
+			if (receiver_.checkReceiveSignal(SignalKind::TURN_END)) // 敵ターン終了
+			{
+				turnEnd();
 			}
 		}
 	}
@@ -323,8 +351,17 @@ namespace Screen
 	*/
 	void BattleScreen::startBattle()
 	{
-		nowScene_ = Scene::PLAYER_TURN;
-		btlMng_.onStartTurn(true);
+		if (isFirst_)
+		{
+			nowScene_ = Scene::PLAYER_TURN;
+			btlMng_.onStartTurn(true);
+		}
+		else
+		{
+			nowScene_ = Scene::ENEMY_TURN;
+			btlMng_.onStartTurn(false);
+		}
+
 	}
 
 	/**
