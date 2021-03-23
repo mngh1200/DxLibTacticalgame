@@ -29,27 +29,15 @@ namespace Network
 	 * @param(isDelete) trueの場合、先頭の操作ログ削除
 	 * @return 次の敵プレイヤーの操作ログ（ない場合はactionKind = -1の状態で返す）
 	 */
-	ContLog ReceiveManager::getNextContLog(bool isDelete)
+	const ContLog& ReceiveManager::getNextContLog()
 	{
 		if (enemyPlayerContLogs_.size() > 0)
 		{
 			ContLog nextLog = enemyPlayerContLogs_.front();
-			if (isDelete)
-			{
-				enemyPlayerContLogs_.pop();
-			}
+			enemyPlayerContLogs_.pop();
 			return nextLog;
 		}
 		return ContLog();
-	}
-
-	/**
-	 * @fn
-	 * 先頭の操作ログを削除
-	 */
-	void ReceiveManager::popContLog()
-	{
-		enemyPlayerContLogs_.pop();
 	}
 
 	/**
@@ -69,8 +57,55 @@ namespace Network
 					return true;
 				}
 			}
-			return signal;
 		}
+		return false;
+	}
+
+	/**
+	 * @fn
+	 * 受信したデータを元に敵プレイヤーの操作を実行
+	 * @return 敵ターン終了時にtrueを返す
+	 */
+	bool ReceiveManager::execEnemyAction(Battle::BattleManager* bm, shared_ptr<Map> map, int enemyLayer)
+	{
+		if (bm->isAnimation()) // アニメーション中は操作を実行しない
+		{
+			return false;
+		}
+
+		if (enemyPlayerContLogs_.size() == 0 && checkReceiveSignal(SignalKind::TURN_END)) // 敵ターン終了
+		{
+			return true;
+		}
+
+		ContLog log = getNextContLog(true);
+
+		if (log.actionKind == -1) // 受信した操作ログがない場合
+		{
+			return false;
+		}
+
+		// 対象ユニット取得
+		FrameWork::Game& game = FrameWork::Game::getInstance();
+		Entity::ObjectsControl& objectsControl = game.objectsControl;
+
+		shared_ptr<Unit> unit = dynamic_pointer_cast<Unit>(objectsControl.getObjectWp(enemyLayer, log.unitId).lock());
+
+		if (!unit) // 対象ユニットが存在しない場合
+		{
+			return false;
+		}
+
+		if (log.actionKind == ActionKind::MOVE_ACT) // 移動
+		{
+			bm->selectUnit(unit);
+			bm->moveAction(log.x, log.y);
+		}
+		else if (log.actionKind == ActionKind::WAIT_ACT) // 待機
+		{
+			bm->waitAction();
+		}
+
 		return false;
 	}
 
@@ -88,6 +123,8 @@ namespace Network
 		char charBuf[1024];
 		if (dataLength > 0 && DxLib::NetWorkRecv(netHandle_, &charBuf, dataLength) == 0)
 		{
+			DxLib::printfDx(charBuf);
+
 			string strBuf = string(charBuf);
 
 			std::istringstream iStream(strBuf);

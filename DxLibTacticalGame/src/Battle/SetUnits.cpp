@@ -54,7 +54,7 @@ namespace SetUnits {
 	 * @param (sender) 送信管理クラス
 	 * @param (map) mapの参照
 	 */
-	void sendSetUnitsData(Network::SendManager* sender, shared_ptr<Map> map)
+	void sendSetUnitsData(shared_ptr<Network::SendManager> sender, shared_ptr<Map> map)
 	{
 		for (auto itr = map->unitsBegin(); itr != map->unitsEnd(); ++itr)
 		{

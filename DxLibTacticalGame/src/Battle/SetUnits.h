@@ -17,7 +17,7 @@ namespace SetUnits
 {
 	void onClick(int x, int y, shared_ptr<Map> map, Battle::BattleUI* battleUI, Battle::TutorialManager* tutorial, Battle::BattleManager* bm);
 
-	void sendSetUnitsData(Network::SendManager* sender, shared_ptr<Map> map);
+	void sendSetUnitsData(shared_ptr<Network::SendManager> sender, shared_ptr<Map> map);
 
 	void receiveSetUnitsData(Network::ReceiveManager* receiver, shared_ptr<Map> map);
 }

@@ -6,7 +6,9 @@
 #include <fstream>
 #include <sstream>
 #include "DxLib.h"
+#include "FrameWork/Game.h"
 #include "Network/NetworkDefine.h"
+#include "Battle/BattleManager.h"
 
 using namespace std;
 
@@ -27,9 +29,10 @@ namespace Network
 
 		bool receive();
 		void getRuleData(RuleData& ruleData);
-		ContLog getNextContLog(bool isDelete = true);
-		void popContLog();
+		const ContLog& getNextContLog();
 		bool checkReceiveSignal(int signal);
+
+		bool execEnemyAction(Battle::BattleManager* bm, shared_ptr<Map> map, int enemyLayer);
 
 		bool isReceivedRule() const { return isReceivedRule_; } // ルールデータを受信済みか
 		int getNetHandle() const { return netHandle_; } // ネットハンドルをを返す

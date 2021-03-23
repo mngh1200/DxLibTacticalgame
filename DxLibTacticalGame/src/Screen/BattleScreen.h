@@ -40,7 +40,8 @@ namespace Screen
 			setUnitNum_(0),
 			isNetMatch_(false),
 			nextScreen_(),
-			isFirst_(true)
+			isFirst_(true),
+			isServer_(true)
 		{};
 		~BattleScreen() {};
 
@@ -139,7 +140,7 @@ namespace Screen
 		bool isFirst_;
 
 		//! óMŠÇ—
-		Network::SendManager sender_;
+		shared_ptr<Network::SendManager> sender_;
 
 		//! ‘—MŠÇ—
 		Network::ReceiveManager receiver_;

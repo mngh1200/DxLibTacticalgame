@@ -2,7 +2,6 @@
 
 namespace Screen
 {
-
 	/**
 	 * @fn
 	 * 初期処理
@@ -46,7 +45,7 @@ namespace Screen
 		// バトル管理用クラスの初期処理
 		if (isNetMatch_) // 通信対戦
 		{
-			btlMng_.init(map, stageId_, setUnitNum_, isServer_);
+			btlMng_.init(map, stageId_, setUnitNum_, isServer_, sender_);
 			playerBtlCont_.init(map);
 			enemyBtlCont_.init(map, 0);
 		}
@@ -155,7 +154,7 @@ namespace Screen
 					SetUnits::onClick(x, y, btlMng_.map, &btlMng_.battleUI, &btlMng_.tutorial, &btlMng_);
 				}
 			}
-			else if (nowScene_ == Scene::RESULT && eventType == MOUSE_INPUT_LOG_CLICK)
+			else if (nowScene_ == Scene::RESULT && eventType == MOUSE_INPUT_LOG_CLICK) // 勝敗結果画面
 			{
 				// 勝敗画面時は、クリックすることでセレクト画面に遷移
 				nextScreen_ = new SelectScreen();
@@ -271,17 +270,22 @@ namespace Screen
 	*/
 	void BattleScreen::prepareNetMatch(int netHandle, bool isServer, int mapId, int unitNum)
 	{
+		sender_ = make_shared<Network::SendManager>(); // 送信管理クラスの初期化
+
 		isNetMatch_ = true;
 		stageId_ = mapId;
 		setUnitNum_ = unitNum;
 		isServer_ = isServer;
-		
+
+		sender_->setNetHandle(netHandle);
+		receiver_.setNetHandle(netHandle);
+
 		if (isServer) // サーバー側
 		{
 			if (DxLib::GetRand(1) == 0) // サーバー側で先攻・後攻判定
 			{
 				// 後攻
-				sender_.sendSignal(Network::SignalKind::TURN_END);
+				sender_->sendSignal(Network::SignalKind::CLIENT_FIRST);
 				isFirst_ = false;
 			}
 		}
@@ -289,9 +293,6 @@ namespace Screen
 		{
 			isFirst_ = false;
 		}
-
-		sender_.setNetHandle(netHandle);
-		receiver_.setNetHandle(netHandle);
 	}
 
 	/**
@@ -320,15 +321,13 @@ namespace Screen
 
 		receiver_.receive(); // データ受信
 
-		if (nowScene_ == Scene::SET_UNITS) // 自由配置
+		if (nowScene_ == Scene::WAIT_ENEMY_SET) // 敵プレイヤーのユニット配置待ち
 		{
 			if (receiver_.checkReceiveSignal(SignalKind::CLIENT_FIRST)) // 先攻判定結果
 			{
 				isFirst_ = true;
 			}
-		}
-		else if (nowScene_ == Scene::WAIT_ENEMY_SET) // 敵プレイヤーのユニット配置待ち
-		{
+
 			if (receiver_.checkReceiveSignal(SignalKind::SET_END)) // 敵プレイヤー配置完了
 			{
 				SetUnits::receiveSetUnitsData(&receiver_, btlMng_.map); // 敵ユニットの配置
@@ -338,7 +337,7 @@ namespace Screen
 		}
 		else if (nowScene_ == Scene::ENEMY_TURN) // 敵ターン
 		{
-			if (receiver_.checkReceiveSignal(SignalKind::TURN_END)) // 敵ターン終了
+			if (receiver_.execEnemyAction(&btlMng_, btlMng_.map, Layer::ENEMY_UNIT))
 			{
 				turnEnd();
 			}
@@ -397,7 +396,7 @@ namespace Screen
 		{
 			nowScene_ = Scene::WAIT_ENEMY_SET;
 			btlMng_.battleUI.startWaitEnemySet();
-			SetUnits::sendSetUnitsData(&sender_, btlMng_.map); // 配置情報送信
+			SetUnits::sendSetUnitsData(sender_, btlMng_.map); // 配置情報送信
 		}
 		else
 		{

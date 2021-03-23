@@ -9,6 +9,7 @@
 #include "Entity/Unit/Unit.h"
 #include "BUI/BattleUI.h"
 #include "Entity/UI/Message.h"
+#include "Network/SendManager.h"
 
 using namespace std;
 using namespace Entity;
@@ -44,7 +45,7 @@ namespace Battle
 		};
 
 		void init(shared_ptr<Entity::Map> map, int stageId, int* setUnitNum, int* aiKind);
-		void init(shared_ptr<Entity::Map> map, int stageId, int setUnitNum, bool isServer);
+		void init(shared_ptr<Entity::Map> map, int stageId, int setUnitNum, bool isServer, shared_ptr<Network::SendManager> sender);
 
 		void animationCheck();
 		int checkEnd();
@@ -110,6 +111,9 @@ namespace Battle
 
 		//! 移動を即確定させるか
 		bool isMoveImmdiateConfirm_;
+
+		//! データ送信管理クラス
+		shared_ptr<Network::SendManager> sender_;
 	};
 
 

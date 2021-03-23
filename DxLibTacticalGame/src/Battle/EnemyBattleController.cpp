@@ -7,6 +7,7 @@ namespace Battle {
 	 * @fn
 	 * 初期処理
 	 * @param (map) マップのポインタ
+	 * @param (aiKind) AIの種類
 	 */
 	void EnemyBattleController::init(shared_ptr<Map> map, int aiKind)
 	{
@@ -14,7 +15,7 @@ namespace Battle {
 		ai_ = make_unique<EnemyAI>();
 		ai_->init(map);
 
-		if (aiKind == AiKind::SELF_DEFENCE_ONLY)
+		if (aiKind == AiKind::SELF_DEFENCE_ONLY) // 防衛のみAIの場合
 		{
 			Oriented oriented = {};
 			oriented.stay = 100;
@@ -45,10 +46,8 @@ namespace Battle {
 		DxLib::ScreenFlip();
 		*/
 
-		int phase = bm->getPhase();
-
 		// アニメーション中
-		if (phase == BattleManager::Phase::FIGHT || phase == BattleManager::Phase::MOVE)
+		if (bm->isAnimation())
 		{
 			return false;
 		}

@@ -46,7 +46,7 @@ namespace Network
 		int x = 0;			//! 対象x座標
 		int y = 0;			//! 対象y座標
 		int unitId = 0;		//! ユニットID
-		int actionKind = -1;//! 行動の種類
+		int actionKind = -1;//! 行動の種類 (BattleDefine.hのActionKindで定義)
 		int extraValue = 0;	//! その他の変数値（乱数による命中値やユニット配置時の兵種）
 	};
 }

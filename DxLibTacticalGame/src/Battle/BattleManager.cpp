@@ -91,10 +91,11 @@ namespace Battle {
 	 * @param (stageId) ステージID
 	 * @param (isSetUnit) ユニット配置シーンの有無取得用
 	 */
-	void BattleManager::init(shared_ptr<Entity::Map> map, int stageId, int setUnitNum, bool isServer)
+	void BattleManager::init(shared_ptr<Entity::Map> map, int stageId, int setUnitNum, bool isServer, shared_ptr<Network::SendManager> sender)
 	{
 		initCommon(map);
 
+		// ステージファイル名
 		string fileName = "match-s";
 
 		if (!isServer)
@@ -116,6 +117,9 @@ namespace Battle {
 		checkWin_.loadData(checkWinData);
 
 		battleUI.startSelectUnitMode(setUnitNum);
+
+		// 送信管理クラス
+		sender_ = sender;
 	}
 
 	/**
@@ -315,6 +319,17 @@ namespace Battle {
 	{
 		if (isSelectedUnitActive())
 		{
+			if (isPlayerTurn_ && sender_) // データ送信
+			{
+				// 移動
+				ContLog contLog{ selectedUnit_->getMassX(), selectedUnit_->getMassY(), selectedUnit_->getObjectId(), ActionKind::MOVE_ACT};
+				sender_->sendPlayerContLog(contLog);
+
+				// 待機
+				contLog = ContLog{ 0, 0, selectedUnit_->getObjectId(), ActionKind::WAIT_ACT };
+				sender_->sendPlayerContLog(contLog);
+			}
+
 			map->confirmMove(selectedUnit_);
 			selectedUnit_->endAction();
 			endSelectActionPhase();

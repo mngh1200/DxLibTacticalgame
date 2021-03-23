@@ -48,11 +48,11 @@ namespace
 	// 操作の種類
 	enum ActionKind
 	{
-		NO_ACTION,
-		MOVE_ACT,
-		WAIT_ACT,
-		ATACK_ACT,
-		SET_ACT
+		NO_ACTION,	//! 行動なし
+		MOVE_ACT,	//! 移動
+		WAIT_ACT,	//! 待機
+		ATACK_ACT,	//! 攻撃
+		SET_ACT		//! 自由設置
 	};
 }
 
