@@ -74,7 +74,7 @@ namespace Screen
 
 		void setStage(int id);
 
-		void prepareNetMatch(int netHandler, bool isServer, int mapId, int unitNum);
+		void prepareNetMatch(int netHandler, bool isServer, int mapId, int unitNum, bool isFirst);
 
 	private:
 		void updateNetwork();

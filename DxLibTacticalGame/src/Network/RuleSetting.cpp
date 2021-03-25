@@ -157,9 +157,12 @@ namespace Network
 		string unitNumBuf;
 		unitNum_->getSelectedText(unitNumBuf);
 
+		// æUEŒãU”»’è
+		bool isFirst = DxLib::GetRand(1) == 0;
+
 		try
 		{
-			ruleData_ = RuleData{ stoi(unitNumBuf), mapSelect_->getSelectedNum() };
+			ruleData_ = RuleData{ stoi(unitNumBuf), mapSelect_->getSelectedNum(), isFirst };
 			return true;
 		}
 		catch (const std::invalid_argument& e) {}

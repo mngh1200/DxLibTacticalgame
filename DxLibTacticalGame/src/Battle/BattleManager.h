@@ -58,7 +58,7 @@ namespace Battle
 		void selectUnit(shared_ptr<Unit> unit);
 		bool deselectUnit();
 
-		void atackAction();
+		void atackAction(int actHitState = FightData::HitState::UNSETTLED, int psvHitState = FightData::HitState::UNSETTLED);
 		void waitAction();
 		void moveAction(int massX, int massY, bool isMoveImmdiateConfirm = false);
 		void moveCancel();

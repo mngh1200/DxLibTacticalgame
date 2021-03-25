@@ -326,12 +326,18 @@ namespace Entity {
 	 * ユニットのマス移動（移動確定時）
 	 * @param (unit) 対象ユニット
 	*/
-	void Map::confirmMove(shared_ptr<Unit> unit)
+	void Map::confirmMove(shared_ptr<Unit> unit, shared_ptr<Network::SendManager> sender)
 	{
 		int baseX = unit->getBaseX();
 		int baseY = unit->getBaseY();
 		int massX = unit->getMassX();
 		int massY = unit->getMassY();
+
+		if (sender && !unit->isEnemy()) // データ送信
+		{
+			ContLog contLog{ massX, massY, unit->getObjectId(), ActionKind::MOVE_ACT };
+			sender->sendPlayerContLog(contLog);
+		}
 
 		if (baseX != massX || baseY != massY) // 移動しているときのみ
 		{

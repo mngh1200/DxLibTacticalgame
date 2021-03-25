@@ -6,6 +6,7 @@
 #include "Entity/Object.h"
 #include "Entity/Battle/Mass.h"
 #include "Utility/ResourceManager.h"
+#include "Network/SendManager.h"
 
 using namespace std;
 
@@ -42,7 +43,7 @@ namespace Entity
 		map<pair<int, int>, shared_ptr<Unit>>::iterator unitsBegin();
 		map<pair<int, int>, shared_ptr<Unit>>::iterator unitsEnd();
 
-		void confirmMove(shared_ptr<Unit> unit);
+		void confirmMove(shared_ptr<Unit> unit, shared_ptr<Network::SendManager> sender);
 
 		void displayMovableRange(shared_ptr<Unit> unit);
 		void getMovableMasses(shared_ptr<Unit> unit, int x, int y, int move, vector<pair<int, int>> &posList, bool isInit = true);

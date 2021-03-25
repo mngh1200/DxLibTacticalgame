@@ -172,7 +172,7 @@ namespace Screen
 	void NetworkScreen::startBattle(int netHandler_, const RuleData& ruleData, bool isServer)
 	{
 		BattleScreen* bs = new BattleScreen();
-		bs->prepareNetMatch(netHandler_, isServer, ruleData.mapId, ruleData.unitNum);
+		bs->prepareNetMatch(netHandler_, isServer, ruleData.mapId, ruleData.unitNum, isServer != ruleData.isClientFirst);
 		nextScreen_ = bs;
 
 		createOverlay(false);

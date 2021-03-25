@@ -32,7 +32,8 @@ namespace Network
 	{
 		string data = to_string(NetworkDataType::RULE) + VALUE_SPLIT +
 			to_string(ruleData.unitNum) + VALUE_SPLIT +
-			to_string(ruleData.mapId) + DATA_SPLIT;
+			to_string(ruleData.mapId) + VALUE_SPLIT + 
+			(ruleData.isClientFirst ? "1" : "0") + DATA_SPLIT;
 
 		DxLib::NetWorkSend(netHandle_, data.c_str(), data.length());
 	}
@@ -49,7 +50,8 @@ namespace Network
 			to_string(PlayerContLog.y) + VALUE_SPLIT +
 			to_string(PlayerContLog.unitId) + VALUE_SPLIT +
 			to_string(PlayerContLog.actionKind) + VALUE_SPLIT +
-			to_string(PlayerContLog.extraValue) + DATA_SPLIT;
+			to_string(PlayerContLog.extraValue1) + VALUE_SPLIT +
+			to_string(PlayerContLog.extraValue2) + DATA_SPLIT;
 
 		DxLib::NetWorkSend(netHandle_, data.c_str(), data.length());
 	}

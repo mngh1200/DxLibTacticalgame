@@ -71,7 +71,7 @@ namespace SetUnits {
 			contLog.y = unit->getMassY();
 			contLog.unitId = unit->getObjectId();
 			contLog.actionKind = ActionKind::SET_ACT;
-			contLog.extraValue = unit->getInfo().kind;
+			contLog.extraValue1 = unit->getInfo().kind;
 
 			sender->sendPlayerContLog(contLog); // 配置情報送信
 		}
@@ -96,7 +96,7 @@ namespace SetUnits {
 				break;
 			}
 
-			map->setUnit(contLog.x, contLog.y, contLog.extraValue, true, contLog.unitId);
+			map->setUnit(contLog.x, contLog.y, contLog.extraValue1, true, contLog.unitId);
 			receiver->popContLog(); // 戦闘の操作ログ削除
 		}
 	}

@@ -29,7 +29,8 @@ namespace Network
 
 		bool receive();
 		void getRuleData(RuleData& ruleData);
-		const ContLog& getNextContLog();
+		const ContLog& getNextContLog(bool isDelete);
+		void popContLog();
 		bool checkReceiveSignal(int signal);
 
 		bool execEnemyAction(Battle::BattleManager* bm, shared_ptr<Map> map, int enemyLayer);

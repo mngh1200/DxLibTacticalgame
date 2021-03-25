@@ -14,14 +14,24 @@ using namespace Entity;
 
 namespace Battle
 {
+
 	// 攻撃側、防御側どちらかの戦闘予測データ
 	struct FightData
 	{
+		// 攻撃の命中状況
+		enum HitState
+		{
+			UNSETTLED,	//! 未確定
+			HITTED,		//! 命中
+			MISS,		//! 回避された
+		};
+
 		shared_ptr<Unit> unit;	//! 対称ユニット
 		bool isFirst;			//! 先行であるか
 		bool isAtk = false;		//! 攻撃するか
 		int damage = 0;				//! 与ダメージ
 		int hitRate = 0;			//! 命中率
+		int hitState = HitState::UNSETTLED; //! 攻撃の命中状況
 		bool isCloseAttack = true;		//! 近接攻撃であるか
 		int direction = Direction::NONE_DIRECTION; //! 攻撃方向
 		vector<string> extraEffects; //! 特殊効果（アビリティや連携等）
@@ -42,6 +52,8 @@ namespace Battle
 		bool setPrepare(shared_ptr<Unit> actUnit, shared_ptr<Unit> psvUnit);
 		bool setPrepare(shared_ptr<Unit> actUnit, int actMassX, int actMassY, shared_ptr<Unit> psvUnit);
 		void reset();
+
+		void setHitState(int actHitState, int psvHitState);
 
 		void start();
 		bool checkUpdate();

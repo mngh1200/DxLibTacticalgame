@@ -29,15 +29,27 @@ namespace Network
 	 * @param(isDelete) trueの場合、先頭の操作ログ削除
 	 * @return 次の敵プレイヤーの操作ログ（ない場合はactionKind = -1の状態で返す）
 	 */
-	const ContLog& ReceiveManager::getNextContLog()
+	const ContLog& ReceiveManager::getNextContLog(bool isDelete)
 	{
 		if (enemyPlayerContLogs_.size() > 0)
 		{
 			ContLog nextLog = enemyPlayerContLogs_.front();
-			enemyPlayerContLogs_.pop();
+			if (isDelete)
+			{
+				enemyPlayerContLogs_.pop();
+			}
 			return nextLog;
 		}
 		return ContLog();
+	}
+
+	/**
+	 * @fn
+	 * 先頭の敵プレイヤーの操作ログ削除
+	 */
+	void ReceiveManager::popContLog()
+	{
+		enemyPlayerContLogs_.pop();
 	}
 
 	/**
@@ -105,6 +117,11 @@ namespace Network
 		{
 			bm->waitAction();
 		}
+		else if (log.actionKind == ActionKind::ATACK_ACT) // 攻撃
+		{
+			bm->setFightPredict(map->getUnit(log.x, log.y));
+			bm->atackAction(log.extraValue1, log.extraValue2);
+		}
 
 		return false;
 	}
@@ -123,7 +140,7 @@ namespace Network
 		char charBuf[1024];
 		if (dataLength > 0 && DxLib::NetWorkRecv(netHandle_, &charBuf, dataLength) == 0)
 		{
-			DxLib::printfDx(charBuf);
+			// DxLib::printfDx(charBuf);
 
 			string strBuf = string(charBuf);
 
@@ -181,9 +198,11 @@ namespace Network
 	{
 		try
 		{
-			int unitNum = stoi(valList.at(1));
-			int mapId = stoi(valList.at(2));
-			ruleData_ = RuleData{ unitNum , mapId };
+			ruleData_ = RuleData{};
+
+			ruleData_.unitNum = stoi(valList.at(1));
+			ruleData_.mapId = stoi(valList.at(2));
+			ruleData_.isClientFirst = valList.at(3) == "1";
 
 			isReceivedRule_ = true;
 		}
@@ -206,13 +225,19 @@ namespace Network
 			int actionKind = stoi(valList.at(4));
 
 			// その他変数はあるときだけ
-			int extraValue = 0;
+			int extraValue1 = 0;
 			if (valList.size() > 5)
 			{
-				extraValue = stoi(valList.at(5));
+				extraValue1 = stoi(valList.at(5));
+			}
+
+			int extraValue2 = 0;
+			if (valList.size() > 6)
+			{
+				extraValue2 = stoi(valList.at(6));
 			}
 			
-			enemyPlayerContLogs_.push(ContLog{ x, y, unitId, actionKind, extraValue });
+			enemyPlayerContLogs_.push(ContLog{ x, y, unitId, actionKind, extraValue1, extraValue2 });
 		}
 		catch (const std::invalid_argument& e) {}
 		catch (const std::out_of_range& e) {}

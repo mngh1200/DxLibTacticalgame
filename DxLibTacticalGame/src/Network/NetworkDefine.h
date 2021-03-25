@@ -29,8 +29,7 @@ namespace Network
 	{
 		NO_SIGNAL,		//! なし
 		TURN_END,		//! ターン終了
-		SET_END,		//! 自由配置完了
-		CLIENT_FIRST	//! クライアント側が先攻
+		SET_END		//! 自由配置完了
 	};
 
 	// ルールデータ
@@ -38,16 +37,18 @@ namespace Network
 	{
 		int unitNum = 6;	//! ユニット数
 		int mapId = 0;	//! マップID
+		bool isClientFirst = false; //! クライアント側が先攻であるか
 	};
 
 	// プレイヤー操作ログ
 	struct ContLog
 	{
-		int x = 0;			//! 対象x座標
-		int y = 0;			//! 対象y座標
-		int unitId = 0;		//! ユニットID
-		int actionKind = -1;//! 行動の種類 (BattleDefine.hのActionKindで定義)
-		int extraValue = 0;	//! その他の変数値（乱数による命中値やユニット配置時の兵種）
+		int x = 0;				//! 対象x座標
+		int y = 0;				//! 対象y座標
+		int unitId = 0;			//! ユニットID
+		int actionKind = -1;	//! 行動の種類 (BattleDefine.hのActionKindで定義)
+		int extraValue1 = 0;	//! その他の変数値1（命中状況やユニット配置時の兵種）
+		int extraValue2 = 0;	//! その他の変数値2（命中状況やユニット配置時の兵種）
 	};
 }
 
