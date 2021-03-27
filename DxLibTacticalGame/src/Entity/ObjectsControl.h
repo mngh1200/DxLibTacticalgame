@@ -36,6 +36,8 @@ namespace Entity
 		void addFigure(int layerId, shared_ptr<Figure> viewObjSp);
 		void removeObject(int layerId, int objectId);
 		void removeFigure(int layerId, int objectId);
+		void removeObject(int layerId);
+		void removeFigure(int layerId);
 
 		weak_ptr<Object> checkMouseEvent(int* x, int* y, int* button, int* eventType);
 		void renderAndDelete();
@@ -44,7 +46,11 @@ namespace Entity
 		void updateAnimation();
 		void clearAnimation();
 
+		//! フォーカス中のオブジェクト
+		weak_ptr<Object> focusObject;
+
 	private:
+		constexpr static int MIN_AUTO_OBJECT_ID = 9000;  //! 自動採番するオブジェクトIDの最小値
 		constexpr static int MAX_AUTO_OBJECT_ID = 10000; //! 自動採番するオブジェクトIDの最大値
 
 		//! マウスイベント対象のオブジェクト群を格納

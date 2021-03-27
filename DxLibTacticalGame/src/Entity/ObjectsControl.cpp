@@ -81,7 +81,7 @@ namespace Entity {
 	 * @fn
 	 * オブジェクト追加
 	 * @param (layaerId) レイヤーのID
-	 * @param (objectId) オブジェクトのID
+	 * @param (objectId) オブジェクトのID (0～8999 までの値)
 	 * @param (objSp)    追加オブジェクト
 	 */
 	void ObjectsControl::addObject(int layerId, int objectId, shared_ptr<Object> objSp)
@@ -98,7 +98,7 @@ namespace Entity {
 	 * @fn
 	 * Viewオブジェクト追加
 	 * @param (layaerId) レイヤーのID
-	 * @param (objectId) オブジェクトのID
+	 * @param (objectId) オブジェクトのID (0～8999 までの値)
 	 * @param (objSp)    追加オブジェクト
 	 */
 	void ObjectsControl::addFigure(int layerId, int objectId, shared_ptr<Figure> objSp)
@@ -121,11 +121,11 @@ namespace Entity {
 	{
 		if (0 <= layerId && (unsigned int)layerId < layerObjList_.size()) // 存在するレイヤーであるかチェック
 		{
-			int autoObjectId = 0;
+			int autoObjectId = MIN_AUTO_OBJECT_ID;
 			auto mapItr = layerObjList_.begin() + layerId;
 
 			// 重複しないオブジェクトIDを探索
-			for (int i = 0; i < MAX_AUTO_OBJECT_ID; ++i)
+			for (int i = MIN_AUTO_OBJECT_ID; i < MAX_AUTO_OBJECT_ID; ++i)
 			{
 				if (!mapItr->count(autoObjectId))
 				{
@@ -148,11 +148,11 @@ namespace Entity {
 	{
 		if (0 <= layerId && (unsigned int)layerId < layerViewObjList_.size()) // 存在するレイヤーであるかチェック
 		{
-			int autoObjectId = 0;
+			int autoObjectId = MIN_AUTO_OBJECT_ID;
 			auto mapItr = layerViewObjList_.begin() + layerId;
 
 			// 重複しないオブジェクトIDを探索
-			for (int i = 0; i < MAX_AUTO_OBJECT_ID; ++i)
+			for (int i = MIN_AUTO_OBJECT_ID; i < MAX_AUTO_OBJECT_ID; ++i)
 			{
 				if (!mapItr->count(autoObjectId))
 				{
@@ -198,6 +198,32 @@ namespace Entity {
 
 	/**
 	 * @fn
+	 * 特定レイヤーのオブジェクト全削除
+	 * @param (layaerId) 対象レイヤーのID
+	 */
+	void ObjectsControl::removeObject(int layerId)
+	{
+		if (0 <= layerId && (unsigned int)layerId < layerObjList_.size()) // 存在するレイヤーであるかチェック
+		{
+			layerObjList_.at(layerId) = map<int, shared_ptr<Object>>();
+		}
+	}
+
+	/**
+	 * @fn
+	 * 特定レイヤーのオブジェクト全削除
+	 * @param (layaerId) 対象レイヤーのID
+	 */
+	void ObjectsControl::removeFigure(int layerId)
+	{
+		if (0 <= layerId && (unsigned int)layerId < layerViewObjList_.size()) // 存在するレイヤーであるかチェック
+		{
+			layerViewObjList_.at(layerId) = map<int, shared_ptr<Figure>>();
+		}
+	}
+
+	/**
+	 * @fn
 	 * 全オブジェクトのマウスイベント
 	 * @param (x) マウスのx座標の参照
 	 * @param (y) マウスのy座標の参照
@@ -236,6 +262,20 @@ namespace Entity {
 					hitObjWp = obj;
 				}
 			}
+		}
+
+		// フォーカス中のオブジェクトからフォーカスを外したか判定
+		if (*eventType == MOUSE_INPUT_LOG_DOWN)
+		{
+			shared_ptr<Object> prevFocusObject = focusObject.lock();
+			shared_ptr<Object> hitObj = hitObjWp.lock();
+
+			// 別のオブジェクトが押下された場合、Blur処理発火
+			if (prevFocusObject && hitObj != prevFocusObject)
+			{
+				prevFocusObject->onBlurBase();
+			}
+			focusObject = hitObj;
 		}
 
 		return hitObjWp;

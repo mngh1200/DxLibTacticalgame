@@ -26,12 +26,12 @@ namespace Entity {
 		{
 			text_ = "Clear";
 			setTextColor(ColorType::POSITIVE_COLOR);
-			setText(text_, FontType::BLACK_S24);
+			setText(text_.c_str(), FontType::BLACK_S24);
 		}
 		else
 		{
 			setTextColor(ColorType::ENEMY_COLOR);
-			setText(text_, FontType::BLACK_S48);
+			setText(text_.c_str(), FontType::BLACK_S48);
 		}
 		
 
@@ -132,7 +132,7 @@ namespace Entity {
 			}
 			else if (shape_.h >= BORN_DISP_TEXT_SIZE) // 文字表示
 			{
-				setText(text_);
+				setText(text_.c_str());
 				setSize(shape_.w, shape_.h); // 文字位置調整用
 			}
 			return false;

@@ -181,6 +181,18 @@ namespace Battle
 
 	/**
 	 * @fn
+	 * 攻撃の命中状況をセット
+	 * @param (actHitState) 攻撃しかけた側の命中状況
+	 * @param (psvHitState) 攻撃された側の命中状況
+	 */
+	void Fight::setHitState(int actHitState, int psvHitState)
+	{
+		actSide_.hitState = actHitState;
+		psvSide_.hitState = psvHitState;
+	}
+
+	/**
+	 * @fn
 	 * FightData生成
 	 * @param (fightData) 生成したFightData取得用
 	 * @param (actUnit) 攻撃を仕掛けた側のユニット
@@ -350,9 +362,12 @@ namespace Battle
 		// 攻撃実行
 		atkSide->unit->atack(defSide->unit->getX(), defSide->unit->getY());
 
-		// 命中判定
-		if (atkSide->hitRate > DxLib::GetRand(99))
+		// 命中判定 (hitState == HITTEDの場合は確定命中、hitState == MISSの場合は確定ミス)
+		if (atkSide->hitState == FightData::HitState::HITTED ||
+			atkSide->hitState == FightData::HitState::UNSETTLED && atkSide->hitRate > DxLib::GetRand(99))
 		{
+			atkSide->hitState = FightData::HitState::HITTED;
+
 			// ダメージ
 			if (defSide->unit->damage(atkSide->damage, atkSide->direction, atkSide->isCloseAttack))
 			{
@@ -362,6 +377,7 @@ namespace Battle
 		}
 		else
 		{
+			atkSide->hitState = FightData::HitState::MISS;
 			defSide->unit->avoid(); // 回避
 		}
 

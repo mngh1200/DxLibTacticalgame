@@ -4,16 +4,33 @@
 namespace Battle {
 	/**
 	 * @fn
-	 * 初期処理
+	 * 共通の初期処理
 	 * @param (map) マップのポインタ
 	 * @param (stageId) ステージID
 	 * @param (isSetUnit) ユニット配置シーンの有無取得用
 	 */
-	void BattleManager::init(shared_ptr<Entity::Map> map, int stageId, bool* isSetUnit, int* aiKind)
+	void BattleManager::initCommon(shared_ptr<Entity::Map> map)
 	{
 		this->map = map;
 		battleUI.init();
 		fight_.init(this->map);
+
+		// メッセージ欄をオブジェクトとして追加
+		message = make_shared<Message>();
+		FrameWork::Game& game = FrameWork::Game::getInstance();
+		game.objectsControl.addObject(Screen::BattleScreen::Layer::TOP_UI, Screen::BattleScreen::TopUiId::MESSAGE, message);
+	}
+
+	/**
+	 * @fn
+	 * 標準時の初期処理
+	 * @param (map) マップのポインタ
+	 * @param (stageId) ステージID
+	 * @param (isSetUnit) ユニット配置シーンの有無取得用
+	 */
+	void BattleManager::init(shared_ptr<Entity::Map> map, int stageId, int* setUnitNum, int* aiKind)
+	{
+		initCommon(map);
 
 		// ステージデータ読み込み
 		string title;
@@ -28,16 +45,11 @@ namespace Battle {
 		this->map->loadUnits(units);
 		checkWin_.loadData(checkWinData);
 
-		// メッセージ欄をオブジェクトとして追加
-		message = make_shared<Message>();
-		FrameWork::Game& game = FrameWork::Game::getInstance();
-		game.objectsControl.addObject(Screen::BattleScreen::Layer::TOP_UI, Screen::BattleScreen::TopUiId::MESSAGE, message);
-
 		// チュートリアル
 		tutorial.init(stageId, message);
 
 		// ユニット配置可能数の確認
-		*isSetUnit = false;
+		*setUnitNum = 0;
 		if (extraRules.size() > 0)
 		{
 			int countMax = extraRules[0];
@@ -46,7 +58,7 @@ namespace Battle {
 			{
 				battleUI.startSelectUnitMode(countMax);
 				tutorial.onEvent(TutorialManager::TutorialId::FREE_SET_SELECT, this);
-				*isSetUnit = true;
+				*setUnitNum = countMax;
 			}
 		}
 
@@ -74,6 +86,44 @@ namespace Battle {
 
 	/**
 	 * @fn
+	 * 通信対戦時の初期処理
+	 * @param (map) マップのポインタ
+	 * @param (stageId) ステージID
+	 * @param (isSetUnit) ユニット配置シーンの有無取得用
+	 */
+	void BattleManager::init(shared_ptr<Entity::Map> map, int stageId, int setUnitNum, bool isServer, shared_ptr<Network::SendManager> sender)
+	{
+		initCommon(map);
+
+		// ステージファイル名
+		string fileName = "match-s";
+
+		if (!isServer)
+		{
+			fileName = "match-c";
+		}
+
+		// ステージデータ読み込み
+		string title;
+		string hint;
+		std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H > mapData;
+		vector<vector<int>> units;
+		vector<int> checkWinData;
+		vector<int> extraRules;
+		Utility::ResourceManager::loadStageData(fileName, stageId, &title, &hint, &checkWinData, &extraRules, &mapData, &units);
+
+		this->map->loadStageData(mapData);
+		this->map->loadUnits(units);
+		checkWin_.loadData(checkWinData);
+
+		battleUI.startSelectUnitMode(setUnitNum);
+
+		// 送信管理クラス
+		sender_ = sender;
+	}
+
+	/**
+	 * @fn
 	 * アニメーション処理チェック
 	*/
 	void BattleManager::animationCheck()
@@ -94,6 +144,16 @@ namespace Battle {
 		else if (phase_ == Phase::FIGHT && fight_.checkUpdate()) // 攻撃
 		{
 			// 攻撃終了
+
+			if (sender_ && isPlayerTurn_) // データ送信
+			{
+				FightData actData = fight_.getFightData(true);
+				FightData psvData = fight_.getFightData(false);
+
+				ContLog contLog = ContLog{ psvData.unit->getMassX(), psvData.unit->getMassY(), actData.unit->getObjectId(), ActionKind::ATACK_ACT, actData.hitState, psvData.hitState };
+				sender_->sendPlayerContLog(contLog);
+			}
+
 			phase_ = Phase::NORMAL;
 			tutorial.onFight(&fight_, TutorialManager::FightPhase::END, this);
 			checkWin_.checkWin(map);
@@ -160,6 +220,7 @@ namespace Battle {
 		}
 	}
 
+
 	/**
 	 * @fn
 	 * 行動選択フェイズ開始
@@ -170,7 +231,10 @@ namespace Battle {
 		{
 			map->clearMassState();
 			phase_ = Phase::SELECT_ACTION; // 行動選択 
-			map->displayAtackAbleRange(selectedUnit_, selectedUnit_->getMassX(), selectedUnit_->getMassY());
+			if (isPlayerTurn_)
+			{
+				map->displayAtackAbleRange(selectedUnit_, selectedUnit_->getMassX(), selectedUnit_->getMassY());
+			}
 		}
 	}
 
@@ -200,7 +264,7 @@ namespace Battle {
 				selectedUnit_ = unit;
 				battleUI.setTargetUnit(selectedUnit_);
 
-				if (!unit->isActed())
+				if (isPlayerTurn_ && !unit->isActed())
 				{
 					map->displayMovableRange(unit);
 				}
@@ -242,12 +306,15 @@ namespace Battle {
 	/**
 	 * @fn
 	 * 攻撃
+	 * @param (actHitState) 攻撃仕掛けた側の命中状況（確定している場合だけ引数を追加）
+	 * @param (psvHitState) 攻撃された側の命中状況（確定している場合だけ引数を追加）
 	*/
-	void BattleManager::atackAction()
+	void BattleManager::atackAction(int actHitState, int psvHitState)
 	{
 		if (isSelectedUnitActive())
 		{
-			map->confirmMove(selectedUnit_);
+			map->confirmMove(selectedUnit_, sender_);
+			fight_.setHitState(actHitState, psvHitState);
 			fight_.start();
 			map->clearMassState();
 			deselectUnit();
@@ -269,7 +336,15 @@ namespace Battle {
 	{
 		if (isSelectedUnitActive())
 		{
-			map->confirmMove(selectedUnit_);
+			map->confirmMove(selectedUnit_, sender_);
+
+			if (sender_ && isPlayerTurn_) // データ送信
+			{
+				// 待機
+				ContLog contLog = ContLog{ 0, 0, selectedUnit_->getObjectId(), ActionKind::WAIT_ACT };
+				sender_->sendPlayerContLog(contLog);
+			}
+
 			selectedUnit_->endAction();
 			endSelectActionPhase();
 
@@ -382,4 +457,5 @@ namespace Battle {
 	{
 		return selectedUnit_ == unit;
 	}
+
 }

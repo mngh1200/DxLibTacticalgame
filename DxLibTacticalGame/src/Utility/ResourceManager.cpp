@@ -227,7 +227,7 @@ namespace Utility {
 			image_.at(ImageType::EFFECT).at(EffectId::BULLET));
 
 		image_.at(ImageType::EFFECT).push_back(new int[1]);
-		loadImage("resource/image/effect/arrow.png", image_.at(ImageType::EFFECT).at(EffectId::ARROW));
+		loadImage(MAKEINTRESOURCE(EFFECT_ARROW_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::EFFECT).at(EffectId::ARROW));
 
 		loadFlag = true;
 		return ret;
@@ -244,6 +244,7 @@ namespace Utility {
 		hdlFont_[FontType::NORMAL_S24] = DxLib::CreateFontToHandle("Rounded M+ 1p regular", 24, 3, DX_FONTTYPE_ANTIALIASING_4X4);
 		hdlFont_[FontType::NORMAL_S32] = DxLib::CreateFontToHandle("Rounded M+ 1p regular", 32, 3, DX_FONTTYPE_ANTIALIASING_4X4);
 		hdlFont_[FontType::BLACK_S24] = DxLib::CreateFontToHandle("Rounded M+ 1p black", 24, 3, DX_FONTTYPE_ANTIALIASING_4X4);
+		hdlFont_[FontType::BLACK_S32] = DxLib::CreateFontToHandle("Rounded M+ 1p black", 32, 3, DX_FONTTYPE_ANTIALIASING_4X4);
 		hdlFont_[FontType::BLACK_S48] = DxLib::CreateFontToHandle("Rounded M+ 1p black", 48, 3, DX_FONTTYPE_ANTIALIASING_4X4);
 		hdlFont_[FontType::BLACK_S64] = DxLib::CreateFontToHandle("Rounded M+ 1p black", 64, 3, DX_FONTTYPE_ANTIALIASING_8X8);
 
@@ -266,6 +267,7 @@ namespace Utility {
 
 		colorType_[ColorType::SUB_COLOR] = DxLib::GetColor(124, 104, 95);
 		colorType_[ColorType::SUB_COLOR_LITE] = DxLib::GetColor(224, 215, 204);
+		colorType_[ColorType::SUB_COLOR_BIT_LITE] = 0xA18C80;
 		colorType_[ColorType::SUB_COLOR_DARK] = DxLib::GetColor(76, 64, 59);
 
 		colorType_[ColorType::TITLE_TEXT] = DxLib::GetColor(211, 181, 155);
@@ -281,6 +283,7 @@ namespace Utility {
 
 		colorType_[ColorType::NEGATIVE_COLOR] = DxLib::GetColor(139, 137, 130);
 		colorType_[ColorType::NEGATIVE_COLOR_DARK] = 0x55534E;
+		colorType_[ColorType::NEGATIVE_COLOR_LITE] = 0xB5B3AA;
 
 		colorType_[ColorType::ACCENT_COLOR] = DxLib::GetColor(204, 75, 194);
 

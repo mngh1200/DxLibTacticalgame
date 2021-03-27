@@ -9,6 +9,7 @@
 #include "Entity/Unit/Unit.h"
 #include "BUI/BattleUI.h"
 #include "Entity/UI/Message.h"
+#include "Network/SendManager.h"
 
 using namespace std;
 using namespace Entity;
@@ -25,6 +26,7 @@ namespace Battle
 	public:
 		BattleManager() :
 			isPlayerTurn_(true),
+			isMoveImmdiateConfirm_(false),
 			phase_(Phase::NORMAL),
 			turnNumEach_(0),
 			checkWin_{},
@@ -42,7 +44,8 @@ namespace Battle
 			FIGHT
 		};
 
-		void init(shared_ptr<Entity::Map> map, int stageId, bool* isSetUnit, int* aiKind);
+		void init(shared_ptr<Entity::Map> map, int stageId, int* setUnitNum, int* aiKind);
+		void init(shared_ptr<Entity::Map> map, int stageId, int setUnitNum, bool isServer, shared_ptr<Network::SendManager> sender);
 
 		void animationCheck();
 		int checkEnd();
@@ -55,7 +58,7 @@ namespace Battle
 		void selectUnit(shared_ptr<Unit> unit);
 		bool deselectUnit();
 
-		void atackAction();
+		void atackAction(int actHitState = FightData::HitState::UNSETTLED, int psvHitState = FightData::HitState::UNSETTLED);
 		void waitAction();
 		void moveAction(int massX, int massY, bool isMoveImmdiateConfirm = false);
 		void moveCancel();
@@ -86,6 +89,8 @@ namespace Battle
 		shared_ptr<Entity::Map> map;
 
 	private:
+		void initCommon(shared_ptr<Entity::Map> map);
+
 		//! 経過ターン数(プレイヤーターン、敵ターンでそれぞれ＋１にする、表示ターンの二倍で表示)
 		int turnNumEach_;
 
@@ -106,6 +111,9 @@ namespace Battle
 
 		//! 移動を即確定させるか
 		bool isMoveImmdiateConfirm_;
+
+		//! データ送信管理クラス
+		shared_ptr<Network::SendManager> sender_;
 	};
 
 

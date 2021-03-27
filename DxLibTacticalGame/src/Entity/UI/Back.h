@@ -26,7 +26,7 @@ namespace Entity
 		{
 			UNSELECTED,
 			SELECT,
-			BATTLE,
+			BATTLE
 		};
 
 	private:

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="utf8">
 <script type="text/javascript" src="encoding.min.js"></script>
 <link rel="stylesheet" href="style.css">
 <script>
@@ -175,7 +175,7 @@ function setMassId($ele, id) {
 
 // ユニットセット
 function setUnitId($ele, id, isEnemy) {
-	if (id != FREE_OR_DEL_ID) {
+	if (id != Number(FREE_OR_DEL_ID)) {
 		$ele.attr('data-unit-key', UNIT_DEFINE[id].key);
 		$ele.attr('data-id', id);
 		$ele.attr('data-is-enemy', isEnemy ? '1' : '0');
@@ -218,12 +218,13 @@ $('.setting-form__input').keydown(function(e){
 
 // データ出力
 function outputCsv() {
-	var texts = $('[name=title]').val() + '\n' +  ($('[name=hint]').val()).replaceAll('\n','\\n') + '\n\n';
+	var texts = $('[name=title]').val() + '\n' +  ($('[name=hint]').val()).replace(/(\n)+$/g,'').replaceAll('\n','\\n') + '\n\n';
 	var checkWin = getCheckWin();
 	var setUnitNum = $('[name="set-unit-num"]').val() + '\n\n';
 	var mapAndUnitText = getMapText();
 
 	var text = texts + checkWin + setUnitNum + mapAndUnitText;
+	text = text.replace(/\n/g, '\r\n'); // 改行コードをwindowsようにする
 
 	var sjis_array = Encoding.convert(Encoding.stringToCode(text), "SJIS", "UNICODE");
 	var sjis_data = new Uint8Array(sjis_array);
@@ -334,10 +335,10 @@ $('.js-csv').change(function() {
 		// 最大配置可能数
 		var extraRules = textLines[count++];
 		if (extraRules != '') {
-			$(['name=set-unit-num']).val(extraRules);
+			$('[name=set-unit-num]').val(extraRules);
 			count++;
 		} else {
-			$(['name=set-unit-num']).val(0);
+			$('[name=set-unit-num]').val(0);
 		}
 
 		// マップデータ
@@ -383,7 +384,11 @@ function setUnitData(data, $unitCont) {
 	var x = Number(words[0]);
 	var y = Number(words[1]);
 	var id = Number(words[2]);
-	var isEnemy = words[3] == '1';
+	var isEnemy = words[3] == '1' || words[3] == 1;
+
+	if (id == -1) { // idが-1の場合は、自由設置用のIDにコンバート
+		id = Number(FREE_OR_DEL_ID);
+	}
 
 	setUnitId($unitCont.eq(y * MAP_W + x), id, isEnemy);
 }

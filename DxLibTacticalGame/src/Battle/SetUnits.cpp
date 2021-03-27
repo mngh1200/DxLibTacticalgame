@@ -47,4 +47,57 @@ namespace SetUnits {
 				Map::getRealX(massX) + CHIP_SIZE / 2, Map::getRealY(massY));
 		}
 	}
+
+	/**
+	 * @fn
+	 * ユニット配置データを送信
+	 * @param (sender) 送信管理クラス
+	 * @param (map) mapの参照
+	 */
+	void sendSetUnitsData(shared_ptr<Network::SendManager> sender, shared_ptr<Map> map)
+	{
+		for (auto itr = map->unitsBegin(); itr != map->unitsEnd(); ++itr)
+		{
+			shared_ptr<Unit> unit = (*itr).second;
+
+			if (unit->isEnemy())
+			{
+				continue;
+			}
+
+			Network::ContLog contLog = Network::ContLog();
+
+			contLog.x = unit->getMassX();
+			contLog.y = unit->getMassY();
+			contLog.unitId = unit->getObjectId();
+			contLog.actionKind = ActionKind::SET_ACT;
+			contLog.extraValue1 = unit->getInfo().kind;
+
+			sender->sendPlayerContLog(contLog); // 配置情報送信
+		}
+
+		sender->sendSignal(Network::SignalKind::SET_END); // 自由配置終了シグナル送信
+	}
+
+	/**
+	 * @fn
+	 * ユニット配置データを受信
+	 * @param (receiver) 受信管理クラス
+	 * @param (map) mapの参照
+	 */
+	void receiveSetUnitsData(Network::ReceiveManager* receiver, shared_ptr<Map> map)
+	{
+		while (true)
+		{
+			Network::ContLog contLog = receiver->getNextContLog(false);
+
+			if (contLog.actionKind != ActionKind::SET_ACT) // 自由配置以外の場合、終了
+			{
+				break;
+			}
+
+			map->setUnit(contLog.x, contLog.y, contLog.extraValue1, true, contLog.unitId);
+			receiver->popContLog(); // 戦闘の操作ログ削除
+		}
+	}
 }

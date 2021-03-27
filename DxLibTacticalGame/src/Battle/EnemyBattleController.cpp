@@ -7,6 +7,7 @@ namespace Battle {
 	 * @fn
 	 * 初期処理
 	 * @param (map) マップのポインタ
+	 * @param (aiKind) AIの種類
 	 */
 	void EnemyBattleController::init(shared_ptr<Map> map, int aiKind)
 	{
@@ -14,7 +15,7 @@ namespace Battle {
 		ai_ = make_unique<EnemyAI>();
 		ai_->init(map);
 
-		if (aiKind == AiKind::SELF_DEFENCE_ONLY)
+		if (aiKind == AiKind::SELF_DEFENCE_ONLY) // 防衛のみAIの場合
 		{
 			Oriented oriented = {};
 			oriented.stay = 100;
@@ -45,10 +46,8 @@ namespace Battle {
 		DxLib::ScreenFlip();
 		*/
 
-		int phase = bm->getPhase();
-
 		// アニメーション中
-		if (phase == BattleManager::Phase::FIGHT || phase == BattleManager::Phase::MOVE)
+		if (bm->isAnimation())
 		{
 			return false;
 		}
@@ -71,7 +70,7 @@ namespace Battle {
 		// 操作命令チェック
 		Order order = ai_->getNextOrder(); // 次の操作命令を取得
 
-		if (order.kind == Order::Kind::NONE) // 命令なしの場合
+		if (order.kind == ActionKind::NO_ACTION) // 命令なしの場合
 		{
 			if (ai_->createOrders(map_)) // 新しい操作命令生成
 			{
@@ -83,18 +82,18 @@ namespace Battle {
 			}
 		}
 
-		if (order.kind == Order::Kind::MOVE) // 移動
+		if (order.kind == ActionKind::MOVE_ACT) // 移動
 		{
 			bm->selectUnit(order.unit);
 			bm->moveAction(order.massX, order.massY);
 		}
-		else if (order.kind == Order::Kind::ATACK) // 攻撃
+		else if (order.kind == ActionKind::ATACK_ACT) // 攻撃
 		{
 			bm->setFightPredict(map_->getUnit(order.massX, order.massY));
 			setTimerEvent(1500, TimerEvent::ATACK); // 戦闘予測出してから一定時間後に攻撃実行
 			
 		}
-		else if (order.kind == Order::Kind::WAIT) // 待機
+		else if (order.kind == ActionKind::WAIT_ACT) // 待機
 		{
 			bm->waitAction();
 		}

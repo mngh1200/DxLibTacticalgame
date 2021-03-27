@@ -6,7 +6,7 @@
 #include "UnitStatusDisplay.h"
 #include "TerrainEffectDisplay.h"
 #include "FightPredictDisplay.h"
-#include "EnemySpeedController.h"
+#include "EnemyTurnCont.h"
 #include "SelectUnitArea.h"
 #include "Entity/UI/Button/BuiConfirmButton.h"
 
@@ -34,6 +34,7 @@ namespace Battle
 			FIGHT_PREDICT,
 			TURN_END_BUTTON,
 			ENEMY_SPEED_CONTROLLER,
+			ENEMY_TURN_CONT,
 			SELECT_UNIT_AREA,
 			CONFIRM_UNIT_SET,
 			UIID_LEN
@@ -47,7 +48,10 @@ namespace Battle
 		void removeSetUnitCount();
 		int getSelectedUnitId() const;
 
-		void onStartTurn(bool isPlayer);
+		void onStartTurn(bool isPlayer, bool isNetMatch = false);
+
+		void startWaitEnemySet();
+		void endWaitEnemySet();
 
 		void setTargetUnit(shared_ptr<Unit> unit);
 		void resetTargetUnit();
@@ -87,8 +91,8 @@ namespace Battle
 		//! ターン終了ボタン
 		shared_ptr<BuiConfirmButton> turnEndButton_;
 
-		//! 敵ターンスピード調整ボタン
-		shared_ptr<EnemySpeedController> enemySpeedController_;
+		//! 敵ターン中の右下のオブジェクト
+		shared_ptr<EnemyTurnCont> enemyTurnCont_;
 
 		//! ユニット選択欄
 		shared_ptr<SelectUnitArea> selectUnitArea_;

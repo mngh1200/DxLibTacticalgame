@@ -16,7 +16,10 @@
 #include "Battle/SetUnits.h"
 #include "Entity/Battle/Map.h"
 #include "Entity/Unit/Unit.h"
-#include "Entity/UI/Menu/ContextMenu.h"
+#include "Entity/UI/ContextMenu.h"
+#include "Entity/UI/Dialog.h"
+#include "Network/ReceiveManager.h"
+#include "Network/SendManager.h"
 
 using namespace std;
 
@@ -30,7 +33,16 @@ namespace Screen
 	class BattleScreen : public ScreenBase
 	{
 	public:
-		BattleScreen() : btlMng_{}, playerBtlCont_{},  openScreen_(-1), stageId_(0), isSetUnit_(false) {};
+		BattleScreen() : 
+			btlMng_{},
+			playerBtlCont_{},
+			stageId_(0), 
+			setUnitNum_(0),
+			isNetMatch_(false),
+			nextScreen_(),
+			isFirst_(true),
+			isServer_(true)
+		{};
 		~BattleScreen() {};
 
 		// レイヤー
@@ -38,6 +50,7 @@ namespace Screen
 		{
 			MASK,
 			TOP_UI,
+			DIALOG_FRAME,
 			CONTEXT_MENU,
 			EFFECT,
 			UI,
@@ -61,7 +74,10 @@ namespace Screen
 
 		void setStage(int id);
 
+		void prepareNetMatch(int netHandler, bool isServer, int mapId, int unitNum, bool isFirst);
+
 	private:
+		void updateNetwork();
 		void startBattle();
 		void turnEnd();
 		void confirmSetUnits();
@@ -77,14 +93,14 @@ namespace Screen
 		// 敵ユニット操作クラス
 		Battle::EnemyBattleController enemyBtlCont_;
 
-		// ユニット配置シーンの有無
-		bool isSetUnit_;
+		// 配置可能ユニット数
+		int setUnitNum_;
 
 		//! 選択ステージのID
 		int stageId_;
 
 		//! 表示対象スクリーン
-		int openScreen_;
+		ScreenBase* nextScreen_;
 
 		//! システムメニュー
 		shared_ptr<Entity::ContextMenu> systemMenu_;
@@ -96,17 +112,40 @@ namespace Screen
 			CHECK_WIN_TEXT,		//! 勝敗条件
 			HINT,				//! ヒント表示
 			BACK_SELECT_SCREEN,	//! セレクト画面へ戻る
-			BACK_MENU_SCREEN	//! メニュー画面へ戻る
+			BACK_MENU_SCREEN,	//! メニュー画面へ戻る
+			CLOSE_NETWORK		//! 切断
 		};
 
 		// シーンの種類
 		enum Scene
 		{
-			SET_UNITS,		//! ユニット配置	
+			SET_UNITS,		//! ユニット配置
+			WAIT_ENEMY_SET, //! 敵側のユニット配置待ち
 			PLAYER_TURN,	//! プレイヤーターン
 			ENEMY_TURN,		//! 敵ターン
 			RESULT_ANIME,	//! 勝敗結果前のアニメーション
-			RESULT			//! 勝敗結果
+			RESULT,			//! 勝敗結果
+			NETWORK_CLOSE	//! 相手から通信切断されたとき
 		};
+
+		// 以下、通信対戦関連
+
+		//! 通信対戦であるか
+		bool isNetMatch_;
+
+		//! サーバー側であるか
+		bool isServer_;
+
+		//! 先攻/後攻
+		bool isFirst_;
+
+		//! 受信管理
+		shared_ptr<Network::SendManager> sender_;
+
+		//! 送信管理
+		Network::ReceiveManager receiver_;
+
+		//! ダイアログ
+		Dialog dialog_;
 	};
 }

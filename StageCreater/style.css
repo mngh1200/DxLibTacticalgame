@@ -205,8 +205,7 @@ body {
 }
 
 [data-unit-key=free-or-delete][data-is-enemy="0"]:before {
-	background-size: 100%;
-	background-image: url(../../DxLibTacticalGame/DxLibTacticalGame/resource/image/map/state-movable.png);
+	background-image: url(../../DxLibTacticalGame/DxLibTacticalGame/resource/image/map/mass-state.png);
 	visibility: visible;
 }
 

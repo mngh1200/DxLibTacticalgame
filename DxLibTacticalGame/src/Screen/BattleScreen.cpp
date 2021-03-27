@@ -2,7 +2,6 @@
 
 namespace Screen
 {
-
 	/**
 	 * @fn
 	 * 初期処理
@@ -25,19 +24,38 @@ namespace Screen
 
 		systemMenu_->addMenuButton(SystemMenuKey::TURN_END, "ターン終了");
 		systemMenu_->addMenuButton(SystemMenuKey::CHECK_WIN_TEXT, "勝敗条件");
-		systemMenu_->addMenuButton(SystemMenuKey::HINT, "ヒント");
-		systemMenu_->addMenuButton(SystemMenuKey::BACK_SELECT_SCREEN, "セレクト画面に戻る");
-		systemMenu_->addMenuButton(SystemMenuKey::BACK_MENU_SCREEN, "メニュー画面に戻る");
+
+		if (isNetMatch_) // 通信対戦
+		{
+			systemMenu_->addMenuButton(SystemMenuKey::CLOSE_NETWORK, "切断");
+		}
+		else // 標準
+		{
+			systemMenu_->addMenuButton(SystemMenuKey::HINT, "ヒント");
+			systemMenu_->addMenuButton(SystemMenuKey::BACK_SELECT_SCREEN, "セレクト画面に戻る");
+			systemMenu_->addMenuButton(SystemMenuKey::BACK_MENU_SCREEN, "メニュー画面に戻る");
+		}
+
+
 
 		// マップ（マス）
 		shared_ptr<Entity::Map> map = make_shared<Entity::Map>();
 		objectsControl.addObject(Layer::MAP, 0, map);
 		
 		// バトル管理用クラスの初期処理
-		int aiKind;
-		btlMng_.init(map, stageId_, &isSetUnit_, &aiKind);
-		playerBtlCont_.init(map);
-		enemyBtlCont_.init(map, aiKind);
+		if (isNetMatch_) // 通信対戦
+		{
+			btlMng_.init(map, stageId_, setUnitNum_, isServer_, sender_);
+			playerBtlCont_.init(map);
+			enemyBtlCont_.init(map, 0);
+		}
+		else // 標準
+		{
+			int aiKind;
+			btlMng_.init(map, stageId_, &setUnitNum_, &aiKind);
+			playerBtlCont_.init(map);
+			enemyBtlCont_.init(map, aiKind);
+		}
 
 		// オーバーレイセット
 		createOverlay(true);
@@ -66,35 +84,45 @@ namespace Screen
 				// システムメニュー関連イベント
 				int systemMenuKey = systemMenu_->checkRunButton(x, y, eventType);
 
-				if (systemMenuKey == SystemMenuKey::TURN_END)
+				if (systemMenuKey == SystemMenuKey::TURN_END) // ターンエンド
 				{
 					// ターンエンド処理
 					turnEnd();
 					systemMenu_->hide();
 				}
-				else if (systemMenuKey == SystemMenuKey::HINT)
+				else if (systemMenuKey == SystemMenuKey::HINT) // ヒント
 				{
 					showHint();
 					systemMenu_->hide();
 				}
-				else if (systemMenuKey == SystemMenuKey::CHECK_WIN_TEXT)
+				else if (systemMenuKey == SystemMenuKey::CHECK_WIN_TEXT) // 勝敗条件
 				{
 					showCheckWinText();
 					systemMenu_->hide();
 				}
-				else if (systemMenuKey == SystemMenuKey::BACK_SELECT_SCREEN || systemMenuKey == SystemMenuKey::BACK_MENU_SCREEN)
+				else if (systemMenuKey == SystemMenuKey::BACK_SELECT_SCREEN) // セレクト画面
 				{
-					// 特定画面に戻る
-					openScreen_ = systemMenuKey;
+					nextScreen_ = new SelectScreen();
+					createOverlay(false);
+				}
+				else if (systemMenuKey == SystemMenuKey::BACK_MENU_SCREEN) // メニュー画面
+				{
+					nextScreen_ = new MenuScreen();
+					createOverlay(false);
+				}
+				else if (systemMenuKey == SystemMenuKey::CLOSE_NETWORK) // 切断
+				{
+					DxLib::CloseNetWork(receiver_.getNetHandle());
+					nextScreen_ = new NetworkScreen();
 					createOverlay(false);
 				}
 				else if (eventType == MOUSE_INPUT_LOG_UP || (eventType == MOUSE_INPUT_LOG_CLICK && hitObjSp != systemMenu_))
 				{
-					systemMenu_->hide();
+					systemMenu_->hide(); // コンテキストメニューを閉じる
 
 					if (button == MOUSE_INPUT_RIGHT) // 右マウスダウン
 					{
-						systemMenu_->show(x, y);
+						systemMenu_->show(x, y); // コンテキストメニューを開く
 					}
 				}
 				
@@ -126,11 +154,27 @@ namespace Screen
 					SetUnits::onClick(x, y, btlMng_.map, &btlMng_.battleUI, &btlMng_.tutorial, &btlMng_);
 				}
 			}
-			else if (nowScene_ == Scene::RESULT && eventType == MOUSE_INPUT_LOG_CLICK)
+			else if (nowScene_ == Scene::RESULT && eventType == MOUSE_INPUT_LOG_CLICK) // 勝敗結果画面
 			{
-				// 勝敗画面時は、クリックすることでセレクト画面に遷移
-				openScreen_ = SystemMenuKey::BACK_SELECT_SCREEN;
+				// 画面クリックで画面遷移
+				if (isNetMatch_) // 通信対戦時
+				{
+					nextScreen_ = new NetworkScreen();
+				}
+				else // 標準時
+				{
+					nextScreen_ = new SelectScreen();
+				}
+				
 				createOverlay(false);
+			}
+			else if (nowScene_ == Scene::NETWORK_CLOSE) // 相手のネットワーク切断時
+			{
+				if (eventType == MOUSE_INPUT_LOG_CLICK && dialog_.isEqualsOkBtn(hitObjSp)) // ダイアログのOKボタンクリック時
+				{
+					nextScreen_ = new MenuScreen();
+					createOverlay(false);
+				}
 			}
 		}
 	}
@@ -141,9 +185,14 @@ namespace Screen
 	*/
 	void BattleScreen::updateByAnimation()
 	{
+		if (isNetMatch_) // 通信対戦関連処理
+		{
+			updateNetwork();
+		}
+
 		btlMng_.animationCheck(); // バトル管理系の処理
 
-		if (nowScene_ == Scene::ENEMY_TURN) // 敵ターン
+		if (!isNetMatch_ && nowScene_ == Scene::ENEMY_TURN) // 敵ターン
 		{
 			if (enemyBtlCont_.update(&btlMng_))
 			{
@@ -192,7 +241,7 @@ namespace Screen
 		}
 		else if (isOpenOverlayEnded()) // オーバーレイ開く
 		{
-			if (isSetUnit_) // ユニット配置
+			if (setUnitNum_ > 0) // ユニット配置
 			{
 				nowScene_ = Scene::SET_UNITS;
 			}
@@ -203,15 +252,10 @@ namespace Screen
 		}	
 		else if (isCloseOverlayEnded()) // オーバレイ閉じる
 		{
-			if (openScreen_ == SystemMenuKey::BACK_MENU_SCREEN)
-			{
-				// メニュー画面に戻る
-				FrameWork::Game::getInstance().setScreen(new MenuScreen());
-			}
-			else if (openScreen_ == SystemMenuKey::BACK_SELECT_SCREEN)
+			if (nextScreen_ != nullptr)
 			{
 				// セレクト画面に戻る
-				FrameWork::Game::getInstance().setScreen(new SelectScreen());
+				FrameWork::Game::getInstance().setScreen(nextScreen_);
 			}
 		}
 	}
@@ -227,12 +271,86 @@ namespace Screen
 
 	/**
 	 * @fn
+	 * 通信対戦できる状態を準備
+	 * @param (isServer) サーバー側であるか
+	 * @param (mapId) マップID
+	 * @param (unitNum) ユニット数
+	*/
+	void BattleScreen::prepareNetMatch(int netHandle, bool isServer, int mapId, int unitNum, bool isFirst)
+	{
+		sender_ = make_shared<Network::SendManager>(); // 送信管理クラスの初期化
+
+		isNetMatch_ = true;
+		stageId_ = mapId;
+		setUnitNum_ = unitNum;
+		isServer_ = isServer;
+		isFirst_ = isFirst;
+
+		sender_->setNetHandle(netHandle);
+		receiver_.setNetHandle(netHandle);
+	}
+
+	/**
+	 * @fn
+	 * 通信対戦関連の更新処理
+	*/
+	void BattleScreen::updateNetwork()
+	{
+		if (nowScene_ == Scene::NETWORK_CLOSE)
+		{
+			return;
+		}
+
+		// 切断された場合
+		if (DxLib::GetLostNetWork() == receiver_.getNetHandle())
+		{
+			DxLib::CloseNetWork(receiver_.getNetHandle());
+			nowScene_ = Scene::NETWORK_CLOSE;
+
+			// ダイアログ表示
+			FrameWork::Game& game = FrameWork::Game::getInstance();
+			Entity::ObjectsControl& objectsControl = game.objectsControl;
+
+			dialog_.show("相手が通信を切断しました\nメインメニューに戻ります", Layer::DIALOG_FRAME, Layer::TOP_UI);
+		}
+
+		receiver_.receive(); // データ受信
+
+		if (nowScene_ == Scene::WAIT_ENEMY_SET) // 敵プレイヤーのユニット配置待ち
+		{
+			if (receiver_.checkReceiveSignal(SignalKind::SET_END)) // 敵プレイヤー配置完了
+			{
+				SetUnits::receiveSetUnitsData(&receiver_, btlMng_.map); // 敵ユニットの配置
+				btlMng_.battleUI.endWaitEnemySet();
+				startBattle();
+			}
+		}
+		else if (nowScene_ == Scene::ENEMY_TURN) // 敵ターン
+		{
+			if (receiver_.execEnemyAction(&btlMng_, btlMng_.map, Layer::ENEMY_UNIT))
+			{
+				turnEnd(); // 敵ターン終了
+			}
+		}
+	}
+
+	/**
+	 * @fn
 	 * バトル開始
 	*/
 	void BattleScreen::startBattle()
 	{
-		nowScene_ = Scene::PLAYER_TURN;
-		btlMng_.onStartTurn(true);
+		if (isFirst_)
+		{
+			nowScene_ = Scene::PLAYER_TURN;
+			btlMng_.onStartTurn(true);
+		}
+		else
+		{
+			nowScene_ = Scene::ENEMY_TURN;
+			btlMng_.onStartTurn(false);
+		}
+
 	}
 
 	/**
@@ -245,6 +363,11 @@ namespace Screen
 
 		if (nowScene_ == Scene::PLAYER_TURN) // プレイヤーターン終了
 		{
+			if (isNetMatch_)
+			{
+				sender_->sendSignal(Network::SignalKind::TURN_END); // ターン終了信号を送信
+			}
+
 			nowScene_ = Scene::ENEMY_TURN;
 			btlMng_.onStartTurn(false);
 		}
@@ -263,7 +386,17 @@ namespace Screen
 	{
 		btlMng_.battleUI.endSelectUnitMode();
 		btlMng_.map->clearMassUnitSet();
-		startBattle();
+
+		if (isNetMatch_)
+		{
+			nowScene_ = Scene::WAIT_ENEMY_SET;
+			btlMng_.battleUI.startWaitEnemySet();
+			SetUnits::sendSetUnitsData(sender_, btlMng_.map); // 配置情報送信
+		}
+		else
+		{
+			startBattle();
+		}
 	}
 
 	/**

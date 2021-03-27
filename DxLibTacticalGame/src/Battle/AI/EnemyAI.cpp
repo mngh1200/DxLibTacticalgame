@@ -152,17 +152,17 @@ namespace Battle {
 		}
 
 		// ˆÚ“®–½—ß
-		orders_.push_back(Order{Order::Kind::MOVE, unit, targetPos.first, targetPos.second});
+		orders_.push_back(Order{ActionKind::MOVE_ACT, unit, targetPos.first, targetPos.second});
 
 		if (targetUnit)
 		{
 			// UŒ‚–½—ß
-			orders_.push_back(Order{ Order::Kind::ATACK, unit, targetUnit->getMassX(), targetUnit->getMassY()});
+			orders_.push_back(Order{ ActionKind::ATACK_ACT, unit, targetUnit->getMassX(), targetUnit->getMassY()});
 		}
 		else
 		{
 			// ‘Ò‹@–½—ß
-			orders_.push_back(Order{ Order::Kind::WAIT});
+			orders_.push_back(Order{ ActionKind::WAIT_ACT});
 		}
 
 		return true;

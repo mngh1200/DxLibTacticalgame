@@ -20,10 +20,10 @@ namespace Entity
 	{
 	public:
 		Text();
-		Text(string text, int x, int y, int fontType, int colorType, int align = LEFT);
+		Text(const char* text, int x, int y, int fontType, int colorType, int align = LEFT);
 		~Text() {};
 
-		void setText(string text);
+		void setText(const char* text);
 
 		void setY(int y);
 

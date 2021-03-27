@@ -1,4 +1,5 @@
 #include "Object.h"
+#include "FrameWork/Game.h"
 
 namespace Entity {
 	/**
@@ -35,12 +36,14 @@ namespace Entity {
 						
 						if (isMouseDown_)
 						{
-
 							onMouseClick(x, y);
-							// eventTypeをクリックに書き換える TODO:不具合
 							*eventType = MOUSE_INPUT_LOG_CLICK;
 
-
+							if (!isFocus_) // フォーカス
+							{
+								isFocus_ = true;
+								onFocus();
+							}
 						}
 							
 						isMouseDown_ = false;
@@ -83,5 +86,35 @@ namespace Entity {
 			}
 		}
 		return isHit;
+	}
+
+	/**
+	 * @fn
+	 * フォーカスを外した時の共通処理（または、処理により強制的にフォーカスアウトするときに呼び出す）
+	 */
+	void Object::onBlurBase()
+	{
+		isFocus_ = false;
+		onBlur();
+	}
+
+	/**
+	 * @fn
+	 * 処理により強制的にフォーカスするときに呼び出す
+	 */
+	void Object::onForceFocus()
+	{
+		FrameWork::Game& game = FrameWork::Game::getInstance();
+		shared_ptr<Object> prevFocusObject = game.objectsControl.focusObject.lock();
+
+		if (prevFocusObject)
+		{
+			prevFocusObject->onBlurBase();
+		}
+
+		isFocus_ = true;
+		onFocus();
+
+		game.objectsControl.focusObject = game.objectsControl.getObjectWp(getLayerId(), getObjectId());
 	}
 }

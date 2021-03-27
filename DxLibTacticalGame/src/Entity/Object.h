@@ -6,6 +6,11 @@
 #include "DxLib.h"
 #include "Define.h"
 
+namespace FrameWork
+{
+	class Game;
+}
+
 /**
  * @file Object.h
  * @brief マウスイベントを検知する画面内要素の抽象クラス
@@ -17,10 +22,13 @@ namespace Entity
 	{
 	public:
 
-		Object() : isMouseDown_(false), isMouseOver_(false) { isView_ = false; };
+		Object() : isMouseDown_(false), isMouseOver_(false), isFocus_(false){ isView_ = false; };
 		virtual ~Object() {};
 
 		bool checkMouseEvent(int x, int y, int button, int* eventType, bool isOtherHit);
+
+		void onBlurBase();
+		void onForceFocus();
 
 	protected:
 		/**
@@ -70,11 +78,24 @@ namespace Entity
 		 * マウスのホイールボタンが押し上げられた瞬間の処理
 		 */
 		virtual void onMouseWheelUp(int x, int y) {};
+		/**
+		 * @fn
+		 * 要素をフォーカスした瞬間の処理
+		 */
+		virtual void onFocus() {};
+		/**
+		 * @fn
+		 * 要素からフォーカスを外した瞬間の処理
+		 */
+		virtual void onBlur() {};
 
 		//! マウスに左ボタンで押下されているか（とりあえず左ボタンだけ）
 		bool isMouseDown_;
 
 		//! マウスにホバーされているか
 		bool isMouseOver_;
+
+		//! 要素をフォーカス中であるか（最後にクリックした要素であるか）
+		bool isFocus_;
 	};
 }

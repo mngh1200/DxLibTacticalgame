@@ -6,6 +6,7 @@
 #include "Entity/Object.h"
 #include "Entity/Battle/Mass.h"
 #include "Utility/ResourceManager.h"
+#include "Network/SendManager.h"
 
 using namespace std;
 
@@ -33,7 +34,7 @@ namespace Entity
 
 		void render() const override;
 
-		void setUnit(int massX, int massY, int kind, bool isEnemy = false);
+		void setUnit(int massX, int massY, int kind, bool isEnemy = false, int objectId = -1);
 		shared_ptr<Unit> getUnit(int massX, int massY);
 		void eraseUnit(shared_ptr<Unit> unit);
 
@@ -42,7 +43,7 @@ namespace Entity
 		map<pair<int, int>, shared_ptr<Unit>>::iterator unitsBegin();
 		map<pair<int, int>, shared_ptr<Unit>>::iterator unitsEnd();
 
-		void confirmMove(shared_ptr<Unit> unit);
+		void confirmMove(shared_ptr<Unit> unit, shared_ptr<Network::SendManager> sender);
 
 		void displayMovableRange(shared_ptr<Unit> unit);
 		void getMovableMasses(shared_ptr<Unit> unit, int x, int y, int move, vector<pair<int, int>> &posList, bool isInit = true);
