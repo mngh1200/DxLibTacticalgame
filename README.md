@@ -1,6 +1,12 @@
 # DxLibTacticalgame
 DXライブラリ（c++）で作成している戦略シミュレーションゲーム
 
+## 動作環境
+
+Windows版のDxLibの動作環境に準拠します。
+
+WindowsXP 以降のＯＳ
+DirectX9 以降がインストールされていること
 
 ## ライセンス
 
