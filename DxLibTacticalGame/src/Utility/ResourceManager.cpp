@@ -335,7 +335,7 @@ namespace Utility {
 
 	void ResourceManager::loadFont(const LPCSTR fontFilePath)
 	{
-		int FontFileSize = FileRead_size(fontFilePath);
+		int FontFileSize = (int)(FileRead_size(fontFilePath));
 		// フォントファイルを開く
 		int FontFileHandle = FileRead_open(fontFilePath);
 

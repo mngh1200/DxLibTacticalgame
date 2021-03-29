@@ -29,7 +29,7 @@ namespace Network
 
 		bool receive();
 		void getRuleData(RuleData& ruleData);
-		const ContLog& getNextContLog(bool isDelete);
+		const ContLog getNextContLog(bool isDelete);
 		void popContLog();
 		bool checkReceiveSignal(int signal);
 

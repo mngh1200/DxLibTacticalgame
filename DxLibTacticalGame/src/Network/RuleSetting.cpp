@@ -165,8 +165,8 @@ namespace Network
 			ruleData_ = RuleData{ stoi(unitNumBuf), mapSelect_->getSelectedNum(), isFirst };
 			return true;
 		}
-		catch (const std::invalid_argument& e) {}
-		catch (const std::out_of_range& e) {}
+		catch (const std::invalid_argument&) {}
+		catch (const std::out_of_range&) {}
 
 		return false;
 	}

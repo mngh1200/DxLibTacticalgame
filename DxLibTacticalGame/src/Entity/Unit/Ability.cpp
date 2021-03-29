@@ -28,7 +28,7 @@ namespace Entity {
 		{
 			return LABELS[kind];
 		}
-		catch (std::out_of_range& oor) {}
+		catch (std::out_of_range&) {}
 		return "";
 		
 	}
@@ -44,7 +44,7 @@ namespace Entity {
 		{
 			return DESCRIPTIONS[kind];
 		}
-		catch (std::out_of_range& oor) {}
+		catch (std::out_of_range&) {}
 		return "";
 	}
 

@@ -29,7 +29,7 @@ namespace Network
 	 * @param(isDelete) trueの場合、先頭の操作ログ削除
 	 * @return 次の敵プレイヤーの操作ログ（ない場合はactionKind = -1の状態で返す）
 	 */
-	const ContLog& ReceiveManager::getNextContLog(bool isDelete)
+	const ContLog ReceiveManager::getNextContLog(bool isDelete)
 	{
 		if (enemyPlayerContLogs_.size() > 0)
 		{
@@ -142,6 +142,7 @@ namespace Network
 		{
 			// DxLib::printfDx(charBuf);
 
+			charBuf[1024 - 1] = 0; // 警告が表示されていたため対策
 			string strBuf = string(charBuf);
 
 			std::istringstream iStream(strBuf);
@@ -165,8 +166,8 @@ namespace Network
 				{
 					dataType = stoi(valList.at(0));
 				}
-				catch (const std::invalid_argument& e) {}
-				catch (const std::out_of_range& e) {}
+				catch (const std::invalid_argument&) {}
+				catch (const std::out_of_range&) {}
 				
 
 				if (dataType == NetworkDataType::SIGNAL) // 単一数値情報
@@ -206,8 +207,8 @@ namespace Network
 
 			isReceivedRule_ = true;
 		}
-		catch (const std::invalid_argument& e) {}
-		catch (const std::out_of_range& e) {}
+		catch (const std::invalid_argument&) {}
+		catch (const std::out_of_range&) {}
 	}
 
 	/**
@@ -239,8 +240,8 @@ namespace Network
 			
 			enemyPlayerContLogs_.push(ContLog{ x, y, unitId, actionKind, extraValue1, extraValue2 });
 		}
-		catch (const std::invalid_argument& e) {}
-		catch (const std::out_of_range& e) {}
+		catch (const std::invalid_argument&) {}
+		catch (const std::out_of_range&) {}
 	}
 
 	/**
@@ -255,7 +256,7 @@ namespace Network
 			int signal = stoi(valList.at(1));
 			signalList_.push_back(signal);
 		}
-		catch (const std::invalid_argument& e) {}
-		catch (const std::out_of_range& e) {}
+		catch (const std::invalid_argument&) {}
+		catch (const std::out_of_range&) {}
 	}
 }

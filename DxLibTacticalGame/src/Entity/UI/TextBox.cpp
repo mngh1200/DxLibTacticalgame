@@ -270,7 +270,7 @@ namespace Entity {
 		text_ = text;
 
 		// エンターまたはタブを押した時 または、最大長まで入力した時　次の要素へ移動
-		if (cont.isKeyPressedNow(KEY_INPUT_TAB) || cont.isKeyPressedNow(KEY_INPUT_RETURN) || (text_.length() >= maxLength_ && isChange))
+		if (cont.isKeyPressedNow(KEY_INPUT_TAB) || cont.isKeyPressedNow(KEY_INPUT_RETURN) || ((int)(text_.length()) >= maxLength_ && isChange))
 		{
 			shared_ptr<TextBox> nextInput = nextInput_.lock();
 			if (nextInput)
