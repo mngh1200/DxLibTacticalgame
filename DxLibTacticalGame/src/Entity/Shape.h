@@ -20,6 +20,11 @@ namespace Entity
 		int getX2() const;
 		int getY2() const;
 
+		float getXf() const;
+		float getYf() const;
+		float getX2f() const;
+		float getY2f() const;
+
 		void set(int x, int y);
 		void set(int x, int y, int w, int h);
 		void set(int x, int y, int w, int h, int type);

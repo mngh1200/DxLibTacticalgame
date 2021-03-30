@@ -65,11 +65,11 @@ namespace Entity {
 		// 勝敗テキスト
 		if (isPlayerWin_)
 		{
-			DxLib::DrawStringFToHandle(textX_, 100, text.c_str(), rm.getColor(ColorType::PLAYER_COLOR), rm.getHdlFont(FontType::BLACK_S64));
+			DxLib::DrawStringFToHandle((float)textX_, 100, text.c_str(), rm.getColor(ColorType::PLAYER_COLOR), rm.getHdlFont(FontType::BLACK_S64));
 		}
 		else
 		{
-			DxLib::DrawStringFToHandle(textX_, 100, text.c_str(), rm.getColor(ColorType::ENEMY_COLOR), rm.getHdlFont(FontType::BLACK_S64));
+			DxLib::DrawStringFToHandle((float)textX_, 100, text.c_str(), rm.getColor(ColorType::ENEMY_COLOR), rm.getHdlFont(FontType::BLACK_S64));
 		}
 		
 

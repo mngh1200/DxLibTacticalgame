@@ -103,7 +103,7 @@ namespace Entity {
 	void CourseButton::render() const
 	{
 		// ボタン
-		DxLib::DrawRoundRectAA(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), RECT_ROUND, RECT_ROUND, 8, color_[State::NORMAL], TRUE);
+		DxLib::DrawRoundRectAA(shape_.getXf(), shape_.getYf(), shape_.getX2f(), shape_.getY2f(), RECT_ROUND, RECT_ROUND, 8, color_[State::NORMAL], TRUE);
 
 		// テキスト
 		DxLib::DrawFormatStringToHandle(shape_.x + textX_, shape_.y + textY_, textColor_[State::NORMAL], font_, text_.c_str());

@@ -44,6 +44,46 @@ namespace Entity
 
 	/**
 	 * @fn
+	 * float型でx座標取得
+	 * @return x座標
+	 */
+	float Shape::getXf() const
+	{
+		return (float)x;
+	}
+
+	/**
+	 * @fn
+	 * float型でy座標取得
+	 * @return y座標
+	 */
+	float Shape::getYf() const
+	{
+		return (float)y;
+	}
+
+	/**
+	 * @fn
+	 * float型で右側のx座標取得
+	 * @return 右側のx座標
+	 */
+	float Shape::getX2f() const
+	{
+		return (float)(x + w);
+	}
+
+	/**
+	 * @fn
+	 * float型で下側のy座標取得
+	 * @return 下側のy座標
+	 */
+	float Shape::getY2f() const
+	{
+		return (float)(y + h);
+	}
+
+	/**
+	 * @fn
 	 * 位置セット
 	 * @param (x) x座標
 	 * @param (y) y座標
