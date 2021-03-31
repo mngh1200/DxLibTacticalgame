@@ -36,6 +36,8 @@ namespace Screen
 			systemMenu_->addMenuButton(SystemMenuKey::BACK_MENU_SCREEN, "メニュー画面に戻る");
 		}
 
+		systemMenu_->setDisabledMenuButton(SystemMenuKey::TURN_END, true);
+
 
 
 		// マップ（マス）
@@ -76,47 +78,13 @@ namespace Screen
 
 		if (hitObjSp)
 		{
-
-			if (nowScene_ == Scene::PLAYER_TURN) // プレイヤーターン
+			// システムメニュー関連イベント
+			if (nowScene_ == Scene::PLAYER_TURN || nowScene_ == Scene::ENEMY_TURN || nowScene_ == Scene::SET_UNITS || nowScene_ == Scene::WAIT_ENEMY_SET)
 			{
-				playerBtlCont_.updateByEvents(&btlMng_, hitObjSp, x, y, button, &eventType);
-
-				// システムメニュー関連イベント
 				int systemMenuKey = systemMenu_->checkRunButton(x, y, eventType);
+				execSystemMenuProcess(systemMenuKey);
 
-				if (systemMenuKey == SystemMenuKey::TURN_END) // ターンエンド
-				{
-					// ターンエンド処理
-					turnEnd();
-					systemMenu_->hide();
-				}
-				else if (systemMenuKey == SystemMenuKey::HINT) // ヒント
-				{
-					showHint();
-					systemMenu_->hide();
-				}
-				else if (systemMenuKey == SystemMenuKey::CHECK_WIN_TEXT) // 勝敗条件
-				{
-					showCheckWinText();
-					systemMenu_->hide();
-				}
-				else if (systemMenuKey == SystemMenuKey::BACK_SELECT_SCREEN) // セレクト画面
-				{
-					nextScreen_ = new SelectScreen();
-					createOverlay(false);
-				}
-				else if (systemMenuKey == SystemMenuKey::BACK_MENU_SCREEN) // メニュー画面
-				{
-					nextScreen_ = new MenuScreen();
-					createOverlay(false);
-				}
-				else if (systemMenuKey == SystemMenuKey::CLOSE_NETWORK) // 切断
-				{
-					DxLib::CloseNetWork(receiver_.getNetHandle());
-					nextScreen_ = new NetworkScreen();
-					createOverlay(false);
-				}
-				else if (eventType == MOUSE_INPUT_LOG_UP || (eventType == MOUSE_INPUT_LOG_CLICK && hitObjSp != systemMenu_))
+				if (systemMenuKey == -1 && (eventType == MOUSE_INPUT_LOG_UP || (eventType == MOUSE_INPUT_LOG_CLICK && hitObjSp != systemMenu_)))
 				{
 					systemMenu_->hide(); // コンテキストメニューを閉じる
 
@@ -125,7 +93,11 @@ namespace Screen
 						systemMenu_->show(x, y); // コンテキストメニューを開く
 					}
 				}
-				
+			}
+
+			if (nowScene_ == Scene::PLAYER_TURN) // プレイヤーターン
+			{
+				playerBtlCont_.updateByEvents(&btlMng_, hitObjSp, x, y, button, &eventType);				
 				
 				if (eventType == MOUSE_INPUT_LOG_CLICK)
 				{
@@ -342,6 +314,7 @@ namespace Screen
 	{
 		if (isFirst_)
 		{
+			systemMenu_->setDisabledMenuButton(SystemMenuKey::TURN_END, false);
 			nowScene_ = Scene::PLAYER_TURN;
 			btlMng_.onStartTurn(true);
 		}
@@ -351,6 +324,47 @@ namespace Screen
 			btlMng_.onStartTurn(false);
 		}
 
+	}
+
+	/**
+	 * @fn
+	 * システムメニュー関連の処理を実行
+	 * @param (systemMenuKey) システムメニューキー
+	*/
+	void BattleScreen::execSystemMenuProcess(int systemMenuKey)
+	{
+		if (systemMenuKey == SystemMenuKey::TURN_END) // ターンエンド
+		{
+			// ターンエンド処理
+			turnEnd();
+			systemMenu_->hide();
+		}
+		else if (systemMenuKey == SystemMenuKey::HINT) // ヒント
+		{
+			showHint();
+			systemMenu_->hide();
+		}
+		else if (systemMenuKey == SystemMenuKey::CHECK_WIN_TEXT) // 勝敗条件
+		{
+			showCheckWinText();
+			systemMenu_->hide();
+		}
+		else if (systemMenuKey == SystemMenuKey::BACK_SELECT_SCREEN) // セレクト画面
+		{
+			nextScreen_ = new SelectScreen();
+			createOverlay(false);
+		}
+		else if (systemMenuKey == SystemMenuKey::BACK_MENU_SCREEN) // メニュー画面
+		{
+			nextScreen_ = new MenuScreen();
+			createOverlay(false);
+		}
+		else if (systemMenuKey == SystemMenuKey::CLOSE_NETWORK) // 切断
+		{
+			DxLib::CloseNetWork(receiver_.getNetHandle());
+			nextScreen_ = new NetworkScreen();
+			createOverlay(false);
+		}
 	}
 
 	/**
@@ -370,11 +384,15 @@ namespace Screen
 
 			nowScene_ = Scene::ENEMY_TURN;
 			btlMng_.onStartTurn(false);
+
+			systemMenu_->setDisabledMenuButton(SystemMenuKey::TURN_END, true);
 		}
 		else if (nowScene_ == Scene::ENEMY_TURN) // 敵ターン終了
 		{
 			nowScene_ = Scene::PLAYER_TURN;
 			btlMng_.onStartTurn(true);
+
+			systemMenu_->setDisabledMenuButton(SystemMenuKey::TURN_END, false);
 		}
 	}
 

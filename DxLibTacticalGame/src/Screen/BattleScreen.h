@@ -77,6 +77,7 @@ namespace Screen
 		void prepareNetMatch(int netHandler, bool isServer, int mapId, int unitNum, bool isFirst);
 
 	private:
+		void execSystemMenuProcess(int systemMenuKey);
 		void updateNetwork();
 		void startBattle();
 		void turnEnd();
