@@ -53,7 +53,7 @@ namespace Battle {
 		}
 
 		// タイマーイベントチェック
-		if (timerEvent_ != TimerEvent::NONE)
+		if (timerEvent_ != TimerEvent::TIMER_EVENT_NONE)
 		{
 			if (timer_.checkAndCountTimer())
 			{
@@ -61,7 +61,7 @@ namespace Battle {
 				{
 					bm->atackAction();
 				}
-				timerEvent_ = TimerEvent::NONE;
+				timerEvent_ = TimerEvent::TIMER_EVENT_NONE;
 			}
 			return false; // タイマーイベント中は操作命令の進行はしない
 		}

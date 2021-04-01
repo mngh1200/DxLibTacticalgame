@@ -15,7 +15,7 @@ namespace Screen
 		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
 
 		// 背景
-		shared_ptr<Entity::Back> back = make_shared<Entity::Back>(Entity::Back::Screen::BATTLE);
+		shared_ptr<Entity::Back> back = make_shared<Entity::Back>(Entity::Back::ScreenKind::BATTLE_SCREEN);
 		objectsControl.addObject(Layer::BACK, 0, back);
 
 		// システムメニュ-

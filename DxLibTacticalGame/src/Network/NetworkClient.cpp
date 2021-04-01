@@ -96,7 +96,7 @@ namespace Network
 	*/
 	void NetworkClient::end()
 	{
-		state_ = State::NONE;
+		state_ = State::NONE_CONENECT;
 
 		FrameWork::Game& game = FrameWork::Game::getInstance();
 		Entity::ObjectsControl& objectsControl = game.objectsControl;
@@ -151,7 +151,7 @@ namespace Network
 			if (DxLib::GetLostNetWork() == netHandle_)
 			{
 				statusText_->setText("ホストから切断されました\n再接続してください");
-				setState(State::NONE);
+				setState(State::NONE_CONENECT);
 				DxLib::CloseNetWork(netHandle_);
 			}
 		}
@@ -173,7 +173,7 @@ namespace Network
 				}
 				
 				// 初期状態
-				if (state_ == State::NONE)
+				if (state_ == State::NONE_CONENECT)
 				{
 					if (hitObjSp == connectButton_ && ableConnecButton_) // 接続
 					{
@@ -216,7 +216,7 @@ namespace Network
 	{
 		ableConnecButton_ = false; // 有効 / 無効
 
-		if (state_ == State::NONE) // 初期状態
+		if (state_ == State::NONE_CONENECT) // 初期状態
 		{
 			bool isBlank = false; // 空欄の項目があるか
 			for (auto itr = ipAdressInputList_.begin(); itr != ipAdressInputList_.end(); ++itr)

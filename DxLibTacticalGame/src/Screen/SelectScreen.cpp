@@ -17,7 +17,7 @@ namespace Screen
 		Utility::SaveManager& saveManager = Utility::SaveManager::getInstance();
 
 		objectsControl.setLayer(Layer::LEN);
-		objectsControl.addObject(Layer::BACK, 0, make_shared<Entity::Back>(Entity::Back::Screen::SELECT));
+		objectsControl.addObject(Layer::BACK, 0, make_shared<Entity::Back>(Entity::Back::ScreenKind::SELECT));
 		
 		// 左上のテキスト
 		objectsControl.addFigure(Layer::UI, make_shared<Entity::Text>("コースセレクト", COURSE_MARGIN_X, PADDING_TOP, ::FontType::NORMAL_S24, ::ColorType::MAIN_COLOR));

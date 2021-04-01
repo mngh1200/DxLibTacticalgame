@@ -20,7 +20,7 @@ namespace Network
 	class NetworkClient
 	{
 	public:
-		NetworkClient() : state_(State::NONE), netHandle_(-1), ableConnecButton_(false) {};
+		NetworkClient() : state_(State::NONE_CONENECT), netHandle_(-1), ableConnecButton_(false) {};
 		~NetworkClient() {};
 
 		void start();
@@ -83,9 +83,9 @@ namespace Network
 		};
 
 		// 状況の種類
-		enum State
+		enum class State
 		{
-			NONE,
+			NONE_CONENECT,
 			CONNECTED	//! 接続済み（ホストのルール設定待機中）
 		};
 		
@@ -102,6 +102,4 @@ namespace Network
 
 		RuleData ruleData_; //! 受信したルール設定データ
 	};
-
-
 }

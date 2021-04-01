@@ -19,7 +19,7 @@ namespace Battle
 	class EnemyBattleController
 	{
 	public:
-		EnemyBattleController() : timerEvent_(TimerEvent::NONE), timer_{} {};
+		EnemyBattleController() : timerEvent_(TimerEvent::TIMER_EVENT_NONE), timer_{} {};
 		~EnemyBattleController() {};
 
 		void init(shared_ptr<Map> map, int aiKind);
@@ -37,9 +37,9 @@ namespace Battle
 		};
 
 		// タイマーイベント
-		enum TimerEvent
+		enum class TimerEvent
 		{
-			NONE,
+			TIMER_EVENT_NONE,
 			ATACK
 		};
 

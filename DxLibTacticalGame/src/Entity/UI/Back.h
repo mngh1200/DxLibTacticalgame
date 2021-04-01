@@ -22,11 +22,11 @@ namespace Entity
 		~Back() {};
 		void render() const override;
 
-		enum Screen
+		enum ScreenKind : int
 		{
 			UNSELECTED,
 			SELECT,
-			BATTLE
+			BATTLE_SCREEN
 		};
 
 	private:
