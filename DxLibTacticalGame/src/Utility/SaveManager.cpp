@@ -8,10 +8,6 @@ namespace Utility {
 		return instance;
 	}
 
-	SaveManager::~SaveManager()
-	{
-	}
-
 	/**
 	 * @fn
 	 * セーブデータファイルのロード
@@ -25,7 +21,8 @@ namespace Utility {
 			// DxLib::printfDx("セーブデータが存在しません。\n新規作成します。");
 			createSavefile();
 		}
-		else {
+		else if (fp != NULL)
+		{
 			fread(&savedata, sizeof(savedata), 1, fp);
 			fclose(fp);
 
@@ -56,7 +53,8 @@ namespace Utility {
 		if ((error = fopen_s(&fp, filename, "wb")) != 0) {
 			// DxLib::printfDx("セーブデータを作成できませんでした。");
 		}
-		else {
+		else if (fp != NULL)
+		{
 			fwrite(&savedata, sizeof(savedata), 1, fp);
 			fclose(fp);
 		}
@@ -76,7 +74,8 @@ namespace Utility {
 		if ((error = fopen_s(&fp, filename, "wb")) != 0) {
 			DxLib::printfDx("セーブデータを作成できませんでした。");
 		}
-		else {
+		else if (fp != NULL)
+		{
 			fwrite(&savedata, sizeof(savedata), 1, fp);
 			fclose(fp);
 		}

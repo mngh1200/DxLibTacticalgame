@@ -17,11 +17,12 @@ namespace Entity {
 
 	/**
 	 * @fn
-	 * コンストラクタ
+	 * 初期処理
+	 * @param (screenKind) 画面の種類
 	 */
-	Back::Back(int screen) : Back()
+	void Back::init(int screenKind)
 	{
-		screen_ = screen;
+		screen_ = screenKind;
 
 		if (screen_ == ScreenKind::SELECT || screen_ == ScreenKind::BATTLE_SCREEN)
 		{

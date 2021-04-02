@@ -17,9 +17,10 @@ namespace Entity
 	{
 	public:
 		Back();
-		Back(int screen);
 
 		~Back() {};
+
+		void init(int screenKind);
 		void render() const override;
 
 		enum ScreenKind : int

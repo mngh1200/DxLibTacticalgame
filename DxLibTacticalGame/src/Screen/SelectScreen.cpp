@@ -17,10 +17,13 @@ namespace Screen
 		Utility::SaveManager& saveManager = Utility::SaveManager::getInstance();
 
 		objectsControl.setLayer(Layer::LEN);
-		objectsControl.addObject(Layer::BACK, 0, make_shared<Entity::Back>(Entity::Back::ScreenKind::SELECT));
+
+		shared_ptr<Entity::Back> back = make_shared<Entity::Back>();
+		back->init(Entity::Back::ScreenKind::SELECT);
+		objectsControl.addObject(Layer::BACK, 0, back);
 		
 		// 左上のテキスト
-		objectsControl.addFigure(Layer::UI, make_shared<Entity::Text>("コースセレクト", COURSE_MARGIN_X, PADDING_TOP, ::FontType::NORMAL_S24, ::ColorType::MAIN_COLOR));
+		objectsControl.addFigure(Layer::UI, make_shared<Entity::Text>("コースセレクト", COURSE_MARGIN_X, PADDING_TOP, (int)FontType::NORMAL_S24, (int)ColorType::MAIN_COLOR));
 
 		// ステージタイトル
 		stageTitle_ = make_shared<Entity::Text>("", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, COURSE_TOP, FontType::NORMAL_S32, ColorType::SUB_COLOR);

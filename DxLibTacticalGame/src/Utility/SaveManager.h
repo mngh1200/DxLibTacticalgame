@@ -42,7 +42,7 @@ namespace Utility
 		SaveManager()
 			:savedata{}
 		{};
-		~SaveManager();
+		~SaveManager() {};
 
 		void createSavefile();
 
