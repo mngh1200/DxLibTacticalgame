@@ -42,7 +42,7 @@ namespace Screen
 		if (isCloseOverlayEnded())
 		{
 			// オーバーレイが閉じたあとに画面遷移
-			FrameWork::Game::getInstance().setScreen(new StartScreen());
+			FrameWork::Game::getInstance().setScreen(new MenuScreen());
 		}
 		
 	}

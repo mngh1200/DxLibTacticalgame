@@ -1,8 +1,7 @@
 #pragma once
 #include <climits>
 #include <memory>
-#include "ScreenBase.h"
-#include "StartScreen.h"
+#include "MenuScreen.h"
 #include "Utility/SaveManager.h"
 #include "Entity/UI/Back.h"
 #include "Entity/View/Text.h"
