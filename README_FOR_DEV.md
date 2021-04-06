@@ -34,6 +34,8 @@
 ```
 root
 ├─DxLibTacticalGame:プロジェクトフォルダ
+├─StageCreater: ステージ作成ツール関連フォルダ
+├─ゲームプレイ用ファイル: ゲームプレイに最低限必要なファイルをまとめたフォルダ
 ├─README.md:リポジトリ概要
 └─README_FOR_DEV.md:開発ルール
 ```
