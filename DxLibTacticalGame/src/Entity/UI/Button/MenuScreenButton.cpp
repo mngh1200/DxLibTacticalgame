@@ -10,7 +10,7 @@ namespace Entity {
 	MenuScreenButton::MenuScreenButton() : animation_ {}
 	{
 		setTextX(TEXT_PADDING_LEFT);
-		setColor(ColorType::MAIN_COLOR, ColorType::SUB_COLOR, State::NORMAL);
+		setColor(ColorType::SUB_COLOR_LITE, ColorType::SUB_COLOR, State::NORMAL);
 		setColor(ColorType::SUB_COLOR, ColorType::MAIN_COLOR, State::MOUSE_OVER);
 		setColor(ColorType::SUB_COLOR, ColorType::MAIN_COLOR, State::MOUSE_DOWN);
 	}
