@@ -193,6 +193,7 @@
     <ClCompile Include="src\Entity\Unit\Gunner.cpp" />
     <ClCompile Include="src\Entity\Unit\Unit.cpp" />
     <ClCompile Include="src\Entity\Unit\UnitInfo.cpp" />
+    <ClCompile Include="src\Entity\View\ImageView.cpp" />
     <ClCompile Include="src\Entity\View\Text.cpp" />
     <ClCompile Include="src\Entity\View\Tooltip.cpp" />
     <ClCompile Include="src\FrameWork\Controller.cpp" />
@@ -260,6 +261,7 @@
     <ClInclude Include="src\Entity\Unit\Gunner.h" />
     <ClInclude Include="src\Entity\Unit\Unit.h" />
     <ClInclude Include="src\Entity\Unit\UnitInfo.h" />
+    <ClInclude Include="src\Entity\View\ImageView.h" />
     <ClInclude Include="src\Entity\View\Text.h" />
     <ClInclude Include="src\Entity\View\Tooltip.h" />
     <ClInclude Include="src\FrameWork\Controller.h" />
