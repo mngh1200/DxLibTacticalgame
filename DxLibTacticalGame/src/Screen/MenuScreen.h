@@ -7,6 +7,7 @@
 #include "SelectScreen.h"
 #include "NetworkScreen.h"
 #include "Entity/UI/Back.h"
+#include "Entity/View/ImageView.h"
 #include "Entity/UI/Button/MenuScreenButton.h"
 #include "Entity/View/Text.h"
 
@@ -29,6 +30,9 @@ namespace Screen
 		void updateByEvents(weak_ptr < Entity::Object> hitObjWp, int x, int y, int button, int eventType);
 		void updateByAnimation();
 	private:
+		constexpr static int TITLE_X = 300; //! タイトルのX座標
+		constexpr static int TITLE_Y = 80; //! タイトルのY座標
+
 		// レイヤーの種類
 		enum Layer
 		{

@@ -12,24 +12,40 @@ namespace Screen
 		FrameWork::Game& game = FrameWork::Game::getInstance();
 		Entity::ObjectsControl& objectsControl = game.objectsControl;
 
-		constexpr int PADDING_LEFT = 100; //! 左側余白
-		constexpr int PADDING_TOP = 100; //! 上側余白
-		constexpr int BUTTON_TOP = 250; //! ボタンY座標
-		constexpr int BUTTON_MARGIN_Y = 20; //! ボタンの縦余白
-		constexpr int BUTTON_WIDTH = 400; //! ボタンの幅
-		constexpr int BUTTON_HEIGHT_S = 85; //! ボタン高さ（Sサイズ）
-		constexpr int BUTTON_HEIGHT_L = 110; //! ボタンの高さ（Lサイズ）
+		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
+
+		constexpr int BUTTON_TOP = 320; //! ボタンY座標
+		constexpr int BUTTON_MARGIN_Y = 25; //! ボタンの縦余白
 
 
 		objectsControl.setLayer(Layer::LEN);
 		objectsControl.addObject(Layer::BACK, 0, make_shared<Entity::Back>());
-		objectsControl.addFigure(Layer::UI, UIid::TITLE, make_shared<Entity::Text>("Spirit Wars", PADDING_LEFT, PADDING_TOP, (int)FontType::BLACK_S48, (int)ColorType::TITLE_TEXT));
+
+		// タイトル
+		
+		// objectsControl.addFigure(Layer::UI, UIid::TITLE, make_shared<Entity::Text>("Spirit Wars", PADDING_LEFT, PADDING_TOP, (int)FontType::BLACK_S48, (int)ColorType::TITLE_TEXT));
+
+		shared_ptr<ImageView> titleImage = make_shared<ImageView>();
+		titleImage->setImageId(rm.getImage(ImageType::IMAGE, ImageId::TITLE_IMAGE_ID));
+		titleImage->setPos(TITLE_X, TITLE_Y);
+		objectsControl.addFigure(Layer::UI, UIid::TITLE, titleImage);
+
 
 		// メニューボタン
-		objectsControl.addObject(Layer::UI, UIid::CAMPAIN_BUTTON, make_shared<Entity::MenuScreenButton>("キャンペーン", PADDING_LEFT, BUTTON_TOP, BUTTON_WIDTH, BUTTON_HEIGHT_L));
-		objectsControl.addObject(Layer::UI, UIid::NETWORK_BUTTON, make_shared<Entity::MenuScreenButton>("通信対戦", PADDING_LEFT, BUTTON_TOP + (BUTTON_HEIGHT_L + BUTTON_MARGIN_Y) * 1, BUTTON_WIDTH, BUTTON_HEIGHT_L));
-		objectsControl.addObject(Layer::UI, UIid::QUIT_BUTTON, make_shared<Entity::MenuScreenButton>("終了", PADDING_LEFT, BUTTON_TOP + (BUTTON_HEIGHT_L + BUTTON_MARGIN_Y) * 2, BUTTON_WIDTH, BUTTON_HEIGHT_S));
+		shared_ptr<MenuScreenButton> campaignBtn = make_shared<MenuScreenButton>();
+		campaignBtn->setY(BUTTON_TOP);
+		campaignBtn->setText("キャンペーン");
+		objectsControl.addObject(Layer::UI, UIid::CAMPAIN_BUTTON, campaignBtn);
 
+		shared_ptr<MenuScreenButton> netMatchBtn = make_shared<MenuScreenButton>();
+		netMatchBtn->setY(BUTTON_TOP + (MenuScreenButton::H + BUTTON_MARGIN_Y) * 1);
+		netMatchBtn->setText("通信対戦");
+		objectsControl.addObject(Layer::UI, UIid::NETWORK_BUTTON, netMatchBtn);
+
+		shared_ptr<MenuScreenButton> quitBtn = make_shared<MenuScreenButton>();
+		quitBtn->setY(BUTTON_TOP + (MenuScreenButton::H + BUTTON_MARGIN_Y) * 2);
+		quitBtn->setText("終了");
+		objectsControl.addObject(Layer::UI, UIid::QUIT_BUTTON, quitBtn);
 
 		// オーバーレイセット
 		createOverlay(true);

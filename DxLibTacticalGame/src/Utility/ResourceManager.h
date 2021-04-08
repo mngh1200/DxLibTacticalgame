@@ -119,6 +119,7 @@ namespace
 	// Image‚ÌID
 	enum ImageId {
 		BACKGROUND_MENU,
+		TITLE_IMAGE_ID,
 		IMAGE_ID_LEN
 	};
 

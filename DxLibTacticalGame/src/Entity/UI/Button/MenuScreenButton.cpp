@@ -9,25 +9,23 @@ namespace Entity {
 	 */
 	MenuScreenButton::MenuScreenButton() : animation_ {}
 	{
-		setTextX(TEXT_PADDING_LEFT);
 		setColor(ColorType::SUB_COLOR_LITE, ColorType::SUB_COLOR, State::NORMAL);
 		setColor(ColorType::SUB_COLOR, ColorType::MAIN_COLOR, State::MOUSE_OVER);
 		setColor(ColorType::SUB_COLOR, ColorType::MAIN_COLOR, State::MOUSE_DOWN);
+
+		setShape(X, 0, W, H);
+		setFont(FontType::BLACK_S32);
+		baseShape_ = shape_;
 	}
 
 	/**
 	 * @fn
-	 * コンストラクタ
-	 * @param (text) ボタンの文言
-	 * @param (x) x座標
-	 * @param (y) y座標
-	 * @param (w) 幅
-	 * @param (h) 高さ
+	 * Y座標セット
+	 * @param(y) y座標
 	 */
-	MenuScreenButton::MenuScreenButton(const char* text, int x, int y, int w, int h) : MenuScreenButton()
+	void MenuScreenButton::setY(int y)
 	{
-		setShape(x, y, w, h);
-		setText(text, FontType::BLACK_S48);
+		setPos(X, y);
 		baseShape_ = shape_;
 	}
 
@@ -78,6 +76,8 @@ namespace Entity {
 	/**
 	 * @fn
 	 * マウスが左ボタンで押下された瞬間の処理
+	 * @param(x) X座標
+	 * @param(y) Y座標
 	 */
 	void MenuScreenButton::onMouseLeftDown(int x, int y)
 	{
@@ -90,6 +90,8 @@ namespace Entity {
 	/**
 	 * @fn
 	 * マウスの左ボタンが押し上げられた瞬間の処理
+	 * @param(x) X座標
+	 * @param(y) Y座標
 	 */
 	void MenuScreenButton::onMouseLeftUp(int x, int y)
 	{
@@ -99,6 +101,8 @@ namespace Entity {
 	/**
 	 * @fn
 	 * マウスがホバー状態から離れたときの処理
+	 * @param(x) X座標
+	 * @param(y) Y座標
 	 */
 	void MenuScreenButton::onMouseOut(int x, int y)
 	{

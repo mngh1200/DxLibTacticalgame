@@ -178,6 +178,9 @@ namespace Utility {
 		// 背景
 		loadImage(MAKEINTRESOURCE(BACKGROUND_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::IMAGE).at(ImageId::BACKGROUND_MENU));
 
+		// タイトル
+		loadImage(MAKEINTRESOURCE(TITLE_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::IMAGE).at(ImageId::TITLE_IMAGE_ID));
+
 		// マス読込
 		image_.insert(std::make_pair(ImageType::MAP, vector<int*>()));
 		image_.at(ImageType::MAP).push_back(new int[8]);

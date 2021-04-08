@@ -2,6 +2,8 @@
 
 BACKGROUND_IMAGE	IMAGE_FILE	"../resource/image/menu/background.jpg"
 
+TITLE_IMAGE	IMAGE_FILE	"../resource/image/menu/title.png"
+
 MAP_IMAGE	IMAGE_FILE	"../resource/image/map/mapchip.png"
 
 MASS_STATE	IMAGE_FILE	"../resource/image/map/mass-state.png"

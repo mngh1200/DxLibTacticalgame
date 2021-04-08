@@ -18,8 +18,9 @@ namespace Entity
 	{
 	public:
 		MenuScreenButton();
-		MenuScreenButton(const char* text, int x, int y, int w, int h);
 		~MenuScreenButton() {};
+
+		void setY(int y);
 
 		bool animationUpdate() override;
 
@@ -27,13 +28,17 @@ namespace Entity
 		void onMouseLeftUp(int x, int y) override;
 		void onMouseOut(int x, int y) override;
 
+		constexpr static int H = 60; //! ボタン幅
+
 	protected:
 		bool createAnimation(int animationId);
 
 	private:
-		static const int TEXT_PADDING_LEFT = 25;	//! テキストの左余白
-		static const int ANIMATION_MS = 100;		//! 拡大、縮小の時間
-		static const float ANIMATION_SCALE;			//! サイズ倍率(floatはcppで定義する必要あり)
+		constexpr static int W = 400; //! ボタン幅
+		constexpr static int X = (WIN_W - W) / 2; //! ボタンX座標
+
+		constexpr static int ANIMATION_MS = 100;		//! 拡大、縮小の時間
+		const static float ANIMATION_SCALE;			//! サイズ倍率(floatはcppで定義する必要あり)
 
 		//! アニメーションクラス
 		Animation animation_;

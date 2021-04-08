@@ -1,6 +1,7 @@
 #define IMAGE_FILE 100
 
 #define BACKGROUND_IMAGE 101
+#define TITLE_IMAGE 102
 
 #define MAP_IMAGE 111
 #define MASS_STATE 112
