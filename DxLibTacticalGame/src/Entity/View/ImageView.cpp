@@ -10,8 +10,9 @@ namespace Entity {
 	 */
 	void ImageView::setPos(int x, int y)
 	{
-		x_ = x;
-		y_ = y;
+		type_ = IMAGE_VIEW;
+		shape_.x = x;
+		shape_.y = y;
 	}
 
 	/**
@@ -30,6 +31,11 @@ namespace Entity {
 	 */
 	void ImageView::render() const
 	{
-		DxLib::DrawGraph(x_, y_, imageHandle_, TRUE);
+		if (imageHandle_ == -1) // イメージハンドルが未設定の場合
+		{
+			return;
+		}
+
+		DxLib::DrawGraph(shape_.x, shape_.y, imageHandle_, TRUE);
 	}
 }
