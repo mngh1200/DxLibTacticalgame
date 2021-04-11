@@ -34,6 +34,7 @@ namespace Entity
 			UNIT,
 			MAP,
 			TEXT,
+			IMAGE_VIEW,
 			CONTEXT_MENU,
 			RESULT_SCENE,
 			OVERLAY
