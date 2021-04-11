@@ -6,7 +6,14 @@ namespace Entity {
 	 * @fn
 	 * コンストラクタ
 	 */
-	Text::Text() : text_(""), font_(-1), color_(-1), align_(Align::LEFT), baseX_(0)
+	Text::Text() :
+		text_(""),
+		font_(-1),
+		color_(-1),
+		align_(Align::LEFT),
+		baseX_(0),
+		backgroundColor_(-1),
+		padding_(0)
 	{
 		type_ = TEXT;
 	}
@@ -43,20 +50,41 @@ namespace Entity {
 	{
 		text_ = text;
 
-		if (align_ == CENTER) // 中央揃え
-		{
-			int width = DxLib::GetDrawFormatStringWidthToHandle(font_, text);
-			shape_.x = baseX_ - width / 2;
-		}
-		else if (align_ == RIGHT) // 右揃え
-		{
-			int width = DxLib::GetDrawFormatStringWidthToHandle(font_, text);
-			shape_.x = baseX_ - width;
-		}
-		else // 左揃え
-		{
-			shape_.x = baseX_;
-		}
+		// サイズ取得
+		int lineCount;
+		DxLib::GetDrawStringSizeToHandle(&shape_.w, &shape_.h, &lineCount, text, DxLib::GetStringLength(text), font_);
+
+		shape_.w += padding_ * 2; // 余白追加
+		shape_.h += padding_ * 2; // 余白追加
+
+		adjustAlign();
+	}
+
+	/**
+	 * @fn
+	 * 余白セット
+	 * @param (padding) 余白
+	 */
+	void Text::setPadding(int padding)
+	{
+		// 余白変更によるサイズ調整
+		shape_.w += padding - padding_;
+		shape_.h += padding - padding_;
+
+		padding_ = padding;
+
+		adjustAlign();
+	}
+	
+	/**
+	 * @fn
+	 * 背景色セット
+	 * @param (backgroundColorType) セットするカラータイプ
+	 */
+	void Text::setBackgroundColor(int backgroundColorType)
+	{
+		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
+		backgroundColor_ = rm.getColor(backgroundColorType);
 	}
 
 	/**
@@ -75,6 +103,32 @@ namespace Entity {
 	 */
 	void Text::render() const
 	{
-		DxLib::DrawFormatStringToHandle(shape_.x, shape_.y, color_, font_, text_.c_str());
+		// 背景色がセットされている場合
+		if (backgroundColor_ != -1)
+		{
+			DxLib::DrawBox(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), backgroundColor_, TRUE);
+		}
+
+		DxLib::DrawFormatStringToHandle(shape_.x + padding_, shape_.y + padding_, color_, font_, text_.c_str());
+	}
+
+	/**
+	 * @fn
+	 * 揃え方向による調整
+	 */
+	void Text::adjustAlign()
+	{
+		if (align_ == CENTER) // 中央揃え
+		{
+			shape_.x = baseX_ - shape_.w / 2;
+		}
+		else if (align_ == RIGHT) // 右揃え
+		{
+			shape_.x = baseX_ - shape_.w;
+		}
+		else // 左揃え
+		{
+			shape_.x = baseX_;
+		}
 	}
 }

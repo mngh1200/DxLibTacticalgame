@@ -25,6 +25,10 @@ namespace Entity
 
 		void setText(const char* text);
 
+		void setPadding(int padding);
+
+		void setBackgroundColor(int backgroundColorType);
+
 		void setY(int y);
 
 		void render() const;
@@ -41,6 +45,8 @@ namespace Entity
 		};
 
 	private:
+		void adjustAlign();
+
 		//! •¶š—ñ
 		string text_;
 
@@ -55,5 +61,11 @@ namespace Entity
 
 		//! ‘µ‚¦
 		int align_;
+
+		//! —]”’
+		int padding_;
+
+		//! ”wŒiF
+		int backgroundColor_;
 	};
 }
