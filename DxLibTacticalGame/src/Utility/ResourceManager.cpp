@@ -3,12 +3,20 @@
 #define THROWS_EX(ret, msg) { if (ret == -1) { throw msg; } }
 
 namespace Utility {
+	/**
+	 * @fn
+	 * シングルトンにするためのインスタンス関数
+	 */
 	ResourceManager& ResourceManager::getInstance()
 	{
 		static ResourceManager instance;
 		return instance;
 	}
 
+	/**
+	 * @fn
+	 * デストラクタ
+	 */
 	ResourceManager::~ResourceManager()
 	{
 		// フォントファイルを解放
@@ -52,7 +60,7 @@ namespace Utility {
 	}
 	/**
 	 * @fn
-	 * 指定されたオブジェクト取得
+	 * 画像のリソースIDを取得
 	 * @param (type) リソースタイプ
 	 * @param (kind) リソースの種類
 	 * @param (pos) リソースの位置
@@ -63,20 +71,44 @@ namespace Utility {
 		return image_.at(type).at(kind)[pos];
 	}
 
-
+	/**
+	 * @fn
+	 * フォントのリソースIDを取得
+	 * @param (kind) リソースの種類
+	 * @return 対象リソースのID
+	 */
 	int ResourceManager::getHdlFont(int kind) const
 	{
 		return hdlFont_[kind];
 	}
+
+	/**
+	 * @fn
+	 * カラーデータを取得
+	 * @param (kind) カラーデータの種類
+	 * @return カラーデータ
+	 */
 	int ResourceManager::getColor(int kind) const
 	{
 		return colorType_[kind];
 	}
+
+	/**
+	 * @fn
+	 * 音声のリソースIDを取得
+	 * @param (kind) リソースの種類
+	 * @return 対象リソースのID
+	 */
 	int ResourceManager::getSound(int kind) const
 	{
 		return sounds_[kind];
 	}
 
+	/**
+	 * @fn
+	 * 音声を出力
+	 * @param (kind) 音声の種類
+	 */
 	void ResourceManager::playSound(int kind) {
 		DxLib::PlaySoundMem(getInstance().sounds_[kind], DX_PLAYTYPE_BACK);
 	}
@@ -166,6 +198,10 @@ namespace Utility {
 		THROWS_EX(ret, resourceName);
 	}
 
+	/**
+	 * @fn
+	 * 全画像データをロード
+	 */
 	int ResourceManager::loadImages()
 	{
 		int ret = 0;
@@ -236,6 +272,10 @@ namespace Utility {
 		return ret;
 	}
 
+	/**
+	 * @fn
+	 * 全フォントデータを取得
+	 */
 	int ResourceManager::loadFonts()
 	{
 		int ret = 0;
@@ -258,6 +298,10 @@ namespace Utility {
 		return ret;
 	}
 
+	/**
+	 * @fn
+	 * 全カラーデータを取得
+	 */
 	int ResourceManager::loadColors()
 	{
 		int ret = 0;
@@ -293,6 +337,10 @@ namespace Utility {
 		return ret;
 	}
 
+	/**
+	 * @fn
+	 * 全音声データを取得
+	 */
 	int ResourceManager::loadSounds()
 	{
 		int ret = 0;
@@ -336,6 +384,11 @@ namespace Utility {
 		return ret;
 	}
 
+	/**
+	 * @fn
+	 * フォントデータを読み込み
+	 * @param (fontFilePath) フォントファイルのパス
+	 */
 	void ResourceManager::loadFont(const LPCSTR fontFilePath)
 	{
 		int FontFileSize = (int)(FileRead_size(fontFilePath));
@@ -553,6 +606,11 @@ namespace Utility {
 		DxLib::FileRead_close(csvHandle);
 	}
 
+	/**
+	 * @fn
+	 * ロード済みであるか
+	 * @return ロード済みの場合 true
+	 */
 	boolean ResourceManager::isLoaded() const {
 		return loadFlag;
 	}
