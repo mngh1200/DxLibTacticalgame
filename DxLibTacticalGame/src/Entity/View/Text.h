@@ -31,6 +31,8 @@ namespace Entity
 
 		void setY(int y);
 
+		void setW(int w);
+
 		void render() const;
 
 		/**
@@ -58,6 +60,9 @@ namespace Entity
 
 		//! Šî€‚ÌxÀ•W
 		int baseX_;
+
+		//! Šî€‚Ì•
+		int baseW_;
 
 		//! ‘µ‚¦
 		int align_;

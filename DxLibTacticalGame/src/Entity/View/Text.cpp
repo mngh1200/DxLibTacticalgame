@@ -12,6 +12,7 @@ namespace Entity {
 		color_(-1),
 		align_(Align::LEFT),
 		baseX_(0),
+		baseW_(-1),
 		backgroundColor_(-1),
 		padding_(0)
 	{
@@ -54,7 +55,10 @@ namespace Entity {
 		int lineCount;
 		DxLib::GetDrawStringSizeToHandle(&shape_.w, &shape_.h, &lineCount, text, DxLib::GetStringLength(text), font_);
 
-		shape_.w += padding_ * 2; // 余白追加
+		if (baseW_ == -1)
+		{
+			shape_.w += padding_ * 2; // 余白追加
+		}
 		shape_.h += padding_ * 2; // 余白追加
 
 		adjustAlign();
@@ -68,8 +72,12 @@ namespace Entity {
 	void Text::setPadding(int padding)
 	{
 		// 余白変更によるサイズ調整
-		shape_.w += padding - padding_;
-		shape_.h += padding - padding_;
+		if (baseW_ == -1)
+		{
+			shape_.w += (padding - padding_) * 2;
+		}
+		
+		shape_.h += (padding - padding_) * 2;
 
 		padding_ = padding;
 
@@ -95,6 +103,18 @@ namespace Entity {
 	void Text::setY(int y)
 	{
 		shape_.y = y;
+		adjustAlign();
+	}
+
+	/**
+	 * @fn
+	 * 基準の幅セット
+	 * @param (w) 幅
+	 */
+	void Text::setW(int w)
+	{
+		shape_.w = baseW_ = w;
+		adjustAlign();
 	}
 
 	/**
