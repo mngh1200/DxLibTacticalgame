@@ -25,6 +25,7 @@ namespace
 {
 	enum FontType : int {
 		NORMAL_S18,
+		NORMAL_S20,
 		NORMAL_S24,
 		NORMAL_S32,
 		BLACK_S24,
@@ -167,8 +168,17 @@ namespace Utility
 
 		static void playSound(int kind);
 
+		// ステージデータをどこまで読み込むか
+		enum UntilStageLoad
+		{
+			TITLE,		//! タイトルまで
+			CHECK_WIN,	//! 勝敗条件まで
+			ALL			//! 全部
+		};
+
+		static void loadStageTitle(const string stageKind, const int id, string* title);
 		static void loadStageData(const string stageKind, const int id, string* title, string* hint, vector<int>* checkWinData);
-		static void loadStageData(const string stageKind, const int id, string* title, string* hint, vector<int>* checkWinData, vector<int>* extraRules, std::array<std::array<int, MAP_MASS_W>, MAP_MASS_H>* mapData, vector<vector<int>>* units, bool isUntilCheckWin = false);
+		static void loadStageData(const string stageKind, const int id, string* title, string* hint, vector<int>* checkWinData, vector<int>* extraRules, std::array<std::array<int, MAP_MASS_W>, MAP_MASS_H>* mapData, vector<vector<int>>* units, int untilLoad = UntilStageLoad::ALL);
 
 		boolean isLoaded() const;
 
@@ -185,6 +195,8 @@ namespace Utility
 
 		//! 川画像読込用の情報
 		constexpr static int RIVER_NUM = 4;
+
+
 
 		void loadMapchip(const char* resourcePath, int* handle);
 		void loadCharacterchip(const char* resourcePath, int* handle);

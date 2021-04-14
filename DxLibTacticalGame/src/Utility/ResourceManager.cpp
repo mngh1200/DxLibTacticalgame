@@ -284,6 +284,7 @@ namespace Utility {
 		loadFont("resource/font/rounded-mplus/rounded-mplus-1p-black.ttf");
 
 		hdlFont_[FontType::NORMAL_S18] = DxLib::CreateFontToHandle("Rounded M+ 1p regular", 18, 3, DX_FONTTYPE_ANTIALIASING_4X4);
+		hdlFont_[FontType::NORMAL_S20] = DxLib::CreateFontToHandle("Rounded M+ 1p regular", 20, 3, DX_FONTTYPE_ANTIALIASING_4X4);
 		hdlFont_[FontType::NORMAL_S24] = DxLib::CreateFontToHandle("Rounded M+ 1p regular", 24, 3, DX_FONTTYPE_ANTIALIASING_4X4);
 		hdlFont_[FontType::NORMAL_S32] = DxLib::CreateFontToHandle("Rounded M+ 1p regular", 32, 3, DX_FONTTYPE_ANTIALIASING_4X4);
 		hdlFont_[FontType::BLACK_S24] = DxLib::CreateFontToHandle("Rounded M+ 1p black", 24, 3, DX_FONTTYPE_ANTIALIASING_4X4);
@@ -427,6 +428,22 @@ namespace Utility {
 		*/
 	}
 
+	/**
+	 * @fn
+	 * ステージデータのタイトルだけロード
+	 * @param (stageKind) ステージの種類
+	 * @param (id) ステージID
+	 * @param (title) ステージタイトル取得用
+	 */
+	void ResourceManager::loadStageTitle(const string stageKind, const int id, string* title)
+	{
+		string hint;
+		vector<int> checkWinData;
+		vector<int> extraRules;
+		std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H > mapData;
+		vector<vector<int>> units;
+		Utility::ResourceManager::loadStageData(stageKind, id, title, &hint, &checkWinData, &extraRules, &mapData, &units, UntilStageLoad::TITLE);
+	}
 
 	/**
 	 * @fn
@@ -443,7 +460,7 @@ namespace Utility {
 		vector<int> extraRules;
 		std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H > mapData;
 		vector<vector<int>> units;
-		Utility::ResourceManager::loadStageData(stageKind, id, title, hint, checkWinData, &extraRules, &mapData, &units, true);
+		Utility::ResourceManager::loadStageData(stageKind, id, title, hint, checkWinData, &extraRules, &mapData, &units, UntilStageLoad::CHECK_WIN);
 	}
 
 	/**
@@ -459,7 +476,7 @@ namespace Utility {
 	 * @param (units) 配置ユニット取得用
 	 * @param (isUntilCheckWin) タイトル、ヒント、勝敗条件のみ取得したい場合はtrue (デフォルトfalse)
 	 */
-	void ResourceManager::loadStageData(const string stageKind, const int id, string* title, string* hint, vector<int>* checkWinData, vector<int>* extraRules, std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H >* mapData, vector<vector<int>>* units, bool isUntilCheckWin)
+	void ResourceManager::loadStageData(const string stageKind, const int id, string* title, string* hint, vector<int>* checkWinData, vector<int>* extraRules, std::array < std::array <int, MAP_MASS_W>, MAP_MASS_H >* mapData, vector<vector<int>>* units, int untilLoad)
 	{
 		std::string str_buf;
 		std::string str_conma_buf;
@@ -512,6 +529,12 @@ namespace Utility {
 		str_buf = string(readLine);
 		*title = str_buf;
 
+		if (untilLoad == UntilStageLoad::CHECK_WIN) // 勝敗条件までしか読み込まない場合
+		{
+			DxLib::FileRead_close(csvHandle);
+			return;
+		}
+
 		// ヒント
 		DxLib::FileRead_gets(readLine, 256, csvHandle);
 		str_buf = string(readLine);
@@ -530,9 +553,8 @@ namespace Utility {
 			(*checkWinData).push_back(stoi(str_conma_buf));
 		}
 
-		if (isUntilCheckWin) // 勝敗条件までしか読み込まない場合
+		if (untilLoad == UntilStageLoad::CHECK_WIN) // 勝敗条件までしか読み込まない場合
 		{
-			// ifs_csv_file.close();
 			DxLib::FileRead_close(csvHandle);
 			return;
 		}
