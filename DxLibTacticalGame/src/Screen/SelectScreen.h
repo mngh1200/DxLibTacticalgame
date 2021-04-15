@@ -10,6 +10,7 @@
 #include "Entity/UI/Back.h"
 #include "Entity/UI/Button/CourseButton.h"
 #include "Entity/View/Text.h"
+#include "Entity/View/Panel.h"
 #include "Battle/CheckWin.h"
 
 using namespace std;
@@ -26,7 +27,6 @@ namespace Screen
 	public:
 		SelectScreen() : 
 			selectedCourseId_(-1), 
-			stageKind_("stage"),
 			openScreen_(Screen::MAIN_MENU), 
 			newCourseId_(-1) {};
 		~SelectScreen() {};
@@ -37,28 +37,39 @@ namespace Screen
 	private:
 		void updateStageInfo();
 
-		constexpr static int PADDING_TOP = 10;		//! 上側の余白
-		constexpr static int LEFT_AREA_WIDTH = 800; //! 左側のエリアの幅
+		constexpr static int PADDING = 50;		//! 余白
+		constexpr static int UNDER_LINE_MARGIN = 10; //! 下線の余白
 
-		constexpr static int COURSE_TOP = 70;		//! コース一覧のY座標
-		constexpr static int COURSE_MARGIN_X = 40;		//! コースボタンの余白
-		constexpr static int COURSE_MARGIN_Y = 30;		//! コースボタンの余白
-		constexpr static int COURSE_COLUMN_NUM = 5;		//! コースボタンの列数
 
-		constexpr static int RIGHT_AREA_PADDING_LEFT = 80;	//! (右エリアの)左側の余白
+		constexpr static int CONTENT_TOP = PADDING + 60;	//! コンテンツ部分のY座標
 
-		constexpr static int STAGE_INFO_Y = COURSE_TOP + 32 + 30; //! 勝利条件等を記載するY座標
-		constexpr static int LINE_HEIGHT = 36;	//! 行の高さ
+		constexpr static int STAGE_LIST_W = 500;		//! ステージリストの幅
+		constexpr static int STAGE_LIST_H = WIN_H - (PADDING + CONTENT_TOP); //! ステージリストの高さ
+		constexpr static int STAGE_LIST_PADDING = 20;	//! ステージリストの余白
+
+		constexpr static int STAGE_BUTTON_H = 36;		//! ステージボタンの幅
+		constexpr static int STAGE_BUTTON_MARGIN = 8;	//! ステージボタンの余白
+
+
+		constexpr static int STAGE_INFO_MARGIN = 50;	//! ステージ情報欄の余白
+		constexpr static int STAGE_INFO_X = PADDING + STAGE_LIST_W + STAGE_INFO_MARGIN; //! ステージ情報欄のX座標
+		constexpr static int STAGE_INFO_W = WIN_W - (STAGE_LIST_W + PADDING * 2 + STAGE_INFO_MARGIN); //! ステージ情報欄の幅
+		constexpr static int STAGE_INFO_H = 480;		//! ステージ情報欄の高さ
+		constexpr static int STAGE_INFO_PADDING = 5;	//! ステージ情報欄の余白（内側）
+
+		constexpr static int INFO_TEXT_X = STAGE_INFO_X + STAGE_INFO_PADDING;	//! ステージ情報テキストのx座標
+		constexpr static int INFO_TEXT_Y = CONTENT_TOP + 40;					//! ステージ情報テキストのy座標
+
+		constexpr static int LINE_HEIGHT = 32;	//! 行の高さ
 		constexpr static int HINT_MARGIN_TOP = 20; //! ヒント表示の上の余白
 
+		constexpr static int BTN_MARGIN = 10; //! ボタンの余白
+		constexpr static int BTN_W = STAGE_INFO_W / 2 - BTN_MARGIN;		//! ボタンの幅
+		constexpr static int BTN_H = 60; //! ボタンの高さ
+		constexpr static int BTN_Y = CONTENT_TOP + STAGE_LIST_H - BTN_H;	//! ボタンエリアのY座標
 
-		constexpr static int START_MARGIN = 70; //! スタートボタンの余白
-		constexpr static int START_Y = 545;		//! スタートボタンのY座標
-		constexpr static int START_HEIGHT = 100; //! スタートボタンの高さ
+		static const char* STAGE_KIND; //! ステージの種類
 
-		constexpr static int BACK_SIZE = 60;	//! 戻るボタンのサイズ
-
-		string stageKind_;
 		int selectedCourseId_; //! 選択中のコースID
 		int newCourseId_; // 新コースID
 
@@ -75,8 +86,9 @@ namespace Screen
 		enum Layer
 		{
 			MASK,
-			UI,
 			COURSE_BUTTON,
+			UI,
+			PANEL,
 			BACK,
 			LEN
 		};
@@ -99,7 +111,6 @@ namespace Screen
 
 		enum Scene
 		{
-			BORN,
 			SELECT
 		};
 	};

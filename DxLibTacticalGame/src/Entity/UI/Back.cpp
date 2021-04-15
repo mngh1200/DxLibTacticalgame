@@ -24,7 +24,7 @@ namespace Entity {
 	{
 		screen_ = screenKind;
 
-		if (screen_ == ScreenKind::SELECT || screen_ == ScreenKind::BATTLE_SCREEN)
+		if (screen_ == ScreenKind::BATTLE_SCREEN)
 		{
 			imageId_ = -1;
 		}
@@ -41,11 +41,6 @@ namespace Entity {
 		if (imageId_ != -1)
 		{
 			DxLib::DrawGraph(shape_.x, shape_.y, imageId_, FALSE);
-		}
-		else if (screen_ == ScreenKind::SELECT) // ëIëâÊñ 
-		{
-			DxLib::DrawBox(shape_.x, shape_.y, SELECT_LEFT_WIDTH, shape_.getY2(), resourceManager.getColor(ColorType::SUB_COLOR), TRUE);
-			DxLib::DrawBox(shape_.x + SELECT_LEFT_WIDTH, shape_.y, shape_.getX2(), shape_.getY2(), resourceManager.getColor(ColorType::MAIN_COLOR), TRUE);
 		}
 		else if (screen_ == ScreenKind::BATTLE_SCREEN) // êÌì¨âÊñ 
 		{

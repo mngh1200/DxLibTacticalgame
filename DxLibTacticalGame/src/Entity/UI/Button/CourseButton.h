@@ -16,35 +16,22 @@ namespace Entity
 {
 	class CourseButton : public TextButton
 	{
-	
-	
 	public:
 		CourseButton();
-		CourseButton(int x, int y, int rank, bool isNew = false);
+		CourseButton(int x, int y, int w, int h, const char* text, int state);
 		~CourseButton() {};
 
 		void render() const override;
 
-		bool animationUpdate() override;
+		void setSelected(bool isSelected, bool isSound = false);
 
-		void onMouseClick(int x, int y) override;
-		void onMouseOver(int x, int y) override;
-		void onMouseOut(int x, int y) override;
-
-		void setSelected(bool isSelected);
-
-		static const int SIZE = 100; //! 幅、高さ
-
-		// アニメーションの種類
-		enum AnimationId
+		// ボタンの状態
+		enum State
 		{
-			EXPANSION,
-			SHRINK,
-			BORN
+			NORMAL, //! 標準
+			NEW,	//! 新ステージ
+			CLEAR	//! クリアステージ
 		};
-
-	protected:
-		bool createAnimation(int animationId);
 
 	private:
 		constexpr static int RECT_ROUND = 10; //! 角丸の値
@@ -58,14 +45,8 @@ namespace Entity
 		//! 選択状態にあるか
 		bool isSelected_;
 
-		//! アニメーションクラス
-		Animation animation_;
-
-		//! 基準の大きさ
-		Shape baseShape_;
-
-		//! コースのクリア状況
-		string text_;
+		//! ボタンの状態
+		int state_;
 	};
 
 	

@@ -26,7 +26,6 @@ namespace Entity
 		enum ScreenKind : int
 		{
 			UNSELECTED,
-			SELECT,
 			BATTLE_SCREEN
 		};
 

@@ -7,9 +7,11 @@ namespace Entity {
 	 * @fn
 	 * コンストラクタ
 	 */
-	CourseButton::CourseButton() : animation_ {}, isSelected_(false), text_("!")
+	CourseButton::CourseButton() : isSelected_(false), state_(State::NORMAL)
 	{
-		setColor(ColorType::MAIN_COLOR, ColorType::SUB_COLOR);
+		setColor(ColorType::SUB_COLOR_LITE, ColorType::SUB_COLOR);
+		setFont(FontType::NORMAL_S20);
+		setTextX(20);
 	}
 
 	/**
@@ -17,83 +19,40 @@ namespace Entity {
 	 * コンストラクタ
 	 * @param (x) x座標
 	 * @param (y) y座標
-	 * @param (rank) コースランク
-	 * @param (isNew) 新規コースであるか
+	 * @param (w) 幅
+	 * @param (h) 高さ
+	 * @param (text) ボタンのテキスト
+	 * @param (state) ボタンの状態
 	 */
-	CourseButton::CourseButton(int x, int y, int rank, bool isNew) : CourseButton()
+	CourseButton::CourseButton(int x, int y, int w, int h, const char* text, int state) : CourseButton()
 	{
-		if (rank == StageRank::CLEAR)
-		{
-			text_ = "Clear";
-			setTextColor(ColorType::POSITIVE_COLOR);
-			setText(text_.c_str(), FontType::BLACK_S24);
-		}
-		else
-		{
-			setTextColor(ColorType::ENEMY_COLOR);
-			setText(text_.c_str(), FontType::BLACK_S48);
-		}
-		
-
-		baseShape_ = Shape(x, y, SIZE, SIZE);
-		setShape(x, y, SIZE, SIZE);
-		
-		
+		state_ = state;
+		setShape(x, y, w, h);
+		setText(text);
 	}
 
 	/**
 	 * @fn
 	 * コース選択状態または未選択状態にする
 	 * @param (selected) true: 選択状態, false: 未選択状態
+	 * @param (isSound) trueの場合、選択時にサウンド出力
 	 */
-	void CourseButton::setSelected(bool isSelected)
+	void CourseButton::setSelected(bool isSelected, bool isSound)
 	{
 		isSelected_ = isSelected;
 
 		if (isSelected_)
 		{
-			setBackgroundColor(ColorType::MAIN_COLOR_ON);
+			setColor(ColorType::SUB_COLOR, ColorType::MAIN_COLOR);
+			if (isSound)
+			{
+				Utility::ResourceManager::playSound(SoundKind::CHECK);
+			}
 		}
 		else
 		{
-			setBackgroundColor(ColorType::MAIN_COLOR);
+			setColor(ColorType::SUB_COLOR_LITE, ColorType::SUB_COLOR);
 		}
-	}
-
-	/**
-	 * @fn
-	 * アニメーション作成(ObjectsControl::addAnimationObjメソッド専用で呼び出す)
-	 * @return アニメーション作成可能な場合trueを返す
-	 */
-	bool CourseButton::createAnimation(int animationId)
-	{
-		// 既に実行済みのアニメーションがある場合は作成不可
-		if (animationId == animationId_)
-		{
-			return false;
-		}
-		
-		if (animationId == EXPANSION) // 拡大
-		{
-			animation_ = Animation(HOVER_ANIMATION_MS);
-			return true;
-		}
-		else if (animationId == SHRINK) // 縮小
-		{
-			animation_ = Animation(HOVER_ANIMATION_MS, Animation::REVERSE);
-			animation_.adjustFrame(shape_, baseShape_, HOVER_ANIMATION_SCALE);
-			return true;
-		}
-		else if (animationId == BORN) // 新コースアニメーション
-		{
-			animation_ = Animation(BORN_ANIMATION_MS, Animation::REVERSE, 1, BORN_ANIMATION_DELAY, Easing::InOutCirc<float>);
-			setText("");
-
-			// サウンド
-			Utility::ResourceManager::playSound(SoundKind::BORN);
-			return true;
-		}
-		return false;
 	}
 
 	/**
@@ -102,72 +61,33 @@ namespace Entity {
 	 */
 	void CourseButton::render() const
 	{
-		// ボタン
-		DxLib::DrawRoundRectAA(shape_.getXf(), shape_.getYf(), shape_.getX2f(), shape_.getY2f(), RECT_ROUND, RECT_ROUND, 8, color_[State::NORMAL], TRUE);
+		// 親クラスの描画処理実行
+		TextButton::render();
 
-		// テキスト
-		DxLib::DrawFormatStringToHandle(shape_.x + textX_, shape_.y + textY_, textColor_[State::NORMAL], font_, text_.c_str());
-	}
+		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
 
-	/**
-	 * @fn
-	 * アニメーション更新
-	 * @return true:終了
-	 */
-	bool CourseButton::animationUpdate()
-	{
-		if (animationId_ == EXPANSION || animationId_ == SHRINK)
+
+		if (state_ == State::CLEAR) // クリアステージ
 		{
-			bool isEnd = animation_.update(&shape_, baseShape_, HOVER_ANIMATION_SCALE);
-			setSize(shape_.w, shape_.h); // テキスト位置調整用に再適用
-			return isEnd;
+			int colorType = ColorType::POSITIVE_COLOR;
+
+			if (isSelected_)
+			{
+				colorType = ColorType::POSITIVE_LITE_COLOR;
+			}
+
+			DxLib::DrawFormatStringToHandle(shape_.getX2() - 100, shape_.y + textY_, rm.getColor(colorType), font_, "Clear");
 		}
-		else if (animationId_ == BORN)
+		else if (state_ == State::NEW) // Newステージ
 		{
-			if (animation_.update(&shape_, baseShape_, 0.0f))
+			int colorType = ColorType::ENEMY_COLOR;
+
+			if (isSelected_)
 			{
-				setSize(shape_.w, shape_.h); // 文字位置調整用
-				setSelected(true);
-				return true;
+				colorType = ColorType::ENEMY_COLOR_LITE;
 			}
-			else if (shape_.h >= BORN_DISP_TEXT_SIZE) // 文字表示
-			{
-				setText(text_.c_str());
-				setSize(shape_.w, shape_.h); // 文字位置調整用
-			}
-			return false;
+
+			DxLib::DrawFormatStringToHandle(shape_.getX2() - 100, shape_.y + textY_, rm.getColor(colorType), font_, "New");
 		}
-		return true;
 	}
-
-	/**
-	 * @fn
-	 * マウスがクリックした瞬間の処理
-	 */
-	void CourseButton::onMouseClick(int x, int y)
-	{
-		// サウンド
-		Utility::ResourceManager::playSound(SoundKind::CHECK);
-	}
-
-	/**
-	 * @fn
-	 * マウスがホバーした瞬間
-	 */
-	void CourseButton::onMouseOver(int x, int y)
-	{
-		joinAnimationList(EXPANSION); // 拡大
-	}
-
-	/**
-	 * @fn
-	 * マウスがホバー状態から離れたときの処理
-	 */
-	void CourseButton::onMouseOut(int x, int y)
-	{
-		joinAnimationList(SHRINK); // 縮小
-	}
-
-
-
 }

@@ -3,6 +3,8 @@
 
 namespace Screen
 {
+	const char* SelectScreen::STAGE_KIND = "stage";
+
 	/**
 	 * @fn
 	 * 初期処理
@@ -18,51 +20,46 @@ namespace Screen
 
 		objectsControl.setLayer(Layer::LEN);
 
-		shared_ptr<Entity::Back> back = make_shared<Entity::Back>();
-		back->init(Entity::Back::ScreenKind::SELECT);
-		objectsControl.addObject(Layer::BACK, 0, back);
+		// 背景
+		objectsControl.addObject(Layer::BACK, 0, make_shared<Entity::Back>());
 		
-		// 左上のテキスト
-		objectsControl.addFigure(Layer::UI, make_shared<Entity::Text>("コースセレクト", COURSE_MARGIN_X, PADDING_TOP, (int)FontType::NORMAL_S24, (int)ColorType::MAIN_COLOR));
+		// タイトル
+		objectsControl.addFigure(Layer::UI, 
+			make_shared<Entity::Text>("ステージ選択", PADDING, PADDING, (int)FontType::NORMAL_S32, (int)ColorType::SUB_COLOR));
 
-		// ステージタイトル
-		stageTitle_ = make_shared<Entity::Text>("", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, COURSE_TOP, FontType::NORMAL_S32, ColorType::SUB_COLOR);
-		objectsControl.addFigure(Layer::UI, stageTitle_);
+		// タイトルの下線
+		shared_ptr<Panel> underLine = make_shared<Panel>();
+		underLine->setShape(PADDING, CONTENT_TOP - UNDER_LINE_MARGIN, 500, 2);
+		underLine->setColor(ColorType::SUB_COLOR);
+		objectsControl.addFigure(Layer::PANEL, underLine);
 
-		// 勝利条件 + 敗北条件
-		winLabel_ = make_shared<Entity::Text>("勝利条件", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, STAGE_INFO_Y, FontType::NORMAL_S24, ColorType::PLAYER_COLOR);
-		objectsControl.addFigure(Layer::UI, winLabel_);
 
-		winValue_ = make_shared<Entity::Text>("", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, STAGE_INFO_Y + LINE_HEIGHT, FontType::NORMAL_S24, ColorType::SUB_COLOR);
-		objectsControl.addFigure(Layer::UI, winValue_);
+		/* ステージ選択欄 ここから */
 
-		loseLabel_ = make_shared<Entity::Text>("敗北条件", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, STAGE_INFO_Y, FontType::NORMAL_S24, ColorType::ENEMY_COLOR);
-		objectsControl.addFigure(Layer::UI, loseLabel_);
 
-		loseValue_ = make_shared<Entity::Text>("", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, STAGE_INFO_Y, FontType::NORMAL_S24, ColorType::SUB_COLOR);
-		objectsControl.addFigure(Layer::UI, loseValue_);
+		// ステージ選択部分のパネル
+		shared_ptr<Panel> stageListPanel = make_shared<Panel>();
+		stageListPanel->setShape(PADDING, CONTENT_TOP, STAGE_LIST_W, STAGE_LIST_H);
+		stageListPanel->setColor(ColorType::MAIN_COLOR);
+		objectsControl.addFigure(Layer::PANEL, stageListPanel);
 
-		// ステージヒント
-		hintLabel_ = make_shared<Entity::Text>("ヒント", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, STAGE_INFO_Y, FontType::NORMAL_S24, ColorType::SUB_COLOR_DARK);
-		objectsControl.addFigure(Layer::UI, hintLabel_);
-
-		stageHint_ = make_shared<Entity::Text>("", LEFT_AREA_WIDTH + RIGHT_AREA_PADDING_LEFT, STAGE_INFO_Y, FontType::NORMAL_S24, ColorType::SUB_COLOR);
-		objectsControl.addFigure(Layer::UI, stageHint_);
-
-		// コースボタン
+		// ステージボタン
 
 		for (int i = 0; i < MAX_STAGE; i++)
 		{
-			// X座標
-			int x = (i % COURSE_COLUMN_NUM) * (Entity::CourseButton::SIZE + COURSE_MARGIN_X) + COURSE_MARGIN_X;
-			int y = (i / COURSE_COLUMN_NUM) * (Entity::CourseButton::SIZE + COURSE_MARGIN_Y) + COURSE_TOP;
 			int status = saveManager.getRank(i);
+			int buttonState = CourseButton::State::NORMAL;
 
 			if (status == StageRank::NEW) // 新コース
 			{
+				buttonState = CourseButton::State::NEW;
 				selectedCourseId_ = newCourseId_ = i;
-				saveManager.updateRank(i, StageRank::NONE);
+				saveManager.updateRank(i, StageRank::NONE); // 一度セレクト画面を開いた後は未クリアステージ化
 				saveManager.save();
+			}
+			else if (status == StageRank::CLEAR)
+			{
+				buttonState = CourseButton::State::CLEAR;
 			}
 			else if (status == StageRank::NONE && selectedCourseId_ == -1) // 未クリアコース
 			{
@@ -73,35 +70,94 @@ namespace Screen
 				continue;
 			}
 
-			objectsControl.addObject(Layer::COURSE_BUTTON, i, make_shared<Entity::CourseButton>(x, y, status, i == newCourseId_));
+			// ステージタイトル取得
+			string title;
+			Utility::ResourceManager::loadStageTitle(STAGE_KIND, i, &title);
+
+			// Y座標
+			int y = CONTENT_TOP + STAGE_LIST_PADDING + i * (STAGE_BUTTON_H + STAGE_BUTTON_MARGIN);
+
+			objectsControl.addObject(Layer::COURSE_BUTTON, i, 
+				make_shared<Entity::CourseButton>(PADDING + STAGE_LIST_PADDING, y,
+					STAGE_LIST_W - STAGE_LIST_PADDING * 2, STAGE_BUTTON_H, title.c_str(), buttonState));
 		}
 
 		if (selectedCourseId_ == -1)
 		{
 			selectedCourseId_ = MAX_STAGE - 1;
 		}
+	
+
+		/* ステージ選択欄 ここまで */
+
+
+
+		/* ステージ情報欄 ここから */
+
+
+		// ステージ情報欄パネル
+		shared_ptr<Panel> stageInfoPanel = make_shared<Panel>();
+		stageInfoPanel->setShape(STAGE_INFO_X, CONTENT_TOP, STAGE_INFO_W, STAGE_INFO_H);
+		stageInfoPanel->setColor(ColorType::MAIN_COLOR);
+		objectsControl.addFigure(Layer::PANEL, stageInfoPanel);
+
+		// ステージ情報欄タイトル
+		shared_ptr<Text> stageInfoTitle = make_shared<Text>("ステージ情報", STAGE_INFO_X, CONTENT_TOP, FontType::NORMAL_S24, ColorType::MAIN_COLOR);
+		stageInfoTitle->setBackgroundColor(ColorType::SUB_COLOR);
+		stageInfoTitle->setPadding(STAGE_INFO_PADDING);
+		stageInfoTitle->setW(STAGE_INFO_W);
+		objectsControl.addFigure(Layer::UI, stageInfoTitle);
+
+		// ステージタイトル
+		stageTitle_ = make_shared<Entity::Text>("", INFO_TEXT_X + STAGE_INFO_PADDING, INFO_TEXT_Y,
+			FontType::NORMAL_S24, ColorType::SUB_COLOR);
+		objectsControl.addFigure(Layer::UI, stageTitle_);
+
+		// 勝利条件 + 敗北条件 (一部のY座標は後から指定)
+
+		winLabel_ = make_shared<Entity::Text>("勝利条件", INFO_TEXT_X, INFO_TEXT_Y + 2 * LINE_HEIGHT, FontType::NORMAL_S24, ColorType::PLAYER_COLOR);
+		objectsControl.addFigure(Layer::UI, winLabel_);
+
+		winValue_ = make_shared<Entity::Text>("", INFO_TEXT_X, INFO_TEXT_Y + 3 * LINE_HEIGHT, FontType::NORMAL_S24, ColorType::SUB_COLOR);
+		objectsControl.addFigure(Layer::UI, winValue_);
+
+		loseLabel_ = make_shared<Entity::Text>("敗北条件", INFO_TEXT_X, 0, FontType::NORMAL_S24, ColorType::ENEMY_COLOR);
+		objectsControl.addFigure(Layer::UI, loseLabel_);
+
+		loseValue_ = make_shared<Entity::Text>("", INFO_TEXT_X, 0, FontType::NORMAL_S24, ColorType::SUB_COLOR);
+		objectsControl.addFigure(Layer::UI, loseValue_);
+
+		// ステージヒント
+		hintLabel_ = make_shared<Entity::Text>("ヒント", INFO_TEXT_X, 0, FontType::NORMAL_S24, ColorType::SUB_COLOR_DARK);
+		objectsControl.addFigure(Layer::UI, hintLabel_);
+
+		stageHint_ = make_shared<Entity::Text>("", INFO_TEXT_X, 0, FontType::NORMAL_S24, ColorType::SUB_COLOR);
+		objectsControl.addFigure(Layer::UI, stageHint_);
+
+
+		/* ステージ情報欄 ここまで */
+
+
 		
 		// スタートボタン
 		shared_ptr<Entity::TextButton> startBtn = make_shared<Entity::TextButton>(ColorType::POSITIVE_LITE_COLOR, ColorType::POSITIVE_COLOR);
-		startBtn->setShape(LEFT_AREA_WIDTH + START_MARGIN, START_Y, WIN_W - LEFT_AREA_WIDTH - START_MARGIN * 2, START_HEIGHT);
+		startBtn->setShape(INFO_TEXT_X, BTN_Y, BTN_W, BTN_H);
 		startBtn->setColor(ColorType::POSITIVE_COLOR, ColorType::POSITIVE_LITE_COLOR, Entity::TextButton::State::MOUSE_OVER);
 		startBtn->setColor(ColorType::POSITIVE_COLOR, ColorType::POSITIVE_LITE_COLOR, Entity::TextButton::State::MOUSE_DOWN);
-		startBtn->setText("スタート", FontType::BLACK_S48);
+		startBtn->setText("決定", FontType::BLACK_S32);
 		objectsControl.addObject(Layer::UI, UIid::START_BTN, startBtn);
 
 		// 戻るボタン
-		shared_ptr<Entity::TextButton> backBtn = make_shared<Entity::TextButton>(ColorType::MAIN_COLOR, ColorType::SUB_COLOR);
-		backBtn->setShape(WIN_W - BACK_SIZE, 0, BACK_SIZE, BACK_SIZE);
-		backBtn->setColor(ColorType::SUB_COLOR, ColorType::MAIN_COLOR, Entity::TextButton::State::MOUSE_OVER);
+		shared_ptr<Entity::TextButton> backBtn = make_shared<Entity::TextButton>(ColorType::SUB_COLOR_LITE, ColorType::SUB_COLOR);
+		backBtn->setShape(INFO_TEXT_X + BTN_W + BTN_MARGIN, BTN_Y, BTN_W, BTN_H);
+		backBtn->setColor(ColorType::SUB_COLOR, ColorType::SUB_COLOR_LITE, Entity::TextButton::State::MOUSE_OVER);
 		backBtn->setColor(ColorType::SUB_COLOR, ColorType::MAIN_COLOR, Entity::TextButton::State::MOUSE_DOWN);
-		backBtn->setText("×", FontType::NORMAL_S32);
+		backBtn->setText("戻る", FontType::BLACK_S32);
 		objectsControl.addObject(Layer::UI, UIid::BACK_BTN, backBtn);
-
-		if (selectedCourseId_ != -1)
-		{
-			updateStageInfo(); // ステージ情報更新
-		}
 		
+		// ステージ情報更新
+		updateStageInfo();
+
 		// オーバーレイセット
 		createOverlay(true);
 	}
@@ -138,7 +194,7 @@ namespace Screen
 
 				// 新しい選択中のボタンを有効化
 				shared_ptr<Entity::CourseButton> courseBtn = dynamic_pointer_cast<Entity::CourseButton>(hitObjSp);
-				courseBtn->setSelected(true);
+				courseBtn->setSelected(true, true);
 				selectedCourseId_ = hitObjSp->getObjectId();
 
 				updateStageInfo();
@@ -179,14 +235,7 @@ namespace Screen
 
 		if (isOpenOverlayEnded()) // オーバーレイ（open）終了判定用
 		{
-			// NEWコース表示アニメーションシーンセット
-			if (newCourseId_ != -1)
-			{
-				nowScene_ = Scene::BORN;
-				game.setScreenLock(true);
-				game.objectsControl.addAnimationObj(Entity::CourseButton::AnimationId::BORN, Layer::COURSE_BUTTON, newCourseId_);
-			}
-			else if (selectedCourseId_ != -1)
+			if (selectedCourseId_ != -1)
 			{
 				nowScene_ = Scene::SELECT;
 
@@ -210,15 +259,6 @@ namespace Screen
 				FrameWork::Game::getInstance().setScreen(battleScreen);
 			}
 		}
-		else if (nowScene_ == Scene::BORN)
-		{
-			shared_ptr<Entity::Object> obj = game.objectsControl.getObjectWp(Layer::COURSE_BUTTON, newCourseId_).lock();
-			if (!obj || obj->isAnimation() == false) // 終了
-			{
-				nowScene_ = Scene::SELECT;
-				game.setScreenLock(false);
-			}
-		}
 	}
 
 	/**
@@ -231,12 +271,13 @@ namespace Screen
 		string title;
 		string hint;
 		vector<int> checkWinData;
-		Utility::ResourceManager::loadStageData(stageKind_, selectedCourseId_, &title, &hint, &checkWinData);
+		Utility::ResourceManager::loadStageData(STAGE_KIND, selectedCourseId_, &title, &hint, &checkWinData);
 
 		int lineCount = 0;
 
 		// タイトル
 		stageTitle_->setText(title.c_str());
+		++lineCount; // タイトル分
 
 		// 勝敗条件情報読み込み
 		Battle::CheckWin checkWin;
@@ -254,8 +295,11 @@ namespace Screen
 		winValue_->setText(winValue.c_str());
 		lineCount += winValueLineCount;
 
+		// 空行
+		++lineCount;
+
 		// 敗北条件ラベル（y座標のみ変更）
-		loseLabel_->setY(STAGE_INFO_Y + LINE_HEIGHT * lineCount);
+		loseLabel_->setY(INFO_TEXT_Y + LINE_HEIGHT * lineCount);
 		++lineCount;
 		
 		// 敗北条件内容
@@ -265,15 +309,15 @@ namespace Screen
 		checkWin.getLoseConditionsText(&loseValue, &loseValueLineCount);
 
 		loseValue_->setText(loseValue.c_str());
-		loseValue_->setY(STAGE_INFO_Y + LINE_HEIGHT * lineCount);
+		loseValue_->setY(INFO_TEXT_Y + LINE_HEIGHT * lineCount);
 		lineCount += loseValueLineCount;
 
 		// ヒント
-		hintLabel_->setY(STAGE_INFO_Y + HINT_MARGIN_TOP + LINE_HEIGHT * lineCount);
+		hintLabel_->setY(INFO_TEXT_Y + HINT_MARGIN_TOP + LINE_HEIGHT * lineCount);
 		++lineCount;
 
 		stageHint_->setText(hint.c_str());
-		stageHint_->setY(STAGE_INFO_Y + HINT_MARGIN_TOP + LINE_HEIGHT * lineCount);
+		stageHint_->setY(INFO_TEXT_Y + HINT_MARGIN_TOP + LINE_HEIGHT * lineCount);
 		
 
 
