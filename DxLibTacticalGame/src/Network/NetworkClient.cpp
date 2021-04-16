@@ -106,6 +106,8 @@ namespace Network
 		objectsControl.removeObject(LAYER_CONTENT);
 		objectsControl.removeFigure(LAYER_CONTENT);
 
+		ipAdressInputList_.clear();
+
 		// Ú‘±‰ğœ
 		DxLib::CloseNetWork(netHandle_);
 	}
@@ -215,6 +217,7 @@ namespace Network
 	void NetworkClient::adjustConnectButtonValid()
 	{
 		ableConnecButton_ = false; // —LŒø / –³Œø
+		
 
 		if (state_ == State::NONE_CONENECT) // ‰Šúó‘Ô
 		{
