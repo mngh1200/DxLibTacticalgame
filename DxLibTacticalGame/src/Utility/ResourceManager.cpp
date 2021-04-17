@@ -297,6 +297,7 @@ namespace Utility {
 
 		// フォントの行間
 		DxLib::SetFontLineSpaceToHandle(24, hdlFont_[FontType::NORMAL_S18]);
+		DxLib::SetFontLineSpaceToHandle(28, hdlFont_[FontType::NORMAL_S20]);
 		DxLib::SetFontLineSpaceToHandle(32, hdlFont_[FontType::NORMAL_S24]);
 
 		return ret;
@@ -533,7 +534,7 @@ namespace Utility {
 		str_buf = string(readLine);
 		*title = str_buf;
 
-		if (untilLoad == UntilStageLoad::CHECK_WIN) // 勝敗条件までしか読み込まない場合
+		if (untilLoad == UntilStageLoad::TITLE) // タイトルまでしか読み込まない場合
 		{
 			DxLib::FileRead_close(csvHandle);
 			return;

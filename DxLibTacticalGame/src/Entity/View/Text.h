@@ -25,7 +25,7 @@ namespace Entity
 
 		void setText(const char* text);
 
-		void setPadding(int padding);
+		void setPadding(int paddingVertical, int paddingSide);
 
 		void setBackgroundColor(int backgroundColorType);
 
@@ -68,7 +68,7 @@ namespace Entity
 		int align_;
 
 		//! ó]îí
-		int padding_;
+		int paddingVertical_, paddingSide_;
 
 		//! îwåiêF
 		int backgroundColor_;

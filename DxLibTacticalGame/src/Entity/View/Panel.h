@@ -19,6 +19,8 @@ namespace Entity
 		Panel() : color_(-1) {};
 		~Panel() {};
 
+		void setX(int x);
+		void setY(int y);
 		void setPos(int x, int y);
 		void setSize(int w, int h);
 		void setShape(int x, int y, int w, int h);

@@ -55,13 +55,18 @@ namespace Screen
 		constexpr static int STAGE_INFO_X = PADDING + STAGE_LIST_W + STAGE_INFO_MARGIN; //! ステージ情報欄のX座標
 		constexpr static int STAGE_INFO_W = WIN_W - (STAGE_LIST_W + PADDING * 2 + STAGE_INFO_MARGIN); //! ステージ情報欄の幅
 		constexpr static int STAGE_INFO_H = 480;		//! ステージ情報欄の高さ
-		constexpr static int STAGE_INFO_PADDING = 5;	//! ステージ情報欄の余白（内側）
+		constexpr static int STAGE_INFO_HEAD_V_PADDING = 8; //! ステージ情報欄のヘッダーの縦余白
+		constexpr static int STAGE_INFO_PADDING = 18;	//! ステージ情報欄の余白（内側）
+
+		constexpr static int UNDER_BAR_HEIGHT = 2;		//! 下線の高さ
+
+		constexpr static int TEXT_HEIGHT = 28;  //! テキストの高さ
+		constexpr static int TEXT_MARGIN = 6;	//! テキストの余白
+		constexpr static int LINE_HEIGHT = TEXT_HEIGHT + TEXT_MARGIN;	//! 行の高さ
+		constexpr static int SECTION_MARGIN = 12 + UNDER_BAR_HEIGHT; //! テキストグループの余白(区切り線の高さ含む)
 
 		constexpr static int INFO_TEXT_X = STAGE_INFO_X + STAGE_INFO_PADDING;	//! ステージ情報テキストのx座標
-		constexpr static int INFO_TEXT_Y = CONTENT_TOP + 40;					//! ステージ情報テキストのy座標
-
-		constexpr static int LINE_HEIGHT = 32;	//! 行の高さ
-		constexpr static int HINT_MARGIN_TOP = 20; //! ヒント表示の上の余白
+		constexpr static int INFO_TEXT_Y = CONTENT_TOP + STAGE_INFO_HEAD_V_PADDING * 2 + LINE_HEIGHT;	//! ステージ情報テキストのy座標
 
 		constexpr static int BTN_MARGIN = 10; //! ボタンの余白
 		constexpr static int BTN_W = STAGE_INFO_W / 2 - BTN_MARGIN;		//! ボタンの幅
@@ -79,6 +84,8 @@ namespace Screen
 		shared_ptr<Entity::Text> winValue_;		//! 勝利条件の内容
 		shared_ptr<Entity::Text> loseLabel_;	//! 敗北条件ラベル
 		shared_ptr<Entity::Text> loseValue_;	//! 敗北条件ラベル
+
+		shared_ptr<Entity::Panel> sectionUnderBar_; //! 勝敗条件とヒントの間に入れるアンダーバー
 
 		shared_ptr<Entity::Text> hintLabel_;		//! ヒントラベル
 		shared_ptr<Entity::Text> stageHint_;	//! ステージヒント

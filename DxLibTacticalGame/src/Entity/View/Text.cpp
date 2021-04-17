@@ -14,7 +14,8 @@ namespace Entity {
 		baseX_(0),
 		baseW_(-1),
 		backgroundColor_(-1),
-		padding_(0)
+		paddingVertical_(0),
+		paddingSide_(0)
 	{
 		type_ = TEXT;
 	}
@@ -57,9 +58,9 @@ namespace Entity {
 
 		if (baseW_ == -1)
 		{
-			shape_.w += padding_ * 2; // 余白追加
+			shape_.w += paddingSide_ * 2; // 余白追加
 		}
-		shape_.h += padding_ * 2; // 余白追加
+		shape_.h += paddingVertical_ * 2; // 余白追加
 
 		adjustAlign();
 	}
@@ -69,17 +70,18 @@ namespace Entity {
 	 * 余白セット
 	 * @param (padding) 余白
 	 */
-	void Text::setPadding(int padding)
+	void Text::setPadding(int paddingVertical, int paddingSide)
 	{
 		// 余白変更によるサイズ調整
 		if (baseW_ == -1)
 		{
-			shape_.w += (padding - padding_) * 2;
+			shape_.w += (paddingSide - paddingSide_) * 2;
 		}
 		
-		shape_.h += (padding - padding_) * 2;
+		shape_.h += (paddingVertical - paddingVertical_) * 2;
 
-		padding_ = padding;
+		paddingSide_ = paddingSide;
+		paddingVertical_ = paddingVertical;
 
 		adjustAlign();
 	}
@@ -129,7 +131,7 @@ namespace Entity {
 			DxLib::DrawBox(shape_.x, shape_.y, shape_.getX2(), shape_.getY2(), backgroundColor_, TRUE);
 		}
 
-		DxLib::DrawFormatStringToHandle(shape_.x + padding_, shape_.y + padding_, color_, font_, text_.c_str());
+		DxLib::DrawFormatStringToHandle(shape_.x + paddingSide_, shape_.y + paddingVertical_, color_, font_, text_.c_str());
 	}
 
 	/**

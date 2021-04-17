@@ -31,9 +31,9 @@ namespace Screen
 
 		// タイトルの下線
 		shared_ptr<Panel> underLine = make_shared<Panel>();
-		underLine->setShape(PADDING, CONTENT_TOP - UNDER_LINE_MARGIN, 500, 2);
+		underLine->setShape(PADDING, CONTENT_TOP - UNDER_LINE_MARGIN, 500, UNDER_BAR_HEIGHT);
 		underLine->setColor(ColorType::SUB_COLOR);
-		objectsControl.addFigure(Layer::PANEL, underLine);
+		objectsControl.addFigure(Layer::UI, underLine);
 
 
 		/* ステージ選択欄 ここから */
@@ -106,36 +106,50 @@ namespace Screen
 		objectsControl.addFigure(Layer::PANEL, stageInfoPanel);
 
 		// ステージ情報欄タイトル
-		shared_ptr<Text> stageInfoTitle = make_shared<Text>("ステージ情報", STAGE_INFO_X, CONTENT_TOP, FontType::NORMAL_S24, ColorType::MAIN_COLOR);
+		shared_ptr<Text> stageInfoTitle = make_shared<Text>("ステージ情報", STAGE_INFO_X, CONTENT_TOP, FontType::NORMAL_S20, ColorType::MAIN_COLOR);
 		stageInfoTitle->setBackgroundColor(ColorType::SUB_COLOR);
-		stageInfoTitle->setPadding(STAGE_INFO_PADDING);
+		stageInfoTitle->setPadding(STAGE_INFO_HEAD_V_PADDING, STAGE_INFO_PADDING);
 		stageInfoTitle->setW(STAGE_INFO_W);
 		objectsControl.addFigure(Layer::UI, stageInfoTitle);
 
 		// ステージタイトル
-		stageTitle_ = make_shared<Entity::Text>("", INFO_TEXT_X + STAGE_INFO_PADDING, INFO_TEXT_Y,
-			FontType::NORMAL_S24, ColorType::SUB_COLOR);
+		stageTitle_ = make_shared<Entity::Text>("", INFO_TEXT_X, INFO_TEXT_Y,
+			FontType::NORMAL_S20, ColorType::SUB_COLOR);
 		objectsControl.addFigure(Layer::UI, stageTitle_);
+
+		// ステージタイトルの下線
+		shared_ptr<Panel> titleUnderLine = make_shared<Panel>();
+		titleUnderLine->setShape(INFO_TEXT_X, INFO_TEXT_Y + LINE_HEIGHT, STAGE_INFO_W - STAGE_INFO_PADDING * 2, UNDER_BAR_HEIGHT);
+		titleUnderLine->setColor(ColorType::SUB_COLOR_LITE);
+		objectsControl.addFigure(Layer::UI, titleUnderLine);
+
 
 		// 勝利条件 + 敗北条件 (一部のY座標は後から指定)
 
-		winLabel_ = make_shared<Entity::Text>("勝利条件", INFO_TEXT_X, INFO_TEXT_Y + 2 * LINE_HEIGHT, FontType::NORMAL_S24, ColorType::PLAYER_COLOR);
+		winLabel_ = make_shared<Entity::Text>("勝利条件:", INFO_TEXT_X, INFO_TEXT_Y + LINE_HEIGHT + SECTION_MARGIN, FontType::NORMAL_S20, ColorType::SUB_COLOR_BIT_LITE);
 		objectsControl.addFigure(Layer::UI, winLabel_);
 
-		winValue_ = make_shared<Entity::Text>("", INFO_TEXT_X, INFO_TEXT_Y + 3 * LINE_HEIGHT, FontType::NORMAL_S24, ColorType::SUB_COLOR);
+		winValue_ = make_shared<Entity::Text>("", INFO_TEXT_X, INFO_TEXT_Y + 2 * LINE_HEIGHT + SECTION_MARGIN, FontType::NORMAL_S20, ColorType::SUB_COLOR);
 		objectsControl.addFigure(Layer::UI, winValue_);
 
-		loseLabel_ = make_shared<Entity::Text>("敗北条件", INFO_TEXT_X, 0, FontType::NORMAL_S24, ColorType::ENEMY_COLOR);
+		loseLabel_ = make_shared<Entity::Text>("敗北条件:", INFO_TEXT_X, 0, FontType::NORMAL_S20, ColorType::SUB_COLOR_BIT_LITE);
 		objectsControl.addFigure(Layer::UI, loseLabel_);
 
-		loseValue_ = make_shared<Entity::Text>("", INFO_TEXT_X, 0, FontType::NORMAL_S24, ColorType::SUB_COLOR);
+		loseValue_ = make_shared<Entity::Text>("", INFO_TEXT_X, 0, FontType::NORMAL_S20, ColorType::SUB_COLOR);
 		objectsControl.addFigure(Layer::UI, loseValue_);
 
+		// アンダーバー
+		sectionUnderBar_ = make_shared<Entity::Panel>();
+		sectionUnderBar_->setShape(INFO_TEXT_X, 0, STAGE_INFO_W - STAGE_INFO_PADDING * 2, UNDER_BAR_HEIGHT);
+		sectionUnderBar_->setColor(ColorType::SUB_COLOR_LITE);
+		objectsControl.addFigure(Layer::UI, sectionUnderBar_);
+
+
 		// ステージヒント
-		hintLabel_ = make_shared<Entity::Text>("ヒント", INFO_TEXT_X, 0, FontType::NORMAL_S24, ColorType::SUB_COLOR_DARK);
+		hintLabel_ = make_shared<Entity::Text>("ヒント:", INFO_TEXT_X, 0, FontType::NORMAL_S20, ColorType::SUB_COLOR_BIT_LITE);
 		objectsControl.addFigure(Layer::UI, hintLabel_);
 
-		stageHint_ = make_shared<Entity::Text>("", INFO_TEXT_X, 0, FontType::NORMAL_S24, ColorType::SUB_COLOR);
+		stageHint_ = make_shared<Entity::Text>("", INFO_TEXT_X, 0, FontType::NORMAL_S20, ColorType::SUB_COLOR);
 		objectsControl.addFigure(Layer::UI, stageHint_);
 
 
@@ -281,7 +295,6 @@ namespace Screen
 
 		// タイトル
 		stageTitle_->setText(title.c_str());
-		++lineCount; // タイトル分
 
 		// 勝敗条件情報読み込み
 		Battle::CheckWin checkWin;
@@ -303,7 +316,7 @@ namespace Screen
 		++lineCount;
 
 		// 敗北条件ラベル（y座標のみ変更）
-		loseLabel_->setY(INFO_TEXT_Y + LINE_HEIGHT * lineCount);
+		loseLabel_->setY(INFO_TEXT_Y + LINE_HEIGHT * lineCount + SECTION_MARGIN);
 		++lineCount;
 		
 		// 敗北条件内容
@@ -313,19 +326,17 @@ namespace Screen
 		checkWin.getLoseConditionsText(&loseValue, &loseValueLineCount);
 
 		loseValue_->setText(loseValue.c_str());
-		loseValue_->setY(INFO_TEXT_Y + LINE_HEIGHT * lineCount);
+		loseValue_->setY(INFO_TEXT_Y + LINE_HEIGHT * lineCount + SECTION_MARGIN);
 		lineCount += loseValueLineCount;
 
+		// 下線部
+		sectionUnderBar_->setY(INFO_TEXT_Y + LINE_HEIGHT * lineCount + SECTION_MARGIN);
+
 		// ヒント
-		hintLabel_->setY(INFO_TEXT_Y + HINT_MARGIN_TOP + LINE_HEIGHT * lineCount);
+		hintLabel_->setY(INFO_TEXT_Y + SECTION_MARGIN * 2 + LINE_HEIGHT * lineCount);
 		++lineCount;
 
 		stageHint_->setText(hint.c_str());
-		stageHint_->setY(INFO_TEXT_Y + HINT_MARGIN_TOP + LINE_HEIGHT * lineCount);
-		
-
-
-
+		stageHint_->setY(INFO_TEXT_Y + SECTION_MARGIN * 2 + LINE_HEIGHT * lineCount);
 	}
-
 }

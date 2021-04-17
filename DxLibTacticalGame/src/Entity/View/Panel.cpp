@@ -1,6 +1,25 @@
 #include "Panel.h"
 
 namespace Entity {
+	/**
+	 * @fn
+	 * 座標セット
+	 * @param (x) x座標
+	 */
+	void Panel::setX(int x)
+	{
+		shape_.x = x;
+	}
+
+	/**
+	 * @fn
+	 * 座標セット
+	 * @param (y) y座標
+	 */
+	void Panel::setY(int y)
+	{
+		shape_.y = y;
+	}
 
 	/**
 	 * @fn
