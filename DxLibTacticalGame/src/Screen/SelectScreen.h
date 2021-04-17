@@ -37,8 +37,8 @@ namespace Screen
 	private:
 		void updateStageInfo();
 
-		constexpr static int PADDING = 50;		//! 余白
-		constexpr static int UNDER_LINE_MARGIN = 10; //! 下線の余白
+		constexpr static int PADDING = 45;		//! 余白
+		constexpr static int UNDER_LINE_MARGIN = 15; //! 下線の余白
 
 
 		constexpr static int CONTENT_TOP = PADDING + 60;	//! コンテンツ部分のY座標
@@ -47,8 +47,8 @@ namespace Screen
 		constexpr static int STAGE_LIST_H = WIN_H - (PADDING + CONTENT_TOP); //! ステージリストの高さ
 		constexpr static int STAGE_LIST_PADDING = 20;	//! ステージリストの余白
 
-		constexpr static int STAGE_BUTTON_H = 36;		//! ステージボタンの幅
-		constexpr static int STAGE_BUTTON_MARGIN = 8;	//! ステージボタンの余白
+		constexpr static int STAGE_BUTTON_H = 38;		//! ステージボタンの幅
+		constexpr static int STAGE_BUTTON_MARGIN = 10;	//! ステージボタンの余白
 
 
 		constexpr static int STAGE_INFO_MARGIN = 50;	//! ステージ情報欄の余白

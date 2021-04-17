@@ -1,8 +1,10 @@
 #include "resource.h"
 
-BACKGROUND_IMAGE	IMAGE_FILE	"../resource/image/menu/background.jpg"
+BACKGROUND_IMAGE	IMAGE_FILE	"../resource/image/ui/background.jpg"
 
-TITLE_IMAGE	IMAGE_FILE	"../resource/image/menu/title.png"
+BACKGROUND_DARK_IMAGE	IMAGE_FILE	"../resource/image/ui/background-dark.jpg"
+
+TITLE_IMAGE	IMAGE_FILE	"../resource/image/ui/title.png"
 
 MAP_IMAGE	IMAGE_FILE	"../resource/image/map/mapchip.png"
 

@@ -17,23 +17,22 @@ namespace Entity
 	{
 	public:
 		Back();
-
 		~Back() {};
 
-		void init(int screenKind);
+		void init(int kind);
 		void render() const override;
 
-		enum ScreenKind : int
+		// 背景の種類
+		enum BackKind : int
 		{
-			UNSELECTED,
-			BATTLE_SCREEN
+			NORMAL_IMAGE,
+			DARK_IMAGE,
+			MONO_COLOR,
 		};
 
 	private:
 		const static int SELECT_LEFT_WIDTH = 800;
 
 		int imageId_; // イメージID
-
-		int screen_; // 表示スクリーン
 	};
 }

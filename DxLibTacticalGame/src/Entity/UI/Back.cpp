@@ -5,26 +5,32 @@ namespace Entity {
 	 * @fn
 	 * コンストラクタ
 	 */
-	Back::Back() : imageId_(0), screen_(UNSELECTED)
+	Back::Back() : imageId_(-1)
 	{
 		type_ = BACKGROUND;
 		shape_ = Shape(0, 0, WIN_W, WIN_H);
 
-
-		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
-		imageId_ = rm.getImage(ImageType::IMAGE, BACKGROUND_MENU, 0);
+		init(BackKind::NORMAL_IMAGE);
 	}
 
 	/**
 	 * @fn
 	 * 初期処理
-	 * @param (screenKind) 画面の種類
+	 * @param (kind) 背景の種類
 	 */
-	void Back::init(int screenKind)
+	void Back::init(int kind)
 	{
-		screen_ = screenKind;
+		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
 
-		if (screen_ == ScreenKind::BATTLE_SCREEN)
+		if (kind == BackKind::NORMAL_IMAGE)
+		{
+			imageId_ = rm.getImage(ImageType::IMAGE, ImageId::BACKGROUND_IMAGE_ID);
+		}
+		else if (kind == BackKind::DARK_IMAGE)
+		{
+			imageId_ = rm.getImage(ImageType::IMAGE, ImageId::BACKGROUND_DARK_IMAGE_ID);
+		}
+		else // MONO_COLOR (単色)
 		{
 			imageId_ = -1;
 		}
@@ -42,7 +48,7 @@ namespace Entity {
 		{
 			DxLib::DrawGraph(shape_.x, shape_.y, imageId_, FALSE);
 		}
-		else if (screen_ == ScreenKind::BATTLE_SCREEN) // 戦闘画面
+		else // 単色
 		{
 			DxLib::DrawBox(shape_.x, shape_.y, WIN_W, WIN_H, resourceManager.getColor(ColorType::SUB_COLOR_DARK), TRUE);
 		}

@@ -21,7 +21,9 @@ namespace Screen
 		objectsControl.setLayer(Layer::LEN);
 
 		// 背景
-		objectsControl.addObject(Layer::BACK, 0, make_shared<Entity::Back>());
+		shared_ptr<Back> back = make_shared<Entity::Back>();
+		back->init(Back::BackKind::DARK_IMAGE);
+		objectsControl.addObject(Layer::BACK, 0, back);
 		
 		// タイトル
 		objectsControl.addFigure(Layer::UI, 
@@ -38,10 +40,12 @@ namespace Screen
 
 
 		// ステージ選択部分のパネル
+		/*
 		shared_ptr<Panel> stageListPanel = make_shared<Panel>();
 		stageListPanel->setShape(PADDING, CONTENT_TOP, STAGE_LIST_W, STAGE_LIST_H);
 		stageListPanel->setColor(ColorType::MAIN_COLOR);
 		objectsControl.addFigure(Layer::PANEL, stageListPanel);
+		*/
 
 		// ステージボタン
 
@@ -75,11 +79,11 @@ namespace Screen
 			Utility::ResourceManager::loadStageTitle(STAGE_KIND, i, &title);
 
 			// Y座標
-			int y = CONTENT_TOP + STAGE_LIST_PADDING + i * (STAGE_BUTTON_H + STAGE_BUTTON_MARGIN);
+			int y = CONTENT_TOP/* + STAGE_LIST_PADDING*/ + i * (STAGE_BUTTON_H + STAGE_BUTTON_MARGIN);
 
 			objectsControl.addObject(Layer::COURSE_BUTTON, i, 
-				make_shared<Entity::CourseButton>(PADDING + STAGE_LIST_PADDING, y,
-					STAGE_LIST_W - STAGE_LIST_PADDING * 2, STAGE_BUTTON_H, title.c_str(), buttonState));
+				make_shared<Entity::CourseButton>(PADDING/* + STAGE_LIST_PADDING*/, y,
+					STAGE_LIST_W/* - STAGE_LIST_PADDING * 2*/, STAGE_BUTTON_H, title.c_str(), buttonState));
 		}
 
 		if (selectedCourseId_ == -1)
@@ -148,7 +152,7 @@ namespace Screen
 		objectsControl.addObject(Layer::UI, UIid::START_BTN, startBtn);
 
 		// 戻るボタン
-		shared_ptr<Entity::TextButton> backBtn = make_shared<Entity::TextButton>(ColorType::SUB_COLOR_LITE, ColorType::SUB_COLOR);
+		shared_ptr<Entity::TextButton> backBtn = make_shared<Entity::TextButton>(ColorType::SUB_COLOR_LITE2, ColorType::SUB_COLOR);
 		backBtn->setShape(INFO_TEXT_X + BTN_W + BTN_MARGIN, BTN_Y, BTN_W, BTN_H);
 		backBtn->setColor(ColorType::SUB_COLOR, ColorType::SUB_COLOR_LITE, Entity::TextButton::State::MOUSE_OVER);
 		backBtn->setColor(ColorType::SUB_COLOR, ColorType::MAIN_COLOR, Entity::TextButton::State::MOUSE_DOWN);

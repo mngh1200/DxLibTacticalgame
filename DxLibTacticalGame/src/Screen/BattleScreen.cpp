@@ -16,7 +16,7 @@ namespace Screen
 
 		// 背景
 		shared_ptr<Entity::Back> back = make_shared<Entity::Back>();
-		back->init(Entity::Back::ScreenKind::BATTLE_SCREEN);
+		back->init(Entity::Back::BackKind::MONO_COLOR);
 		objectsControl.addObject(Layer::BACK, 0, back);
 
 		// システムメニュ-

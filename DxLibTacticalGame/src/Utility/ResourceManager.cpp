@@ -212,7 +212,10 @@ namespace Utility {
 			image_.at(ImageType::IMAGE).push_back(new int[1]);
 		}
 		// îwåi
-		loadImage(MAKEINTRESOURCE(BACKGROUND_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::IMAGE).at(ImageId::BACKGROUND_MENU));
+		loadImage(MAKEINTRESOURCE(BACKGROUND_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::IMAGE).at(ImageId::BACKGROUND_IMAGE_ID));
+		
+		// îwåiÅià√ÇﬂÅj
+		loadImage(MAKEINTRESOURCE(BACKGROUND_DARK_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::IMAGE).at(ImageId::BACKGROUND_DARK_IMAGE_ID));
 
 		// É^ÉCÉgÉã
 		loadImage(MAKEINTRESOURCE(TITLE_IMAGE), MAKEINTRESOURCE(IMAGE_FILE), image_.at(ImageType::IMAGE).at(ImageId::TITLE_IMAGE_ID));
@@ -315,6 +318,7 @@ namespace Utility {
 
 		colorType_[ColorType::SUB_COLOR] = DxLib::GetColor(124, 104, 95);
 		colorType_[ColorType::SUB_COLOR_LITE] = DxLib::GetColor(224, 215, 204);
+		colorType_[ColorType::SUB_COLOR_LITE2] = 0xD6CCC1;
 		colorType_[ColorType::SUB_COLOR_BIT_LITE] = 0xA18C80;
 		colorType_[ColorType::SUB_COLOR_DARK] = DxLib::GetColor(76, 64, 59);
 

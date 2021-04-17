@@ -9,7 +9,7 @@ namespace Entity {
 	 */
 	CourseButton::CourseButton() : isSelected_(false), state_(State::NORMAL)
 	{
-		setColor(ColorType::SUB_COLOR_LITE, ColorType::SUB_COLOR);
+		setColor(ColorType::SUB_COLOR_LITE2, ColorType::SUB_COLOR);
 		setFont(FontType::NORMAL_S20);
 		setTextX(20);
 	}
@@ -51,7 +51,7 @@ namespace Entity {
 		}
 		else
 		{
-			setColor(ColorType::SUB_COLOR_LITE, ColorType::SUB_COLOR);
+			setColor(ColorType::SUB_COLOR_LITE2, ColorType::SUB_COLOR);
 		}
 	}
 
