@@ -77,77 +77,80 @@ namespace Screen
 	{
 		shared_ptr<Entity::Object> hitObjSp = hitObjWp.lock();
 
-		if (hitObjSp)
+		// イベント対象オブジェクトがない場合、終了
+		if (!hitObjSp)
 		{
-			// システムメニュー関連イベント
-			if (nowScene_ == Scene::PLAYER_TURN || nowScene_ == Scene::ENEMY_TURN || nowScene_ == Scene::SET_UNITS || nowScene_ == Scene::WAIT_ENEMY_SET)
+			return;
+		}
+
+		// システムメニュー関連イベント
+		if (nowScene_ == Scene::PLAYER_TURN || nowScene_ == Scene::ENEMY_TURN || nowScene_ == Scene::SET_UNITS || nowScene_ == Scene::WAIT_ENEMY_SET)
+		{
+			int systemMenuKey = systemMenu_->checkRunButton(x, y, eventType);
+			execSystemMenuProcess(systemMenuKey);
+
+			if (systemMenuKey == -1 && (eventType == MOUSE_INPUT_LOG_UP || (eventType == MOUSE_INPUT_LOG_CLICK && hitObjSp != systemMenu_)))
 			{
-				int systemMenuKey = systemMenu_->checkRunButton(x, y, eventType);
-				execSystemMenuProcess(systemMenuKey);
+				systemMenu_->hide(); // コンテキストメニューを閉じる
 
-				if (systemMenuKey == -1 && (eventType == MOUSE_INPUT_LOG_UP || (eventType == MOUSE_INPUT_LOG_CLICK && hitObjSp != systemMenu_)))
+				if (button == MOUSE_INPUT_RIGHT) // 右マウスダウン
 				{
-					systemMenu_->hide(); // コンテキストメニューを閉じる
-
-					if (button == MOUSE_INPUT_RIGHT) // 右マウスダウン
-					{
-						systemMenu_->show(x, y); // コンテキストメニューを開く
-					}
+					systemMenu_->show(x, y); // コンテキストメニューを開く
 				}
 			}
+		}
 
-			if (nowScene_ == Scene::PLAYER_TURN) // プレイヤーターン
-			{
-				playerBtlCont_.updateByEvents(&btlMng_, hitObjSp, x, y, button, &eventType);				
+		if (nowScene_ == Scene::PLAYER_TURN) // プレイヤーターン
+		{
+			playerBtlCont_.updateByEvents(&btlMng_, hitObjSp, x, y, button, &eventType);				
 				
-				if (eventType == MOUSE_INPUT_LOG_CLICK)
+			if (eventType == MOUSE_INPUT_LOG_CLICK)
+			{
+				// ターン終了ボタン
+				if (hitObjSp->getLayerId() == Layer::UI && hitObjSp->getObjectId() == Battle::BattleUI::BattleUIid::TURN_END_BUTTON)
 				{
-					// ターン終了ボタン
-					if (hitObjSp->getLayerId() == Layer::UI && hitObjSp->getObjectId() == Battle::BattleUI::BattleUIid::TURN_END_BUTTON)
-					{
-						turnEnd();
-					}
+					turnEnd();
 				}
 			}
-			else if (nowScene_ == Scene::SET_UNITS && eventType == MOUSE_INPUT_LOG_CLICK) // ユニット配置シーン
+		}
+		else if (nowScene_ == Scene::SET_UNITS && eventType == MOUSE_INPUT_LOG_CLICK) // ユニット配置シーン
+		{
+			// 準備完了ボタン
+			if (hitObjSp->getLayerId() == Layer::UI && hitObjSp->getObjectId() == Battle::BattleUI::BattleUIid::CONFIRM_UNIT_SET)
 			{
-				// 準備完了ボタン
-				if (hitObjSp->getLayerId() == Layer::UI && hitObjSp->getObjectId() == Battle::BattleUI::BattleUIid::CONFIRM_UNIT_SET)
-				{
-					confirmSetUnits();
-				}
-				else if (hitObjSp->getLayerId() == Layer::UI && hitObjSp->getObjectId() == Battle::BattleUI::BattleUIid::SELECT_UNIT_AREA)
-				{
-					// ユニット選択エリア
-					btlMng_.tutorial.onEvent(Battle::TutorialManager::TutorialId::FREE_SET_SET, &btlMng_);
-				}
-				else
-				{
-					// ユニット配置イベント
-					SetUnits::onClick(x, y, btlMng_.map, &btlMng_.battleUI, &btlMng_.tutorial, &btlMng_);
-				}
+				confirmSetUnits();
 			}
-			else if (nowScene_ == Scene::RESULT && eventType == MOUSE_INPUT_LOG_CLICK) // 勝敗結果画面
+			else if (hitObjSp->getLayerId() == Layer::UI && hitObjSp->getObjectId() == Battle::BattleUI::BattleUIid::SELECT_UNIT_AREA)
 			{
-				// 画面クリックで画面遷移
-				if (isNetMatch_) // 通信対戦時
-				{
-					nextScreen_ = new NetworkScreen();
-				}
-				else // 標準時
-				{
-					nextScreen_ = new SelectScreen();
-				}
+				// ユニット選択エリア
+				btlMng_.tutorial.onEvent(Battle::TutorialManager::TutorialId::FREE_SET_SET, &btlMng_);
+			}
+			else
+			{
+				// ユニット配置イベント
+				SetUnits::onClick(x, y, btlMng_.map, &btlMng_.battleUI, &btlMng_.tutorial, &btlMng_);
+			}
+		}
+		else if (nowScene_ == Scene::RESULT && eventType == MOUSE_INPUT_LOG_CLICK) // 勝敗結果画面
+		{
+			// 画面クリックで画面遷移
+			if (isNetMatch_) // 通信対戦時
+			{
+				nextScreen_ = new NetworkScreen();
+			}
+			else // 標準時
+			{
+				nextScreen_ = new SelectScreen();
+			}
 				
+			createOverlay(false);
+		}
+		else if (nowScene_ == Scene::NETWORK_CLOSE) // 相手のネットワーク切断時
+		{
+			if (eventType == MOUSE_INPUT_LOG_CLICK && dialog_.isEqualsOkBtn(hitObjSp)) // ダイアログのOKボタンクリック時
+			{
+				nextScreen_ = new MenuScreen();
 				createOverlay(false);
-			}
-			else if (nowScene_ == Scene::NETWORK_CLOSE) // 相手のネットワーク切断時
-			{
-				if (eventType == MOUSE_INPUT_LOG_CLICK && dialog_.isEqualsOkBtn(hitObjSp)) // ダイアログのOKボタンクリック時
-				{
-					nextScreen_ = new MenuScreen();
-					createOverlay(false);
-				}
 			}
 		}
 	}

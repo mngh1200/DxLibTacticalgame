@@ -64,28 +64,30 @@ namespace Screen
 	{
 		shared_ptr<Entity::Object> hitObjSp = hitObjWp.lock();
 
-
-		if (hitObjSp)
+		// イベント対象オブジェクトがない場合、終了
+		if (!hitObjSp)
 		{
-			// ボタンのクリックイベント
-			if (hitObjSp->getType() == Entity::Figure::BUTTON && eventType == MOUSE_INPUT_LOG_CLICK)
-			{
-				int objId = hitObjSp->getObjectId();
+			return;
+		}
 
-				if (objId == UIid::CAMPAIN_BUTTON) // キャンペーンボタン
-				{
-					nextScreen_ = new SelectScreen();
-					createOverlay(false); // （アニメーション後に）セレクト画面に画面遷移
-				}
-				else if (objId == UIid::NETWORK_BUTTON) // キャンペーンボタン
-				{
-					nextScreen_ = new NetworkScreen();
-					createOverlay(false); // （アニメーション後に）セレクト画面に画面遷移
-				}
-				else if (objId == UIid::QUIT_BUTTON) // 終了ボタン
-				{
-					FrameWork::Game::getInstance().finish();
-				}
+		// ボタンのクリックイベント
+		if (hitObjSp->getType() == Entity::Figure::BUTTON && eventType == MOUSE_INPUT_LOG_CLICK)
+		{
+			int objId = hitObjSp->getObjectId();
+
+			if (objId == UIid::CAMPAIN_BUTTON) // キャンペーンボタン
+			{
+				nextScreen_ = new SelectScreen();
+				createOverlay(false); // （アニメーション後に）セレクト画面に画面遷移
+			}
+			else if (objId == UIid::NETWORK_BUTTON) // キャンペーンボタン
+			{
+				nextScreen_ = new NetworkScreen();
+				createOverlay(false); // （アニメーション後に）セレクト画面に画面遷移
+			}
+			else if (objId == UIid::QUIT_BUTTON) // 終了ボタン
+			{
+				FrameWork::Game::getInstance().finish();
 			}
 		}
 	}

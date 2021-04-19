@@ -113,34 +113,37 @@ namespace Screen
 			return;
 		}
 
-		if (hitObjSp)
+		// イベント対象オブジェクトがない場合、終了
+		if (!hitObjSp)
 		{
-			// ボタンのクリックイベント
-			if (hitObjSp->getType() == Entity::Figure::BUTTON && eventType == MOUSE_INPUT_LOG_CLICK)
-			{
-				int objId = hitObjSp->getObjectId();
+			return;
+		}
 
-				if (nowScene_ == Scene::INIT)
+		// ボタンのクリックイベント
+		if (hitObjSp->getType() == Entity::Figure::BUTTON && eventType == MOUSE_INPUT_LOG_CLICK)
+		{
+			int objId = hitObjSp->getObjectId();
+
+			if (nowScene_ == Scene::INIT)
+			{
+				if (objId == UIid::CREATE_ROOM_BUTTON) // 「部屋を作る」ボタン
 				{
-					if (objId == UIid::CREATE_ROOM_BUTTON) // 「部屋を作る」ボタン
-					{
-						Utility::ResourceManager::playSound(SoundKind::CHECK);
-						nowScene_ = Scene::HOST;
-						hostManager_.start();
-					}
-					else if (objId == UIid::SEARCH_ROOM_BUTTON) // 「部屋を探す」ボタン
-					{
-						Utility::ResourceManager::playSound(SoundKind::CHECK);
-						nowScene_ = Scene::CLIENT;
-						clientManager_.start();
-					}
-					else if (objId == UIid::QUIT_BUTTON) // 終了ボタン
-					{
-						// 画面遷移
-						Utility::ResourceManager::playSound(SoundKind::BACK);
-						nextScreen_ = new MenuScreen();
-						createOverlay(false);
-					}
+					Utility::ResourceManager::playSound(SoundKind::CHECK);
+					nowScene_ = Scene::HOST;
+					hostManager_.start();
+				}
+				else if (objId == UIid::SEARCH_ROOM_BUTTON) // 「部屋を探す」ボタン
+				{
+					Utility::ResourceManager::playSound(SoundKind::CHECK);
+					nowScene_ = Scene::CLIENT;
+					clientManager_.start();
+				}
+				else if (objId == UIid::QUIT_BUTTON) // 終了ボタン
+				{
+					// 画面遷移
+					Utility::ResourceManager::playSound(SoundKind::BACK);
+					nextScreen_ = new MenuScreen();
+					createOverlay(false);
 				}
 			}
 		}

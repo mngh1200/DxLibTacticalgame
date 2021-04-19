@@ -193,53 +193,56 @@ namespace Screen
 	{
 		shared_ptr<Entity::Object> hitObjSp = hitObjWp.lock();
 
-
-		if (hitObjSp)
+		// イベント対象オブジェクトがない場合、終了
+		if (!hitObjSp)
 		{
-			Entity::ObjectsControl& objCont = FrameWork::Game::getInstance().objectsControl;
+			return;
+		}
 
-			// コースボタンのクリックイベント
-			if (hitObjSp->getLayerId() == Layer::COURSE_BUTTON && eventType == MOUSE_INPUT_LOG_CLICK)
+
+		Entity::ObjectsControl& objCont = FrameWork::Game::getInstance().objectsControl;
+
+		// コースボタンのクリックイベント
+		if (hitObjSp->getLayerId() == Layer::COURSE_BUTTON && eventType == MOUSE_INPUT_LOG_CLICK)
+		{
+			// 選択中のボタンの解除
+			weak_ptr<Entity::Object> prevObjWp = objCont.getObjectWp(Layer::COURSE_BUTTON, selectedCourseId_);
+			shared_ptr<Entity::Object> prevObjSp = prevObjWp.lock();
+			if (prevObjSp)
 			{
-				// 選択中のボタンの解除
-				weak_ptr<Entity::Object> prevObjWp = objCont.getObjectWp(Layer::COURSE_BUTTON, selectedCourseId_);
-				shared_ptr<Entity::Object> prevObjSp = prevObjWp.lock();
-				if (prevObjSp)
-				{
-					shared_ptr<Entity::CourseButton> prevSelected = dynamic_pointer_cast<Entity::CourseButton>(prevObjSp);
-					prevSelected->setSelected(false);
-				}
-
-				// 新しい選択中のボタンを有効化
-				shared_ptr<Entity::CourseButton> courseBtn = dynamic_pointer_cast<Entity::CourseButton>(hitObjSp);
-				courseBtn->setSelected(true, true);
-				selectedCourseId_ = hitObjSp->getObjectId();
-
-				updateStageInfo();
+				shared_ptr<Entity::CourseButton> prevSelected = dynamic_pointer_cast<Entity::CourseButton>(prevObjSp);
+				prevSelected->setSelected(false);
 			}
-			else if (hitObjSp->getLayerId() == Layer::UI && eventType == MOUSE_INPUT_LOG_CLICK)
+
+			// 新しい選択中のボタンを有効化
+			shared_ptr<Entity::CourseButton> courseBtn = dynamic_pointer_cast<Entity::CourseButton>(hitObjSp);
+			courseBtn->setSelected(true, true);
+			selectedCourseId_ = hitObjSp->getObjectId();
+
+			updateStageInfo();
+		}
+		else if (hitObjSp->getLayerId() == Layer::UI && eventType == MOUSE_INPUT_LOG_CLICK)
+		{
+			// UIボタンクリック
+			if (hitObjSp->getObjectId() == UIid::START_BTN)
 			{
-				// UIボタンクリック
-				if (hitObjSp->getObjectId() == UIid::START_BTN)
-				{
-					// スタートボタン
-					openScreen_ = Screen::BATTLE;
-					createOverlay(false);
+				// スタートボタン
+				openScreen_ = Screen::BATTLE;
+				createOverlay(false);
 
-					// サウンド
-					Utility::ResourceManager::playSound(SoundKind::CLICK);
-				}
-				else if (hitObjSp->getObjectId() == UIid::BACK_BTN)
-				{
-					// 戻るボタン　メインメニューに戻る
-					openScreen_ = Screen::MAIN_MENU;
-					createOverlay(false);
-
-					// サウンド
-					// Utility::ResourceManager::playSound(SoundKind::BACK);
-				}
-
+				// サウンド
+				Utility::ResourceManager::playSound(SoundKind::CLICK);
 			}
+			else if (hitObjSp->getObjectId() == UIid::BACK_BTN)
+			{
+				// 戻るボタン　メインメニューに戻る
+				openScreen_ = Screen::MAIN_MENU;
+				createOverlay(false);
+
+				// サウンド
+				// Utility::ResourceManager::playSound(SoundKind::BACK);
+			}
+
 		}
 	}
 

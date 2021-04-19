@@ -387,26 +387,28 @@ namespace Battle {
 	*/
 	void BattleManager::setFightPredict(shared_ptr<Unit> targetUnit)
 	{
-		if (isSelectedUnitActive())
+		if (!isSelectedUnitActive())
 		{
-			if (fight_.setPrepare(selectedUnit_, targetUnit))
-			{
-				battleUI.setFightPredict(&fight_);
+			return;
+		}
 
-				if (!isPlayerTurn_)
+		if (fight_.setPrepare(selectedUnit_, targetUnit))
+		{
+			battleUI.setFightPredict(&fight_);
+
+			if (!isPlayerTurn_)
+			{
+				// “GŒR‚Ì‘€ì‚Ìê‡AUŒ‚‰Â”\ƒGƒŠƒA‚Ì•\Ž¦‚ðUŒ‚‘ÎÛ‚Ì‚Ý‚É‚·‚é
+				map->clearMassState();
+				shared_ptr<Mass> mass = map->getMass(targetUnit->getMassX(), targetUnit->getMassY());
+				if (mass)
 				{
-					// “GŒR‚Ì‘€ì‚Ìê‡AUŒ‚‰Â”\ƒGƒŠƒA‚Ì•\Ž¦‚ðUŒ‚‘ÎÛ‚Ì‚Ý‚É‚·‚é
-					map->clearMassState();
-					shared_ptr<Mass> mass = map->getMass(targetUnit->getMassX(), targetUnit->getMassY());
-					if (mass)
-					{
-						mass->state = Mass::ATK_ABLE;
-					}
+					mass->state = Mass::ATK_ABLE;
 				}
-				else
-				{
-					tutorial.onFight(&fight_, TutorialManager::FightPhase::PREDICT, this);
-				}
+			}
+			else
+			{
+				tutorial.onFight(&fight_, TutorialManager::FightPhase::PREDICT, this);
 			}
 		}
 	}
