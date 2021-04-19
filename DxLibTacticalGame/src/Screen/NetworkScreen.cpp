@@ -45,11 +45,12 @@ namespace Screen
 
 
 		// 戻るボタン
-		shared_ptr<Entity::TextButton> backBtn = make_shared<Entity::TextButton>(ColorType::MAIN_COLOR, ColorType::SUB_COLOR);
-		backBtn->setShape(WIN_W - BACK_SIZE, 0, BACK_SIZE, BACK_SIZE);
-		backBtn->setColor(ColorType::SUB_COLOR, ColorType::MAIN_COLOR, Entity::TextButton::State::MOUSE_OVER);
+		shared_ptr<Entity::TextButton> backBtn = make_shared<Entity::TextButton>();
+		backBtn->setShape(BACK_BTN_X, BUTTON_Y + (BUTTON_H + BUTTON_MARGIN) * 3, BACK_BTN_W, BACK_BTN_H);
+		backBtn->setColor(ColorType::SUB_COLOR_LITE, ColorType::SUB_COLOR, Entity::TextButton::State::NORMAL);
 		backBtn->setColor(ColorType::SUB_COLOR, ColorType::MAIN_COLOR, Entity::TextButton::State::MOUSE_DOWN);
-		backBtn->setText("×", FontType::NORMAL_S32);
+		backBtn->setColor(ColorType::SUB_COLOR, ColorType::MAIN_COLOR, Entity::TextButton::State::MOUSE_OVER);
+		backBtn->setText("戻る", FontType::BLACK_S32);
 		objectsControl.addObject(Layer::UI, UIid::QUIT_BUTTON, backBtn);
 
 		// オーバーレイセット
