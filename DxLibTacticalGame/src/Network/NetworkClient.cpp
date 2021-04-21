@@ -39,16 +39,6 @@ namespace Network
 			ipInput->setFont(FontType::NORMAL_S24);
 			ipInput->setPaddingLeft(16);
 
-			// デフォルト
-			if (i == 0)
-			{
-				ipInput->setText("192");
-			}
-			else if (i == 1)
-			{
-				ipInput->setText("168");
-			}
-
 			objectsControl.addObject(LAYER_CONTENT, ipInput);
 
 			if (nextInput)

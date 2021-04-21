@@ -42,8 +42,8 @@ namespace Network
 		void checkAcceptNetwork();
 		void closeNetwork();
 
-		constexpr static int MODAL_W = 600; //! 小画面 幅
-		constexpr static int MODAL_H = 330; //! 小画面 高さ
+		constexpr static int MODAL_W = 630; //! 小画面 幅
+		constexpr static int MODAL_H = 360; //! 小画面 高さ
 		constexpr static int MODAL_X = (WIN_W - MODAL_W) / 2; //! 小画面 x座標
 		constexpr static int MODAL_Y = (WIN_H - MODAL_H) / 2; //! 小画面 y座標
 
@@ -57,7 +57,7 @@ namespace Network
 		constexpr static int BUTTON_MARGIN_X = 20; //! ボタンの余白
 		constexpr static int BUTTON_W = (MODAL_W - MODAL_PADDING * 2 - BUTTON_MARGIN_X) / 2; //! ボタンの幅
 
-		constexpr static int LINE_H = 32; //! 一行サイズ
+		constexpr static int LINE_H = 26; //! 一行サイズ
 		constexpr static int LINE_MARGIN = 30; //! 一行の余白
 
 		constexpr static int TIMER_MS = 500; //! 状況テキスト更新タイマー
