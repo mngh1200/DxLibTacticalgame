@@ -83,23 +83,6 @@ namespace Screen
 			return;
 		}
 
-		// システムメニュー関連イベント
-		if (nowScene_ == Scene::PLAYER_TURN || nowScene_ == Scene::ENEMY_TURN || nowScene_ == Scene::SET_UNITS || nowScene_ == Scene::WAIT_ENEMY_SET)
-		{
-			int systemMenuKey = systemMenu_->checkRunButton(x, y, eventType);
-			execSystemMenuProcess(systemMenuKey);
-
-			if (systemMenuKey == -1 && (eventType == MOUSE_INPUT_LOG_UP || (eventType == MOUSE_INPUT_LOG_CLICK && hitObjSp != systemMenu_)))
-			{
-				systemMenu_->hide(); // コンテキストメニューを閉じる
-
-				if (button == MOUSE_INPUT_RIGHT) // 右マウスダウン
-				{
-					systemMenu_->show(x, y); // コンテキストメニューを開く
-				}
-			}
-		}
-
 		if (nowScene_ == Scene::PLAYER_TURN) // プレイヤーターン
 		{
 			playerBtlCont_.updateByEvents(&btlMng_, hitObjSp, x, y, button, &eventType);				
@@ -151,6 +134,23 @@ namespace Screen
 			{
 				nextScreen_ = new MenuScreen();
 				createOverlay(false);
+			}
+		}
+
+		// システムメニュー関連イベント
+		if (nowScene_ == Scene::PLAYER_TURN || nowScene_ == Scene::ENEMY_TURN || nowScene_ == Scene::SET_UNITS || nowScene_ == Scene::WAIT_ENEMY_SET)
+		{
+			int systemMenuKey = systemMenu_->checkRunButton(x, y, eventType);
+			execSystemMenuProcess(systemMenuKey);
+
+			if (systemMenuKey == -1 && (eventType == MOUSE_INPUT_LOG_UP || (eventType == MOUSE_INPUT_LOG_CLICK && hitObjSp != systemMenu_)))
+			{
+				systemMenu_->hide(); // コンテキストメニューを閉じる
+
+				if (button == MOUSE_INPUT_RIGHT) // 右マウスダウン
+				{
+					systemMenu_->show(x, y); // コンテキストメニューを開く
+				}
 			}
 		}
 	}
