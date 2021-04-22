@@ -58,6 +58,9 @@ namespace Battle
 		void start();
 		bool checkUpdate();
 
+		void showPredictUnitDamage();
+		void hidePredictUnitDamage();
+
 		const FightData& getFightData(bool isAct) const;
 
 		bool isPrepared() const;

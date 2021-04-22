@@ -21,7 +21,7 @@ namespace Entity
 	public:
 		Unit() : x_(0), y_(0), baseX_(0), baseY_(0), targetRealX_(0), targetRealY_(0), 
 			imageId_(0), isEnemy_(false), state_(State::NORMAL), isActed_(false), closeAttackedLogs_(Direction::NONE_DIRECTION),
-			animation_{}, animationSub_{}, viewHp_(0), prevHp_(0), alpha_(255)  {};
+			animation_{}, animationSub_{}, viewHp_(0), prevHp_(0), alpha_(255), predictHp_(-1)  {};
 		virtual ~Unit() {};
 
 		//! アニメーションスピードの倍率
@@ -64,6 +64,9 @@ namespace Entity
 
 		void getExtraStatusList(vector<pair<string, string>>& list) const;
 
+		void setPredictDamage(int predictDamage);
+		void clearPredictDamage();
+
 		int getMassX() const { return x_; }; // x座標を返す
 		int getMassY() const { return y_; }; // y座標を返す
 		int getBaseX() const { return baseX_; }; // 移動元x座標を返す
@@ -82,6 +85,7 @@ namespace Entity
 	protected:
 		constexpr static int HP_PADDING = 5; //! HPバーの余白
 		constexpr static int HP_Y = 55; //! HPバーの相対位置y
+		constexpr static int HP_W = CHIP_SIZE - HP_PADDING * 2; //! HPバーの幅
 		constexpr static int HP_H = 5;  //! HPバーの高さ
 
 		constexpr static int ANIME_ATACK_MS = 400;	  //! 攻撃アニメーションの時間
@@ -147,7 +151,7 @@ namespace Entity
 		Animation animationSub_;
 
 		//! アニメーション用変数
-		int viewHp_, prevHp_, alpha_;
+		int viewHp_, prevHp_, alpha_, predictHp_;
 
 	public:
 		constexpr static int ANIME_DAMAGE_MS = 400;	//! ダメージアニメションの時間

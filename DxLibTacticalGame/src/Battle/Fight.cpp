@@ -174,6 +174,7 @@ namespace Battle
 	 */
 	void Fight::reset()
 	{
+		hidePredictUnitDamage();
 		actSide_ = { nullptr, true };
 		psvSide_ = { nullptr, false };
 		phase_ = Phase::NO_FIGHT;
@@ -329,6 +330,38 @@ namespace Battle
 		actSide_.unit->endAction();
 		// reset();
 		return true;
+	}
+
+	/**
+	 * @fn
+	 * ユニットの予測ダメージ量を表示
+	 */
+	void Fight::showPredictUnitDamage()
+	{
+		if (actSide_.unit)
+		{
+			actSide_.unit->setPredictDamage(psvSide_.damage);
+		}
+		if (psvSide_.unit)
+		{
+			psvSide_.unit->setPredictDamage(actSide_.damage);
+		}
+	}
+
+	/**
+	 * @fn
+	 * ユニットの予測ダメージ量を非表示
+	 */
+	void Fight::hidePredictUnitDamage()
+	{
+		if (actSide_.unit)
+		{
+			actSide_.unit->clearPredictDamage();
+		}
+		if (psvSide_.unit)
+		{
+			psvSide_.unit->clearPredictDamage();
+		}
 	}
 
 	/**

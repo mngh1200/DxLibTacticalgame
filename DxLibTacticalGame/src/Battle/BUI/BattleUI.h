@@ -59,7 +59,7 @@ namespace Battle
 		void setTargetMass(shared_ptr<Mass> mass);
 		void resetTargetMass();
 
-		void setFightPredict(const Fight* fight);
+		void setFightPredict(Fight* fight);
 		void resetFightPredict();
 
 		void updateByEvents(shared_ptr<Object> hitObj, int x, int y, int button, int eventType);

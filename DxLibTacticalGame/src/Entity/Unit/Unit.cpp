@@ -110,10 +110,19 @@ namespace Entity {
 		int hpx2 = shape_.getX2() - HP_PADDING;
 		int hpy2 = hpy1 + HP_H;
 
-		int hpw = (int)((float)(CHIP_SIZE - HP_PADDING * 2) * ((float)viewHp_ / (float)info_.hpm));
+		int hpw = (int)(HP_W * ((float)viewHp_ / (float)info_.hpm));
 
-		DxLib::DrawBox(hpx1, hpy1, hpx2, hpy2, rm.getColor(ColorType::NEGATIVE_COLOR), TRUE);
-		DxLib::DrawBox(hpx1, hpy1, hpx1 + hpw, hpy2, rm.getColor(ColorType::POSITIVE_LITE_COLOR), TRUE);
+		DxLib::DrawBox(hpx1, hpy1, hpx2, hpy2, rm.getColor(ColorType::SUB_COLOR), TRUE);
+		DxLib::DrawBox(hpx1, hpy1, hpx1 + hpw, hpy2, rm.getColor(ColorType::MAIN_COLOR), TRUE);
+
+		// ダメージ予測
+		if (predictHp_ != -1)
+		{
+			int damageX = (int)(HP_W * ((float)predictHp_ / (float)info_.hpm));
+
+			DxLib::DrawBox(hpx1 + damageX, hpy1, hpx1 + hpw, hpy2, rm.getColor(ColorType::ENEMY_COLOR_LITE), TRUE);
+			
+		}
 
 		if (alpha_ != 255) // 描画モードを標準に戻す
 		{
@@ -309,6 +318,30 @@ namespace Entity {
 		}
 
 		getExtraStatusListExtra(list);
+	}
+
+	/**
+	 * @fn
+	 * ダメージ予測をセット
+	 * @param (predictDamage) 予測ダメージ量
+	 */
+	void Unit::setPredictDamage(int predictDamage)
+	{
+		predictHp_ = info_.hp - predictDamage;
+
+		if (predictHp_ < 0)
+		{
+			predictHp_ = 0;
+		}
+	}
+
+	/**
+	 * @fn
+	 * ダメージ予測をクリア
+	 */
+	void Unit::clearPredictDamage()
+	{
+		predictHp_ = -1;
 	}
 
 	/**

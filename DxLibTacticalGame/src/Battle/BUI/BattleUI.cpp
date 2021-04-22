@@ -236,9 +236,12 @@ namespace Battle {
 	 * 戦闘予測表示時
 	 * @param (fight) 対象の戦闘情報
 	*/
-	void BattleUI::setFightPredict(const Fight* fight)
+	void BattleUI::setFightPredict(Fight* fight)
 	{
 		fightPredictDisplay_->emplaceFight(fight);
+
+		// ユニットのHPバーに予測ダメージ量を表示
+		fight->showPredictUnitDamage();
 
 		if (mode_ == Mode::NORMAL)
 		{
