@@ -172,6 +172,7 @@
     <ClCompile Include="src\Entity\Battle\Mass.cpp" />
     <ClCompile Include="src\Entity\Battle\ResultScene.cpp" />
     <ClCompile Include="src\Entity\Effect\DamageEffect.cpp" />
+    <ClCompile Include="src\Entity\Effect\ExtraEffect.cpp" />
     <ClCompile Include="src\Entity\Effect\TutorialArrow.cpp" />
     <ClCompile Include="src\Entity\Object.cpp" />
     <ClCompile Include="src\Entity\ObjectsControl.cpp" />
@@ -241,6 +242,7 @@
     <ClInclude Include="src\Entity\Battle\Mass.h" />
     <ClInclude Include="src\Entity\Battle\ResultScene.h" />
     <ClInclude Include="src\Entity\Effect\DamageEffect.h" />
+    <ClInclude Include="src\Entity\Effect\ExtraEffect.h" />
     <ClInclude Include="src\Entity\Effect\TutorialArrow.h" />
     <ClInclude Include="src\Entity\Object.h" />
     <ClInclude Include="src\Entity\ObjectsControl.h" />

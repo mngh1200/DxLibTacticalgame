@@ -294,6 +294,9 @@
     <ClCompile Include="src\Entity\View\Panel.cpp">
       <Filter>ソース ファイル\Entity\View</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entity\Effect\ExtraEffect.cpp">
+      <Filter>ソース ファイル\Entity\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -499,6 +502,9 @@
     </ClInclude>
     <ClInclude Include="src\Entity\View\Panel.h">
       <Filter>ヘッダー ファイル\Entity\View</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Effect\ExtraEffect.h">
+      <Filter>ヘッダー ファイル\Entity\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
