@@ -3,6 +3,7 @@
 #include <map>
 #include "Entity/Battle/Mass.h"
 #include "Entity/Unit/Gunner.h"
+#include "Entity/Effect/ExtraEffect.h"
 
 using namespace std;
 using namespace Entity;
@@ -43,7 +44,8 @@ namespace Battle
 		Fight() : 
 			actSide_{nullptr, 0, 0, true},
 			psvSide_{nullptr, 0, 0, false},
-			phase_(Phase::NO_FIGHT)
+			phase_(Phase::NO_FIGHT),
+			extraEffectList_{}
 		{};
 		~Fight() {};
 
@@ -70,7 +72,10 @@ namespace Battle
 	private:
 		int getCoordinatedAttack(int atkDirection, int atkedLogs);
 		void makeFightData(FightData* fightData, shared_ptr<Unit> atkUnit, shared_ptr<Unit> defUnit, shared_ptr<Mass> mass, bool isAct, int coordinatedAttack);
-		bool atack(bool isActSideAtack);
+		void attack(FightData* atkSide, FightData* defSide);
+		bool getAttackState(bool isActSideAtack, FightData& atkSide, FightData& defSide);
+		void showExtraEffect(FightData* atkSide, FightData* defSide);
+		void clearExtraEffect();
 
 		//! マップの参照
 		shared_ptr<Map> map_;
@@ -81,12 +86,17 @@ namespace Battle
 		//! 防御側データ
 		FightData psvSide_;
 
+		//! 特殊効果表示要素のリスト
+		vector<shared_ptr<ExtraEffect>> extraEffectList_;
+
 		//! フェイズ
 		enum class Phase
 		{
 			NO_FIGHT,
-			FIRST_ATK,
-			SECOND_ATK,
+			FIRST_EFFECT,	//! 先攻の効果表示
+			FIRST_ATK,		//! 先攻の攻撃
+			SECOND_EFFECT,	//! 後攻の効果表示
+			SECOND_ATK		//! 後攻の攻撃
 		};
 
 		//! フェイズ

@@ -1,26 +1,6 @@
 #include "ExtraEffect.h"
-#include "Screen/BattleScreen.h"
 
 namespace Entity {
-
-	/**
-	 * @fn
-	 * エフェクト生成
-	 * @param (atkUnit) 攻撃側ユニット
-	 * @param (defUnit) 防御側ユニット
-	 * @param (text) テキスト
-	 * @param (num) 連番
-	 */
-	void ExtraEffect::makeExtraEffect(shared_ptr<Unit> atkUnit, shared_ptr<Unit> defUnit, const char* text, int num)
-	{
-		FrameWork::Game& game = FrameWork::Game::getInstance();
-		Entity::ObjectsControl& objectsControl = game.objectsControl;
-
-		shared_ptr<ExtraEffect> objSp = make_shared<ExtraEffect>();
-		objectsControl.addFigure(Screen::BattleScreen::Layer::EFFECT, objSp);
-
-		objSp->initExtraEffect(atkUnit, defUnit, text, num);
-	}
 
 	/**
 	 * @fn
@@ -44,6 +24,9 @@ namespace Entity {
 			shape_.x = WIN_W;
 			isLeft_ = false;
 		}
+
+		num_ = num;
+		text_ = text;
 
 		joinAnimationList(AnimationKind::SHOW);
 	}

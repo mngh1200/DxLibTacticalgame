@@ -1,4 +1,5 @@
 #include "Fight.h"
+#include "Screen/BattleScreen.h"
 
 namespace Battle
 {
@@ -291,8 +292,14 @@ namespace Battle
 	{
 		if (isPrepared())
 		{
-			phase_ = Phase::FIRST_ATK;
-			atack(isActSideFirst());
+			phase_ = Phase::FIRST_EFFECT;
+
+			FightData atkSide;
+			FightData defSide;
+			getAttackState(isActSideFirst(), atkSide, defSide);
+			showExtraEffect(&atkSide, &defSide);
+
+			// atack(isActSideFirst());
 		}
 	}
 
@@ -304,30 +311,80 @@ namespace Battle
 	 */
 	bool Fight::checkUpdate()
 	{
-		if (!psvSide_.unit && !actSide_.unit)
+		if (!psvSide_.unit && !actSide_.unit) // 対象ユニットが存在しない場合
 		{
 			return true;
 		}
 
-		// アニメーション継続
-		if (psvSide_.unit->isAnimation() || actSide_.unit->isAnimation())
+		
+		if (phase_ == Phase::FIRST_ATK || phase_ == Phase::SECOND_ATK) // ユニットアニメーション中の処理
 		{
-			return false;
-		}
-
-		// アニメーション終了時
-		if (phase_ == Phase::FIRST_ATK)
-		{
-			if (atack(!isActSideFirst()))
+			// アニメーション継続
+			if (psvSide_.unit->isAnimation() || actSide_.unit->isAnimation())
 			{
-				// 防御側の攻撃あり
-				phase_ = Phase::SECOND_ATK;
+				return false;
+			}
+			
+			// アニメーション終了時
+			if (phase_ == Phase::FIRST_ATK)
+			{
+				FightData atkSide;
+				FightData defSide;
+				if (getAttackState(!isActSideFirst(), atkSide, defSide)) // 攻撃された側の攻撃があるか
+				{
+					showExtraEffect(&atkSide, &defSide);
+					phase_ = Phase::SECOND_EFFECT;
+					return false;
+				}				
+			}
+		}
+		if (phase_ == Phase::FIRST_EFFECT || phase_ == Phase::SECOND_EFFECT) // 特殊効果エフェクト中の処理
+		{
+			// アニメーション中の特殊エフェクトがあるか
+			for (auto itr = extraEffectList_.begin(); itr != extraEffectList_.end(); ++itr)
+			{
+				if ((*itr)->isAnimation())
+				{
+					return false;
+				}
+			}
+
+			// 特殊エフェクト終了時
+			FightData atkSide, defSide;
+			bool isFirstAttack = true; //! 攻撃を仕掛けた側の攻撃
+
+			if (phase_ == Phase::SECOND_EFFECT)
+			{
+				isFirstAttack = false;
+			}
+
+
+			if (getAttackState(isActSideFirst() == isFirstAttack, atkSide, defSide)) // 攻撃可能か
+			{
+				attack(&atkSide, &defSide);
+
+				if (isFirstAttack)
+				{
+					phase_ = Phase::FIRST_ATK;
+				}
+				else
+				{
+					phase_ = Phase::SECOND_ATK;
+				}
+
 				return false;
 			}
 		}
 
+		// 特殊効果エフェクトを非表示化
+		for (auto itr = extraEffectList_.begin(); itr != extraEffectList_.end(); ++itr)
+		{
+			(*itr)->hide();
+		}
+
 		// 戦闘終了
 		actSide_.unit->endAction();
+
 		// reset();
 		return true;
 	}
@@ -370,28 +427,8 @@ namespace Battle
 	 * @param (isActSideAtack) 防御側の攻撃であるか
 	 * @return 攻撃実行有無
 	 */
-	bool Fight::atack(bool isActSideAtack)
+	void Fight::attack(FightData* atkSide, FightData* defSide)
 	{
-		FightData* atkSide;
-		FightData* defSide;
-
-		if (isActSideAtack) // 攻撃仕掛けた側の攻撃
-		{
-			atkSide = &actSide_;
-			defSide = &psvSide_;
-		}
-		else // 攻撃仕掛けられた側の攻撃
-		{
-			atkSide = &psvSide_;
-			defSide = &actSide_;
-		}
-
-		// 攻撃不可判定
-		if (!atkSide->isAtk || atkSide->unit->getInfo().hp <= 0)
-		{
-			return false;
-		}
-
 		// 攻撃実行
 		atkSide->unit->atack(defSide->unit->getX(), defSide->unit->getY());
 
@@ -413,8 +450,74 @@ namespace Battle
 			atkSide->hitState = FightData::HitState::MISS;
 			defSide->unit->avoid(); // 回避
 		}
+	}
+
+	/**
+	 * @fn
+	 * 攻撃の状況取得
+	 */
+	bool Fight::getAttackState(bool isActSideAtack, FightData& atkSide, FightData& defSide)
+	{
+		if (isActSideAtack) // 攻撃仕掛けた側の攻撃
+		{
+			atkSide = actSide_;
+			defSide = psvSide_;
+		}
+		else // 攻撃仕掛けられた側の攻撃
+		{
+			atkSide = psvSide_;
+			defSide = actSide_;
+		}
+
+		// 攻撃不可判定
+		if (!atkSide.isAtk || atkSide.unit->getInfo().hp <= 0)
+		{
+			return false;
+		}
 
 		return true;
+	}
+
+	/**
+	 * @fn
+	 * 攻撃実行
+	 * @param (isActSideAtack) 防御側の攻撃であるか
+	 * @return 攻撃実行有無
+	 */
+	void Fight::showExtraEffect(FightData* atkSide, FightData* defSide)
+	{
+		// 特殊効果表示
+		clearExtraEffect();
+		int num = 0;
+		for (auto itr = atkSide->extraEffects.begin(); itr != atkSide->extraEffects.end(); ++itr)
+		{
+			if ("近接" == (*itr) || "射撃" == (*itr))
+			{
+				continue; // 特殊効果でないものは無視
+			}
+
+			FrameWork::Game& game = FrameWork::Game::getInstance();
+			Entity::ObjectsControl& objectsControl = game.objectsControl;
+
+			shared_ptr<ExtraEffect> extraEffect = make_shared<ExtraEffect>();
+			objectsControl.addFigure(Screen::BattleScreen::Layer::EFFECT, extraEffect);
+			extraEffect->initExtraEffect(atkSide->unit, defSide->unit, (*itr).c_str(), num);
+			extraEffectList_.push_back(extraEffect);
+			++num;
+		}
+	}
+
+	/**
+	 * @fn
+	 * 既存の特殊効果表記クリア
+	 */
+	void Fight::clearExtraEffect()
+	{
+		for (auto itr = extraEffectList_.begin(); itr != extraEffectList_.end(); ++itr)
+		{
+			(*itr)->destroy();
+		}
+		extraEffectList_.clear();
 	}
 
 
