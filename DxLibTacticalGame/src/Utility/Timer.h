@@ -22,6 +22,8 @@ namespace Utility
 		void setTimer(int ms);
 		bool checkAndCountTimer();
 
+		bool isWorking() const { return countFrame_ >= 0; }; // タイマーが稼働中であるかを返す
+
 	private:
 		//! カウントフレーム
 		int countFrame_;
