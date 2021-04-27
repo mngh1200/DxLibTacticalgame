@@ -32,5 +32,6 @@
 #define WIN_OGG 304
 #define LOSE_OGG 305
 #define MESSAGE_OGG 306
+#define EXTRA_EFFECT_OGG 307
 
 #define ICON_IMAGE 401

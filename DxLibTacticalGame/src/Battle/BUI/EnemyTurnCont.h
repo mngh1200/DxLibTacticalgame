@@ -46,6 +46,11 @@ namespace Entity
 			ENEMY_SET_MESSAGE	//! 敵の自由配置中である表記
 		};
 
+		//! 敵ターン中のアニメーション時間倍率
+		static float animationRate;
+
+		static int getAnimationMs(int ms);
+
 	protected:
 		bool createAnimation(int animationId);
 	private:

@@ -6,6 +6,7 @@
 #include "Animation/Animation.h"
 #include "Entity/Battle/Map.h"
 #include "Entity/Effect/DamageEffect.h"
+#include "Battle/BUI/EnemyTurnCont.h"
 
 using namespace std;
 
@@ -91,8 +92,6 @@ namespace Entity
 		constexpr static int ANIME_ATACK_MS = 400;	  //! 攻撃アニメーションの時間
 		constexpr static int ANIME_DAMAGE_MOVE = 10;  //! ダメージアニメションの動作範囲
 		constexpr static int ANIME_DAMAGE_REPEAT = 4; //! ダメージアニメションのリピート回数
-
-		static int getAnimationMS(int baseMs);
 
 		bool createAnimation(int animationId) override;
 		virtual void createAtackAnimation();

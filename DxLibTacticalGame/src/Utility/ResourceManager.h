@@ -72,6 +72,7 @@ namespace
 		SELECT_UNIT,	//! ユニット選択
 		WIN,			//! 勝利
 		LOSE,			//! 敗北
+		EXTRA_EFFECT,	//! 特殊効果エフェクト
 		SOUNDS_LEN
 	};
 

@@ -5,6 +5,7 @@
 #include "Entity/Battle/Map.h"
 #include "Entity/Unit/Unit.h"
 #include "Utility/Timer.h"
+#include "Battle/BUI/EnemyTurnCont.h"
 
 using namespace std;
 using namespace Entity;
@@ -25,8 +26,6 @@ namespace Battle
 		void init(shared_ptr<Map> map, int aiKind);
 
 		bool update(BattleManager* bm);
-
-		static float timerRate; //! タイマー時間の長さの倍率（速度調整用）
 	private:
 		// AIの種類
 		enum AiKind

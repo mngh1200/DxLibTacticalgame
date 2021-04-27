@@ -387,6 +387,9 @@ namespace Utility {
 		sounds_[SoundKind::MESSAGE] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(MESSAGE_OGG), MAKEINTRESOURCE(OGG));
 		DxLib::ChangeVolumeSoundMem(160, sounds_[SoundKind::MESSAGE]);
 
+		sounds_[SoundKind::EXTRA_EFFECT] = DxLib::LoadSoundMemByResource(MAKEINTRESOURCE(EXTRA_EFFECT_OGG), MAKEINTRESOURCE(OGG));
+		DxLib::ChangeVolumeSoundMem(140, sounds_[SoundKind::EXTRA_EFFECT]);
+
 		return ret;
 	}
 

@@ -54,6 +54,8 @@ LOSE_OGG	OGG	"../resource/sound/lose.ogg"
 
 MESSAGE_OGG	OGG	"../resource/sound/message.ogg"
 
+EXTRA_EFFECT_OGG	OGG	"../resource/sound/extraEffect.ogg"
+
 
 
 ICON_IMAGE	ICON	"../resource/icon.ico"

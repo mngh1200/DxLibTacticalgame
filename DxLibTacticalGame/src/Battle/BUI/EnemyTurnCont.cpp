@@ -1,10 +1,10 @@
 ﻿#include "EnemyTurnCont.h"
-#include "Battle/EnemyBattleController.h"
 
 namespace Entity {
 	const float EnemyTurnCont::PLAYMARK_W = (float)BUTTON_H * (float)sqrt(3) / 2.0f;
 	const string EnemyTurnCont::ENEMY_SET_TEXT = "相手プレイヤーが\nユニットを配置中";
 	const string EnemyTurnCont::ENEMY_TURN_TEXT = "相手プレイヤー\nターン中";
+	float EnemyTurnCont::animationRate = 1.0f;
 
 	/**
 	 * @fn
@@ -173,8 +173,9 @@ namespace Entity {
 		}
 
 		// ユニットアニメーションと敵操作のタイマーの時間調整
-		Unit::animatinTimeRate = rate;
-		Battle::EnemyBattleController::timerRate = rate;
+		animationRate = rate;
+		// Unit::animatinTimeRate = rate;
+		// Battle::EnemyBattleController::timerRate = rate;
 	}
 
 	/**
@@ -223,6 +224,18 @@ namespace Entity {
 	{
 		animation_.update(&textAlpha_, 255, 0);
 		return false;
+	}
+
+
+	/**
+	 * @fn
+	 * 現在のアニメーション時間倍率を元にアニメーション時間を計算
+	 * @param ベースとなるアニメーション時間
+	 * @return アニメーション時間
+	 */
+	int EnemyTurnCont::getAnimationMs(int ms)
+	{
+		return (int)(animationRate * ms);
 	}
 
 	/**

@@ -1,8 +1,6 @@
 #include "EnemyBattleController.h"
 
 namespace Battle {
-	float EnemyBattleController::timerRate = 1.0f;
-
 	/**
 	 * @fn
 	 * ‰Šúˆ—
@@ -109,7 +107,7 @@ namespace Battle {
 	 */
 	void EnemyBattleController::setTimerEvent(int ms, TimerEvent kind)
 	{
-		timer_.setTimer((int)(ms * timerRate));
+		timer_.setTimer(EnemyTurnCont::getAnimationMs(ms));
 		timerEvent_ = kind;
 	}
 }

@@ -19,8 +19,8 @@ namespace Entity {
 	{
 		isAtacked_ = true;
 		isBulletExist_ = true;
-		animation_ = Animation(getAnimationMS(ANIME_ATACK_MS), Animation::Direction::AlTERNATE, 2);
-		bulletAnime_ = Animation(getAnimationMS(ANIME_ATACK_MS / 2));
+		animation_ = Animation(EnemyTurnCont::getAnimationMs(ANIME_ATACK_MS), Animation::Direction::AlTERNATE, 2);
+		bulletAnime_ = Animation(EnemyTurnCont::getAnimationMs(ANIME_ATACK_MS / 2));
 
 		Utility::ResourceManager::playSound(SoundKind::ATTACK_FIRE);
 	}
