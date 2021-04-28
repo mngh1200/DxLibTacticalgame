@@ -121,6 +121,9 @@ namespace Battle
 				return false; // 対象が変わっていない場合
 			}
 
+			// 元の予測ダメージ表示を非表示
+			hidePredictUnitDamage();
+
 			// 特殊効果一覧クリア
 			actSide_.extraEffects.clear();
 			psvSide_.extraEffects.clear();
