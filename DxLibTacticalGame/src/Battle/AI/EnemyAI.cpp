@@ -145,7 +145,7 @@ namespace Battle {
 		}
 
 		// è•‰‚¢‚ÅUŒ‚‘ÎÛ‚ª‚¢‚È‚©‚Á‚½ê‡AÄŒvZ
-		if (unit->isStricken() && !targetUnit)
+		if (THRESHOLD_CLOSE_OR_STAY > oriented_.stay && unit->isStricken() && !targetUnit)
 		{
 			// Ë’öŠO‚©‚çUŒ‚‚³‚ê‚Ä‚¢‚é‚±‚Æ‚ğl—¶‚µ‚Ä—Dæ‚µ‚ÄAUŒ‚‘ÎÛ‚ğ’Tõ
 			closeWithEnemy(map, unit, &targetPos);
