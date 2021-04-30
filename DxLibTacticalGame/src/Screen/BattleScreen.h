@@ -84,6 +84,7 @@ namespace Screen
 		void confirmSetUnits();
 		void showHint();
 		void showCheckWinText();
+		void showResultScene(bool isPlayerWin);
 
 		// バトル管理クラス
 		Battle::BattleManager btlMng_;
@@ -114,7 +115,7 @@ namespace Screen
 			HINT,				//! ヒント表示
 			BACK_SELECT_SCREEN,	//! セレクト画面へ戻る
 			BACK_MENU_SCREEN,	//! メニュー画面へ戻る
-			CLOSE_NETWORK		//! 切断
+			SURRENDER			//! 降参
 		};
 
 		// シーンの種類

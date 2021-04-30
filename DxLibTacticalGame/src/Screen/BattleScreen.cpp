@@ -28,7 +28,7 @@ namespace Screen
 
 		if (isNetMatch_) // 通信対戦
 		{
-			systemMenu_->addMenuButton(SystemMenuKey::CLOSE_NETWORK, "切断");
+			systemMenu_->addMenuButton(SystemMenuKey::SURRENDER, "降参");
 		}
 		else // 標準
 		{
@@ -181,27 +181,8 @@ namespace Screen
 		if (winner !=  Battle::CheckWin::Winner::UNDECIDED &&
 			(nowScene_ == Scene::ENEMY_TURN || nowScene_ == Scene::PLAYER_TURN))
 		{
-			nowScene_ = Scene::RESULT_ANIME;
-
 			bool isPlayerWin = winner == Battle::CheckWin::Winner::PLAYER;
-
-			ResultScene::makeResultScene(isPlayerWin);
-			
-			if (isPlayerWin) // 新コース解禁判定
-			{
-				Utility::SaveManager& saveManager = Utility::SaveManager::getInstance();
-
-				saveManager.updateRank(stageId_, StageRank::CLEAR);
-
-				int newStageId = stageId_ + 1;
-				if (saveManager.getRank(newStageId) == StageRank::LOCK)
-				{
-					saveManager.updateRank(newStageId, StageRank::NEW);
-				}
-
-				saveManager.save();
-			}
-
+			showResultScene(isPlayerWin);
 		} 
 		else if (nowScene_ == Scene::RESULT_ANIME) // 結果画面のアニメーション終了判定
 		{
@@ -292,6 +273,12 @@ namespace Screen
 
 		receiver_.receive(); // データ受信
 
+		if (receiver_.checkReceiveSignal(SignalKind::SURRENDER_SIGNAL)) // 敵が降参
+		{
+			btlMng_.message->show("相手が降参を選択しました", false);
+			showResultScene(true);
+		}
+
 		if (nowScene_ == Scene::WAIT_ENEMY_SET) // 敵プレイヤーのユニット配置待ち
 		{
 			if (receiver_.checkReceiveSignal(SignalKind::SET_END)) // 敵プレイヤー配置完了
@@ -363,11 +350,10 @@ namespace Screen
 			nextScreen_ = new MenuScreen();
 			createOverlay(false);
 		}
-		else if (systemMenuKey == SystemMenuKey::CLOSE_NETWORK) // 切断
+		else if (systemMenuKey == SystemMenuKey::SURRENDER) // 降参
 		{
-			DxLib::CloseNetWork(receiver_.getNetHandle());
-			nextScreen_ = new NetworkScreen();
-			createOverlay(false);
+			sender_->sendSignal(Network::SignalKind::SURRENDER_SIGNAL); // 降参シグナル送信
+			showResultScene(false);
 		}
 	}
 
@@ -458,5 +444,32 @@ namespace Screen
 		text += value;
 
 		btlMng_.message->show(text, false);
+	}
+
+	/**
+	 * @fn
+	 * 勝敗結果シーンを表示
+	 * @param (isPlayerWin) プレイヤーが勝利した場合、true
+	*/
+	void BattleScreen::showResultScene(bool isPlayerWin)
+	{
+		nowScene_ = Scene::RESULT_ANIME;
+		ResultScene::makeResultScene(isPlayerWin);
+
+		// 新コース解禁判定
+		if (!isNetMatch_ && isPlayerWin)
+		{
+			Utility::SaveManager& saveManager = Utility::SaveManager::getInstance();
+
+			saveManager.updateRank(stageId_, StageRank::CLEAR);
+
+			int newStageId = stageId_ + 1;
+			if (saveManager.getRank(newStageId) == StageRank::LOCK)
+			{
+				saveManager.updateRank(newStageId, StageRank::NEW);
+			}
+
+			saveManager.save();
+		}
 	}
 }

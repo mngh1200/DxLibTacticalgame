@@ -28,6 +28,7 @@ namespace Network
 	enum SignalKind
 	{
 		NO_SIGNAL,		//! なし
+		SURRENDER_SIGNAL, //! 降参
 		TURN_END,		//! ターン終了
 		SET_END		//! 自由配置完了
 	};
