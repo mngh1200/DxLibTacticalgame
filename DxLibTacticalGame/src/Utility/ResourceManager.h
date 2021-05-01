@@ -24,6 +24,7 @@ namespace Battle
 namespace
 {
 	enum FontType : int {
+		NORMAL_S14,
 		NORMAL_S18,
 		NORMAL_S20,
 		NORMAL_S24,

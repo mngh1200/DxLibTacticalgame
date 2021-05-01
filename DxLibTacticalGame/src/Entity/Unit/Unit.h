@@ -31,9 +31,10 @@ namespace Entity
 		// 状況の種類
 		enum class State
 		{
-			NORMAL,
-			MOVE,
-			SELECTED
+			NORMAL,			//! 通常時
+			PREPARE_MOVE,	//! 移動範囲表示時
+			MOVE,			//! 移動アニメーション
+			SELECT_ACTION	//! 行動選択時
 		};
 
 		void init(int x, int y, int kind, bool isEnemy = false);
@@ -82,6 +83,7 @@ namespace Entity
 		bool isEnemy() const { return isEnemy_; } // 敵ユニットであるかを返す
 		bool isActed() const { return isActed_; } // 行動終了済みであるか
 		bool isStricken() const { return info_.hpm > info_.hp; } // ダメージを受けたことがあるか
+		bool isSelected() const { return state_ != State::NORMAL; } // ユニットを選択中であるか
 
 	protected:
 		constexpr static int HP_PADDING = 5; //! HPバーの余白
@@ -92,6 +94,14 @@ namespace Entity
 		constexpr static int ANIME_ATACK_MS = 400;	  //! 攻撃アニメーションの時間
 		constexpr static int ANIME_DAMAGE_MOVE = 10;  //! ダメージアニメションの動作範囲
 		constexpr static int ANIME_DAMAGE_REPEAT = 4; //! ダメージアニメションのリピート回数
+
+		constexpr static int WAIT_BTN_W = 40;			//! 待機ボタン幅
+		constexpr static int WAIT_BTN_H = 20;			//! 待機ボタン高さ
+		constexpr static int WAIT_BTN_MARGIN_LEFT = (CHIP_SIZE - WAIT_BTN_W) / 2;	//! 待機ボタン左側余白
+		constexpr static int WAIT_BTN_MARGIN_TOP = 32;	//! 待機ボタン上側余白
+		constexpr static int WAIT_BTN_PADDING_LEFT = 6;		//! 待機ボタン内側左余白
+		constexpr static int WAIT_BTN_PADDING_TOP = 2;		//! 待機ボタン内側上余白
+		
 
 		bool createAnimation(int animationId) override;
 		virtual void createAtackAnimation();

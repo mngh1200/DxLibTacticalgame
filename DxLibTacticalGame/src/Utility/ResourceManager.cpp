@@ -286,6 +286,7 @@ namespace Utility {
 		loadFont("resource/font/rounded-mplus/rounded-mplus-1p-regular.ttf");
 		loadFont("resource/font/rounded-mplus/rounded-mplus-1p-black.ttf");
 
+		hdlFont_[FontType::NORMAL_S14] = DxLib::CreateFontToHandle("Rounded M+ 1p regular", 14, 3, DX_FONTTYPE_ANTIALIASING_4X4);
 		hdlFont_[FontType::NORMAL_S18] = DxLib::CreateFontToHandle("Rounded M+ 1p regular", 18, 3, DX_FONTTYPE_ANTIALIASING_4X4);
 		hdlFont_[FontType::NORMAL_S20] = DxLib::CreateFontToHandle("Rounded M+ 1p regular", 20, 3, DX_FONTTYPE_ANTIALIASING_4X4);
 		hdlFont_[FontType::NORMAL_S24] = DxLib::CreateFontToHandle("Rounded M+ 1p regular", 24, 3, DX_FONTTYPE_ANTIALIASING_4X4);

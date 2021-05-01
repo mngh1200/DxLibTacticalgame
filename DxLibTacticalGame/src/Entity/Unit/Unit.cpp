@@ -84,7 +84,7 @@ namespace Entity {
 	{
 		Utility::ResourceManager& rm = Utility::ResourceManager::getInstance();
 
-		if (state_ == State::SELECTED) // 選択中
+		if (state_ == State::PREPARE_MOVE || state_ == State::SELECT_ACTION) // 選択中
 		{
 			// Map::drawMoveableMass(shape_.x, shape_.y);
 			Map::drawSelectedMass(shape_.x, shape_.y);
@@ -100,6 +100,7 @@ namespace Entity {
 			DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha_);
 		}
 
+		// 本体
 		DxLib::DrawGraph(shape_.x, shape_.y, imageId_, TRUE);
 
 		// HPバー
@@ -127,6 +128,18 @@ namespace Entity {
 			DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		}
 
+		// 行動選択時（ユニット上に「待機」表記）
+		if (!isEnemy_ && state_ == State::SELECT_ACTION)
+		{
+			const int x = shape_.x + WAIT_BTN_MARGIN_LEFT;
+			const int y = shape_.y + WAIT_BTN_MARGIN_TOP;
+
+			DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 170);
+			DxLib::DrawBox(x, y, x + WAIT_BTN_W, y + WAIT_BTN_H, rm.getColor(ColorType::MAIN_COLOR), TRUE);
+			DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+			DxLib::DrawStringToHandle(x + WAIT_BTN_PADDING_LEFT, y + WAIT_BTN_PADDING_TOP, "待機", rm.getColor(ColorType::SUB_COLOR_DARK), rm.getHdlFont(FontType::NORMAL_S14));
+		}
+
 		renderExtra();
 	}
 
@@ -141,7 +154,7 @@ namespace Entity {
 		{
 			if (animation_.update(&shape_.x, &shape_.y, Map::getRealX(baseX_), Map::getRealY(baseY_), Map::getRealX(x_), Map::getRealY(y_)))
 			{
-				state_ = State::SELECTED;
+				state_ = State::SELECT_ACTION;
 				shape_.disabledHit = false;
 				return true;
 			}
@@ -413,19 +426,18 @@ namespace Entity {
 	{
 		if (isSelect && state_ == State::NORMAL)
 		{
-			state_ = State::SELECTED;
+			state_ = State::PREPARE_MOVE;
 			return true;
 		}
 		else if (!isSelect)
 		{	
-			if (state_ == State::MOVE || state_ == State::SELECTED)
+			if (isSelected())
 			{
 				state_ = State::NORMAL;
 				setPos(baseX_, baseY_);
 				if (animationId_ == AnimationKind::MOVE)
 				{
-					animation_.forceFinish
-					();
+					animation_.forceFinish();
 				}
 				
 				return true;
