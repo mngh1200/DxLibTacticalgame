@@ -200,6 +200,7 @@ namespace Screen
 		{
 			if (setUnitNum_ > 0) // ユニット配置
 			{
+				btlMng_.message->show("ユニットを" + to_string(setUnitNum_) + "体配置してください", true, 3000);
 				nowScene_ = Scene::SET_UNITS;
 			}
 			else
