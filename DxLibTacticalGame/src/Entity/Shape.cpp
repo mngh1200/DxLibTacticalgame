@@ -4,7 +4,7 @@ namespace Entity
 {
 	/**
 	 * @fn
-	 * 当たり判定（主にマウスイベンWト用に使用）
+	 * 当たり判定（主にマウスイベント用に使用）
 	 * @param (mouseX) マウスのx座標
 	 * @param (mouseY) マウスのy座標
 	 */
@@ -19,6 +19,27 @@ namespace Entity
 		{
 			return this->x <= x && x <= this->getX2() && this->y <= y && y <= this->getY2();
 		}
+		return false;
+	}
+
+	/**
+	 * @fn
+	 * 矩形座標との当たり判定
+	 * @param (shape) 矩形座標
+	 */
+	bool Shape::isHit(const Shape& shape) const
+	{
+		if (disabledHit || shape.disabledHit) // イベント無効
+		{
+			return false;
+		}
+
+		if (type == RECT && shape.type == RECT)
+		{
+			return (abs(shape.x + shape.w / 2 - (x + w / 2)) <= (shape.w + w) / 2) &&
+				(abs(shape.y + shape.h / 2 - (y + h / 2)) <= (shape.h + h) / 2);
+		}
+
 		return false;
 	}
 

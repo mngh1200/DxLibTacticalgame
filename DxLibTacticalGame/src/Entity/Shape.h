@@ -1,4 +1,5 @@
 #pragma once
+#include <cmath>
 
 /**
  * @file Shape.h
@@ -16,6 +17,7 @@ namespace Entity
 		~Shape() {};
 
 		bool isHit(int x, int y) const;
+		bool isHit(const Shape& shape) const;
 
 		int getX2() const;
 		int getY2() const;
