@@ -297,6 +297,9 @@
     <ClCompile Include="src\Entity\Effect\ExtraEffect.cpp">
       <Filter>ソース ファイル\Entity\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entity\Effect\HitDisplay.cpp">
+      <Filter>ソース ファイル\Entity\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameWork\Game.h">
@@ -504,6 +507,9 @@
       <Filter>ヘッダー ファイル\Entity\View</Filter>
     </ClInclude>
     <ClInclude Include="src\Entity\Effect\ExtraEffect.h">
+      <Filter>ヘッダー ファイル\Entity\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Effect\HitDisplay.h">
       <Filter>ヘッダー ファイル\Entity\Effect</Filter>
     </ClInclude>
   </ItemGroup>
