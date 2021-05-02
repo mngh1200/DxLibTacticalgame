@@ -88,9 +88,12 @@ namespace Battle {
 	 */
 	bool BattleUI::addSetUnitCount()
 	{
-		confirmUnitSetButton_->setDisabled(false);
 		if (selectUnitArea_->addCount())
 		{
+			if (selectUnitArea_->isMax()) // 上限まで設置されている場合、準備完了ボタンを有効化
+			{
+				confirmUnitSetButton_->setDisabled(false);
+			}
 			return true;
 		}
 		return false;
@@ -103,10 +106,7 @@ namespace Battle {
 	void BattleUI::removeSetUnitCount()
 	{
 		selectUnitArea_->removeCount();
-		if (selectUnitArea_->getCount() == 0)
-		{
-			confirmUnitSetButton_->setDisabled(true);
-		}
+		confirmUnitSetButton_->setDisabled(true);
 	}
 
 	/**

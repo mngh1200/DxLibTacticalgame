@@ -35,6 +35,7 @@ namespace Entity
 		bool addCount();
 		void removeCount();
 
+		bool isMax() const { return count_ == countMax_; } // 上限まで配置されているか
 		int getCount() const { return count_; } // 現在の配置数を返す
 		int getSelectUnitId() const { return selectUnitId_; }; // 選択中のユニットIDを返す
 
