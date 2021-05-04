@@ -9,6 +9,7 @@
 #include "EnemyTurnCont.h"
 #include "SelectUnitArea.h"
 #include "Entity/UI/Button/BuiConfirmButton.h"
+#include "Entity/Effect/HitDisplay.h"
 
 using namespace std;
 using namespace Entity;
@@ -61,6 +62,7 @@ namespace Battle
 
 		void setFightPredict(Fight* fight);
 		void resetFightPredict();
+		void onStartFight();
 
 		void updateByEvents(shared_ptr<Object> hitObj, int x, int y, int button, int eventType);
 
@@ -99,6 +101,9 @@ namespace Battle
 
 		//! ユニット配置確定ボタン
 		shared_ptr<BuiConfirmButton> confirmUnitSetButton_;
+
+		//! マップ上の命中率表記
+		shared_ptr<HitDisplay> hitDisplay_;
 	};
 
 

@@ -34,6 +34,10 @@ namespace Battle {
 		// 敵ターン中に右下に設置するオブジェクト
 		enemyTurnCont_ = make_shared<EnemyTurnCont>();
 		objectsControl.addObject(uiLayerId, BattleUIid::ENEMY_TURN_CONT, enemyTurnCont_);
+
+		// 命中率表記
+		hitDisplay_ = make_shared<HitDisplay>();
+		objectsControl.addFigure(Screen::BattleScreen::Layer::EFFECT, hitDisplay_);
 	}
 
 	/**
@@ -243,6 +247,9 @@ namespace Battle {
 		// ユニットのHPバーに予測ダメージ量を表示
 		fight->showPredictUnitDamage();
 
+		// 命中率表示
+		hitDisplay_->show(fight);
+
 		if (mode_ == Mode::NORMAL)
 		{
 			mode_ = Mode::FIGHT_PREDICT;
@@ -258,7 +265,18 @@ namespace Battle {
 	*/
 	void BattleUI::resetFightPredict()
 	{
+		hitDisplay_->hide();
 		fightPredictDisplay_->reset();
 		mode_ = Mode::NORMAL;
+	}
+
+	/**
+	 * @fn
+	 * 戦闘開始時に呼び出される処理
+	*/
+	void BattleUI::onStartFight()
+	{
+		// 命中率非表示
+		hitDisplay_->hide();
 	}
 }

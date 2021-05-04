@@ -313,6 +313,7 @@ namespace Battle {
 	{
 		if (isSelectedUnitActive())
 		{
+			battleUI.onStartFight();
 			map->confirmMove(selectedUnit_, sender_);
 			fight_.setHitState(actHitState, psvHitState);
 			fight_.start();
