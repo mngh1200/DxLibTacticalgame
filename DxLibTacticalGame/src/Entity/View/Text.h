@@ -35,6 +35,8 @@ namespace Entity
 
 		void render() const;
 
+		const char* getText() const { return text_.c_str(); }; // テキストを返す
+
 		/**
 		 * @enum Enum
 		 * 配置
