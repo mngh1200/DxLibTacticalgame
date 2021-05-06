@@ -49,8 +49,9 @@ namespace Screen
 		enum Layer
 		{
 			MASK,
-			TOP_UI,
+			DIALOG_UI,
 			DIALOG_FRAME,
+			TOP_UI,
 			CONTEXT_MENU,
 			EFFECT,
 			UI,
@@ -127,6 +128,7 @@ namespace Screen
 			ENEMY_TURN,		//! 敵ターン
 			RESULT_ANIME,	//! 勝敗結果前のアニメーション
 			RESULT,			//! 勝敗結果
+			SELECT_RETRY,	//! 再戦するか選択するシーン
 			NETWORK_CLOSE	//! 相手から通信切断されたとき
 		};
 

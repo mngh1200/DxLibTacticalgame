@@ -28,7 +28,7 @@ namespace Network
 		{};
 		~RuleSetting() {};
 
-		void start(int netHandle);
+		void start(int netHandle, int mapId = -1, int unitNum = -1);
 		void end();
 
 		// checkAndUpdateの返し値用（Screenクラスに状況を返す）

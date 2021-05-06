@@ -119,19 +119,41 @@ namespace Screen
 			// 画面クリックで画面遷移
 			if (isNetMatch_) // 通信対戦時
 			{
-				nextScreen_ = new NetworkScreen();
+				// nextScreen_ = new NetworkScreen();
+				dialog_.show("同じプレイヤーと再戦しますか?", Layer::DIALOG_FRAME, Layer::DIALOG_UI, "再戦", "切断");
+				nowScene_ = Scene::SELECT_RETRY;
 			}
 			else // 標準時
 			{
 				nextScreen_ = new SelectScreen();
+				createOverlay(false);
 			}
-				
-			createOverlay(false);
+		}
+		else if (nowScene_ == Scene::SELECT_RETRY) // 再戦選択画面
+		{
+			if (eventType == MOUSE_INPUT_LOG_CLICK)
+			{
+				if (dialog_.isEqualsBtn1(hitObjSp)) // 再戦
+				{
+					NetworkScreen* networkScreen = new NetworkScreen();
+					networkScreen->setRetryParam(isServer_, receiver_.getNetHandle(), stageId_, setUnitNum_);
+					nextScreen_ = networkScreen;
+					createOverlay(false);
+				}
+				else if (dialog_.isEqualsBtn2(hitObjSp)) // 切断
+				{
+					DxLib::CloseNetWork(receiver_.getNetHandle());
+					nextScreen_ = new NetworkScreen();
+					createOverlay(false);
+				}
+			}
+
 		}
 		else if (nowScene_ == Scene::NETWORK_CLOSE) // 相手のネットワーク切断時
 		{
-			if (eventType == MOUSE_INPUT_LOG_CLICK && dialog_.isEqualsOkBtn(hitObjSp)) // ダイアログのOKボタンクリック時
+			if (eventType == MOUSE_INPUT_LOG_CLICK && dialog_.isEqualsBtn1(hitObjSp)) // ダイアログのOKボタンクリック時
 			{
+				DxLib::CloseNetWork(receiver_.getNetHandle());
 				nextScreen_ = new MenuScreen();
 				createOverlay(false);
 			}
@@ -230,9 +252,11 @@ namespace Screen
 	/**
 	 * @fn
 	 * 通信対戦できる状態を準備
+	 * @param (netHandle) ネットハンドル
 	 * @param (isServer) サーバー側であるか
 	 * @param (mapId) マップID
 	 * @param (unitNum) ユニット数
+	 * @param (isFirst) 先攻であるか
 	*/
 	void BattleScreen::prepareNetMatch(int netHandle, bool isServer, int mapId, int unitNum, bool isFirst)
 	{
@@ -269,7 +293,7 @@ namespace Screen
 			FrameWork::Game& game = FrameWork::Game::getInstance();
 			Entity::ObjectsControl& objectsControl = game.objectsControl;
 
-			dialog_.show("相手が通信を切断しました\nメインメニューに戻ります", Layer::DIALOG_FRAME, Layer::TOP_UI);
+			dialog_.show("相手が通信を切断しました\nメインメニューに戻ります", Layer::DIALOG_FRAME, Layer::DIALOG_UI);
 		}
 
 		receiver_.receive(); // データ受信

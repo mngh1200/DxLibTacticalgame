@@ -11,8 +11,10 @@ namespace Network
 	 * @fn
 	 * 開始
 	 * @param (netHandle) ネットワークハンドル
+	 * @param (mapId) マップIDの初期値（-1の場合はデフォルト指定）
+	 * @param (unitNum) ユニット数の初期 (-1の場合はデフォルト指定)
 	*/
-	void RuleSetting::start(int netHandle)
+	void RuleSetting::start(int netHandle, int mapId, int unitNum)
 	{
 		netHandle_ = netHandle;
 		sendManager_.setNetHandle(netHandle);
@@ -39,6 +41,17 @@ namespace Network
 		unitNum_->setItemSize(RADIO_W, RADIO_H);
 		objectsControl.addObject(LAYER_CONTENT, unitNum_);
 
+		// 初期値選択
+		int count = 0;
+		for (auto itr = textList.begin(); itr != textList.end(); ++itr)
+		{
+			if (*itr == to_string(unitNum))
+			{
+				unitNum_->select(count);
+				break;
+			}
+			++count;
+		}
 
 		// マップ選択
 		objectsControl.addFigure(LAYER_CONTENT, make_shared<Text>("マップを選択してください", CONTENT_X, SELECT_MAP_Y, FontType::NORMAL_S24, ColorType::SUB_COLOR_BIT_LITE));
@@ -49,6 +62,12 @@ namespace Network
 		mapSelect_->setPos(CONTENT_X, SELECT_MAP_Y + LINE_H + LINE_MARGIN);
 		mapSelect_->setItemSize(RADIO_W, RADIO_H);
 		objectsControl.addObject(LAYER_CONTENT, mapSelect_);
+
+		// マップの初期値セット
+		if (0 <= mapId && mapId < (int)textList.size())
+		{
+			mapSelect_->select(mapId);
+		}
 
 		// 状況メッセージ
 		statusText_ = make_shared<Text>("接続状況 : クライアントと接続済み", CONTENT_X, BUTTON_Y - (LINE_H + LINE_MARGIN), FontType::NORMAL_S24, ColorType::SUB_COLOR);

@@ -26,7 +26,13 @@ namespace Screen
 	class NetworkScreen : public ScreenBase
 	{
 	public:
-		NetworkScreen() : nextScreen_(), hostManager_{}, clientManager_{} {};
+		NetworkScreen() : 
+			nextScreen_(), hostManager_{}, clientManager_{}, 
+			initScene_(Scene::INIT), 
+			inheritNetHandle_(-1),
+			inheritMapId_(-1),
+			inheritUnitNum_(-1)
+		{};
 		~NetworkScreen() {};
 
 		// レイヤーの種類
@@ -43,6 +49,8 @@ namespace Screen
 		void init();
 		void updateByEvents(weak_ptr < Entity::Object> hitObjWp, int x, int y, int button, int eventType);
 		void updateByAnimation();
+
+		void setRetryParam(bool isServer, int netHandle, int mapId, int unitNum);
 	private:
 		void startBattle(int netHandler_, const RuleData& ruleData, bool isServer);
 
@@ -76,6 +84,11 @@ namespace Screen
 			SEARCH_ROOM_BUTTON,
 			QUIT_BUTTON
 		};
+
+		int initScene_;			//! 初期シーン
+		int inheritNetHandle_;	//! 前対戦から継承したネットハンドル
+		int inheritMapId_;		//! 前対戦から継承したマップID
+		int inheritUnitNum_;	//! 前対戦から継承したユニット数
 
 		ScreenBase *nextScreen_; //! 次に開く画面
 

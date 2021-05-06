@@ -78,6 +78,7 @@ namespace Network
 		canceltButton->setColor(ColorType::SUB_COLOR, ColorType::MAIN_COLOR, TextButton::State::MOUSE_OVER);
 		objectsControl.addObject(LAYER_CONTENT, ContentId::CANCEL_BTN, canceltButton);
 
+		setState(State::NONE_CONENECT);
 	}
 
 	/**
@@ -104,6 +105,19 @@ namespace Network
 
 	/**
 	 * @fn
+	 * 開始（再戦時）
+	 * @param (netHandle) ネットハンドル
+	*/
+	void NetworkClient::startByRetry(int netHandle)
+	{
+		state_ = State::RETRY;
+		netHandle_ = netHandle;
+		receiver_.setNetHandle(netHandle);
+		retryDialog_.show("ホストがルール設定中です...\n ", LAYER_FRAME, LAYER_CONTENT, "キャンセル");
+	}
+
+	/**
+	 * @fn
 	 * 更新処理
 	 * @param (hitObjWp) 接触オブジェクトの弱参照
 	 * @param (x) マウスのx座標
@@ -115,22 +129,26 @@ namespace Network
 	int NetworkClient::checkAndUpdate(weak_ptr<Entity::Object> hitObjWp, int x, int y, int button, int eventType)
 	{
 		// IPアドレスリストの更新処理
-		bool isChange = false; //! 変更があったか
-		for (auto itr = ipAdressInputList_.begin(); itr != ipAdressInputList_.end(); ++itr)
+		if (state_ != State::RETRY)
 		{
-			if ((*itr)->checkChangeAndUpdate())
+			bool isChange = false; //! 変更があったか
+			for (auto itr = ipAdressInputList_.begin(); itr != ipAdressInputList_.end(); ++itr)
 			{
-				isChange = true;
+				if ((*itr)->checkChangeAndUpdate())
+				{
+					isChange = true;
+				}
+			}
+
+			if (isChange) // 変更があった場合、接続ボタンの状態を調整
+			{
+				adjustConnectButtonValid();
 			}
 		}
 
-		if (isChange) // 変更があった場合、接続ボタンの状態を調整
-		{
-			adjustConnectButtonValid();
-		}
 
 		// 接続済みのとき
-		if (state_ == State::CONNECTED)
+		if (state_ == State::CONNECTED || state_ == State::RETRY)
 		{
 			// データ受信 (ルール設定)
 			if (receiver_.receive() && receiver_.isReceivedRule())
@@ -142,13 +160,32 @@ namespace Network
 			// 切断された場合
 			if (DxLib::GetLostNetWork() == netHandle_)
 			{
-				statusText_->setText("ホストから切断されました\n再接続してください");
-				setState(State::NONE_CONENECT);
 				DxLib::CloseNetWork(netHandle_);
+
+				if (state_ == State::CONNECTED)
+				{
+					statusText_->setText("ホストから切断されました\n再接続してください");
+					setState(State::NONE_CONENECT);
+				}
+				else if (state_ == State::RETRY) // 再戦時
+				{
+					retryDialog_.setMessage("ホストから切断されました\nキャンセルしてください");
+				}
 			}
 		}
 
 		shared_ptr<Entity::Object> hitObjSp = hitObjWp.lock();
+
+		if (state_ == State::RETRY) // 再戦時
+		{
+			if (eventType == MOUSE_INPUT_LOG_CLICK && retryDialog_.isEqualsBtn1(hitObjSp)) // キャンセル
+			{
+				Utility::ResourceManager::playSound(SoundKind::BACK);
+				end();
+				return Result::CANCEL;
+			}
+			return Result::CONTINUE;
+		}
 
 		if (hitObjSp)
 		{

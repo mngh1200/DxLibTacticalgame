@@ -6,6 +6,7 @@
 #include "Entity/UI/ModalFrame.h"
 #include "Entity/View/Text.h"
 #include "Entity/UI/TextBox.h"
+#include "Entity/UI/Dialog.h"
 
 using namespace std;
 using namespace Entity;
@@ -20,11 +21,13 @@ namespace Network
 	class NetworkClient
 	{
 	public:
-		NetworkClient() : state_(State::NONE_CONENECT), netHandle_(-1), ableConnecButton_(false) {};
+		NetworkClient() : state_(State::NONE_CONENECT), netHandle_(-1), ableConnecButton_(false), retryDialog_{} {};
 		~NetworkClient() {};
 
 		void start();
 		void end();
+
+		void startByRetry(int netHandle);
 
 
 		// checkAndUpdateの返し値用（Screenクラスに状況を返す）
@@ -86,7 +89,8 @@ namespace Network
 		enum class State
 		{
 			NONE_CONENECT,
-			CONNECTED	//! 接続済み（ホストのルール設定待機中）
+			CONNECTED,	//! 接続済み（ホストのルール設定待機中）
+			RETRY		//! 再戦時（最初から接続済み）
 		};
 		
 		void setState(State state);
@@ -101,5 +105,7 @@ namespace Network
 		ReceiveManager receiver_; //! ネットワーク受信管理クラス
 
 		RuleData ruleData_; //! 受信したルール設定データ
+
+		Dialog retryDialog_; //! 再戦時の接続待ちダイアログ
 	};
 }

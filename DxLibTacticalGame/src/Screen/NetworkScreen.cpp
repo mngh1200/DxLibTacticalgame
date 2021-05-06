@@ -167,7 +167,15 @@ namespace Screen
 	{
 		if (isOpenOverlayEnded())
 		{
-			nowScene_ = Scene::INIT;
+			nowScene_ = initScene_;
+			if (nowScene_ == Scene::RULE_SET)
+			{
+				ruleSetting_.start(inheritNetHandle_, inheritMapId_, inheritUnitNum_);
+			}
+			else if (nowScene_ == Scene::CLIENT)
+			{
+				clientManager_.startByRetry(inheritNetHandle_);
+			}
 		}
 
 		if (isCloseOverlayEnded())
@@ -175,6 +183,30 @@ namespace Screen
 			FrameWork::Game::getInstance().setScreen(nextScreen_); // 画面遷移
 		}
 		
+	}
+
+	/**
+	 * @fn
+	 * 再戦時に必要な情報をセット
+	 * @param (netHandle) ネットハンドル
+	 * @param (isServer) サーバー側であるか
+	 * @param (mapId) マップID
+	 * @param (unitNum) ユニット数
+	*/
+	void NetworkScreen::setRetryParam(bool isServer, int netHandle, int mapId, int unitNum)
+	{
+		inheritNetHandle_ = netHandle;
+		inheritMapId_ = mapId;
+		inheritUnitNum_ = unitNum;
+
+		if (isServer) // サーバー側
+		{
+			initScene_ = Scene::RULE_SET;
+		}
+		else // クライアント側
+		{
+			initScene_ = Scene::CLIENT;
+		}
 	}
 
 	/**
