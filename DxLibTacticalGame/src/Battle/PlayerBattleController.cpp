@@ -31,9 +31,16 @@ namespace Battle {
 		}
 		else if (*eventType == MOUSE_INPUT_LOG_UP && button == MOUSE_INPUT_RIGHT && !bm->isAnimation()) // マウス右クリック（厳密にはボタンアップ）
 		{
-			if (hitObj->getType() == Object::Type::MAP)
+			if (hitObj->getType() == Object::Type::MAP) // マスが対象
 			{
 				if (checkMoveConfirm(bm, x, y))
+				{
+					*eventType = MOUSE_INPUT_LOG_USED;
+				}
+			}
+			else if (hitObj->getType() == Object::Type::UNIT) // ユニットが対象
+			{
+				if (onRightClickUnit(bm, hitObj))
 				{
 					*eventType = MOUSE_INPUT_LOG_USED;
 				}
@@ -96,6 +103,8 @@ namespace Battle {
 	/**
 	 * @fn
 	 * ユニット クリック時処理
+	 * @param (bm) バトル管理クラス
+	 * @param (hitObj) 対象要素
 	 */
 	void PlayerBattleController::onClickUnit(BattleManager* bm, shared_ptr<Object> hitObj)
 	{
@@ -139,6 +148,38 @@ namespace Battle {
 				Utility::ResourceManager::playSound(SoundKind::SELECT_UNIT);
 			}
 		}
+	}
+
+	/**
+	 * @fn
+	 * ユニット 右クリック時処理
+	 * @param (bm) バトル管理クラス
+	 * @param (hitObj) 対象要素
+	 * @return 右クリックによる処理が実行される場合はtrueを返す
+	 */
+	bool PlayerBattleController::onRightClickUnit(BattleManager* bm, shared_ptr<Object> hitObj)
+	{
+		shared_ptr<Unit> unit = dynamic_pointer_cast<Unit>(hitObj);
+
+
+		if (bm->isAtackAble(unit)) // 攻撃対象のユニットクリック
+		{
+			bm->atackAction(); // 攻撃アクション
+			return true;
+
+		}
+		else if (bm->getPhase() == BattleManager::Phase::SELECT_ACTION) // 行動選択
+		{
+			if (bm->isSelectedUnit(unit)) // 選択中のユニットクリック
+			{
+				bm->waitAction(); // 待機アクション
+				bm->tutorial.onEvent(TutorialManager::TutorialId::TURN_END, bm);
+				Utility::ResourceManager::playSound(SoundKind::WAIT);
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**

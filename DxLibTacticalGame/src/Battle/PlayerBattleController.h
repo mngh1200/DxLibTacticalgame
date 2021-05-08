@@ -26,6 +26,7 @@ namespace Battle
 
 	private:
 		void onClickUnit(BattleManager* bm, shared_ptr<Object> hitObj);
+		bool onRightClickUnit(BattleManager* bm, shared_ptr<Object> hitObj);
 		void onClickMass(BattleManager* bm, int x, int y);
 		bool checkMoveConfirm(BattleManager* bm, int x, int y);
 		void onHoverObject(BattleManager* bm, int x, int y);
