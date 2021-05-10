@@ -58,6 +58,8 @@ namespace Battle
 
 	private:
 		int checkWipeOut(shared_ptr<Map> map);
+		
+		constexpr static int MESSAGE_MS = 3000; //! メッセージの表示時間（ms）
 
 		//! 勝者
 		int winner_;
