@@ -24,7 +24,7 @@ namespace Entity
 		SelectUnitArea();
 		~SelectUnitArea() {};
 
-		constexpr static int COUNT_WIDTH = 100; //! カウントエリアの幅
+		constexpr static int COUNT_WIDTH = 120; //! カウントエリアの幅
 		constexpr static int UNIT_MARGIN = 10; //! ユニット選択肢の余白
 
 		void render() const override;
