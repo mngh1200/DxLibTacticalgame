@@ -144,8 +144,8 @@ namespace Battle {
 			}
 		}
 
-		// Žè•‰‚¢‚ÅUŒ‚‘ÎÛ‚ª‚¢‚È‚©‚Á‚½ê‡AÄŒvŽZ
-		if (THRESHOLD_CLOSE_OR_STAY > oriented_.stay && unit->isStricken() && !targetUnit)
+		// Žè•‰‚¢‚ÅUŒ‚‘ÎÛ‚ª‚¢‚È‚©‚Á‚½ê‡A“G‚É‹ß‚Ã‚­”»’è
+		if (unit->isStricken() && !targetUnit && maxPoint < oriented_.atack * SCORE_BY_CLOSE_ENEMY)
 		{
 			// ŽË’öŠO‚©‚çUŒ‚‚³‚ê‚Ä‚¢‚é‚±‚Æ‚ðl—¶‚µ‚Ä—Dæ‚µ‚ÄAUŒ‚‘ÎÛ‚ð’Tõ
 			closeWithEnemy(map, unit, &targetPos);
