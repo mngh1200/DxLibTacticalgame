@@ -71,7 +71,7 @@ namespace Battle
 
 	private:
 		int getCoordinatedAttack(int atkDirection, int atkedLogs);
-		void makeFightData(FightData* fightData, shared_ptr<Unit> atkUnit, shared_ptr<Unit> defUnit, shared_ptr<Mass> mass, bool isAct, int coordinatedAttack);
+		void makeFightData(FightData* fightData, shared_ptr<Unit> atkUnit, shared_ptr<Unit> defUnit, bool isAct, int coordinatedAttack);
 		void attack(FightData* atkSide, FightData* defSide);
 		bool getAttackState(bool isActSideAtack, FightData& atkSide, FightData& defSide);
 		void showExtraEffect(FightData* atkSide, FightData* defSide);

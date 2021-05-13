@@ -237,6 +237,8 @@ namespace Network
 			{
 				extraValue2 = stoi(valList.at(6));
 			}
+
+			// DxLib::printfDx(("recv(" + to_string(extraValue1) + "," + to_string(extraValue2) + ");").c_str());
 			
 			enemyPlayerContLogs_.push(ContLog{ x, y, unitId, actionKind, extraValue1, extraValue2 });
 		}

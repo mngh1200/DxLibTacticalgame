@@ -128,7 +128,7 @@ namespace Battle
 			actSide_.extraEffects.clear();
 			psvSide_.extraEffects.clear();
 
-			shared_ptr<Mass> mass = map_->getMass(psvUnit->getMassX(), psvUnit->getMassY()); // 防御側のマス
+			// shared_ptr<Mass> mass = map_->getMass(psvUnit->getMassX(), psvUnit->getMassY()); // 防御側のマス
 			actSide_.isFirst = true;
 
 			UnitInfo actInfo = actUnit->getInfo();
@@ -144,14 +144,14 @@ namespace Battle
 				coordinatedAttack = getCoordinatedAttack(actSide_.direction, psvUnit->getCloseAttackLogs());
 			}
 
-			makeFightData(&psvSide_, psvUnit, actUnit, mass, false, coordinatedAttack); // 防御側計算 (迎撃判定があるため先に処理)
+			makeFightData(&psvSide_, psvUnit, actUnit, false, coordinatedAttack); // 防御側計算 (迎撃判定があるため先に処理)
 
 			if (psvSide_.isFirst)
 			{
 				actSide_.isFirst = false;
 			}
 
-			makeFightData(&actSide_, actUnit, psvUnit, mass, true, coordinatedAttack);  // 攻撃側計算
+			makeFightData(&actSide_, actUnit, psvUnit, true, coordinatedAttack);  // 攻撃側計算
 
 			// 連携、挟撃のダメージ計算
 			if (coordinatedAttack == CoordinatedAttack::COORDINATED) // 連携 (ダメージ倍率 1.5)
@@ -192,8 +192,15 @@ namespace Battle
 	 */
 	void Fight::setHitState(int actHitState, int psvHitState)
 	{
-		actSide_.hitState = actHitState;
-		psvSide_.hitState = psvHitState;
+		if (actHitState != FightData::HitState::UNSETTLED)
+		{
+			actSide_.hitState = actHitState;
+		}
+
+		if (psvHitState != FightData::HitState::UNSETTLED)
+		{
+			psvSide_.hitState = psvHitState;
+		}
 	}
 
 	/**
@@ -206,13 +213,15 @@ namespace Battle
 	 * @param (isAct) 攻撃可能か
 	 * @param (coordinatedAttack) 連携、挟撃判定結果
 	 */
-	void Fight::makeFightData(FightData* fightData, shared_ptr<Unit> atkUnit, shared_ptr<Unit> defUnit, shared_ptr<Mass> mass, bool isAct, int coordinatedAttack)
+	void Fight::makeFightData(FightData* fightData, shared_ptr<Unit> atkUnit, shared_ptr<Unit> defUnit, bool isAct, int coordinatedAttack)
 	{
 		fightData->unit = atkUnit;
 		fightData->isAtk = isAct;
 
 		UnitInfo atkInfo = atkUnit->getInfo();
 		UnitInfo defInfo = defUnit->getInfo();
+
+		shared_ptr<Mass> mass = map_->getMass(defUnit->getMassX(), defUnit->getMassY());
 
 		// 迎撃スキル判定
 		if (!isAct && atkInfo.ability.kind == Ability::Kind::AMBUSH && coordinatedAttack == CoordinatedAttack::NONE)
@@ -284,7 +293,16 @@ namespace Battle
 			fightData->hitRate = 0;
 		}
 
-
+		// 命中判定
+		if (fightData->hitRate > DxLib::GetRand(99))
+		{
+			fightData->hitState = FightData::HitState::HITTED;
+		}
+		else
+		{
+			fightData->hitState = FightData::HitState::MISS;
+		}
+		
 	}
 
 	/**
@@ -436,10 +454,9 @@ namespace Battle
 		atkSide->unit->atack(defSide->unit->getX(), defSide->unit->getY());
 
 		// 命中判定 (hitState == HITTEDの場合は確定命中、hitState == MISSの場合は確定ミス)
-		if (atkSide->hitState == FightData::HitState::HITTED ||
-			atkSide->hitState == FightData::HitState::UNSETTLED && atkSide->hitRate > DxLib::GetRand(99))
+		if (atkSide->hitState != FightData::HitState::MISS)
 		{
-			atkSide->hitState = FightData::HitState::HITTED;
+			// atkSide->hitState = FightData::HitState::HITTED;
 
 			// ダメージ
 			if (defSide->unit->damage(atkSide->damage, atkSide->direction, atkSide->isCloseAttack))
@@ -450,7 +467,7 @@ namespace Battle
 		}
 		else
 		{
-			atkSide->hitState = FightData::HitState::MISS;
+			//atkSide->hitState = FightData::HitState::MISS;
 			defSide->unit->avoid(); // 回避
 		}
 	}

@@ -45,6 +45,8 @@ namespace Network
 	 */
 	void SendManager::sendPlayerContLog(ContLog& PlayerContLog)
 	{
+		// DxLib::printfDx(("send(" + to_string(PlayerContLog.extraValue1) + "," + to_string(PlayerContLog.extraValue2) + ");").c_str());
+
 		string data = to_string(NetworkDataType::CONT_LOG) + VALUE_SPLIT +
 			to_string(PlayerContLog.x) + VALUE_SPLIT +
 			to_string(PlayerContLog.y) + VALUE_SPLIT +
