@@ -38,21 +38,6 @@ namespace Screen
 
 		objectsControl.addObject(Layer::UI, UIid::SEARCH_ROOM_BUTTON, searchRoomButton);
 
-		// 注釈
-		int commentY = BUTTON_Y + (BUTTON_H + BUTTON_MARGIN) * 2;
-		shared_ptr<Text> commentHeadText = make_shared<Text>("注意点",
-			BUTTON_X, commentY, FontType::NORMAL_S20, ColorType::SUB_COLOR_BIT_LITE);
-		objectsControl.addFigure(Layer::UI, commentHeadText);
-
-		shared_ptr<Text> commentText1 = make_shared<Text>(("・ポート番号「" + to_string(PORT) + "」を開放しておく必要があります").c_str(),
-			BUTTON_X, commentY + COMMENT_LINE_H + COMMENT_MARGIN, FontType::NORMAL_S20, ColorType::SUB_COLOR);
-		objectsControl.addFigure(Layer::UI, commentText1);
-
-		shared_ptr<Text> commentText2 = make_shared<Text>("・ローカルネットワーク外の端末と通信する場合は\n　ルーター等にもポート開放設定が必要になります",
-			BUTTON_X, commentY + (COMMENT_LINE_H + COMMENT_MARGIN) * 2, FontType::NORMAL_S20, ColorType::SUB_COLOR);
-		objectsControl.addFigure(Layer::UI, commentText2);
-
-
 		// 戻るボタン
 		shared_ptr<Entity::TextButton> backBtn = make_shared<Entity::TextButton>();
 		backBtn->setShape(BACK_BTN_X, BACK_BTN_Y, BACK_BTN_W, BACK_BTN_H);

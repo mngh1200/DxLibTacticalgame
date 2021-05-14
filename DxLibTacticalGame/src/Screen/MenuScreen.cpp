@@ -39,7 +39,7 @@ namespace Screen
 
 		shared_ptr<MenuScreenButton> netMatchBtn = make_shared<MenuScreenButton>();
 		netMatchBtn->setY(BUTTON_TOP + (MenuScreenButton::H + BUTTON_MARGIN_Y) * 1);
-		netMatchBtn->setText("通信対戦");
+		netMatchBtn->setText("ローカル通信対戦");
 		objectsControl.addObject(Layer::UI, UIid::NETWORK_BUTTON, netMatchBtn);
 
 		shared_ptr<MenuScreenButton> quitBtn = make_shared<MenuScreenButton>();

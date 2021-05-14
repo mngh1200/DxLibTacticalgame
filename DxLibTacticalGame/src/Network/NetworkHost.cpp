@@ -42,7 +42,7 @@ namespace Network
 		objectsControl.addObject(LAYER_FRAME, frame);
 
 		//自分のIPアドレス
-		shared_ptr<Text> ipText = make_shared<Text>(string("ローカルIPアドレス : " + getIpAdress() + "\n※ 上記はローカルネットワーク通信時のみ使用できます").c_str(), CONTENT_X, CONTENT_Y, FontType::NORMAL_S20, ColorType::SUB_COLOR_BIT_LITE);
+		shared_ptr<Text> ipText = make_shared<Text>(string("ローカルIPアドレス : " + getIpAdress()).c_str(), CONTENT_X, CONTENT_Y, FontType::NORMAL_S20, ColorType::SUB_COLOR_BIT_LITE);
 		objectsControl.addFigure(LAYER_CONTENT, ipText);
 
 		// 状況メッセージ

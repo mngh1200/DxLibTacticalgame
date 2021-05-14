@@ -57,16 +57,13 @@ namespace Screen
 		constexpr static int BUTTON_W = 600;	//! ボタン幅
 		constexpr static int BUTTON_H = 100;		//! ボタン高さ
 		constexpr static int BUTTON_X = (WIN_W - BUTTON_W) / 2;	//! ボタン座標x
-		constexpr static int BUTTON_Y = 140;	//! ボタン座標y
+		constexpr static int BUTTON_Y = 150;	//! ボタン座標y
 		constexpr static int BUTTON_MARGIN = 30;//! ボタン余白
 
 		constexpr static int BACK_BTN_W = 300;	//! 戻るボタンの幅
 		constexpr static int BACK_BTN_H = 60;	//! 戻るボタンの高さ
 		constexpr static int BACK_BTN_X = (WIN_W - BACK_BTN_W) / 2;	//! 戻るボタン座標x
-		constexpr static int BACK_BTN_Y = WIN_H - 120;	//! 戻るボタン座標y
-
-		constexpr static int COMMENT_MARGIN = 10;	//! コメントの余白
-		constexpr static int COMMENT_LINE_H = 26;		//! コメントの１行分の高さ
+		constexpr static int BACK_BTN_Y = WIN_H - 200;	//! 戻るボタン座標y
 
 		// シーンの種類
 		enum Scene
