@@ -32,6 +32,7 @@ namespace Battle
 		{
 			NORMAL,				//! •W€
 			SELF_DEFENCE_ONLY,	//! UŒ‚‚µ‚Ä‚±‚È‚¢
+			AGGRESSIVE,			//! UŒ‚“I
 			AI_KIND_LEN
 		};
 

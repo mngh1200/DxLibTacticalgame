@@ -20,6 +20,14 @@ namespace Battle {
 			oriented.atack = 1;
 			ai_->setOriented(oriented);
 		}
+		else if (aiKind == AiKind::AGGRESSIVE) // UŒ‚“I‚ÈAI
+		{
+			Oriented oriented = {};
+			oriented.atack = 20;
+			oriented.stay = 1;
+			oriented.friendship = 1;
+			ai_->setOriented(oriented);
+		}
 	}
 
 	/**
