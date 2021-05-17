@@ -188,6 +188,10 @@ namespace Battle {
 		{
 			waitAction();
 		}
+		else
+		{
+			deselectUnit();
+		}
 
 		isPlayerTurn_ = isPlayer;
 
