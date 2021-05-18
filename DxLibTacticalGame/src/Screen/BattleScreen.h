@@ -129,6 +129,7 @@ namespace Screen
 			RESULT_ANIME,	//! 勝敗結果前のアニメーション
 			RESULT,			//! 勝敗結果
 			SELECT_RETRY,	//! 再戦するか選択するシーン
+			WAIT_SELECT_RETRY, //! 再戦選択後、相手側の再戦選択を待つシーン
 			NETWORK_CLOSE	//! 相手から通信切断されたとき
 		};
 

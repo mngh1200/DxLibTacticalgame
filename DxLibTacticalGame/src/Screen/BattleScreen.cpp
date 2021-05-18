@@ -135,10 +135,10 @@ namespace Screen
 			{
 				if (dialog_.isEqualsBtn1(hitObjSp)) // 再戦
 				{
-					NetworkScreen* networkScreen = new NetworkScreen();
-					networkScreen->setRetryParam(isServer_, receiver_.getNetHandle(), stageId_, setUnitNum_);
-					nextScreen_ = networkScreen;
-					createOverlay(false);
+					nowScene_ = Scene::WAIT_SELECT_RETRY;
+					dialog_.setDisabledBtn1(true);
+					dialog_.setMessage("相手側の選択を待っています...");
+					sender_->sendSignal(SignalKind::RETRY);
 				}
 				else if (dialog_.isEqualsBtn2(hitObjSp)) // 切断
 				{
@@ -318,6 +318,16 @@ namespace Screen
 			if (receiver_.execEnemyAction(&btlMng_, btlMng_.map, Layer::ENEMY_UNIT))
 			{
 				turnEnd(); // 敵ターン終了
+			}
+		}
+		else if (nowScene_ == Scene::WAIT_SELECT_RETRY) // 再戦選択待ち
+		{
+			if (receiver_.checkReceiveSignal(SignalKind::RETRY)) // 相手が再戦選択
+			{
+				NetworkScreen* networkScreen = new NetworkScreen();
+				networkScreen->setRetryParam(isServer_, receiver_.getNetHandle(), stageId_, setUnitNum_);
+				nextScreen_ = networkScreen;
+				createOverlay(false);
 			}
 		}
 	}

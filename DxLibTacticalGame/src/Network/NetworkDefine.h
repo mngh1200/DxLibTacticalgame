@@ -30,7 +30,8 @@ namespace Network
 		NO_SIGNAL,		//! なし
 		SURRENDER_SIGNAL, //! 降参
 		TURN_END,		//! ターン終了
-		SET_END		//! 自由配置完了
+		SET_END,		//! 自由配置完了
+		RETRY			//! 再戦
 	};
 
 	// ルールデータ
