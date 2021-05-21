@@ -488,9 +488,6 @@
     <ClInclude Include="src\Network\SendManager.h">
       <Filter>ヘッダー ファイル\Network</Filter>
     </ClInclude>
-    <ClInclude Include="src\Battle\BUI\BuiContObject.h">
-      <Filter>ヘッダー ファイル\Battle\BUI</Filter>
-    </ClInclude>
     <ClInclude Include="src\Battle\BUI\EnemyTurnCont.h">
       <Filter>ヘッダー ファイル\Battle\BUI</Filter>
     </ClInclude>
