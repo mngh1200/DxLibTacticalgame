@@ -20,20 +20,6 @@ namespace FrameWork
 	class Controller
 	{
 	public:
-		/**
-		 * @enum
-		 * マウスイベント
-		 */
-		enum {
-			MOUSE_NONE_EVENT,
-			MOUSE_LEFT_DOWN,
-			MOUSE_RIGHT_DOWN,
-			MOUSE_WHEEL_DOWN,
-			MOUSE_LEFT_UP,
-			MOUSE_RIGHT_UP,
-			MOUSE_WHEEL_UP
-		};
-
 		// for singleton
 		Controller(const Controller&) = delete;
 		Controller& operator=(const Controller&) = delete;
