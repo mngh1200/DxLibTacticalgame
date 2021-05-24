@@ -1,0 +1,317 @@
+ソースファイル説明
+(.cpp, .h は省略)
+
+・Main (src直下)
+
+メイン関数を内包
+
+・Define (src直下)
+
+定数宣言
+
+・resource (src直下)
+
+素材関連の定数宣言
+
+---------------------------------------------
+
+・Game (FrameWork/Game)
+
+ゲーム全体のループ処理を管理
+
+・Controller (FrameWork/Controller)
+
+キーイベントを管理
+
+---------------------------------------------
+
+・ResourceManager (Utility/ResourceManager)
+
+素材ファイル関連の管理
+（読込、データの保持）
+
+・SaveManager (Utility/SaveManager)
+
+セーブデータの管理
+（読込、書込、データの保持）
+
+・Timer (Utility/Timer)
+
+一定時間経過を判定するためのクラス
+
+---------------------------------------------
+
+・ScreenBase (Screen/ScreenBase)
+
+画面の進行を管理するクラスの基底クラス
+（初期処理、操作イベントによる処理、アニメーション終了時の処理等）
+
+・LoadScreen (Screen/LoadScreen)
+
+最初の素材データ読み込み時の画面の進行管理
+
+・StartScreen (Screen/StartScreen)
+
+廃止
+
+・MenuScreen (Screen/MenuScreen)
+
+メニュー画面の進行管理
+
+・SelectScreen (Screen/SelectScreen)
+
+ステージ選択画面の進行管理
+
+・BattleScreen (Screen/BattleScreen)
+
+バトル画面の進行管理
+
+・NetworkScreen (Screen/NetworkScreen)
+
+ローカル通信対戦の準備画面の進行管理
+
+---------------------------------------------
+
+・Figure (Entity/Figure)
+
+画面内要素（オブジェクト）
+
+・Object (Entity/Object)
+
+マウスイベントを検知するオブジェクト
+（Figureはマウスイベントを検知しない）
+
+・ObjectsControl (Entity/ObjectControl)
+
+画面上の全てのオブジェクトの管理
+ - オブジェクトの追加、削除
+ - １フレーム毎のマウスイベント検知、描画
+
+・Shape (Entity/Shape)
+
+オブジェクトの座標とサイズ
+
+----
+
+・Animation (Entity/Animation/Animation)
+
+オブジェクトのアニメーションを管理
+
+・Easing (Entity/Animation/Easing)
+
+----
+
+アニメーション用のイージング関数を定義
+
+・ImageView (Entity/View/ImageView)
+
+素材画像描画用のオブジェクト
+
+・Panel (Entity/View/Panel)
+
+矩形描画用のオブジェクト
+
+・Text (Entity/View/Text)
+
+文字描画用のオブジェクト
+
+・Tooltip (Entity/View/Tooltip)
+
+ツールチップ描画用のオブジェクト
+
+----
+
+・Back (Entity/UI/Back)
+
+背景オブジェクト
+
+・ContextMenu (Entity/UI/ContextMenu)
+
+コンテキストメニューオブジェクト
+
+・Dialog (Entity/UI/Dialog)
+
+ダイアログオブジェクト
+
+・Message (Entity/UI/Message)
+
+バトル画面用のメッセージ欄オブジェクト
+
+・ModalFrame (Entity/UI/Modal)
+
+モーダルの枠オブジェクト
+
+・Overlay (Entity/UI/Overlay)
+
+画面切り替え時のオーバーレイオブジェクト
+
+・RadioButton (Entity/UI/RadioButton)
+
+ラジオボタンオブジェクト
+
+・TextBox (Entity/UI/TextBox)
+
+テキスト入力欄オブジェクト
+
+・TextButton (Entity/UI/Button/TextButton)
+
+文字付きボタンオブジェクト
+
+・BuiConfirmButton (Entity/UI/Button/BuiConfirmButton)
+
+バトル画面の右下に設置するボタンオブジェクト
+
+・CourseButton (Entity/UI/Button/CourseButton)
+
+ステージ選択ボタンオブジェクト
+
+・MenuScreenButton (Entity/UI/Button/MenuScreenButton)
+
+メニュー画面のボタンオブジェクト
+
+-----
+
+・Unit (Entity/Unit/Unit)
+
+バトル画面のユニットオブジェクト
+
+・Gunner (Entity/Unit/Gunner)
+
+銃兵ユニットオブジェクト
+
+・Ability (Entity/Unit/Ability)
+
+ユニットのスキル情報
+
+・UnitInfo (Entity/Unit/UnitInfo)
+
+ユニットのステータス情報
+
+-----
+
+・Map (Entity/Battle/Map)
+
+バトル画面上のマップオブジェクト
+
+・Mass (Entity/Battle/Mass)
+
+マップ上の１つのマス情報
+
+・ResultScene (Entity/Battle/ResultScene)
+
+勝敗結果表示時に生成するオブジェクト
+
+-----
+
+・DamageEffect (Entity/Effect/DamageEffect)
+
+ユニット攻撃時のダメージ量描画用のオブジェクト
+
+・ExtraEffect (Entity/Effect/ExtraEffect)
+
+発動したスキルや特殊攻撃の文言描画用のオブジェクト
+
+・HitDisplay (Entity/Effect/HitDisplay)
+
+命中率描画用のオブジェクト
+
+・TutorialArrow (Entity/Effect/TutorialArrow)
+
+チュートリアル用の矢印描画用のオブジェクト
+
+---------------------------------------------
+
+・BattleDefine (Battle/BattleDefine)
+
+バトル画面用の定数宣言
+
+・BattleManager (Battle/BattleManager)
+
+バトル画面上の全般的な動作を管理
+
+・CheckWin (Battle/CheckWin)
+
+勝敗判定用のクラス
+
+・EnemyBattleController (Battle/EnemyBattleController)
+
+敵AIの操作を管理
+
+・Fight (Battle/Fight)
+
+ユニットの戦闘内容を管理
+
+・PlayerBattleController (Battle/PlayerBattleController)
+
+プレイヤーのユニット等の操作を管理
+
+・SetUnits (Battle/SetUnits)
+
+ユニット配置関連の管理
+
+・TutorialManager (Battle/TutorialManager)
+
+チュートリアル関連の処理やデータを管理
+
+-----
+
+・EnemyAI  (Battle/AI/EnemyAI)
+
+敵AIの処理
+
+-----
+
+・BattleUI (Battle/BUI/BattleUI)
+
+バトル画面下側に表示する全UIの管理
+（以下、バトルUI）
+
+・BattleUIDefine (Battle/BUI/BattleUIDefine)
+
+バトルUI全般の定数宣言
+
+・EnemyTurnCont (Battle/BUI/EnemyTurnCont)
+
+敵ターンの進行速度調整用のオブジェクト
+
+・FightPredictDisplay (Battle/BUI/FightPredictDisplay)
+
+戦闘予測表示用のオブジェクト
+
+・SelectUnitArea (Battle/BUI/SelectUnitArea)
+
+ユニット配置時のユニット選択欄オブジェクト
+
+・TerrainEffectDisplay (Battle/BUI/TerrainEffectDisplay)
+
+地形効果表示用のオブジェクト
+
+・UnitStatusDisplay (Battle/BUI/UnitStatusDisplay)
+
+ユニットのステータス表示用のオブジェクト
+
+---------------------------------------------
+
+・NetworkDefine (Network/)
+
+通信対戦関連の定数宣言
+
+・NetworkClient (Network/NetworkClient)
+
+通信対戦で「部屋をさがす」を選択した時のモーダル生成や処理全般
+
+・NetworkHost (Network/NetworkHost)
+
+通信対戦で「部屋を作る」を選択したときのモーダル生成や処理全般
+
+・RuleSetting (Network/RuleSetting)
+
+ホストでルール設定する際のモーダル生成や処理全般
+
+・ReceiveManager (Network/ReceiveManager)
+
+通信時のデータ受信管理
+
+・SendManager (Network/SendManager)
+
+通信時のデータ送信管理
